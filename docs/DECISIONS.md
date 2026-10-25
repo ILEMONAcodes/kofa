@@ -1,0 +1,105 @@
+# Decision Log
+
+**Joint ownership.** Every entry starts as `Proposed` and becomes `Accepted` only when **both** developers approve it here (write name + date in the *Approved by* column). Business questions (OQ-xx) live in `PRD.md` §10.2; when one is decided, record it here and update the PRD.
+
+Format of an entry: Context → Decision → Consequences → Alternatives considered.
+
+## Approval table (task J-0.3 / J-1.1)
+
+| Item | Status | Approved by Dev 1 (FE) | Approved by Dev 2 (BE) |
+|---|---|---|---|
+| PRD v0.2 MVP scope (PRD §6) | Proposed | | |
+| Scope addition: AI assistant with call-line handoff (FR-AI-*, tasks 6G) — priority Should | Proposed | | |
+| Complaint verify-before-action workflow (FR-CMP-04/05) | Proposed | | |
+| CRM→marketplace vocabulary mapping (OQ-21) | Proposed | | |
+| Exclusions: gateway, subscriptions, featured listings (OQ-22) | Proposed | | |
+| ADR-001 … ADR-017 (014–017 added in v0.2) | Proposed | | |
+
+---
+
+## ADR-001 — Product shape: managed marketplace with a staff-operated back office
+- **Context:** The source is a marketplace proposal; the brief uses CRM terms.
+- **Decision:** Build a public marketplace (search, detail, landlord form) plus a staff back office that runs verification, inquiries, inspections and transactions. Landlords are records, not users, in the MVP.
+- **Consequences:** No landlord dashboard; approvals are recorded by staff with evidence.
+- **Alternatives:** Landlord self-service accounts (rejected for MVP: slows launch, adds auth surface; deferred).
+
+## ADR-002 — Single repository with `/frontend`, `/backend`, `/e2e`
+- **Context:** Two developers, shared contract, shared E2E tests.
+- **Decision:** Monorepo; CODEOWNERS enforces ownership; path-filtered CI.
+- **Consequences:** One PR can touch contract + one side; cross-side changes need both reviewers.
+- **Alternatives:** Two repos (contract drift risk, harder joint E2E).
+
+## ADR-003 — Authentication: cookie sessions, same-origin proxy, CSRF header
+- **Decision:** Short-lived JWT access token (15 min) and rotating opaque refresh token (14 days) in httpOnly cookies; non-httpOnly `csrf_token` cookie echoed in `X-CSRF-Token` on unsafe methods; Next.js rewrites `/api/*` to the backend so everything is same-origin. Argon2id hashing. Refresh reuse revokes the token family.
+- **Consequences:** SSR pages can authenticate with forwarded cookies; no tokens in JS-readable storage; CORS disabled in production.
+- **Alternatives:** Bearer tokens in localStorage (XSS exposure; rejected); third-party auth service (cost/complexity for MVP).
+
+## ADR-004 — API conventions
+- **Decision:** Versioned `/api/v1`; envelope `{data, meta}`; unified error envelope with stable codes; page-based pagination; comma-separated multi-filters; `snake_case`; optimistic `version` field. Full text in `docs/API_CONTRACT.md` §2.
+- **Consequences:** Framework default errors must be overridden (BE-2.2).
+
+## ADR-005 — Money as integer kobo; time as UTC
+- **Decision:** All money `bigint` kobo + `currency` (NGN). All timestamps UTC `timestamptz`, ISO 8601 `Z` in API. UI converts to Africa/Lagos.
+- **Alternatives:** `numeric(14,2)` naira (rounding/formatting ambiguity).
+
+## ADR-006 — Enumerations as `varchar + CHECK`
+- **Decision:** No PostgreSQL enum types. Allowed values live in code constants and CHECK constraints, and are mirrored in the contract.
+- **Consequences:** Adding a status is a normal migration.
+
+## ADR-007 — Landlords are records; staff record approvals
+- **Decision:** No landlord login in MVP. Verification and landlord approval of price/description are recorded by staff with method, note and time. Any change to price or description invalidates the approval (BR-01).
+
+## ADR-008 — No payment gateway or escrow in the MVP
+- **Decision:** Ledger records payments made to approved company channels; fees are computed by the backend from configurable rules; gateway integration is a deferred task (J-6.13).
+- **Reason:** Proposal §8 requires legal review before holding funds; removes PCI/webhook scope from MVP.
+
+## ADR-009 — Notifications through a transactional outbox
+- **Decision:** `email_outbox` rows written in the same transaction as the business change, sent by a worker with retry. In-app notifications are optional.
+
+## ADR-010 — Contract-first with generated types and drift checks
+- **Decision:** `docs/API_CONTRACT.md` is the human contract; backend exports OpenAPI; CI compares the endpoint set; frontend generates TypeScript types from OpenAPI.
+- **Consequences:** Contract disagreements surface as CI failures, not integration surprises.
+
+## ADR-011 — Git workflow
+- **Decision:** `main` is protected. Branches: `fe/<task-id>-slug`, `be/<task-id>-slug`, `joint/<task-id>-slug`. One task per branch, one PR per task, squash-merge. Reviews by the other developer. Never force-push a branch you do not own; never commit to `main`; check `git status` and fetch before starting and do not overwrite another developer's uncommitted work.
+
+## ADR-012 — Mock policy
+- **Decision:** Temporary frontend mocks follow `docs/ARCHITECTURE.md` §8 (labelled, only for `Agreed` endpoints, audited in CI, removed before acceptance).
+
+## ADR-013 — Agent instruction files define roles; they are also usable as personas
+- **Decision:** `agents/*.md` are authoritative role instructions. If real subagents are unavailable, the current session adopts one role at a time by announcing it and following only that file, with the Orchestrator rules in force.
+
+---
+
+## ADR-014 — AI assistant with mandatory human handoff (added v0.2)
+- **Context:** The team wants an assistant to answer routine questions at any hour, and a guaranteed route to people when it cannot help.
+- **Decision:** A backend-hosted assistant that answers only from published knowledge articles and public property data, with deterministic guards (category rules, retrieval confidence, repeated-failure counter, output filter, provider-failure fallback) that trigger a handoff. **Every handoff and the widget header show the company call line and support hours**, from admin settings. Message-the-team handoff creates a general inquiry with the transcript. The LLM key and prompts never leave the server. Provider is behind an interface (OQ-23).
+- **Consequences:** Needs a knowledge base with an owner (OQ-25), evaluation suites (BE-6.31), cost controls, a privacy review of what is sent to the provider, and staff review of flagged conversations.
+- **Alternatives:** Third-party chat widget (less control over data and refusals); human-only chat (not available out of hours); model-decided handoff only (not reliable enough).
+
+## ADR-015 — Error codes are an open set; clients degrade by HTTP status (added v0.2)
+- **Decision:** New error codes are additive (minor version). Clients branch on HTTP status first, then on known codes; unknown codes show `message` with the `request_id`. Non-envelope failures become client-side synthetic codes (`UPSTREAM_ERROR`, `NETWORK_ERROR`, `TIMEOUT`). The server may emit only registered codes (tested).
+- **Consequences:** `ApiError.code` is typed as `string`; contract §2.4 holds the registry.
+
+## ADR-016 — Currency and formatting conventions (added v0.2)
+- **Decision:** NGN only; integer kobo on the wire; `₦` + `en-NG` grouping for display; decimals only when kobo ≠ 0; compact form only in dense UI with full value in tooltip/aria; string-based input parsing; percentages as basis points; fees rounded half up in integer arithmetic on the backend only. Test vectors live in contract §2.10 and are reproduced in tests on both sides.
+
+## ADR-017 — Complaints are verified before action; reporters are confidential (added v0.2)
+- **Decision:** Reports and complaints are unverified allegations until staff record findings, evidence, an outcome and actions. Staff may apply a time-boxed precautionary hold (unpublish) for high-risk reasons; permanent actions are admin-only and need a substantiated or partially substantiated outcome. Reporter identity is staff-only; report counts never trigger automatic action and are never public.
+- **Consequences:** Investigation fields and checks in the schema; an admin review of holds within 2 business days; generic outcome emails only.
+
+---
+
+## Decisions pending (business) — see PRD §10.2
+OQ-01 … OQ-26. None is decided yet. Defaults in PRD apply to planning only.
+
+## Decision record template
+```
+## ADR-0xx — Title
+- Date / Status (Proposed|Accepted|Superseded by ADR-0yy)
+- Context
+- Decision
+- Consequences
+- Alternatives considered
+- Approved by (FE, BE)
+```
