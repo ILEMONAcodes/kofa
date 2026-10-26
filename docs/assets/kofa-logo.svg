@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="300" viewBox="0 0 900 300" fill="none" role="img" aria-labelledby="title">
+  <title id="title">Kof’a — the doorway to your home</title>
+  <g fill="#643B29">
+    <path fill-rule="evenodd" d="M0 290V112C0 54 60 13 115 10c62 5 111 39 111 101v179h-70l-42-52V53c-46 17-76 34-76 62v175H0Zm194-179c-20 11-40 25-65 43-8 6-8 12 0 21l65 69V111Z" clip-rule="evenodd"/>
+    <path d="M285 92h35v80l80-80h46l-98 97 100 101h-48l-80-83v83h-35V92Z"/>
+    <path fill-rule="evenodd" d="M505 141a75 75 0 1 1 0 150 75 75 0 0 1 0-150Zm0 33a42 42 0 1 0 0 84 42 42 0 0 0 0-84Z" clip-rule="evenodd"/>
+    <path d="M600 290V153c0-49 25-73 69-62v33c-24-7-36 2-36 28v1h32v32h-32v105h-33Z"/>
+    <path d="M704 85c-21 0-27 26-12 36 11 7 11 17-2 31-5 6 3 10 10 5 32-28 39-72 4-72Z"/>
+    <path fill-rule="evenodd" d="M787 141a75 75 0 1 0 0 150c18 0 34-6 47-17v16h33V143h-33v16c-13-12-29-18-47-18Zm0 33a42 42 0 1 0 0 84 42 42 0 0 0 0-84Z" clip-rule="evenodd"/>
+  </g>
+</svg>

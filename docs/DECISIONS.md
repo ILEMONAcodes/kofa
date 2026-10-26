@@ -118,6 +118,8 @@ Format: `date · role · task · assumption relied on (ADR/OQ) · status (open |
 
 2026-10-26 · backend · FE-1.4 Figma starter slice · Developer 2 explicitly requested shared UI/UX work for both developers; use ADR-018 name and OQ-01 placeholder wordmark/palette from UI_DESIGN_SYSTEM. Figma-only design plus small shared handoff notes; frontend/backend source unchanged. See docs/FIGMA_STARTER.md. · open
 
+2026-10-26 · backend · FE-1.4 brand refresh · Developer overrides OQ-01's provisional teal/text-wordmark direction with supplied brown/cream logo reference and editorial inspiration; explicitly requests a similar recreated SVG and app-like mobile flow. Adopt #643B29 brown, #F7F3EE cream, #E8C8A8 tan, DM Sans plus Instrument Serif accents; update Figma and UI_DESIGN_SYSTEM for frontend review. Logo/colour direction selected; domain remains open. See docs/FIGMA_BRAND_REFRESH.md. · confirmed
+
 ---
 
 ## Decisions pending (business) — see PRD §10.2

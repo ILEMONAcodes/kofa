@@ -2,6 +2,8 @@
 
 2026-10-26 · Developer 2 lead at the developer's explicit request · Draft v0.1
 
+**Historical first-pass record:** the subsequent [brand and mobile-flow revision](FIGMA_BRAND_REFRESH.md) supersedes the palette, typography, mobile dimensions and quota-blocked validation notes below. Current design tokens are in UI_DESIGN_SYSTEM.md.
+
 [Open Kof’a](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=18-532)
 
 ## Task brief

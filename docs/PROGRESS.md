@@ -8,6 +8,8 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 
 ## Current focus
 
+- **2026-10-26 brand/flow revision — In review:** Developer 2 applied the developer-selected brown/cream identity, recreated outlined SVG logos, an editorial homepage, matching property frames and app-like mobile viewports/navigation on `joint/FE-1.4-brand-refresh`. Twelve current screens structurally inspected, zero unexpected overflow; screenshot review completed; 13 selected text pairs meet AA and the input-border pair meets UI contrast. See [revision handoff](FIGMA_BRAND_REFRESH.md). FE-1.4 as a whole remains unfinished; no application code or contract changes.
+
 - **2026-10-26 shared Figma starter (Developer 2, explicitly requested):** editable foundations and ten property design frames created on `joint/FE-1.4-figma-foundations`. Partial draft; FE-1.4 is not complete. All ten frames structurally inspected (Inter, editable layers, zero reported auto-layout overflow); 11/11 selected contrast pairs passed; five desktop screens and mobile search visually reviewed. Figma Starter MCP quota prevents remaining visual checks and a staff-sidebar polish fix. See [handoff and exact remaining work](FIGMA_STARTER.md). No application code or contract changes.
 
 - **Phase 0 documents are complete (J-0.1, J-0.2).** Implementation has **not** started.
@@ -187,6 +189,7 @@ Record the real result of each task's test run here (newest first).
 
 | Date | Task | Command(s) | Result (pass/fail counts) | Notes |
 |---|---|---|---|---|
+| 2026-10-26 | FE-1.4 brand refresh slice | Figma structural inspection + rendered screenshots; Python WCAG contrast and SVG XML/path checks; `git diff --check` | 12 frames: 0 unexpected overflow; 13/13 selected text pairs AA; 1/1 input-border pair UI contrast; 3/3 SVGs valid; whitespace check passed | Visual design only; no app/API/E2E or presentation-mode click-through |
 | 2026-10-24 | J-0.2 (v0.2 revision) | cross-reference check (task IDs, OQ IDs, files, dependency graph) | see session output | Documents only; no code yet |
 | 2026-10-23 | J-0.2 | cross-reference check (task IDs, files, dependencies) | passed | Documents only; no code yet |
 
