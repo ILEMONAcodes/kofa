@@ -1,23 +1,24 @@
 # Progress
 
-**Last updated:** 2026-10-24 · **Current phase:** 0 (complete, awaiting approval) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
+**Last updated:** 2026-10-24 · **Current phase:** 0 (complete; approvals not blocking) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
 
 Rules: each developer updates only the rows they own; joint rows are updated by whoever completes the task and confirmed by the other. Test results are the **actual** output summary, never assumed. See `docs/IMPLEMENTATION_PLAN.md` for files and test requirements per task.
 
-**Status values:** Not started · Ready · In progress · In review · Blocked · Done · Awaiting approval · Deferred
+**Status values:** Not started · Ready · In progress · In review · Blocked · Done · In use (approval optional) · Deferred
 
 ## Current focus
 
 - **Phase 0 documents are complete (J-0.1, J-0.2).** Implementation has **not** started.
 - **v0.2 revision (2026-10-24) applied after team review:** currency/format conventions, unknown-error-code handling, complaint minimum fields/rate limits/privacy/verify-before-action, and an AI assistant with call-line handoff (6G, priority Should — both developers to confirm).
-- **Waiting on:** J-0.3 — both developers approve MVP scope (PRD §6), the vocabulary mapping (OQ-21), the exclusions (OQ-22), and ADR-001…013.
-- **First unblocked after approval:** `J-1.1`, `BE-1.2`, `FE-1.4`, `J-1.5` (then `J-1.3`).
+- **Not waiting on anyone (ADR-019).** J-0.3 approvals (MVP scope, OQ-21, OQ-22, ADR-001…017) can be recorded whenever convenient; they no longer block work. Proposed items are used as working assumptions.
+- **Product name:** Kof'a — the doorway to your home (ADR-018).
+- **Can start now:** `J-1.1`, `BE-1.2`, `FE-1.4`, `J-1.5` (then `J-1.3`). AI sessions must first confirm the developer role.
 
 ## Blockers and decisions needed
 
 | # | Blocker | Blocks | Owner to resolve | Raised |
 |---|---|---|---|---|
-| 1 | Approval of MVP scope and ADRs (J-0.3) | Everything | Both developers | 2026-10-23 |
+| 1 | Approval of MVP scope and ADRs (J-0.3) — **no longer blocking**, working assumptions in use | Nothing | Both developers, when convenient | 2026-10-23 |
 | 2 | OQ-02, 05, 07, 10, 11, 12, 13 (defaults proposed in PRD §10.2) | J-4.1 → Phase 4 | Both + stakeholders | 2026-10-23 |
 | 3 | OQ-08, 14 | J-5.1 → Phase 5 | Both + stakeholders | 2026-10-23 |
 | 4 | OQ-03, 04, 06 (commission basis, inspection fee, payments) | J-6.1, J-6.7 → Phase 6A/6B | Stakeholders | 2026-10-23 |
@@ -53,16 +54,16 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 |---|---|---|---|---|---|---|---|---|
 | J-0.1 | Analyze the PRD, extract requirements, list gaps | Both | Must | — | Done | — | — | Requirements, gaps, open questions and MVP proposal written |
 | J-0.2 | Create agent instruction files and shared documents | Both | Must | J-0.1 | Done (draft) | — | — | All 14 required files exist; IDs and cross-references resolve |
-| J-0.3 | Review and approve MVP scope, ADRs and defaults for open questions | Both | Must | J-0.2 | Awaiting approval | OQ-21, OQ-22 | — | Both developers record approval in DECISIONS.md; PRD status set to Approved v1.0 |
+| J-0.3 | Review and approve MVP scope, ADRs and defaults for open questions | Both | Must | J-0.2 | In use (approval optional) | OQ-21, OQ-22 | — | Approvals recorded in DECISIONS.md when convenient (not a gate); PRD status set to Approved v1.0 |
 
 ### Phase 1 — Foundations: architecture, schema, API conventions, design system
 
 | ID | Task | Owner | Pri | Depends on | Status | Blockers | Branch / PR | Acceptance criteria |
 |---|---|---|---|---|---|---|---|---|
-| J-1.1 | Ratify ADR-001…013 (accept or amend) and the NFR targets | Both | Must | J-0.3 | Not started | OQ-19 | — | Each ADR marked Accepted or amended with both approvals |
+| J-1.1 | Ratify ADR-001…013 (accept or amend) and the NFR targets | Both | Must | J-0.3 | Not started | OQ-19 | — | Each ADR marked Accepted, Revisit or amended (approval by either developer; not a gate) |
 | BE-1.2 | Finalize schema conventions and core tables through Phase 4 (users, areas, amenities, landlords, properties, media, documents, verification, approvals, history) | Backend | Must | J-0.3 | Not started | — | — | Every table through Phase 4 has types, constraints, indexes and PII class; ERD current; FE confirms API shapes can be served |
 | J-1.3 | Finalize API conventions, auth + health + policies endpoints; adopt change protocol | Both | Must | J-1.1 | Not started | OQ-09 | — | Conventions agreed (incl. currency/formatting §2.10 and unknown-error-code handling §2.4); auth, health, `/policies/current` endpoints status `Agreed` with request/response examples; permission matrix covers them |
-| FE-1.4 | Design system v1: tokens, AA contrast results, component inventory, page templates, copy rules | Frontend | Must | J-0.3 | Not started | OQ-01 (non-blocking: placeholder brand) | — | All tokens defined; contrast table complete; every Phase 3–4 screen has a template; BE confirms data needs (§11) |
+| FE-1.4 | Design system v1: tokens, AA contrast results, component inventory, page templates, copy rules | Frontend | Must | J-0.3 | Not started | OQ-01 (logo/colours only; name is Kof'a) | — | All tokens defined; contrast table complete; every Phase 3–4 screen has a template; BE confirms data needs (§11) |
 | J-1.5 | Resolve or accept defaults for blocking open questions of Phases 2–4 | Both | Must | J-0.3 | Not started | OQ-02, 05, 07, 10, 11, 12, 13 | — | OQ-02, 05, 07, 10, 11, 12, 13 each marked Decided (with date) or Default accepted |
 
 ### Phase 2 — Project skeletons

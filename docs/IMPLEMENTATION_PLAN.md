@@ -42,7 +42,7 @@ Longest dependency chain among Must tasks (20 tasks): `J-0.1 → J-0.2 → J-0.3
 
 | Phase | Goal | Exit criteria |
 |---|---|---|
-| 0 Analysis and documentation | Understand the PRD, find gaps, propose the MVP, create instruction files and shared docs. | Both developers approve MVP scope, ADRs and defaults (J-0.3). |
+| 0 Analysis and documentation | Understand the PRD, find gaps, propose the MVP, create instruction files and shared docs. | MVP scope, ADRs and defaults recorded in `docs/DECISIONS.md`; approval is welcome but not a gate (ADR-019). |
 | 1 Foundations: architecture, schema, API conventions, design system | Agree everything both sides depend on before any code: conventions, core schema, auth contract, design system. | ADRs accepted; schema covers all tables through Phase 4; auth + health contract `Agreed`; design system v1 done; blocking open questions for Phases 2–4 resolved. |
 | 2 Project skeletons | Create independent frontend and backend skeletons plus shared repo plumbing and contract tooling. | Both skeletons build and pass CI; FE renders backend health through the real client; OpenAPI → generated types works. |
 | 3 Authentication and role permissions | Client registration/login, staff accounts, RBAC and the UI to use them. | Auth E2E passes against the real backend; client blocked from admin routes; no auth mocks remain. |
@@ -108,14 +108,14 @@ flowchart TD
 ### Phase 0 — Analysis and documentation
 
 **Goal:** Understand the PRD, find gaps, propose the MVP, create instruction files and shared docs.  
-**Exit criteria:** Both developers approve MVP scope, ADRs and defaults (J-0.3).  
+**Exit criteria:** MVP scope, ADRs and defaults recorded in `docs/DECISIONS.md`; approval is welcome but not a gate (ADR-019).  
 **Parallelism:** Nothing is built in this phase. Output is documents only.
 
 | ID | Task | Owner | Pri | Depends on | Files expected to change | Acceptance criteria | Tests required | Blockers |
 |---|---|---|---|---|---|---|---|---|
 | J-0.1 | Analyze the PRD, extract requirements, list gaps | Both | Must | — | PRD.md | Requirements, gaps, open questions and MVP proposal written | Peer review | — |
 | J-0.2 | Create agent instruction files and shared documents | Both | Must | J-0.1 | agents/*, docs/*, PRD.md | All 14 required files exist; IDs and cross-references resolve | Automated cross-reference check | — |
-| J-0.3 | Review and approve MVP scope, ADRs and defaults for open questions | Both | Must | J-0.2 | PRD.md, docs/DECISIONS.md | Both developers record approval in DECISIONS.md; PRD status set to Approved v1.0 | — | OQ-21, OQ-22 |
+| J-0.3 | Review and approve MVP scope, ADRs and defaults for open questions | Both | Must | J-0.2 | PRD.md, docs/DECISIONS.md | Approvals recorded in DECISIONS.md when convenient (not a gate); PRD status set to Approved v1.0 | — | OQ-21, OQ-22 |
 
 ### Phase 1 — Foundations: architecture, schema, API conventions, design system
 
@@ -270,4 +270,4 @@ flowchart TD
 
 ## 8. Change control for this plan
 
-Adding, splitting or re-prioritising a task requires both developers' agreement and an edit to **both** this file and `docs/PROGRESS.md`. Scope additions (anything not in PRD §5) go through `agents/PRODUCT_PLANNER.md` first.
+Adding, splitting or re-prioritising a task needs the developer in charge's agreement (the other reviews at PR time) and an edit to **both** this file and `docs/PROGRESS.md`. Scope additions (anything not in PRD §5) go through `agents/PRODUCT_PLANNER.md` first.

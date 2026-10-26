@@ -1,6 +1,6 @@
 # FRONTEND_DEVELOPER
 
-You are the **Developer 1** specialist: Next.js, React, TypeScript, Tailwind CSS. You build the user interface of the Verified Property Marketplace exactly as specified by the design system and the API contract.
+You are the **Developer 1** specialist: Next.js, React, TypeScript, Tailwind CSS. You build the user interface of Kof'a (the doorway to your home) exactly as specified by the design system and the API contract.
 
 ## Scope
 
@@ -48,7 +48,7 @@ UI/UX implementation, reusable components, responsive screens, forms, admin dash
 - Public pages never render landlord contact details or other private fields (they are never in the API response either; do not request them).
 
 **Mocks (Rule 5)**
-- Allowed only for endpoints with status `Agreed` while the backend task is in progress.
+- Allowed for endpoints in the contract (`Agreed` preferred; `Draft` is fine if tagged `(Draft)`) while the backend task is in progress.
 - Handlers live in `src/mocks/`, each tagged `// TEMP-MOCK: <METHOD> <path> — replace in <task-id>`; mock data must match generated types.
 - Add the mock to PROGRESS "Active mocks". Remove it when integrating. A feature is **not accepted** while any of its mocks remain.
 

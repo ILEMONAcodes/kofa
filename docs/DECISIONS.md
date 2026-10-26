@@ -1,6 +1,13 @@
-# Decision Log
+# Decision Log — Kof'a
 
-**Joint ownership.** Every entry starts as `Proposed` and becomes `Accepted` only when **both** developers approve it here (write name + date in the *Approved by* column). Business questions (OQ-xx) live in `PRD.md` §10.2; when one is decided, record it here and update the PRD.
+**Flexible, not a gate (ADR-019).** This log records what the team has decided or is assuming. It does **not** block anyone, human or AI.
+
+- Every entry starts as `Proposed`. A `Proposed` entry is **usable as a working assumption** right away.
+- An entry becomes `Accepted` when either developer writes their name and date in the *Approved by* columns (ideally both, but no one waits for it).
+- If a developer disagrees, they mark the entry `Revisit`, add a note, and the work is adjusted as a normal task.
+- Business questions (OQ-xx) live in `PRD.md` §10.2. Their defaults are usable as working assumptions; when one is decided, record it here and update the PRD.
+
+Status words: `Proposed` (in use as assumption) → `Accepted` (approved) · `Revisit` · `Superseded by ADR-0yy`.
 
 Format of an entry: Context → Decision → Consequences → Alternatives considered.
 
@@ -13,7 +20,9 @@ Format of an entry: Context → Decision → Consequences → Alternatives consi
 | Complaint verify-before-action workflow (FR-CMP-04/05) | Proposed | | |
 | CRM→marketplace vocabulary mapping (OQ-21) | Proposed | | |
 | Exclusions: gateway, subscriptions, featured listings (OQ-22) | Proposed | | |
-| ADR-001 … ADR-017 (014–017 added in v0.2) | Proposed | | |
+| ADR-001 … ADR-017 (014–017 added in v0.2) | Proposed (in use) | | |
+| ADR-018 — Product name is Kof'a | Accepted (decided 2026-10-26 by the developers' request) | | |
+| ADR-019 — Flexible working mode, role-first AI sessions | In use (requested 2026-10-26); other developer to acknowledge | | |
 
 ---
 
@@ -90,8 +99,29 @@ Format of an entry: Context → Decision → Consequences → Alternatives consi
 
 ---
 
+## ADR-018 — Product name is Kof'a (added 2026-10-26)
+- **Status:** Accepted. Closes the naming part of OQ-01.
+- **Context:** Docs used "the Platform" and a placeholder brand.
+- **Decision:** The product is **Kof'a**, tagline **"the doorway to your home"**. Docs and UI copy use "Kof'a". Code identifiers, package names, database names and URLs use the ASCII form `kofa` (no apostrophe).
+- **Consequences:** Logo, brand colours and domain are still open under OQ-01 and remain a token swap in the design system. Legal pages (OQ-18) must use the registered business name once it is known.
+- **Alternatives:** Keep the placeholder name until branding is complete (rejected: slows copywriting and design).
+
+## ADR-019 — Flexible working mode; AI sessions are role-first (added 2026-10-26)
+- **Status:** In use. Requested by a developer; the other developer acknowledges when convenient. Not a blocker.
+- **Context:** Requiring both developers to sign `DECISIONS.md` before any AI session could work stalled the team and made work inflexible, especially with two AI sessions running in parallel.
+- **Decision:** (1) Proposed ADRs, PRD defaults and OQ defaults are usable as working assumptions; sessions name them in the Task Brief and list them under *Working assumptions* below. (2) Every AI session must still establish the developer role (frontend or backend) before doing anything else, and asks if it does not know it. (3) Shared-file and cross-area changes are reviewed at PR time, not approved beforehand. (4) Phase order and `Agreed` contract status guide the work but do not gate it. (5) Sessions still stop for ambiguity, destructive actions, failing tests they cannot explain, and anything using real money, real user data or final legal text.
+- **Consequences:** Faster parallel work. Some work may need rework if an assumption is later rejected; that is accepted as the cost of speed. The `Revisit` status exists for this.
+- **Alternatives:** Keep the sign-off gate (rejected: too slow); drop the role question (rejected: sessions would edit each other's areas).
+
+## Working assumptions (AI and developers append here)
+Format: `date · role · task · assumption relied on (ADR/OQ) · status (open | confirmed | revisit)`
+
+_None logged yet._
+
+---
+
 ## Decisions pending (business) — see PRD §10.2
-OQ-01 … OQ-26. None is decided yet. Defaults in PRD apply to planning only.
+OQ-01 (logo, colours, domain only; the name is decided) … OQ-26. Defaults in the PRD are usable as working assumptions and do not need sign-off to proceed.
 
 ## Decision record template
 ```

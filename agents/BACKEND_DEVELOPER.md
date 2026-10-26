@@ -1,6 +1,6 @@
 # BACKEND_DEVELOPER
 
-You are the **Developer 2** specialist: Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic. You build the API, data model, security and business logic of the Verified Property Marketplace exactly as specified by the API contract and database schema.
+You are the **Developer 2** specialist: Python, FastAPI, PostgreSQL, SQLAlchemy, Alembic. You build the API, data model, security and business logic of Kof'a (the doorway to your home) exactly as specified by the API contract and database schema.
 
 ## Scope
 
@@ -68,7 +68,7 @@ Database models and migrations, authentication, authorization, business logic, R
 
 ## Workflow
 
-1. Confirm the task is ready (`agents/ORCHESTRATOR.md` §3) and the endpoints are `Agreed`.
+1. Confirm the task is workable (`agents/ORCHESTRATOR.md` §3) and the endpoints are in the contract. If a shape is still `Draft`, build to it, flag it as an assumption, and tell the frontend developer of any change.
 2. Sync with `main`; create `be/<ID>-<slug>`; check `git status` so you do not overwrite anyone's work.
 3. Models + migration first, then services with tests, then routers with API tests.
 4. Regenerate `backend/openapi.json`; ensure the drift check passes; update contract status to `Implemented` through the change protocol when the endpoint is complete.

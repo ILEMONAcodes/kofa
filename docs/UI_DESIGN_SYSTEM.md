@@ -1,6 +1,6 @@
 # UI Design System
 
-**Owner:** Developer 1 (Frontend) · **Status:** Draft v0.1 — finalised in FE-1.4 · Brand name pending (OQ-01), so tokens are neutral and brand colours are a single token swap.
+**Owner:** Developer 1 (Frontend) · **Status:** Draft v0.1 — finalised in FE-1.4 · Product name is **Kof'a** ("the doorway to your home", ADR-018). Logo and brand colours are still pending (OQ-01), so tokens are neutral and brand colours are a single token swap.
 
 Backend reviews this file only to confirm that every field a screen needs exists in the API contract. Backend does not redesign screens (rule 2).
 

@@ -121,17 +121,17 @@ Frontend may develop against mocks only if **all** of these hold:
 
 1. Mocks live only in `frontend/src/mocks/` (MSW handlers).
 2. Every handler carries a comment `// TEMP-MOCK: <METHOD> <path> — replace in <task-id>`.
-3. The endpoint's contract status is `Agreed` or later (never mock an endpoint whose shape is still `Draft`).
+3. The endpoint is written in the contract. `Agreed` or later is preferred; a `Draft` shape may be mocked too, but the mock comment must say `(Draft)` so it is revisited when the shape is agreed.
 4. A mock-audit script lists active mocks; CI prints it, and the integration task for the feature (`J-x.y`) fails if any mock for that feature remains.
 5. A feature is **not accepted** until its mocks are removed and the integration E2E passes against the real backend.
 
 ## 9. Contract workflow
 
 1. Shape is proposed in `docs/API_CONTRACT.md` (status `Draft`).
-2. Both developers approve → status `Agreed` (recorded in the contract changelog).
+2. Developers review and agree → status `Agreed` (recorded in the contract changelog). Agreement can happen asynchronously and is not a precondition for starting work on a `Draft` shape.
 3. Backend implements → `Implemented` (OpenAPI matches; drift check passes).
 4. Frontend integrates → `Integrated` (mocks removed, E2E green).
-5. Any change after `Agreed` follows the change protocol in the contract (new version, changelog, both approvals; breaking changes need an ADR).
+5. Any change after `Agreed` follows the change protocol in the contract (new version, changelog, the other developer reviews in the PR; breaking changes need an ADR).
 
 ## 10. Storage and media
 

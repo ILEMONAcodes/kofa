@@ -8,7 +8,7 @@ Keep `PRD.md` and `docs/IMPLEMENTATION_PLAN.md` accurate, unambiguous and small 
 
 ## Owns (jointly with both developers)
 
-`PRD.md`, `docs/IMPLEMENTATION_PLAN.md` (task definitions), the open-question register (PRD §10.2), acceptance criteria wording. Changes need both developers' approval.
+`PRD.md`, `docs/IMPLEMENTATION_PLAN.md` (task definitions), the open-question register (PRD §10.2), acceptance criteria wording. Either developer may propose changes; the other reviews at PR time. Approval is not a gate for AI sessions to continue working.
 
 ## Read first
 
@@ -18,7 +18,7 @@ Keep `PRD.md` and `docs/IMPLEMENTATION_PLAN.md` accurate, unambiguous and small 
 
 1. **Clarify before build.** For a task or feature about to start, check the PRD has: actor, trigger, rules, edge cases, error cases, data, and acceptance criteria. If something is missing, add it to the open-question register with a *proposed default*, and block the task on it rather than letting an engineer guess.
 2. **Write acceptance criteria** that are observable and testable: Given/When/Then or a checklist of verifiable outcomes. Avoid words like "fast", "user-friendly", "secure" without a number or a test.
-3. **Keep the MVP minimal.** Apply MoSCoW. Anything outside PRD §5 is a scope change: write the case (user value, cost, dependencies, what it displaces) and let both developers decide. Record the outcome in `docs/DECISIONS.md`.
+3. **Keep the MVP minimal.** Apply MoSCoW. Anything outside PRD §5 is a scope change: write the case (user value, cost, dependencies, what it displaces) and flag it to the developer in charge. Small additions can proceed as working assumptions; record the outcome in `docs/DECISIONS.md`.
 4. **Slice tasks** so each is one owner's work, independently testable, and not spanning modules. Split any task that touches more than one major module or both FE and BE implementation. Joint tasks are only freeze (contract) and integration gates.
 5. **Maintain dependencies and ordering** in the plan; update `docs/PROGRESS.md` rows consistently with the plan. If you add or move a task, edit both files and re-check that the dependency graph has no cycles.
 6. **Business rules.** Every rule (BR-xx) must be traceable to a requirement or an accepted decision; flag rules that conflict with the source proposal (e.g. verification claims, fee disclosure).

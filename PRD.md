@@ -1,10 +1,10 @@
-# Product Requirements Document — Verified Property Marketplace (working title)
+# Product Requirements Document — Kof'a, the doorway to your home (verified property marketplace)
 
 | Field | Value |
 |---|---|
-| Status | **Draft v0.2 — revised after team review; awaiting developer approval (task J-0.3)** |
+| Status | **Draft v0.2 — revised after team review; working assumptions in use; developer approval is recorded in `docs/DECISIONS.md` but does not block work (ADR-019)** |
 | Source | "Business Proposal & MVP Prototype — A Direct, Verified and Affordable Property Marketplace for Nigeria" (referred to below as *the proposal*; section numbers `§n` refer to it) |
-| Product name | TBD (OQ-01). "the Platform" is used in all docs. |
+| Product name | **Kof'a** — *the doorway to your home* (decided 2026-10-26, ADR-018). Logo, colours and domain still open under OQ-01. "The Platform" in older text means Kof'a. |
 | Owners | Product scope is jointly owned by Developer 1 (Frontend) and Developer 2 (Backend) |
 | Related docs | `docs/ARCHITECTURE.md`, `docs/API_CONTRACT.md`, `docs/DATABASE_SCHEMA.md`, `docs/UI_DESIGN_SYSTEM.md`, `docs/IMPLEMENTATION_PLAN.md`, `docs/PROGRESS.md`, `docs/DECISIONS.md` |
 
@@ -276,14 +276,14 @@ Priority is **Should**, pending both developers' confirmation (scope addition, A
 11. No media rules (limits, video, storage, retention).
 12. No messaging rules beyond "in-platform messaging, a managed channel or privacy-preserving contact methods".
 13. KPIs include items the system cannot observe (CAC, satisfaction, referrals).
-14. Launch city, brand name and budget undecided; hosting and region undecided.
+14. Launch city, brand colours/logo and budget undecided (the name Kof'a is decided); hosting and region undecided.
 15. Task brief vocabulary (CRM) differs from the source (marketplace) — see §1.
 
 ### 10.2 Register
 
 | ID | Question | Blocks | Proposed default (applied until decided) | Needed by |
 |---|---|---|---|---|
-| OQ-01 | Business name and brand | Branding in FE-1.4, domain, legal pages | Neutral "working title" tokens; brand swap is a token change | FE-6.26, J-7.7 |
+| OQ-01 | Logo, brand colours, domain (the name **Kof'a** is decided, ADR-018) | Branding in FE-1.4, domain, legal pages | Neutral tokens with the Kof'a wordmark as text; colour and logo swap is a token change | FE-6.26, J-7.7 |
 | OQ-02 | Launch city / neighbourhoods | Area taxonomy, seed data | Abuja (the proposal's own example); areas are data, not code | BE-4.2 |
 | OQ-03 | Commission: applies to rent and sale? basis (first-year rent, sale price)? rounding, min/max, who pays? | J-6.7, BE-6.8 | 2% client + 2% landlord of annual rent (rent) or sale price (sale), rounded to nearest kobo, no cap; rules table is configurable | J-6.7 |
 | OQ-04 | Inspection fee: amount, refundable or credited, cancellation/unavailability handling | FR-APPT-05, J-6.1, J-6.7 | Fee optional and configurable (default ₦0 = disabled); if enabled it is credited against the service fee on proceeding; refunded if landlord/staff cancels or property is unavailable or materially different | J-6.1 |

@@ -55,7 +55,7 @@ The Task Brief and PR description; the task's acceptance criteria; the contract/
 - [ ] API calls only via `src/lib/api`; types generated, no `any`
 - [ ] Design tokens and components used; copy follows §5 of the design system (no over-claiming)
 - [ ] Loading, empty, error states; keyboard and screen-reader basics; contrast
-- [ ] Mocks labelled `TEMP-MOCK` and only for `Agreed` endpoints; removed for accepted features
+- [ ] Mocks labelled `TEMP-MOCK` (tagged `(Draft)` if the endpoint is not yet `Agreed`); removed for accepted features
 - [ ] Shared formatters used for money, dates, phones
 
 **General**
