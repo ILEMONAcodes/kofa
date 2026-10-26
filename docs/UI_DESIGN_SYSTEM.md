@@ -218,3 +218,11 @@ Matches this document; responsive at 360, 768 and 1280 px; loading/empty/error s
 ## 13. Complete-flow Figma handoff (2026-10-26)
 
 See [current design flows](FIGMA_COMPLETE_FLOWS.md) for 47 editable screens and section identifiers. Keep desktop/mobile in separate sections packed from actual bounds. Mobile uses scrollable content with persistent actions/navigation. Authentication includes registration, email-link verification and password recovery without profile pictures. Landlord contact registration remains inside the six-step listing journey, without a landlord account. Review offers edit links; the receipt explains pending verification. These are design prototypes; server-side per-step draft saving still needs its contract before implementation.
+
+## 14. Full PRD Figma design inventory (2026-10-26)
+
+[Current coverage](FIGMA_FULL_PRD.md) and [screen inventory](FIGMA_SCREEN_INVENTORY.md) extend the property slice across client inquiries/inspections/transactions/complaints, staff operations, admin, support and shared states. Product page `0:1` contains separate desktop/mobile Sections; guide `105:17085` links each chapter. Staff mobile navigation component `84:2518` uses Overview / Properties / Inquiries / Menu. Preserve existing brown/cream tokens, DM Sans and Instrument Serif; no profile picture requirement.
+
+Media separates public photos, optional walkthrough video and private evidence; apply the existing contract limits and keep evidence out of public galleries. Upload progress/retry/invalid/preview/remove states and staff document expiry are designed. Phone viewports scroll; long forms preserve access to their actions. At intermediate widths, stack contextual columns and use record cards instead of narrow tables. Seven reference templates at 360/768/1280 complement the 390/1440 designs.
+
+Policy pages remain legal-review placeholders. Support phone/hours are unset, with a disabled Call control until configured. All runtime validation, role enforcement, accessibility, SEO and media behavior require application implementation and testing. Per-step draft saving, submission media ordering/cover persistence and staff allowed-actions remain contract reconciliation items.

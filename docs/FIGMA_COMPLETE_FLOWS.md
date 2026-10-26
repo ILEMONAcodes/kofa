@@ -1,5 +1,7 @@
 # Kof’a complete design flows
 
+Historical 47-screen slice: expanded by the [full PRD design coverage](FIGMA_FULL_PRD.md). Current section positions and later flows are recorded there.
+
 2026-10-26 · FE-1.4 design slice · In review · Developer 2, explicitly authorized shared UI/UX work.
 
 ## Task brief

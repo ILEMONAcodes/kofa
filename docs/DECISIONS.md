@@ -137,3 +137,5 @@ OQ-01 (logo, colours, domain only; the name is decided) … OQ-26. Defaults in t
 ```
 
 2026-10-26 · backend · FE-1.4 complete flows · Developer confirms contact registration within the landlord listing flow, preserving ADR-001/007 and no landlord login. Uses ADR-003 and draft contract 0.2.0 for client authentication. Retain brown/cream app-style mobile and omit profile-picture requirements. Explicit shared-design authorization; no source or contract changes. See docs/FIGMA_COMPLETE_FLOWS.md. · confirmed by Developer 2
+
+2026-10-26 · backend · FE-1.4 full frontend design inventory · Developer explicitly requested all remaining frontend designs. Uses ADR-001/003/007/014 and OQ-03/04/11/13/18/24 working defaults. Later modules remain conceptual design against PRD intent; API shapes are not mocked or implemented before freeze. Include Could-tier designs separately labelled optional, while retaining all Won’t exclusions. Legal pages contain review placeholders; support number is unset; fictional data only. · open

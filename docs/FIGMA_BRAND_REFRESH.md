@@ -1,5 +1,7 @@
 # Kof’a brand and flow refresh
 
+See the [current full PRD design coverage](FIGMA_FULL_PRD.md).
+
 Historical revision: screen counts and remaining-flow scope below are superseded by the [complete-flow handoff](FIGMA_COMPLETE_FLOWS.md).
 
 2026-10-26 · FE-1.4 design revision v0.2 · Developer 2 lead, explicitly authorized by the developer.
