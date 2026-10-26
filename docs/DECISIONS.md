@@ -116,7 +116,7 @@ Format of an entry: Context → Decision → Consequences → Alternatives consi
 ## Working assumptions (AI and developers append here)
 Format: `date · role · task · assumption relied on (ADR/OQ) · status (open | confirmed | revisit)`
 
-_None logged yet._
+2026-10-26 · backend · FE-1.4 Figma starter slice · Developer 2 explicitly requested shared UI/UX work for both developers; use ADR-018 name and OQ-01 placeholder wordmark/palette from UI_DESIGN_SYSTEM. Figma-only design plus small shared handoff notes; frontend/backend source unchanged. See docs/FIGMA_STARTER.md. · open
 
 ---
 

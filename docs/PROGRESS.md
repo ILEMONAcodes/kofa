@@ -8,6 +8,8 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 
 ## Current focus
 
+- **2026-10-26 shared Figma starter (Developer 2, explicitly requested):** editable foundations and ten property design frames created on `joint/FE-1.4-figma-foundations`. Partial draft; FE-1.4 is not complete. All ten frames structurally inspected (Inter, editable layers, zero reported auto-layout overflow); 11/11 selected contrast pairs passed; five desktop screens and mobile search visually reviewed. Figma Starter MCP quota prevents remaining visual checks and a staff-sidebar polish fix. See [handoff and exact remaining work](FIGMA_STARTER.md). No application code or contract changes.
+
 - **Phase 0 documents are complete (J-0.1, J-0.2).** Implementation has **not** started.
 - **v0.2 revision (2026-10-24) applied after team review:** currency/format conventions, unknown-error-code handling, complaint minimum fields/rate limits/privacy/verify-before-action, and an AI assistant with call-line handoff (6G, priority Should — both developers to confirm).
 - **Not waiting on anyone (ADR-019).** J-0.3 approvals (MVP scope, OQ-21, OQ-22, ADR-001…017) can be recorded whenever convenient; they no longer block work. Proposed items are used as working assumptions.
