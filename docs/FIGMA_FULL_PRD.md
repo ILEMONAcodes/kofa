@@ -85,3 +85,11 @@ No presentation-mode click-through, real form interaction, app/API/unit/E2E, key
 Next: Developer 1 reviews the design inventory and implements modules through the existing frontend tasks; reconcile/freeze J-1.3, J-4.1, J-5.1 and the relevant Phase 6 contracts before integration. Full FE-1.4 acceptance remains a team review; application tasks and runtime accessibility acceptance remain outstanding.
 
 Figma session: `a13922b2-431b-4460-a32d-1b2fb1aa02dc`. Guide `105:17085`; StaffAppNavigation `84:2518`. Temporary construction scripts, renders and audit evidence: `/tmp/kofa-design/full-prd/`. Durable links are in the inventory.
+
+## Presentation correction — 2026-10-27
+
+Task brief: FE-1.4 canvas presentation only; Developer 2 requested restoration of the original brown backing, matching mobile edges and clear workspace order. Branch: `joint/FE-1.4-canvas-presentation`. Reuse the original authentication Section appearance and mobile shell. Screen content, contact flow, node IDs and prototype actions are preserved; no contract or application changes.
+
+All 23 Sections now use the original dark-brown canvas backing/border. Mobile shells match the original 32 px clipped corners; their cream UI colours are retained. The background contrast makes each frame boundary visible. Sections are ordered 01–22, with archive 99; frame names use chapter/sequence prefixes such as `07.01`. Sidebar stacking, row-major frame order, canvas chapter positions and the Start here index now agree. Pages are ordered Start here → Foundations → Complete product flows.
+
+Validation: all 427 frames including five archives checked; zero Section/frame overlaps, numbering mismatches, mobile-edge mismatches or backing mismatches. Sidebar numbers increase in order. Product text and prototype-action snapshot digest is unchanged (`4af94ecd` before/after); no screen content/contact fields were edited. Desktop/mobile client Section renders and mobile recovery Section render visually reviewed. No application tests were needed for these presentation-only changes.
