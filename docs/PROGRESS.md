@@ -1,12 +1,14 @@
 # Progress
 
-**Last updated:** 2026-10-24 · **Current phase:** 0 (complete; approvals not blocking) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
+**Last updated:** 2026-10-26 · **Current phase:** 0 (complete; approvals not blocking) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
 
 Rules: each developer updates only the rows they own; joint rows are updated by whoever completes the task and confirmed by the other. Test results are the **actual** output summary, never assumed. See `docs/IMPLEMENTATION_PLAN.md` for files and test requirements per task.
 
 **Status values:** Not started · Ready · In progress · In review · Blocked · Done · In use (approval optional) · Deferred
 
 ## Current focus
+
+- **2026-10-26 complete design flows — In review:** Developer 2 fixed canvas overlap, completed authentication and six-step landlord contact-registration flows, and connected staff review/publication on `joint/FE-1.4-complete-design-flows`. 47 current screens; zero section/frame collisions, unexpected overflow or missing targets; 11/11 prototype path checks passed. [Current handoff](FIGMA_COMPLETE_FLOWS.md). Figma designs only; FE-1.4 remains unfinished and application tasks remain unimplemented.
 
 - **2026-10-26 brand/flow revision — In review:** Developer 2 applied the developer-selected brown/cream identity, recreated outlined SVG logos, an editorial homepage, matching property frames and app-like mobile viewports/navigation on `joint/FE-1.4-brand-refresh`. Twelve current screens structurally inspected, zero unexpected overflow; screenshot review completed; 13 selected text pairs meet AA and the input-border pair meets UI contrast. See [revision handoff](FIGMA_BRAND_REFRESH.md). FE-1.4 as a whole remains unfinished; no application code or contract changes.
 
@@ -189,6 +191,7 @@ Record the real result of each task's test run here (newest first).
 
 | Date | Task | Command(s) | Result (pass/fail counts) | Notes |
 |---|---|---|---|---|
+| 2026-10-26 | FE-1.4 complete design flows | Figma structural/path audit and screenshot review; `git diff --check` | 47 screens; 0 collisions/overflow/missing targets; 11/11 exact path checks; whitespace passed | Static designs only; no presentation click-through, app/API/E2E or a11y execution |
 | 2026-10-26 | FE-1.4 brand refresh slice | Figma structural inspection + rendered screenshots; Python WCAG contrast and SVG XML/path checks; `git diff --check` | 12 frames: 0 unexpected overflow; 13/13 selected text pairs AA; 1/1 input-border pair UI contrast; 3/3 SVGs valid; whitespace check passed | Visual design only; no app/API/E2E or presentation-mode click-through |
 | 2026-10-24 | J-0.2 (v0.2 revision) | cross-reference check (task IDs, OQ IDs, files, dependency graph) | see session output | Documents only; no code yet |
 | 2026-10-23 | J-0.2 | cross-reference check (task IDs, files, dependencies) | passed | Documents only; no code yet |

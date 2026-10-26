@@ -135,3 +135,5 @@ OQ-01 (logo, colours, domain only; the name is decided) … OQ-26. Defaults in t
 - Alternatives considered
 - Approved by (FE, BE)
 ```
+
+2026-10-26 · backend · FE-1.4 complete flows · Developer confirms contact registration within the landlord listing flow, preserving ADR-001/007 and no landlord login. Uses ADR-003 and draft contract 0.2.0 for client authentication. Retain brown/cream app-style mobile and omit profile-picture requirements. Explicit shared-design authorization; no source or contract changes. See docs/FIGMA_COMPLETE_FLOWS.md. · confirmed by Developer 2

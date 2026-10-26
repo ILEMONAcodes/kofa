@@ -214,3 +214,7 @@ Every badge has a text label; colour is never the only signal.
 ## 12. Definition of done for a UI task
 
 Matches this document; responsive at 360, 768 and 1280 px; loading/empty/error states; a11y checklist; unit/component tests; no TEMP-MOCK for accepted features; uses shared formatters; no business rules in components.
+
+## 13. Complete-flow Figma handoff (2026-10-26)
+
+See [current design flows](FIGMA_COMPLETE_FLOWS.md) for 47 editable screens and section identifiers. Keep desktop/mobile in separate sections packed from actual bounds. Mobile uses scrollable content with persistent actions/navigation. Authentication includes registration, email-link verification and password recovery without profile pictures. Landlord contact registration remains inside the six-step listing journey, without a landlord account. Review offers edit links; the receipt explains pending verification. These are design prototypes; server-side per-step draft saving still needs its contract before implementation.
