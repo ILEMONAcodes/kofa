@@ -241,3 +241,16 @@ The first 47 product frames remain in FIGMA_COMPLETE_FLOWS.md. This inventory ad
 | property-queue | 1280 px | [94:17638](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=94-17638) |
 | uploads | 1280 px | [94:17733](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=94-17733) |
 | investigation | 1280 px | [94:17888](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=94-17888) |
+
+## Original verification and feedback mobile counterparts (2026-10-27)
+
+Section 21 is Desktop; new Section 22 is Mobile. Responsive references are now separate Sections 23 Mobile / 24 Tablet / 25 Desktop. The archive was deleted at the developer’s request.
+
+| Reference | Desktop | Mobile |
+|---|---|---|
+| Staff review | [14:223](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=14-223) | [117:17186](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=117-17186) |
+| Property and authentication feedback | [14:228](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=14-228) | [117:17358](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=117-17358) |
+| Verification passed | [52:2136](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=52-2136) | [117:17480](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=117-17480) |
+| Record landlord approval | [52:2221](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=52-2221) | [117:17648](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=117-17648) |
+| Ready to publish | [52:2298](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=52-2298) | [117:17749](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=117-17749) |
+| Published | [52:2344](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=52-2344) | [117:17824](https://www.figma.com/design/TJtiCYvGNkGKJ6ibOIjGCd/Kof-a?node-id=117-17824) |

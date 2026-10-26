@@ -8,6 +8,8 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 
 ## Current focus
 
+- **2026-10-27 reference/device layout correction — In review:** section 21 now has six mobile counterparts in section 22; mixed responsive references split into 23 Mobile / 24 Tablet / 25 Desktop. Tablet frames use 768×1024; archive 99 and its five frames deleted as requested. Current 428 frames / 25 Sections: zero overlaps, unexpected overflow or missing targets; four new mobile publication transitions passed. [Current handoff](FIGMA_FULL_PRD.md#reference-layout-correction--2026-10-27).
+
 - **2026-10-27 Figma presentation corrections — In review:** restored the original brown backing across 23 Sections, matched mobile shell edges, and corrected chapter/frame numbering and sidebar/canvas order on `joint/FE-1.4-canvas-presentation`. All 427 frames including archives checked: no overlaps or presentation mismatches. Screen text, contact flow and prototype actions preserved. See [presentation notes](FIGMA_FULL_PRD.md#presentation-correction--2026-10-27).
 
 - **2026-10-26 full PRD frontend design coverage — In review:** Developer 2 completed the remaining visual inventory on `joint/FE-1.4-full-prd-designs`: 401 product screens/state variants plus 21 responsive references, including photos/video, client journeys and staff/admin operations. Final audit: 422 frames, zero overlaps/unexpected overflow/missing navigation targets; 50/50 exact prototype paths; 13/13 selected text contrast pairs. [Current coverage](FIGMA_FULL_PRD.md) · [Screen links](FIGMA_SCREEN_INVENTORY.md). Designs only; application tasks remain unimplemented.
@@ -195,6 +197,7 @@ Record the real result of each task's test run here (newest first).
 
 | Date | Task | Command(s) | Result (pass/fail counts) | Notes |
 |---|---|---|---|---|
+| 2026-10-27 | FE-1.4 reference layouts | Figma geometry/device/target/path audit; four Section renders and corrected tablet render; `git diff --check` | 428 frames / 25 Sections; 0 overlaps/overflow/missing targets; 4/4 mobile transitions; archive deleted | Visual prototype only; original reference IDs and content retained |
 | 2026-10-27 | FE-1.4 presentation correction | Figma geometry/style/numbering and content/reaction comparison; three rendered Section reviews; `git diff --check` | 427 frames/23 Sections; 0 overlaps or style/numbering mismatches; content/actions digest unchanged | Canvas appearance and layer names only; no app tests |
 | 2026-10-26 | FE-1.4 full PRD designs | Figma geometry/layer/reaction/50-path audits; rendered screenshots; Python WCAG contrast; `git diff --check` | 422 frames: 0 overlaps/unexpected overflow/missing navigation targets; 50/50 paths; 350/350 targets resolved; 13/13 selected text pairs; input border 4.39:1 | Design-only checks; 360/768/1280 representative templates; no app/API/E2E/a11y execution |
 | 2026-10-26 | FE-1.4 complete design flows | Figma structural/path audit and screenshot review; `git diff --check` | 47 screens; 0 collisions/overflow/missing targets; 11/11 exact path checks; whitespace passed | Static designs only; no presentation click-through, app/API/E2E or a11y execution |
