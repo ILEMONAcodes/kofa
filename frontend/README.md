@@ -1,6 +1,6 @@
 # Kof’a frontend foundation
 
-Next.js App Router, strict TypeScript and Tailwind CSS. This is the FE-2.3 architecture foundation, not the finished Figma implementation. The original brown/cream identity, DM Sans UI font and Instrument Serif editorial font are retained. Fonts are self-hosted with `next/font/local`; builds do not contact Google Fonts.
+Next.js App Router, strict TypeScript and Tailwind CSS. Includes the FE-2.3 architecture foundation and FE-4.13 desktop homepage implementation; other route screens remain foundations. The original brown/cream identity, DM Sans UI font and Instrument Serif editorial font are retained. Fonts are self-hosted with `next/font/local`; builds do not contact Google Fonts.
 
 ## Run
 
@@ -32,7 +32,8 @@ On macOS versions unsupported by bundled Chromium, use an installed compatible C
 ```text
 src/
   app/
-    (public)/          # /, /properties, /properties/[id], /landlord
+    (home)/            # / — Figma desktop homepage with its own hero navigation
+    (public)/          # /properties, /properties/[id], /landlord
     (auth)/            # /login foundation
     (client)/          # /account foundation
     (admin)/           # /admin foundation
@@ -64,3 +65,5 @@ public/assets/         # existing Kof’a SVG logos, property placeholder
 - No endpoint mock handlers are installed. Transport unit tests stub `fetch` only inside tests.
 
 See `../docs/FRONTEND_ARCHITECTURE_SETUP.md` for scope and verification evidence.
+
+Desktop homepage implementation and token provenance: `../docs/FIGMA_DESKTOP_HOME.md`. It retains the source’s illustrative content disclosure; live search/results and mobile Figma implementation remain separate tasks.

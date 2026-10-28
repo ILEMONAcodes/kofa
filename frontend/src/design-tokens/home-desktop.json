@@ -1,0 +1,241 @@
+{
+  "fileKey": "TJtiCYvGNkGKJ6ibOIjGCd",
+  "nodeId": "14:219",
+  "extractedOn": "2026-10-28",
+  "frame": {
+    "width": 1440,
+    "height": 4142
+  },
+  "colors": {
+    "canvas": "#F7F3EE",
+    "surface": "#FFFFFF",
+    "primary": "#643B29",
+    "primary-hover": "#40271D",
+    "primary-tint": "#F0E7DE",
+    "accent": "#E8C8A8",
+    "ink": "#281C16",
+    "muted": "#6A584D",
+    "input-border": "#8B7465",
+    "success": "#356344",
+    "photo-overlay": "#1F110A",
+    "card-overlay": "#140A05"
+  },
+  "linkedMenuColors": {
+    "border": "#DED3C9"
+  },
+  "typography": [
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "size": 12,
+      "lineHeight": 16,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 400,
+      "size": 14,
+      "lineHeight": 20,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "size": 14,
+      "lineHeight": 20,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 400,
+      "size": 16,
+      "lineHeight": 24,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "size": 16,
+      "lineHeight": 24,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "size": 20,
+      "lineHeight": 28,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "size": 24,
+      "lineHeight": 32,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "size": 48,
+      "lineHeight": 54,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "size": 168,
+      "lineHeight": 174,
+      "letterSpacing": 0,
+      "opticalSize": 14
+    },
+    {
+      "family": "DM Sans",
+      "weight": 500,
+      "size": 194,
+      "lineHeight": 200,
+      "letterSpacing": -8,
+      "opticalSize": 14
+    },
+    {
+      "family": "Instrument Serif",
+      "style": "Italic",
+      "weight": 400,
+      "size": 64,
+      "lineHeight": 66,
+      "letterSpacing": 0
+    }
+  ],
+  "spacing": [0, 4, 8, 12, 16, 20, 24, 32, 48, 64],
+  "radii": [0, 8, 12, 24, 32, 9999],
+  "gradients": {
+    "hero": {
+      "rgb": [31, 17, 10],
+      "stops": [
+        [0, 0.55],
+        [0.4, 0.18],
+        [1, 0.9]
+      ]
+    },
+    "card": {
+      "rgb": [20, 10, 5],
+      "stops": [
+        [0, 0.06],
+        [0.48, 0.1],
+        [0.62, 0.8],
+        [1, 0.97]
+      ]
+    }
+  },
+  "navigationFill": {
+    "color": "#FFFFFF",
+    "opacity": 0.13
+  },
+  "sections": [
+    {
+      "id": "28:580",
+      "y": 32,
+      "height": 820,
+      "x": 32,
+      "width": 1376
+    },
+    {
+      "id": "28:625",
+      "y": 916,
+      "height": 256,
+      "x": 32,
+      "width": 1376
+    },
+    {
+      "id": "28:658",
+      "y": 1236,
+      "height": 734,
+      "x": 32,
+      "width": 1376
+    },
+    {
+      "id": "28:711",
+      "y": 2034,
+      "height": 324,
+      "x": 32,
+      "width": 1376
+    },
+    {
+      "id": "28:732",
+      "y": 2422,
+      "height": 484,
+      "x": 32,
+      "width": 1376
+    },
+    {
+      "id": "28:748",
+      "y": 2970,
+      "height": 430,
+      "x": 32,
+      "width": 1376
+    },
+    {
+      "id": "28:761",
+      "y": 3464,
+      "height": 646,
+      "x": 32,
+      "width": 1376
+    }
+  ],
+  "assets": [
+    {
+      "file": "home-architecture.jpg",
+      "sourceNodes": ["28:581", "28:688", "28:749"],
+      "slots": ["hero", "card-2", "closing-photo"]
+    },
+    {
+      "file": "home-living-room.jpg",
+      "sourceNodes": ["28:677", "28:733"],
+      "slots": ["card-1", "trust-photo"]
+    },
+    {
+      "file": "home-jabi.jpg",
+      "sourceNodes": ["28:699"],
+      "slots": ["card-3"]
+    },
+    {
+      "file": "home-logo-header.svg",
+      "sourceNodes": ["I28:584;26:727"],
+      "slots": ["header-logo"],
+      "width": 144.5,
+      "height": 46.8333
+    },
+    {
+      "file": "home-logo-footer.svg",
+      "sourceNodes": ["I28:763;26:727"],
+      "slots": ["footer-logo"],
+      "width": 192.667,
+      "height": 62.4445
+    }
+  ],
+  "notes": [
+    "Exact RGB hex rounded from Figma normalized paint channels; alpha recorded separately.",
+    "Border token comes from linked overlays 169:20562 and 169:19583, not the closed homepage.",
+    "Font, spacing, fills and radii were read directly from the node and visible descendants.",
+    "Primitives package from generic Code Connect snippets is absent; compose the existing local Button/Input equivalents.",
+    "Photo export URLs had PNG suffixes but JPEG payloads; bytes retained unchanged and saved with .jpg extensions."
+  ],
+  "renderingCorrection": {
+    "sourceOpticalMetadata": 14,
+    "displayOpticalSize": 40,
+    "selectors": [
+      ".home-wordmark",
+      ".text-home-section",
+      ".text-home-footer-wordmark"
+    ],
+    "evidence": "Reference wordmark ink bounds x85 y184 width466 height140; opsz14 gives x90 width488, opsz40 gives x85 width466. Sizes, weights and tracking remain the extracted values.",
+    "currency": "DM Sans subsets lack U+20A6; the naira glyph uses the existing Arial fallback."
+  }
+}

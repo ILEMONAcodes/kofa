@@ -4,6 +4,7 @@ import "./globals.css";
 const dmSans = localFont({
   src: "../assets/fonts/dm-sans-latin-variable.woff2",
   variable: "--font-dm-sans",
+  adjustFontFallback: false,
   weight: "100 1000",
   display: "swap",
 });
