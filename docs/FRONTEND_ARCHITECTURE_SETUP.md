@@ -33,3 +33,7 @@ Types are explicitly manual draft mirrors pending FE-2.5/OpenAPI. No generated-t
 - `git diff --check`: passed.
 
 No real-backend integration, authenticated journey, media upload, generated-schema conformance or production deployment was tested. Authentication and full search/filter/Other/budget behavior remain their planned feature tasks. Next: BE-2.4 → FE-2.5 generated types, then feature UI implementation and J-2.8 integration.
+
+## Committed-diff review
+
+Single-session Code Reviewer pass after scaffold commit `15a8cc0`: no blocking findings for the architecture scope. Confirmed original theme/token usage, public-only data types, same-origin transport/CSRF boundary, no operational private screens, and no backend or contract edits. Manual draft types, unconnected route previews, remote-image allowlisting and later authenticated integration remain explicit follow-ups. Verdict: In review for the other developer; no PR published. Prior Figma follow-up notes and `.mcp.json` remain unstaged and preserved.
