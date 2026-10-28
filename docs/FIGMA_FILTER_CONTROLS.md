@@ -36,3 +36,10 @@ The developer override updates PRD FR-PROP-09 and UI_DESIGN_SYSTEM to omit bathr
 Next: frontend review and implementation of these controls, with keyboard/combobox behavior, integer budget tests and server validation. Existing backend and application tasks are unchanged.
 
 Role option refinement: staff invitation/editing offers Staff/Admin; user filtering can include Client and All roles. The context-specific rows are hidden outside filtering so the design does not suggest creating a client through the staff-invitation endpoint. Final geometry/target audit rerun after this refinement: zero issues.
+
+
+### Dropdown affordance follow-up — 2026-10-28
+
+Added persistent right-aligned chevrons to 21 Location/Neighbourhood/City/Area/State selectors across desktop, mobile and responsive references. Removed duplicate inline arrows from their display variables and selection actions. Existing menu reactions are retained on the fields and copied to the chevrons.
+
+Added mobile Sort by overlay `191:18992` and source field `191:19012` in search results, after the applied-filter controls. Sections 26 and 27 now each contain 60 control/reference frames. Structural read-back confirmed Location and Neighbourhood labels, visible chevrons, overlay links, and all four mobile sort options. Mobile filter and search renders were inspected; no presentation-mode clickthrough or application tests were run. Contract unchanged.

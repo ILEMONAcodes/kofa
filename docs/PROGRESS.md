@@ -230,3 +230,6 @@ Next unblocked task(s): <IDs>
 
 ## Session setup note
 Each developer creates a local, git-ignored `.dev-role` file in the repo root containing `frontend` or `backend`, or states the role at the start of every AI session. `AGENTS.md` and `CLAUDE.md` (identical) tell the AI to read it. J-2.1 extends the root `.gitignore`; keep the `.dev-role` line.
+
+
+- 2026-10-28 FE-1.4 design follow-up: added 21 persistent location-selector chevrons and the missing mobile Sort by overlay/trigger. Catalog parity: 60 desktop / 60 mobile control frames. Verified target links and filter render; see `docs/FIGMA_FILTER_CONTROLS.md`. Next: frontend review/implementation; API contract unchanged.
