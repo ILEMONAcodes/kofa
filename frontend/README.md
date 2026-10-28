@@ -1,0 +1,66 @@
+# Kof’a frontend foundation
+
+Next.js App Router, strict TypeScript and Tailwind CSS. This is the FE-2.3 architecture foundation, not the finished Figma implementation. The original brown/cream identity, DM Sans UI font and Instrument Serif editorial font are retained. Fonts are self-hosted with `next/font/local`; builds do not contact Google Fonts.
+
+## Run
+
+Node 22.12+ (Node 24 recommended), npm:
+
+```sh
+cd frontend
+npm ci
+cp .env.example .env.local
+npm run dev
+```
+
+Open http://localhost:3000. Backend defaults to http://127.0.0.1:8000; change the **server-only** `API_ORIGIN` if needed. `/api/v1/*` rewrites to that origin. No client secrets or CORS setup are required. The previews work without the backend and do not make data requests.
+
+```sh
+npm run lint
+npm run typecheck
+npm test
+npm run build
+npm run mock-audit
+npx playwright install chromium
+npm run test:e2e
+```
+
+On macOS versions unsupported by bundled Chromium, use an installed compatible Chrome: `PLAYWRIGHT_CHANNEL=chrome npm run test:e2e`. Tests use an isolated headless context, not a personal browser profile.
+
+## Directory blueprint
+
+```text
+src/
+  app/
+    (public)/          # /, /properties, /properties/[id], /landlord
+    (auth)/            # /login foundation
+    (client)/          # /account foundation
+    (admin)/           # /admin foundation
+    globals.css        # semantic theme variables; light default, dark surfaces
+    layout.tsx         # local fonts, metadata, skip link
+  assets/fonts/        # self-hosted OFL fonts and licenses
+  components/
+    common/            # Button, Modal, Input, Dropdown, Badge, shared shells/states
+    browse/            # Hero, SearchFilters, PropertyGrid
+  lib/
+    api/               # envelope transport, ApiError, same-origin CSRF + one refresh
+    formatters/        # integer-kobo display/parser
+  types/               # manually mirrored public property/taxonomy contract types
+  test/                # shared test setup
+public/assets/         # existing Kof’a SVG logos, property placeholder
+```
+
+`/properties/[id]` preserves the requested folder name, but its URL parameter represents the public **slug**, as required by API_CONTRACT §4.5. `/list-your-property` redirects to `/landlord` to retain the established entry point. Landlords register contact details inside listing submission; no landlord login is introduced.
+
+## Implementation boundaries
+
+- Colors, radius and font utilities map to `globals.css` via `tailwind.config.ts`. Tailwind 3.4 is selected to support the explicitly requested TypeScript configuration without a v4 compatibility layer. Dark tokens are infrastructure only; approved screens default to light.
+- Public property types intentionally exclude landlord contacts, exact address, documents and internal notes. `bathrooms_min` is retained only in the API filter type; it is not exposed by UI filters. Actual bathroom counts remain on property cards.
+- Types mirror **contract 0.2.0 Draft**, not generated schemas. Replace with OpenAPI-generated types in FE-2.5 after BE-2.4; resolve nullability and verification enums at J-4.1. Transport validates the envelope, not resource payloads.
+- Native select primitives include fixed chevrons. Live taxonomy, cascading options, conditional Other inputs, multi-select amenities, URL filters and ₦100,000 budget steps belong to FE-4.11. Search controls are explicitly disabled until taxonomy is supplied; no invented options or production mocks.
+- Remote image domains must be approved/configured during media integration; PropertyGrid currently uses the local placeholder for remote URLs. No arbitrary image host allowlist.
+- Routes are honest foundation previews. No authentication, access control, uploads, private data, operational admin controls, or fee calculations are implemented. Do not connect private data until backend authorization and FE auth integration are in place.
+- Dialog uses native `showModal()` for focus trapping, Escape handling and focus restoration. Forms/stateful interactions will add React Hook Form, Zod and TanStack Query when the relevant modules are implemented.
+- No endpoint mock handlers are installed. Transport unit tests stub `fetch` only inside tests.
+
+See `../docs/FRONTEND_ARCHITECTURE_SETUP.md` for scope and verification evidence.

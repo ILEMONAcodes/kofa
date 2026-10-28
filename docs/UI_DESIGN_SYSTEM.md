@@ -1,6 +1,6 @@
 # UI Design System
 
-**Owner:** Developer 1 (Frontend) · **Status:** Draft v0.1 — finalised in FE-1.4 · Product name is **Kof'a** ("the doorway to your home", ADR-018). Logo and brand colours are still pending (OQ-01), so tokens are neutral and brand colours are a single token swap.
+**Owner:** Developer 1 (Frontend) · **Status:** Draft v0.2 — full FE-1.4 still pending. Product name is **Kof'a** ("the doorway to your home", ADR-018). On 2026-10-26 the developer selected a brown/cream logo reference and an editorial, photograph-led direction, and explicitly authorized Developer 2 to implement the shared Figma refresh. SVG logo recreations are in `docs/assets/`; see [brand handoff](FIGMA_BRAND_REFRESH.md). Domain remains open under OQ-01.
 
 Backend reviews this file only to confirm that every field a screen needs exists in the API contract. Backend does not redesign screens (rule 2).
 
@@ -15,32 +15,40 @@ Backend reviews this file only to confirm that every field a screen needs exists
 
 ## 2. Design tokens (CSS variables → Tailwind theme)
 
-| Token | Value (proposal) | Use |
+| Token | Value (selected direction) | Use |
 |---|---|---|
-| `--color-primary-600` | `#0F5C63` | Primary actions, links |
-| `--color-primary-700` | `#0B464C` | Hover/pressed |
-| `--color-primary-50` | `#E8F3F4` | Tints, selected rows |
-| `--color-accent-500` | `#D98E04` | Highlights only; **not** for text on white |
-| `--color-success-600` | `#1E7B4F` | Verified, success |
-| `--color-warning-600` | `#9A6700` | Warnings, stale availability |
-| `--color-danger-600` | `#B3261E` | Errors, destructive |
-| `--color-neutral-900` | `#101828` | Body text |
-| `--color-neutral-600` | `#475467` | Secondary text |
-| `--color-neutral-200` | `#E4E7EC` | Borders |
-| `--color-neutral-50` | `#F9FAFB` | App background |
+| `--color-primary-600` | `#643B29` | Brown primary actions, links, logo |
+| `--color-primary-700` | `#40271D` | Hover/pressed, dark footer |
+| `--color-primary-50` | `#F0E7DE` | Warm tints, selected rows |
+| `--color-accent-500` | `#E8C8A8` | Tan action background with dark text |
+| `--color-success-600` | `#356344` | Verified, success |
+| `--color-warning-600` | `#85551A` | Warnings, stale availability |
+| `--color-danger-600` | `#A62E25` | Errors, destructive |
+| `--color-neutral-900` | `#281C16` | Espresso body text |
+| `--color-neutral-600` | `#6A584D` | Secondary text |
+| `--color-neutral-200` | `#DED3C9` | Decorative borders |
+| `--color-neutral-500` | `#8B7465` | Input boundaries; not body text |
+| `--color-neutral-50` | `#F7F3EE` | Cream app background |
+| `--color-white` | `#FFFFFF` | Surfaces and inverse text |
 
 FE-1.4 must verify every text/background pair for AA contrast (≥ 4.5:1 body, ≥ 3:1 large text/UI) and record results here.
+
+Selected pairs calculated on 2026-10-26: white/brown 9.55:1; white/hover 13.76:1; white/danger 6.91:1; espresso/white 16.56:1; espresso/cream 14.99:1; secondary/white 6.74:1; secondary/cream 6.10:1; brown/tint 7.82:1; success/tint 5.69:1; warning/cream 5.74:1; danger/cream 6.26:1; espresso/tan 10.46:1; brown/cream 8.64:1. Input boundary/white is 4.39:1, meeting the 3:1 UI threshold. These checks do not replace a rendered accessibility audit or cover every photograph-backed text pixel.
 
 | Scale | Tokens |
 |---|---|
 | Spacing | 4-px base: 1=4, 2=8, 3=12, 4=16, 6=24, 8=32, 12=48, 16=64 |
-| Radius | `sm` 4, `md` 8, `lg` 12, `full` |
+| Radius | `sm` 4, `md` 8, `lg` 12, `xl` 24, `2xl` 32, `full` (pill actions) |
 | Shadow | `sm` (cards), `md` (dropdowns/modals) |
 | Breakpoints | `sm` 640, `md` 768, `lg` 1024, `xl` 1280 |
-| Container | max 1200 px public, fluid admin |
+| Container | max 1376 px editorial homepage inside a 1440 px frame with 32 px gutters; 1200 px property workspace; fluid admin |
 | Motion | 150 ms ease-out; respects `prefers-reduced-motion` |
 
-**Typography:** Inter via `next/font` (subset Latin), system fallback. Scale: display 36/44, h1 30/38, h2 24/32, h3 20/28, body 16/24, small 14/20, caption 12/16. Body never below 16 px on mobile forms (prevents iOS zoom).
+**Typography:** DM Sans for product UI, Instrument Serif Italic for selected editorial phrases; use `next/font` with system fallbacks in implementation. Product scale: display 36/44, h1 30/38, h2 24/32, h3 20/28, body 16/24, small 14/20, caption 12/16. Editorial additions: section 48/54, serif 64/66, mobile serif 40/44; oversized wordmarks are decorative. Body never below 16 px on mobile forms (prevents iOS zoom).
+
+**Visual flow:** Large architecture photography → search → image-led property cards → process/trust → closing action → dark brown footer. Keep factual verification and full price/period information. Use gradients behind photo-overlay copy; do not invent testimonials.
+
+**Mobile app pattern:** Current Figma examples are 390 × 844 viewports with 20 px content gutters. Home/Explore/Inquiries/Account navigation stays outside a separate scrolling content viewport. Property detail adds a persistent price/interest bar. Horizontal discovery cards and a scrollable filter sheet support one-handed use. Inquiries/Account are gated by sign-in; the designs introduce no native-app requirement, favourites or new backend feature.
 
 ## 3. Component inventory
 
@@ -168,7 +176,7 @@ Every badge has a text label; colour is never the only signal.
 
 ## 9. Key screen requirements
 
-**Search (`/properties`).** Filter bar (location combobox, budget range, type, beds, baths, furnishing, amenities, rent/buy, availability) in a left column on desktop and a drawer on mobile; sort control; result count; PropertyCard grid; pagination; empty state with "clear filters"; every filter reflected in the URL.
+**Search (`/properties`).** Filter bar (location combobox, budget range, type, beds, furnishing, amenities, rent/buy, availability) in a left column on desktop and a drawer on mobile; sort control; result count; PropertyCard grid; pagination; empty state with "clear filters"; every filter reflected in the URL.
 
 **Detail (`/properties/[slug]`).** Gallery; title; price with period and terms; extra charges list; neighbourhood + approximate map; facts; amenities; verification panel (date + scope + disclaimer); availability pill with *"Availability last confirmed {date}"*; sticky CTA "Express interest / Request inspection" (login gate).
 
@@ -206,3 +214,19 @@ Every badge has a text label; colour is never the only signal.
 ## 12. Definition of done for a UI task
 
 Matches this document; responsive at 360, 768 and 1280 px; loading/empty/error states; a11y checklist; unit/component tests; no TEMP-MOCK for accepted features; uses shared formatters; no business rules in components.
+
+## 13. Complete-flow Figma handoff (2026-10-26)
+
+See [current design flows](FIGMA_COMPLETE_FLOWS.md) for 47 editable screens and section identifiers. Keep desktop/mobile in separate sections packed from actual bounds. Mobile uses scrollable content with persistent actions/navigation. Authentication includes registration, email-link verification and password recovery without profile pictures. Landlord contact registration remains inside the six-step listing journey, without a landlord account. Review offers edit links; the receipt explains pending verification. These are design prototypes; server-side per-step draft saving still needs its contract before implementation.
+
+## 14. Full PRD Figma design inventory (2026-10-26)
+
+[Current coverage](FIGMA_FULL_PRD.md) and [screen inventory](FIGMA_SCREEN_INVENTORY.md) extend the property slice across client inquiries/inspections/transactions/complaints, staff operations, admin, support and shared states. Product page `0:1` contains separate desktop/mobile Sections; guide `105:17085` links each chapter. Staff mobile navigation component `84:2518` uses Overview / Properties / Inquiries / Menu. Preserve existing brown/cream tokens, DM Sans and Instrument Serif; no profile picture requirement.
+
+Media separates public photos, optional walkthrough video and private evidence; apply the existing contract limits and keep evidence out of public galleries. Upload progress/retry/invalid/preview/remove states and staff document expiry are designed. Phone viewports scroll; long forms preserve access to their actions. At intermediate widths, stack contextual columns and use record cards instead of narrow tables. Seven reference templates at 360/768/1280 complement the 390/1440 designs.
+
+Policy pages remain legal-review placeholders. Support phone/hours are unset, with a disabled Call control until configured. All runtime validation, role enforcement, accessibility, SEO and media behavior require application implementation and testing. Per-step draft saving, submission media ordering/cover persistence and staff allowed-actions remain contract reconciliation items.
+
+## 15. Filter and choice controls (2026-10-28)
+
+No bathroom search filter; retain actual bathroom facts on property cards/details and landlord data entry. Use dropdowns for choices, with taxonomy-backed options where available. Other opens a labelled preference textbox for appropriate preference fields; never insert arbitrary Other into permission, status or result enums. Budget min/max can be typed directly and adjusted independently in ₦100,000 steps; clamp at zero and prevent minimum exceeding maximum. Preserve current colour/type/spacing and mobile shells. Backend optional bathroom filtering remains available for compatibility; custom-preference storage must be reconciled before integration.

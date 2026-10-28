@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: light;
+    --primary: 100 59 41;
+    --primary-hover: 64 39 29;
+    --primary-tint: 240 231 222;
+    --accent: 232 200 168;
+    --canvas: 247 243 238;
+    --surface: 255 255 255;
+    --ink: 40 28 22;
+    --muted: 106 88 77;
+    --border: 222 211 201;
+    --input-border: 139 116 101;
+    --success: 53 99 68;
+    --warning: 133 85 26;
+    --danger: 166 46 37;
+    --inverse: 255 255 255;
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 12px;
+    --radius-xl: 24px;
+    --radius-shell: 32px;
+  }
+  /* Dark surfaces are infrastructure; the approved product theme defaults to light. */
+  .dark {
+    color-scheme: dark;
+    --primary: 232 200 168;
+    --primary-hover: 240 231 222;
+    --primary-tint: 64 39 29;
+    --canvas: 40 28 22;
+    --surface: 53 40 33;
+    --ink: 247 243 238;
+    --muted: 222 211 201;
+    --border: 106 88 77;
+    --input-border: 173 151 136;
+    --inverse: 40 28 22;
+    --success: 154 202 168;
+    --warning: 236 196 136;
+    --danger: 247 171 162;
+  }
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-canvas font-sans text-ink antialiased;
+  }
+  :focus-visible {
+    @apply outline outline-2 outline-offset-4 outline-primary;
+  }
+  ::selection {
+    @apply bg-accent text-ink;
+  }
+}
+@layer components {
+  .page-container {
+    @apply mx-auto w-full max-w-workspace px-5 py-8 md:px-8 md:py-12;
+  }
+  .field-control {
+    @apply min-h-12 w-full rounded-md border border-input-border bg-surface px-4 py-3 text-base text-ink disabled:cursor-not-allowed disabled:opacity-60;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,6 +1,6 @@
 # Progress
 
-**Last updated:** 2026-10-24 · **Current phase:** 0 (complete; approvals not blocking) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
+**Last updated:** 2026-10-28 · **Current phase:** 2 (frontend foundation; backend not started) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
 
 Rules: each developer updates only the rows they own; joint rows are updated by whoever completes the task and confirmed by the other. Test results are the **actual** output summary, never assumed. See `docs/IMPLEMENTATION_PLAN.md` for files and test requirements per task.
 
@@ -8,7 +8,23 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 
 ## Current focus
 
-- **Phase 0 documents are complete (J-0.1, J-0.2).** Implementation has **not** started.
+- **2026-10-28 FE-2.3 frontend architecture — In review:** Developer 2 explicitly authorized to scaffold `frontend/**` on `joint/FE-2.3-frontend-architecture`. Next.js App Router, original Figma brown/cream + DM Sans/Instrument Serif tokens, common/browse components, public/auth/client/admin route groups, manual public contract types, envelope transport and integer-kobo utilities. Lint/typecheck/build passed; 33 unit/component tests and 3 responsive/axe browser suites passed (21 route/width combinations). No active endpoint mocks. Backend/OpenAPI/auth/live search/uploads remain unimplemented. [Handoff](FRONTEND_ARCHITECTURE_SETUP.md).
+
+- **2026-10-28 filter/control corrections — In review:** removed bathroom filtering; added dropdowns/conditional Other entry and ₦100,000 budget steps while preserving the visual identity. 279 selectors; 23 budget controls. Native reaction-data checks: 101 Other states, 20 amenity toggles and 91 budget cases passed. All 547 frames including control overlays checked without overlaps/overflow/missing targets. [Handoff](FIGMA_FILTER_CONTROLS.md). PRD override recorded; no API/application changes.
+
+- **2026-10-27 reference/device layout correction — In review:** section 21 now has six mobile counterparts in section 22; mixed responsive references split into 23 Mobile / 24 Tablet / 25 Desktop. Tablet frames use 768×1024; archive 99 and its five frames deleted as requested. Current 428 frames / 25 Sections: zero overlaps, unexpected overflow or missing targets; four new mobile publication transitions passed. [Current handoff](FIGMA_FULL_PRD.md#reference-layout-correction--2026-10-27).
+
+- **2026-10-27 Figma presentation corrections — In review:** restored the original brown backing across 23 Sections, matched mobile shell edges, and corrected chapter/frame numbering and sidebar/canvas order on `joint/FE-1.4-canvas-presentation`. All 427 frames including archives checked: no overlaps or presentation mismatches. Screen text, contact flow and prototype actions preserved. See [presentation notes](FIGMA_FULL_PRD.md#presentation-correction--2026-10-27).
+
+- **2026-10-26 full PRD frontend design coverage — In review:** Developer 2 completed the remaining visual inventory on `joint/FE-1.4-full-prd-designs`: 401 product screens/state variants plus 21 responsive references, including photos/video, client journeys and staff/admin operations. Final audit: 422 frames, zero overlaps/unexpected overflow/missing navigation targets; 50/50 exact prototype paths; 13/13 selected text contrast pairs. [Current coverage](FIGMA_FULL_PRD.md) · [Screen links](FIGMA_SCREEN_INVENTORY.md). Designs only; application tasks remain unimplemented.
+
+- **2026-10-26 complete design flows — In review:** Developer 2 fixed canvas overlap, completed authentication and six-step landlord contact-registration flows, and connected staff review/publication on `joint/FE-1.4-complete-design-flows`. 47 current screens; zero section/frame collisions, unexpected overflow or missing targets; 11/11 prototype path checks passed. [Current handoff](FIGMA_COMPLETE_FLOWS.md). Figma designs only; FE-1.4 remains unfinished and application tasks remain unimplemented.
+
+- **2026-10-26 brand/flow revision — In review:** Developer 2 applied the developer-selected brown/cream identity, recreated outlined SVG logos, an editorial homepage, matching property frames and app-like mobile viewports/navigation on `joint/FE-1.4-brand-refresh`. Twelve current screens structurally inspected, zero unexpected overflow; screenshot review completed; 13 selected text pairs meet AA and the input-border pair meets UI contrast. See [revision handoff](FIGMA_BRAND_REFRESH.md). FE-1.4 as a whole remains unfinished; no application code or contract changes.
+
+- **2026-10-26 shared Figma starter (Developer 2, explicitly requested):** editable foundations and ten property design frames created on `joint/FE-1.4-figma-foundations`. Partial draft; FE-1.4 is not complete. All ten frames structurally inspected (Inter, editable layers, zero reported auto-layout overflow); 11/11 selected contrast pairs passed; five desktop screens and mobile search visually reviewed. Figma Starter MCP quota prevents remaining visual checks and a staff-sidebar polish fix. See [handoff and exact remaining work](FIGMA_STARTER.md). No application code or contract changes.
+
+- **Phase 0 documents are complete (J-0.1, J-0.2).** Frontend foundation implementation has started; backend implementation has not started.
 - **v0.2 revision (2026-10-24) applied after team review:** currency/format conventions, unknown-error-code handling, complaint minimum fields/rate limits/privacy/verify-before-action, and an AI assistant with call-line handoff (6G, priority Should — both developers to confirm).
 - **Not waiting on anyone (ADR-019).** J-0.3 approvals (MVP scope, OQ-21, OQ-22, ADR-001…017) can be recorded whenever convenient; they no longer block work. Proposed items are used as working assumptions.
 - **Product name:** Kof'a — the doorway to your home (ADR-018).
@@ -72,7 +88,7 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 |---|---|---|---|---|---|---|---|---|
 | J-2.1 | Repo scaffolding: README, .gitignore, CODEOWNERS, PR template, docker-compose (Postgres, MinIO, Mailpit), .env.example | Both (lead: Backend) | Must | J-1.1 | Not started | — | — | Fresh clone + README gets Postgres up; CODEOWNERS assigns paths per ARCHITECTURE §3; PR template carries the task checklist |
 | BE-2.2 | FastAPI skeleton: app factory, settings, DB session, Alembic baseline, /health, error envelope, request-ID logging, pytest, ruff, mypy | Backend | Must | J-2.1, J-1.3 | Not started | — | — | `GET /api/v1/health` matches contract; validation, 404, 503 and unhandled-exception errors use the envelope (unhandled → INTERNAL_ERROR, no internals); `Money` schema rejects non-NGN and non-integer amounts; every emitted error code is in the contract registry; `alembic upgrade head`/`downgrade base` clean |
-| FE-2.3 | Next.js skeleton: App Router, strict TS, Tailwind tokens, route-group layouts, API client with envelope parsing, env config, lint/typecheck/test tooling | Frontend | Must | J-2.1, FE-1.4 | Not started | — | — | App builds; public/auth/client/admin layouts render; client converts envelope into typed `ApiError` (`code: string`) and degrades safely on unknown codes, non-JSON, network and timeout failures; shared `formatMoney`/`formatMoneyCompact`/`parseMoneyInput` pass the contract vectors; tokens match design system |
+| FE-2.3 | Next.js skeleton: App Router, strict TS, Tailwind tokens, route-group layouts, API client with envelope parsing, env config, lint/typecheck/test tooling | Frontend | Must | J-2.1, FE-1.4 | In review | Standalone draft assumptions; backend integration pending | `joint/FE-2.3-frontend-architecture` | App builds; public/auth/client/admin layouts render; client converts envelope into typed `ApiError` (`code: string`) and degrades safely on unknown codes, non-JSON, network and timeout failures; shared `formatMoney`/`formatMoneyCompact`/`parseMoneyInput` pass the contract vectors; tokens match design system |
 | BE-2.4 | Export OpenAPI and add contract drift check against the endpoint index in API_CONTRACT.md | Backend | Must | BE-2.2 | Not started | — | — | `make openapi` writes openapi.json; check fails on undocumented or missing method+path pairs |
 | FE-2.5 | Generated TS API types from OpenAPI; MSW mock layer with TEMP-MOCK labelling and mock-audit script | Frontend | Must | BE-2.4, FE-2.3 | Not started | — | — | `npm run api:types` regenerates types; every mock handler carries `TEMP-MOCK` label; mock-audit lists active mocks; a single flag disables all mocks |
 | BE-2.6 | Backend CI workflow (lint, mypy, tests with Postgres service, migration check, openapi drift, dependency audit) | Backend | Must | BE-2.2, BE-2.4 | Not started | — | — | Runs on `backend/**` PRs; required check; fails on drift or failing tests |
@@ -185,6 +201,12 @@ Record the real result of each task's test run here (newest first).
 
 | Date | Task | Command(s) | Result (pass/fail counts) | Notes |
 |---|---|---|---|---|
+| 2026-10-28 | FE-1.4 filter controls | Native reaction-data evaluation; geometry/target audit; rendered desktop/mobile review; `git diff --check` | 279 menus linked; 101 Other / 20 amenity / 91 budget checks passed; 547 frames: 0 overlaps/overflow/missing targets | Not presentation/app/API/E2E testing; finite prototype budget examples |
+| 2026-10-27 | FE-1.4 reference layouts | Figma geometry/device/target/path audit; four Section renders and corrected tablet render; `git diff --check` | 428 frames / 25 Sections; 0 overlaps/overflow/missing targets; 4/4 mobile transitions; archive deleted | Visual prototype only; original reference IDs and content retained |
+| 2026-10-27 | FE-1.4 presentation correction | Figma geometry/style/numbering and content/reaction comparison; three rendered Section reviews; `git diff --check` | 427 frames/23 Sections; 0 overlaps or style/numbering mismatches; content/actions digest unchanged | Canvas appearance and layer names only; no app tests |
+| 2026-10-26 | FE-1.4 full PRD designs | Figma geometry/layer/reaction/50-path audits; rendered screenshots; Python WCAG contrast; `git diff --check` | 422 frames: 0 overlaps/unexpected overflow/missing navigation targets; 50/50 paths; 350/350 targets resolved; 13/13 selected text pairs; input border 4.39:1 | Design-only checks; 360/768/1280 representative templates; no app/API/E2E/a11y execution |
+| 2026-10-26 | FE-1.4 complete design flows | Figma structural/path audit and screenshot review; `git diff --check` | 47 screens; 0 collisions/overflow/missing targets; 11/11 exact path checks; whitespace passed | Static designs only; no presentation click-through, app/API/E2E or a11y execution |
+| 2026-10-26 | FE-1.4 brand refresh slice | Figma structural inspection + rendered screenshots; Python WCAG contrast and SVG XML/path checks; `git diff --check` | 12 frames: 0 unexpected overflow; 13/13 selected text pairs AA; 1/1 input-border pair UI contrast; 3/3 SVGs valid; whitespace check passed | Visual design only; no app/API/E2E or presentation-mode click-through |
 | 2026-10-24 | J-0.2 (v0.2 revision) | cross-reference check (task IDs, OQ IDs, files, dependency graph) | see session output | Documents only; no code yet |
 | 2026-10-23 | J-0.2 | cross-reference check (task IDs, files, dependencies) | passed | Documents only; no code yet |
 
@@ -208,3 +230,6 @@ Next unblocked task(s): <IDs>
 
 ## Session setup note
 Each developer creates a local, git-ignored `.dev-role` file in the repo root containing `frontend` or `backend`, or states the role at the start of every AI session. `AGENTS.md` and `CLAUDE.md` (identical) tell the AI to read it. J-2.1 extends the root `.gitignore`; keep the `.dev-role` line.
+
+
+- 2026-10-28 FE-1.4 design follow-up: added 21 persistent location-selector chevrons and the missing mobile Sort by overlay/trigger. Catalog parity: 60 desktop / 60 mobile control frames. Verified target links and filter render; see `docs/FIGMA_FILTER_CONTROLS.md`. Next: frontend review/implementation; API contract unchanged.

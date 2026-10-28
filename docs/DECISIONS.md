@@ -116,7 +116,9 @@ Format of an entry: Context → Decision → Consequences → Alternatives consi
 ## Working assumptions (AI and developers append here)
 Format: `date · role · task · assumption relied on (ADR/OQ) · status (open | confirmed | revisit)`
 
-_None logged yet._
+2026-10-26 · backend · FE-1.4 Figma starter slice · Developer 2 explicitly requested shared UI/UX work for both developers; use ADR-018 name and OQ-01 placeholder wordmark/palette from UI_DESIGN_SYSTEM. Figma-only design plus small shared handoff notes; frontend/backend source unchanged. See docs/FIGMA_STARTER.md. · open
+
+2026-10-26 · backend · FE-1.4 brand refresh · Developer overrides OQ-01's provisional teal/text-wordmark direction with supplied brown/cream logo reference and editorial inspiration; explicitly requests a similar recreated SVG and app-like mobile flow. Adopt #643B29 brown, #F7F3EE cream, #E8C8A8 tan, DM Sans plus Instrument Serif accents; update Figma and UI_DESIGN_SYSTEM for frontend review. Logo/colour direction selected; domain remains open. See docs/FIGMA_BRAND_REFRESH.md. · confirmed
 
 ---
 
@@ -133,3 +135,11 @@ OQ-01 (logo, colours, domain only; the name is decided) … OQ-26. Defaults in t
 - Alternatives considered
 - Approved by (FE, BE)
 ```
+
+2026-10-26 · backend · FE-1.4 complete flows · Developer confirms contact registration within the landlord listing flow, preserving ADR-001/007 and no landlord login. Uses ADR-003 and draft contract 0.2.0 for client authentication. Retain brown/cream app-style mobile and omit profile-picture requirements. Explicit shared-design authorization; no source or contract changes. See docs/FIGMA_COMPLETE_FLOWS.md. · confirmed by Developer 2
+
+2026-10-26 · backend · FE-1.4 full frontend design inventory · Developer explicitly requested all remaining frontend designs. Uses ADR-001/003/007/014 and OQ-03/04/11/13/18/24 working defaults. Later modules remain conceptual design against PRD intent; API shapes are not mocked or implemented before freeze. Include Could-tier designs separately labelled optional, while retaining all Won’t exclusions. Legal pages contain review placeholders; support number is unset; fictional data only. · open
+
+2026-10-28 · backend · FE-1.4 filter/control corrections · Developer explicitly removes bathroom filtering from the UI; actual bathroom counts remain on listings and landlord property entry. Add dropdown choices for selectable fields, conditional Other text entry for preferences, and ₦100,000 budget steppers. Preserve existing desktop/mobile visual identity. Fixed role/state/result enums do not accept arbitrary Other values. Existing optional API bathroom parameter stays for compatibility; no endpoint shape is removed. Custom preference persistence needs J-4.1/J-5.1 reconciliation. · developer override
+
+2026-10-28 · backend · FE-2.3 frontend architecture · Developer explicitly authorizes frontend scaffolding. Assumes ADR-002 repository split, ADR-003 same-origin cookie/CSRF transport and draft API contract 0.2.0; J-2.1/FE-1.4 do not block a standalone foundation. Developer’s same-turn correction retains original Figma brown/cream, DM Sans and Instrument Serif; no Inter/teal theme override. Public `[id]` route segment carries the contract slug; `/list-your-property` redirects to `/landlord`, preserving no-account contact registration. Manual public types await FE-2.5/OpenAPI. · working assumptions
