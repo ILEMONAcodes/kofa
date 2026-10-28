@@ -1,0 +1,13 @@
+# Local configuration, secrets and generated files
+.mcp.json
+.dev-role
+.env
+.env.*
+!.env.example
+.DS_Store
+node_modules/
+.next/
+coverage/
+playwright-report/
+test-results/
+*.tsbuildinfo
