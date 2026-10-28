@@ -1,3 +1,6 @@
+"use client";
+import { useState } from "react";
+import { MobilePropertyCard } from "@/components/mobile/property-card";
 import Image from "next/image";
 import { propertyDetailHref } from "@/lib/property-navigation";
 import Link from "next/link";
@@ -14,6 +17,12 @@ export function SearchResults({
   sort: string;
   query?: string;
 }) {
+  const [expanded, setExpanded] = useState(false);
+  const mobileProperties = [...illustrativeListings];
+  if (sort === "price" || sort === "-price")
+    mobileProperties.sort(
+      (a, b) => (a.price.amount - b.price.amount) * (sort === "price" ? 1 : -1),
+    );
   const slots = sourceSlots.map((index, slot) => ({
     property: illustrativeListings[index],
     slot,
@@ -26,7 +35,37 @@ export function SearchResults({
     );
   return (
     <>
-      <div className="search-property-grid">
+      <div className="mobile-only mobile-result-cards">
+        <div className="mobile-applied-filters">
+          <span>Available</span>
+          <span>
+            {sort === "price"
+              ? "Price: low to high"
+              : sort === "-price"
+                ? "Price: high to low"
+                : "Newest first"}
+          </span>
+        </div>
+        <p className="text-sm text-muted">6 illustrative results</p>
+        {(expanded
+          ? [...mobileProperties, ...mobileProperties]
+          : mobileProperties
+        ).map((property, index) => (
+          <MobilePropertyCard key={index} property={property} query={query} />
+        ))}
+        <p className="text-sm text-muted">
+          Showing {expanded ? 6 : 3} of 6 sample results
+        </p>
+        {!expanded && (
+          <Button variant="secondary" onClick={() => setExpanded(true)}>
+            Load more properties
+          </Button>
+        )}
+        <p className="text-home-caption text-muted">
+          Design preview · Stock photos
+        </p>
+      </div>
+      <div className="search-property-grid desktop-only">
         {slots.map(({ property, slot }) => (
           <article
             className="home-property-card search-property-card"
@@ -88,7 +127,7 @@ export function SearchResults({
         ))}
       </div>
       <nav
-        className="search-pagination"
+        className="search-pagination desktop-only"
         aria-label="Results pagination"
         data-node-id="15:366"
       >

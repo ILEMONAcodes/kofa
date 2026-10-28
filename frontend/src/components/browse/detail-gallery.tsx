@@ -106,6 +106,14 @@ export function PropertyGallery({ photos }: { photos: DetailPhoto[] }) {
               className="home-cover"
               data-detail-asset={`photo-${index + 1}`}
             />
+            {index === 0 && (
+              <span
+                className="mobile-only mobile-gallery-counter"
+                aria-hidden="true"
+              >
+                1 / {photos.length}
+              </span>
+            )}
           </button>
         ))}
       </div>

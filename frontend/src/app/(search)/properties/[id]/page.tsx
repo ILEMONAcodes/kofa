@@ -65,11 +65,25 @@ export default async function PropertyDetail({ params }: Props) {
             className="detail-title"
             data-node-id="15:418"
           >
-            {property.title}
+            <span>{property.title.split(",")[0]},</span>
+            <span className="detail-title-neighbourhood">
+              {" "}
+              {property.neighbourhood}
+            </span>
           </h1>
-          <p className="text-muted">
+          <p className="text-muted detail-location desktop-only">
             {property.location} · Approximate location
           </p>
+          <div className="mobile-only mobile-detail-location">
+            {/* eslint-disable-next-line @next/next/no-img-element -- Exact mobile Figma location vector. */}
+            <img
+              src="/assets/mobile-location.svg"
+              width="22"
+              height="22"
+              alt=""
+            />
+            <span>{property.location}</span>
+          </div>
           <PropertyGallery photos={property.photos} />
         </section>
         <section
@@ -78,43 +92,78 @@ export default async function PropertyDetail({ params }: Props) {
           aria-label="Property facts and interest"
         >
           <div className="detail-information" data-node-id="15:426">
-            <h2 className="text-home-title">Space for your next chapter.</h2>
+            <h2 className="text-home-title desktop-only">
+              Space for your next chapter.
+            </h2>
             <p className="font-medium">
               {property.bedrooms} bed · {property.bathrooms} bath ·{" "}
               {property.furnishing === "furnished"
                 ? "Furnished"
                 : "Unfurnished"}
             </p>
-            <p className="text-muted">{property.description}</p>
-            <hr />
-            <h3 className="text-home-card">Features</h3>
-            <p className="text-muted">
+            <p className="text-muted desktop-only">{property.description}</p>
+            <div className="mobile-only mobile-detail-intro">
+              <span className="detail-badge">Available</span>
+              <h2>A home with room to breathe.</h2>
+              <p className="text-muted">
+                {property.slug === "3-bedroom-flat-wuse-2"
+                  ? "Bright living spaces, a fitted kitchen and parking. Illustrative content for the design preview."
+                  : property.description}
+              </p>
+              <p>
+                {property.paymentTerms ?? "Payment terms not supplied"}
+                <br />
+                {property.cautionFee !== null
+                  ? `Caution fee: ${formatMoney(property.cautionFee)}`
+                  : "Charge details not supplied"}
+              </p>
+              <p className="text-sm text-muted">
+                Availability last confirmed 20 Oct 2026
+              </p>
+            </div>
+            <hr className="desktop-only" />
+            <h3 className="text-home-card desktop-only">Features</h3>
+            <p className="text-muted desktop-only">
               {property.features ??
                 "Feature details are not supplied for this sample listing."}
             </p>
-            <h3
-              id="verification"
-              className="text-home-card scroll-mt-8"
-              tabIndex={-1}
-            >
-              Verification / 20 Oct 2026
-            </h3>
-            <div className="text-muted">
-              <p>Method: desk review and physical inspection</p>
-              <p>
-                Checks: identity, ownership documents, location, price and
-                features.
-              </p>
-            </div>
-            <aside className="detail-notice">
-              <p className="font-medium text-primary">Understand the checks</p>
-              <p>
-                Verification confirms the checks listed. It is not a guarantee
-                of legal title.
-              </p>
-            </aside>
-            <h3 className="text-home-card">The neighbourhood</h3>
-            <aside className="detail-notice">
+            <section id="verification" className="detail-verification">
+              <div className="desktop-verification">
+                <h3
+                  id="verification-heading"
+                  className="text-home-card scroll-mt-8"
+                  tabIndex={-1}
+                >
+                  Verification / 20 Oct 2026
+                </h3>
+                <div className="text-muted">
+                  <p>Method: desk review and physical inspection</p>
+                  <p>
+                    Checks: identity, ownership documents, location, price and
+                    features.
+                  </p>
+                </div>
+                <aside className="detail-notice">
+                  <p className="font-medium text-primary">
+                    Understand the checks
+                  </p>
+                  <p>
+                    Verification confirms the checks listed. It is not a
+                    guarantee of legal title.
+                  </p>
+                </aside>
+              </div>
+              <div className="mobile-only mobile-notice">
+                <h3>Verification / 20 Oct 2026</h3>
+                <p>
+                  Desk review and physical inspection. Identity, ownership
+                  documents, location, price and features checked. Verification
+                  is not a guarantee of legal title.
+                </p>
+              </div>
+            </section>
+            <h3 className="text-home-card desktop-only">The neighbourhood</h3>
+            <aside className="detail-notice desktop-only">
               <p className="font-medium text-primary">
                 {property.location} · Approximate location
               </p>
@@ -123,10 +172,17 @@ export default async function PropertyDetail({ params }: Props) {
                 public view shows the neighbourhood only.
               </p>
             </aside>
+            <aside className="mobile-only mobile-notice">
+              <h3>Approximate location</h3>
+              <p>
+                {property.location}. Our team manages exact-address disclosure
+                through the inspection process.
+              </p>
+            </aside>
             <DetailActions photos={property.photos} title={property.title} />
           </div>
           <aside
-            className="detail-interest"
+            className="detail-interest desktop-only"
             data-node-id="15:443"
             aria-label="Price and availability"
           >
@@ -172,6 +228,24 @@ export default async function PropertyDetail({ params }: Props) {
           </aside>
         </section>
       </main>
+      <aside
+        className="mobile-only mobile-interest-bar"
+        aria-label="Price and interest"
+      >
+        <div>
+          <p>{formatMoney(property.price.amount)}</p>
+          <span>per year · {property.paymentTerms ?? "Sample listing"}</span>
+        </div>
+        <Suspense
+          fallback={
+            <HomeLink href="/login" variant="primary">
+              Express interest
+            </HomeLink>
+          }
+        >
+          <DetailInterestLink slug={property.slug} />
+        </Suspense>
+      </aside>
       <div className="search-footer-surround" data-node-id="28:850">
         <HomeFooter showHelpActions={false} nodeId="28:851" />
       </div>

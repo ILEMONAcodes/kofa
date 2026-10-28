@@ -76,7 +76,10 @@ test("desktop search matches source geometry, assets and accessibility", async (
     0,
   );
   await expect(
-    page.getByText("3 bed · 3 bath · Unfurnished").first(),
+    page
+      .locator(".search-property-card")
+      .first()
+      .getByText("3 bed · 3 bath · Unfurnished", { exact: true }),
   ).toBeVisible();
   await page.evaluate(() => window.scrollTo(0, 0));
   await page.screenshot({

@@ -37,11 +37,23 @@ export function DetailActions({
     <>
       <button
         type="button"
-        className="detail-report-link text-sm font-medium text-primary"
+        className="desktop-only detail-report-link text-sm font-medium text-primary"
         onClick={() => setView("report")}
       >
         Something doesn’t look right? Report this listing →
       </button>
+      <div className="mobile-only mobile-detail-report">
+        <Button
+          variant="secondary"
+          className="w-full"
+          onClick={() => setView("report")}
+        >
+          Report this listing
+        </Button>
+        <p className="text-home-caption text-muted">
+          Design preview · Stock photography
+        </p>
+      </div>
       <div className="detail-support-actions" data-node-id="88:14848">
         <Button variant="secondary" onClick={() => setView("gallery")}>
           Photos &amp; video
