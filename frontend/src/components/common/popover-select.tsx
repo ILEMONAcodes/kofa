@@ -10,6 +10,8 @@ import {
 import type { SelectOption } from "@/types/filters";
 import { Button } from "./button";
 interface Props {
+  multiple?: boolean;
+  chevronAsset?: string;
   label: string;
   title: string;
   description: string;
@@ -18,6 +20,8 @@ interface Props {
   onChange: (value: string) => void;
 }
 export function PopoverSelect({
+  multiple = false,
+  chevronAsset,
   label,
   title,
   description,
@@ -36,8 +40,14 @@ export function PopoverSelect({
       pendingFocus.current = null;
     }
   }, [open]);
+  const selected = value.split(",").filter(Boolean);
   const current =
-    options.find((option) => option.value === value)?.label ?? value;
+    multiple && selected.length
+      ? selected
+          .map((v) => options.find((o) => o.value === v)?.label ?? v)
+          .join(", ")
+      : (options.find((option) => option.value === value)?.label ??
+        (value || "Choose an option"));
   useEffect(() => {
     if (!open) return;
     const close = (event: PointerEvent) => {
@@ -85,6 +95,17 @@ export function PopoverSelect({
     }
   }
   function select(next: string) {
+    if (multiple) {
+      onChange(
+        next === ""
+          ? ""
+          : (selected.includes(next)
+              ? selected.filter((v) => v !== next)
+              : [...selected, next]
+            ).join(","),
+      );
+      return;
+    }
     onChange(next);
     setOpen(false);
     trigger.current?.focus();
@@ -111,10 +132,22 @@ export function PopoverSelect({
         aria-haspopup="listbox"
         aria-expanded={open}
         aria-controls={open ? `${id}-options` : undefined}
-        className="field-control text-left"
+        className={`field-control text-left${chevronAsset ? " select-with-vector" : ""}`}
         onClick={() => setOpen(!open)}
       >
-        {current} <span aria-hidden="true">▾</span>
+        <span>{current}</span>{" "}
+        {chevronAsset ? (
+          // eslint-disable-next-line @next/next/no-img-element -- Exact exported Figma vector.
+          <img
+            src={chevronAsset}
+            width="20"
+            height="20"
+            alt=""
+            className="select-chevron"
+          />
+        ) : (
+          <span aria-hidden="true">▾</span>
+        )}
       </button>
       {open && (
         <div className="home-select-menu">
@@ -126,6 +159,7 @@ export function PopoverSelect({
             id={`${id}-options`}
             role="listbox"
             aria-label={title}
+            aria-multiselectable={multiple || undefined}
             className="home-menu-options"
           >
             <div className="home-menu-regular">
@@ -134,11 +168,21 @@ export function PopoverSelect({
                   type="button"
                   key={option.value}
                   role="option"
-                  aria-selected={value === option.value}
+                  aria-selected={
+                    multiple
+                      ? selected.includes(option.value) ||
+                        (!value && !option.value)
+                      : value === option.value
+                  }
                   disabled={option.disabled}
                   className="home-menu-option"
                   onClick={() => select(option.value)}
                 >
+                  {multiple && option.value && (
+                    <span aria-hidden="true">
+                      {selected.includes(option.value) ? "☑ " : "☐ "}
+                    </span>
+                  )}
                   {option.label}
                 </button>
               ))}
@@ -148,7 +192,9 @@ export function PopoverSelect({
                 <button
                   type="button"
                   role="option"
-                  aria-selected={value === "other"}
+                  aria-selected={
+                    multiple ? selected.includes("other") : value === "other"
+                  }
                   className="home-menu-option"
                   onClick={() => select("other")}
                 >
@@ -172,7 +218,7 @@ export function PopoverSelect({
                 trigger.current?.focus();
               }}
             >
-              Close
+              {multiple ? "Apply choices" : "Close"}
             </Button>
           </div>
         </div>

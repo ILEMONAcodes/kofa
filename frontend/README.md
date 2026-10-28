@@ -67,3 +67,5 @@ public/assets/         # existing Kof’a SVG logos, property placeholder
 See `../docs/FRONTEND_ARCHITECTURE_SETUP.md` for scope and verification evidence.
 
 Desktop homepage implementation and token provenance: `../docs/FIGMA_DESKTOP_HOME.md`. It retains the source’s illustrative content disclosure; live search/results and mobile Figma implementation remain separate tasks.
+
+Desktop search (`14:220`) owns `/properties` in `(search)` so its precise header/footer are independent of the generic public shell. It shares the homepage tokens and exact local image exports. Homepage URL preferences hydrate the sidebar; apply/clear, Other text preferences, multi-select amenities and sample-price sorting work. The six Figma cards remain disclosed design content, not a live filtered API result. See `docs/FIGMA_DESKTOP_SEARCH.md`.

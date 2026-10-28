@@ -1,9 +1,15 @@
 /* eslint-disable @next/next/no-img-element -- Preserve the exact intrinsic size of the Figma SVG export. */
 import Link from "next/link";
 import { HomeLink } from "./home-link";
-export function HomeFooter() {
+export function HomeFooter({
+  showHelpActions = true,
+  nodeId = "28:761",
+}: {
+  showHelpActions?: boolean;
+  nodeId?: string;
+}) {
   return (
-    <footer className="home-footer" data-node-id="28:761">
+    <footer className="home-footer" data-node-id={nodeId}>
       <div className="home-footer-links">
         <Link href="/" aria-label="Kof’a home" className="home-footer-logo">
           <img
@@ -45,11 +51,13 @@ export function HomeFooter() {
         Design preview · Fictional property data and illustrative stock
         photography.
       </p>
-      <nav className="home-footer-actions" aria-label="Help and contact">
-        <HomeLink href="/contact">Speak to our team</HomeLink>
-        <HomeLink href="/policies/terms">Help &amp; policies</HomeLink>
-        <HomeLink href="/contact?topic=assistant">AI support</HomeLink>
-      </nav>
+      {showHelpActions && (
+        <nav className="home-footer-actions" aria-label="Help and contact">
+          <HomeLink href="/contact">Speak to our team</HomeLink>
+          <HomeLink href="/policies/terms">Help &amp; policies</HomeLink>
+          <HomeLink href="/contact?topic=assistant">AI support</HomeLink>
+        </nav>
+      )}
     </footer>
   );
 }
