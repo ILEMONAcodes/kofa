@@ -1,12 +1,14 @@
 # Progress
 
-**Last updated:** 2026-10-27 · **Current phase:** 0 (complete; approvals not blocking) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
+**Last updated:** 2026-10-28 · **Current phase:** 0 (complete; approvals not blocking) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
 
 Rules: each developer updates only the rows they own; joint rows are updated by whoever completes the task and confirmed by the other. Test results are the **actual** output summary, never assumed. See `docs/IMPLEMENTATION_PLAN.md` for files and test requirements per task.
 
 **Status values:** Not started · Ready · In progress · In review · Blocked · Done · In use (approval optional) · Deferred
 
 ## Current focus
+
+- **2026-10-28 filter/control corrections — In review:** removed bathroom filtering; added dropdowns/conditional Other entry and ₦100,000 budget steps while preserving the visual identity. 279 selectors; 23 budget controls. Native reaction-data checks: 101 Other states, 20 amenity toggles and 91 budget cases passed. All 547 frames including control overlays checked without overlaps/overflow/missing targets. [Handoff](FIGMA_FILTER_CONTROLS.md). PRD override recorded; no API/application changes.
 
 - **2026-10-27 reference/device layout correction — In review:** section 21 now has six mobile counterparts in section 22; mixed responsive references split into 23 Mobile / 24 Tablet / 25 Desktop. Tablet frames use 768×1024; archive 99 and its five frames deleted as requested. Current 428 frames / 25 Sections: zero overlaps, unexpected overflow or missing targets; four new mobile publication transitions passed. [Current handoff](FIGMA_FULL_PRD.md#reference-layout-correction--2026-10-27).
 
@@ -197,6 +199,7 @@ Record the real result of each task's test run here (newest first).
 
 | Date | Task | Command(s) | Result (pass/fail counts) | Notes |
 |---|---|---|---|---|
+| 2026-10-28 | FE-1.4 filter controls | Native reaction-data evaluation; geometry/target audit; rendered desktop/mobile review; `git diff --check` | 279 menus linked; 101 Other / 20 amenity / 91 budget checks passed; 547 frames: 0 overlaps/overflow/missing targets | Not presentation/app/API/E2E testing; finite prototype budget examples |
 | 2026-10-27 | FE-1.4 reference layouts | Figma geometry/device/target/path audit; four Section renders and corrected tablet render; `git diff --check` | 428 frames / 25 Sections; 0 overlaps/overflow/missing targets; 4/4 mobile transitions; archive deleted | Visual prototype only; original reference IDs and content retained |
 | 2026-10-27 | FE-1.4 presentation correction | Figma geometry/style/numbering and content/reaction comparison; three rendered Section reviews; `git diff --check` | 427 frames/23 Sections; 0 overlaps or style/numbering mismatches; content/actions digest unchanged | Canvas appearance and layer names only; no app tests |
 | 2026-10-26 | FE-1.4 full PRD designs | Figma geometry/layer/reaction/50-path audits; rendered screenshots; Python WCAG contrast; `git diff --check` | 422 frames: 0 overlaps/unexpected overflow/missing navigation targets; 50/50 paths; 350/350 targets resolved; 13/13 selected text pairs; input border 4.39:1 | Design-only checks; 360/768/1280 representative templates; no app/API/E2E/a11y execution |

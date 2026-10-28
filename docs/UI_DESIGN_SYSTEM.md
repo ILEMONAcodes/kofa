@@ -176,7 +176,7 @@ Every badge has a text label; colour is never the only signal.
 
 ## 9. Key screen requirements
 
-**Search (`/properties`).** Filter bar (location combobox, budget range, type, beds, baths, furnishing, amenities, rent/buy, availability) in a left column on desktop and a drawer on mobile; sort control; result count; PropertyCard grid; pagination; empty state with "clear filters"; every filter reflected in the URL.
+**Search (`/properties`).** Filter bar (location combobox, budget range, type, beds, furnishing, amenities, rent/buy, availability) in a left column on desktop and a drawer on mobile; sort control; result count; PropertyCard grid; pagination; empty state with "clear filters"; every filter reflected in the URL.
 
 **Detail (`/properties/[slug]`).** Gallery; title; price with period and terms; extra charges list; neighbourhood + approximate map; facts; amenities; verification panel (date + scope + disclaimer); availability pill with *"Availability last confirmed {date}"*; sticky CTA "Express interest / Request inspection" (login gate).
 
@@ -226,3 +226,7 @@ See [current design flows](FIGMA_COMPLETE_FLOWS.md) for 47 editable screens and 
 Media separates public photos, optional walkthrough video and private evidence; apply the existing contract limits and keep evidence out of public galleries. Upload progress/retry/invalid/preview/remove states and staff document expiry are designed. Phone viewports scroll; long forms preserve access to their actions. At intermediate widths, stack contextual columns and use record cards instead of narrow tables. Seven reference templates at 360/768/1280 complement the 390/1440 designs.
 
 Policy pages remain legal-review placeholders. Support phone/hours are unset, with a disabled Call control until configured. All runtime validation, role enforcement, accessibility, SEO and media behavior require application implementation and testing. Per-step draft saving, submission media ordering/cover persistence and staff allowed-actions remain contract reconciliation items.
+
+## 15. Filter and choice controls (2026-10-28)
+
+No bathroom search filter; retain actual bathroom facts on property cards/details and landlord data entry. Use dropdowns for choices, with taxonomy-backed options where available. Other opens a labelled preference textbox for appropriate preference fields; never insert arbitrary Other into permission, status or result enums. Budget min/max can be typed directly and adjusted independently in ₦100,000 steps; clamp at zero and prevent minimum exceeding maximum. Preserve current colour/type/spacing and mobile shells. Backend optional bathroom filtering remains available for compatibility; custom-preference storage must be reconciled before integration.

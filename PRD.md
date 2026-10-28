@@ -91,7 +91,7 @@ Priority is MoSCoW **for the MVP**. "Source" is the proposal section.
 | FR-PROP-06 | Record landlord approval of advertised price and description before publication | Must | §5 |
 | FR-PROP-07 | Publish only when verification passed **and** landlord approval recorded; unpublish, reject (with reason), archive | Must | §4 St.2 |
 | FR-PROP-08 | Availability status with "last confirmed" date | Must | §8 |
-| FR-PROP-09 | Public search filters: location/neighbourhood, budget, type, bedrooms, bathrooms, furnishing, amenities, rent/buy, availability | Must | §4 St.3 |
+| FR-PROP-09 | Public search filters: location/neighbourhood, budget, type, bedrooms, furnishing, amenities, rent/buy, availability. Bathroom counts are shown on listings, not offered as a search filter (developer override, 2026-10-28) | Must | §4 St.3 |
 | FR-PROP-10 | Sorting and pagination of results | Must | — |
 | FR-PROP-11 | Property detail page: photos, price and payment terms, location, features, verification status/date and scope, availability, description, interest/inspection CTA | Must | §9C |
 | FR-PROP-12 | Landlord contact details are never exposed to visitors or clients | Must | §5, §8 |
