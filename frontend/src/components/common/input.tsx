@@ -4,8 +4,17 @@ type Props = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
   error?: string;
   hint?: string;
+  labelClassName?: string;
 };
-export function Input({ label, error, hint, id, className, ...props }: Props) {
+export function Input({
+  label,
+  error,
+  hint,
+  id,
+  className,
+  labelClassName,
+  ...props
+}: Props) {
   const generated = useId();
   const inputId = id ?? generated;
   const description =
@@ -18,7 +27,10 @@ export function Input({ label, error, hint, id, className, ...props }: Props) {
       .join(" ") || undefined;
   return (
     <div className="space-y-2">
-      <label htmlFor={inputId} className="block text-sm font-medium">
+      <label
+        htmlFor={inputId}
+        className={cn("block text-sm font-medium", labelClassName)}
+      >
         {label}
       </label>
       <input

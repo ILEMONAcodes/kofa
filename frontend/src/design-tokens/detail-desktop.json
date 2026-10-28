@@ -1,0 +1,171 @@
+{
+  "fileKey": "TJtiCYvGNkGKJ6ibOIjGCd",
+  "nodeId": "14:221",
+  "extractedOn": "2026-10-28",
+  "frame": {
+    "width": 1440,
+    "height": 2523
+  },
+  "colors": {
+    "canvas": "#F7F3EE",
+    "surface": "#FFFFFF",
+    "primary": "#643B29",
+    "primary-hover": "#40271D",
+    "primary-tint": "#F0E7DE",
+    "accent": "#E8C8A8",
+    "ink": "#281C16",
+    "muted": "#6A584D",
+    "input-border": "#8B7465",
+    "success": "#356344"
+  },
+  "divider": "#DED3C9",
+  "typography": {
+    "family": "DM Sans",
+    "weights": [
+      400,
+      500
+    ],
+    "sizeLineHeightPairs": [
+      [
+        12,
+        16
+      ],
+      [
+        14,
+        20
+      ],
+      [
+        16,
+        24
+      ],
+      [
+        20,
+        28
+      ],
+      [
+        24,
+        32
+      ],
+      [
+        30,
+        38
+      ],
+      [
+        168,
+        174
+      ]
+    ],
+    "reportedOpticalSize": 14,
+    "footerRasterCorrection": "Same opsz40 display rendering correction as home/search."
+  },
+  "sections": {
+    "navigation": [
+      0,
+      0,
+      1440,
+      116
+    ],
+    "header": [
+      0,
+      116,
+      1440,
+      768
+    ],
+    "gallery": [
+      120,
+      390,
+      1200,
+      430
+    ],
+    "facts": [
+      0,
+      884,
+      1440,
+      1025
+    ],
+    "information": [
+      120,
+      948,
+      768,
+      897
+    ],
+    "interest": [
+      936,
+      948,
+      384,
+      469
+    ],
+    "footerSurround": [
+      0,
+      1909,
+      1440,
+      614
+    ]
+  },
+  "spacing": {
+    "pageInline": 120,
+    "sectionBlock": 64,
+    "factsColumnGap": 48,
+    "informationGap": 24,
+    "interestPadding": 24,
+    "interestGap": 16,
+    "galleryColumnGap": 24,
+    "thumbnailGap": 16
+  },
+  "radii": {
+    "photos": 12,
+    "notices": 24,
+    "interest": 24,
+    "footer": 32,
+    "badges": 9999
+  },
+  "photoSlots": [
+    {
+      "nodeId": "15:421",
+      "asset": "home-living-room.jpg",
+      "width": 792,
+      "height": 430
+    },
+    {
+      "nodeId": "15:423",
+      "asset": "home-jabi.jpg",
+      "width": 384,
+      "height": 207
+    },
+    {
+      "nodeId": "15:424",
+      "asset": "home-architecture.jpg",
+      "width": 384,
+      "height": 207
+    }
+  ],
+  "assets": [
+    {
+      "path": "/assets/home-living-room.jpg",
+      "sha256": "c1d978cae6f7d358502c5cda9deb9acd6e1756fff2f646dd59e741c0a7eae1d2"
+    },
+    {
+      "path": "/assets/home-jabi.jpg",
+      "sha256": "3ed499d623af06e20514607471350e6ac9afa8ccf5c3662a8be4ff21cb9e58c0"
+    },
+    {
+      "path": "/assets/home-architecture.jpg",
+      "sha256": "78cad4b90b4e16e3786ddfa7da2e7eae28c75c770c21429635057c7318d2fe7c"
+    },
+    {
+      "path": "/assets/search-logo-header.svg",
+      "sha256": "d6a892e9868f20588a790621e00b2de84e5f39ef4244abd7985549909e439fa5"
+    },
+    {
+      "path": "/assets/home-logo-footer.svg",
+      "sha256": "798b1872a85bf8445aaefd2d97f73f9962e678576b9a6a19ed22ab535b63536b"
+    }
+  ],
+  "prototypes": {
+    "gallery": "82:3590",
+    "report": "82:4046",
+    "assistant": "82:4650",
+    "login": "34:950",
+    "reportReasons": "169:18757"
+  }
+}

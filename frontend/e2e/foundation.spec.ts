@@ -36,7 +36,7 @@ for (const width of [360, 768, 1280]) {
     ).toBeFocused();
     await expect(
       page.getByRole("combobox", { name: "Location" }),
-    ).toBeDisabled();
+    ).toBeEnabled();
     await page.evaluate(() => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); });
     await page.screenshot({
       path: `test-results/properties-${width}.png`,

@@ -230,3 +230,18 @@ Policy pages remain legal-review placeholders. Support phone/hours are unset, wi
 ## 15. Filter and choice controls (2026-10-28)
 
 No bathroom search filter; retain actual bathroom facts on property cards/details and landlord data entry. Use dropdowns for choices, with taxonomy-backed options where available. Other opens a labelled preference textbox for appropriate preference fields; never insert arbitrary Other into permission, status or result enums. Budget min/max can be typed directly and adjusted independently in ₦100,000 steps; clamp at zero and prevent minimum exceeding maximum. Preserve current colour/type/spacing and mobile shells. Backend optional bathroom filtering remains available for compatibility; custom-preference storage must be reconciled before integration.
+
+
+## 16. Desktop homepage implementation provenance — 2026-10-28
+
+Node `14:219` is implemented in `frontend/src/app/(home)/page.tsx`, with modular browse sections and reusable common controls. Exact node measurements, paints, type sizes/weights, radii and asset-slot provenance are recorded in `frontend/src/design-tokens/home-desktop.json`; see [desktop implementation handoff](FIGMA_DESKTOP_HOME.md). Existing brown/cream values were verified; no new paint was invented. Source color #1F110A is the hero overlay; #140A05 is the card overlay, with alpha/stops retained. The glass navigation uses white at 13%. Linked menu border #DED3C9 is separately identified.
+
+The Plugin API reports opsz14, while Figma’s display raster matches the same variable face at opsz40. That scoped correction is documented in the manifest, independently of extracted metadata; sizes, weights and tracking remain unchanged. DM Sans lacks the naira glyph, which uses the existing Arial fallback. UI fields/buttons use the exact 48px outer height. `PopoverSelect` implements the linked City and Transaction type menus with keyboard selection, Escape/outside dismissal and Other entry. Home search serializes supported public query keys in integer kobo; it does not implement the results module. Mobile Figma implementation and live-data acceptance remain separate tasks.
+
+## 17. Desktop search implementation provenance
+
+Node `14:220` reuses the approved homepage palette, DM Sans, card gradient and exact photo assets. `frontend/src/design-tokens/search-desktop.json` records its 1440×2786 geometry, menu references, disabled pagination paints and asset hashes. Location/neighbourhood use the exact exported 20px chevron. Amenities support multi-selection; Other maps to a text preference, never a fabricated taxonomy value. See [desktop search handoff](FIGMA_DESKTOP_SEARCH.md). Desktop presentation and URL state are implemented separately from real API and mobile acceptance.
+
+## 18. Desktop detail implementation provenance
+
+Node `14:221` uses the shared brown/cream shell, three exact existing photographs (792×430 and two 384×207 slots), source 30/38 title typography and public verification/charge/availability copy. `frontend/src/design-tokens/detail-desktop.json` records source bounds and hashes. See [detail handoff](FIGMA_DESKTOP_DETAIL.md). Existing cards resolve matching fictional property slugs; safe relative return URLs preserve search preferences. Main detail has no filter dropdowns; the source report Reason menu is implemented in a contextual unavailable-service preview. Photos/Video buttons follow source gallery structure; no video is fabricated.

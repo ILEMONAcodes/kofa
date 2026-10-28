@@ -1,0 +1,162 @@
+{
+  "fileKey": "TJtiCYvGNkGKJ6ibOIjGCd",
+  "nodeId": "14:220",
+  "extractedOn": "2026-10-28",
+  "frame": {
+    "width": 1440,
+    "height": 2786
+  },
+  "colors": {
+    "canvas": "#F7F3EE",
+    "surface": "#FFFFFF",
+    "primary": "#643B29",
+    "primary-hover": "#40271D",
+    "primary-tint": "#F0E7DE",
+    "accent": "#E8C8A8",
+    "ink": "#281C16",
+    "muted": "#6A584D",
+    "input-border": "#8B7465",
+    "success": "#356344",
+    "card-overlay": "#140A05"
+  },
+  "disabledPagination": {
+    "fill": "#DED3C9",
+    "border": "#8B7465",
+    "text": "#6A584D",
+    "opacity": 1
+  },
+  "typography": {
+    "family": "DM Sans",
+    "weights": [
+      400,
+      500
+    ],
+    "sizeLineHeightPairs": [
+      [
+        12,
+        16
+      ],
+      [
+        14,
+        20
+      ],
+      [
+        16,
+        24
+      ],
+      [
+        20,
+        28
+      ],
+      [
+        48,
+        54
+      ],
+      [
+        168,
+        174
+      ]
+    ],
+    "reportedOpticalSize": 14,
+    "displayRenderingCorrection": "Same scoped opsz40 raster correction as homepage; extracted metadata stays 14."
+  },
+  "layout": {
+    "navigation": [
+      0,
+      0,
+      1440,
+      116
+    ],
+    "heading": [
+      0,
+      116,
+      1440,
+      270
+    ],
+    "workspace": [
+      0,
+      386,
+      1440,
+      1786
+    ],
+    "sidebar": [
+      120,
+      450,
+      280,
+      1276
+    ],
+    "results": [
+      432,
+      450,
+      888,
+      1658
+    ],
+    "footerSurround": [
+      0,
+      2172,
+      1440,
+      614
+    ],
+    "footer": [
+      32,
+      2204,
+      1376,
+      550
+    ],
+    "contentPadding": 120,
+    "sectionPadding": 64,
+    "card": [
+      432,
+      478
+    ],
+    "gridGap": 24,
+    "columnGap": 32,
+    "sidebarPadding": 24,
+    "sidebarGap": 16,
+    "radii": [
+      8,
+      12,
+      24,
+      32,
+      9999
+    ]
+  },
+  "menuReferences": {
+    "city": "169:20562",
+    "area": "169:18143",
+    "listingType": "169:19583",
+    "propertyType": "169:20380",
+    "bedrooms": "169:20611",
+    "furnishing": "169:20861",
+    "amenities": "169:20927",
+    "availability": "169:20324",
+    "sort": "169:21357"
+  },
+  "assets": [
+    {
+      "file": "/assets/search-logo-header.svg",
+      "sha256": "d6a892e9868f20588a790621e00b2de84e5f39ef4244abd7985549909e439fa5"
+    },
+    {
+      "file": "/assets/search-chevron.svg",
+      "sha256": "594a56a0533e83256e62008000b0432262391f3f817c51dca43190489f5df1d6"
+    },
+    {
+      "file": "/assets/home-living-room.jpg",
+      "sha256": "c1d978cae6f7d358502c5cda9deb9acd6e1756fff2f646dd59e741c0a7eae1d2"
+    },
+    {
+      "file": "/assets/home-architecture.jpg",
+      "sha256": "78cad4b90b4e16e3786ddfa7da2e7eae28c75c770c21429635057c7318d2fe7c"
+    },
+    {
+      "file": "/assets/home-jabi.jpg",
+      "sha256": "3ed499d623af06e20514607471350e6ac9afa8ccf5c3662a8be4ff21cb9e58c0"
+    },
+    {
+      "file": "/assets/home-logo-footer.svg",
+      "sha256": "798b1872a85bf8445aaefd2d97f73f9962e678576b9a6a19ed22ab535b63536b"
+    }
+  ],
+  "assetReuse": "All three photo exports and footer logo downloaded independently from 14:220 and SHA256 matched homepage exports. Both location/neighbourhood chevrons byte-identical; one local SVG reused."
+}

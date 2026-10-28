@@ -17,7 +17,15 @@ export function Modal({
   useEffect(() => {
     const dialog = ref.current;
     if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
+    if (open && !dialog.open) {
+      const previousFocus = document.activeElement;
+      dialog.showModal();
+      return () => {
+        if (dialog.open) dialog.close();
+        if (previousFocus instanceof HTMLElement && previousFocus.isConnected)
+          previousFocus.focus();
+      };
+    }
     if (!open && dialog.open) dialog.close();
   }, [open]);
   return (
