@@ -245,3 +245,7 @@ Node `14:220` reuses the approved homepage palette, DM Sans, card gradient and e
 ## 18. Desktop detail implementation provenance
 
 Node `14:221` uses the shared brown/cream shell, three exact existing photographs (792×430 and two 384×207 slots), source 30/38 title typography and public verification/charge/availability copy. `frontend/src/design-tokens/detail-desktop.json` records source bounds and hashes. See [detail handoff](FIGMA_DESKTOP_DETAIL.md). Existing cards resolve matching fictional property slugs; safe relative return URLs preserve search preferences. Main detail has no filter dropdowns; the source report Reason menu is implemented in a contextual unavailable-service preview. Photos/Video buttons follow source gallery structure; no video is fabricated.
+
+## 19. Mobile browse and launch screen
+
+Mobile frames 14:224–227 use 20px insets/gaps, 32px hero/gallery corners, 470px property cards, a persistent 84px navigation bar, a 110px detail interest bar and a 106px filter action area. Heights include additional real safe-area padding where needed. `mobile-browse.json` and `mobile-assets.json` record source geometry and exact exported icons/photo reuse. The user-added launch view uses primary #643B29 and the existing white logo, once per mobile tab session with reduced-motion and CSS-only dismissal. The standalone manifest supplies local app icons; offline/private-data caching is not enabled. See [mobile handoff](FIGMA_MOBILE_BROWSE.md).

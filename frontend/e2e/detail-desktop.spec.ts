@@ -94,7 +94,9 @@ test("desktop detail matches source geometry, assets and public content", async 
       "Verification confirms the checks listed. It is not a guarantee of legal title.",
     ),
   ).toBeVisible();
-  await expect(page.getByText("Caution fee: ₦350,000")).toBeVisible();
+  await expect(
+    page.getByText("Caution fee: ₦350,000", { exact: true }),
+  ).toBeVisible();
   await expect(page.locator('meta[name="robots"]')).toHaveAttribute(
     "content",
     /noindex/,

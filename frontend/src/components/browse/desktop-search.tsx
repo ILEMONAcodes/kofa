@@ -1,5 +1,7 @@
+/* eslint-disable @next/next/no-img-element -- Exact Figma mobile icon exports. */
 "use client";
 import { useState } from "react";
+import { ResponsiveFilters } from "@/components/mobile/filters";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components/common/input";
 import { Button } from "@/components/common/button";
@@ -26,6 +28,7 @@ const labels: Record<ChoiceKey, string> = {
 };
 export function DesktopSearch({ query }: { query: string }) {
   const router = useRouter();
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const initial = readPreferences(new URLSearchParams(query));
   const [draft, setDraft] = useState(initial);
   const [other, setOther] = useState<Partial<Record<ChoiceKey, string>>>({});
@@ -34,6 +37,7 @@ export function DesktopSearch({ query }: { query: string }) {
     try {
       const params = preferencesQuery(next, other);
       setError("");
+      setFiltersOpen(false);
       router.push(`/properties?${params}`, { scroll: false });
     } catch (failure) {
       setError(
@@ -93,6 +97,38 @@ export function DesktopSearch({ query }: { query: string }) {
   }
   return (
     <>
+      <section className="mobile-only mobile-results-heading">
+        <h1>Explore {initial.city || "your options"}</h1>
+        <div className="mobile-query-row">
+          <button
+            className="mobile-search-pill"
+            onClick={() => setFiltersOpen(true)}
+          >
+            <img
+              src="/assets/mobile-search-active.svg"
+              width="22"
+              height="22"
+              alt=""
+            />
+            <span>
+              {initial.city || "Any location"} ·{" "}
+              {initial.listing_type === "sale" ? "Buy" : "Rent"}
+            </span>
+          </button>
+          <button
+            className="mobile-filter-trigger"
+            aria-label="Open filters"
+            onClick={() => setFiltersOpen(true)}
+          >
+            <img
+              src="/assets/mobile-filter.svg"
+              width="22"
+              height="22"
+              alt=""
+            />
+          </button>
+        </div>
+      </section>
       <section
         className="search-heading"
         data-node-id="15:176"
@@ -112,61 +148,82 @@ export function DesktopSearch({ query }: { query: string }) {
         </p>
       </section>
       <div className="search-workspace" data-node-id="15:180">
-        <form
-          className="search-sidebar"
-          data-node-id="15:181"
-          aria-label="Search preferences"
-          onSubmit={(event) => {
-            event.preventDefault();
-            apply();
-          }}
+        <ResponsiveFilters
+          open={filtersOpen}
+          onClose={() => setFiltersOpen(false)}
         >
-          <h2 className="text-home-card">Refine your search</h2>
-          {choice("city")}
-          {choice("area")}
-          {choice("listing_type")}
-          <SearchBudget
-            label="Minimum price"
-            value={draft.price_min}
-            onChange={(value) => setDraft({ ...draft, price_min: value })}
-          />
-          <SearchBudget
-            label="Maximum price"
-            value={draft.price_max}
-            onChange={(value) => setDraft({ ...draft, price_max: value })}
-          />
-          {choice("property_type")}
-          {choice("bedrooms")}
-          {choice("furnishing")}
-          {choice("amenities")}
-          {choice("availability")}
-          {draft.q && (
-            <Input
-              label="Text-search preference"
-              value={draft.q}
-              onChange={(event) =>
-                setDraft({ ...draft, q: event.target.value })
-              }
-            />
-          )}
-          {error && (
-            <p role="alert" className="text-sm text-danger">
-              {error}
-            </p>
-          )}
-          <Button type="submit">Apply filters</Button>
-          <Button
-            variant="subtle"
-            onClick={() => {
-              setDraft({ ...defaultPreferences });
-              setOther({});
-              setError("");
-              router.push("/properties", { scroll: false });
+          <form
+            className="search-sidebar"
+            data-node-id="15:181"
+            aria-label="Search preferences"
+            onSubmit={(event) => {
+              event.preventDefault();
+              apply();
             }}
           >
-            Clear filters
-          </Button>
-        </form>
+            <h2 className="text-home-card desktop-only">Refine your search</h2>
+            <h2 className="mobile-only mobile-filter-title">
+              Make it your search.
+            </h2>
+            <Button
+              className="mobile-only mobile-filter-back"
+              variant="subtle"
+              onClick={() => setFiltersOpen(false)}
+            >
+              Back to properties
+            </Button>
+            {choice("city")}
+            {choice("area")}
+            {choice("listing_type")}
+            <SearchBudget
+              label="Minimum price"
+              value={draft.price_min}
+              onChange={(value) => setDraft({ ...draft, price_min: value })}
+            />
+            <SearchBudget
+              label="Maximum price"
+              value={draft.price_max}
+              onChange={(value) => setDraft({ ...draft, price_max: value })}
+            />
+            {choice("property_type")}
+            {choice("bedrooms")}
+            {choice("furnishing")}
+            {choice("amenities")}
+            {choice("availability")}
+            {draft.q && (
+              <Input
+                label="Text-search preference"
+                value={draft.q}
+                onChange={(event) =>
+                  setDraft({ ...draft, q: event.target.value })
+                }
+              />
+            )}
+            {error && (
+              <p role="alert" className="text-sm text-danger">
+                {error}
+              </p>
+            )}
+            <div className="search-filter-actions">
+              <Button type="submit">
+                <span className="desktop-only">Apply filters</span>
+                <span className="mobile-only">Show properties</span>
+              </Button>
+              <Button
+                variant="subtle"
+                onClick={() => {
+                  setDraft({ ...defaultPreferences });
+                  setOther({});
+                  setError("");
+                  router.push("/properties", { scroll: false });
+                }}
+              >
+                <span className="desktop-only">Clear filters</span>
+                <span className="mobile-only">Clear</span>
+              </Button>
+            </div>
+          </form>
+        </ResponsiveFilters>
         <section
           className="search-results"
           data-node-id="15:281"

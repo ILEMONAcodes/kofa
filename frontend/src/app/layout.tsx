@@ -1,4 +1,5 @@
-import type { Metadata } from "next";
+import { MobileAppChrome } from "@/components/mobile/app-shell";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 const dmSans = localFont({
@@ -24,7 +25,16 @@ const instrumentSerif = localFont({
   variable: "--font-instrument-serif",
   display: "swap",
 });
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#643B29",
+};
 export const metadata: Metadata = {
+  manifest: "/manifest.webmanifest",
+  icons: { apple: "/assets/apple-touch-icon.png" },
+  appleWebApp: { capable: true, statusBarStyle: "default", title: "Kof’a" },
   title: {
     default: "Kof’a — The doorway to your home",
     template: "%s | Kof’a",
@@ -47,7 +57,18 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-        {children}
+        <noscript>
+          <style>{`#app-content,.mobile-launch,.mobile-bottom-nav{display:none!important}`}</style>
+          <main id="no-script-content" className="page-container">
+            <h1 className="text-3xl">Welcome to Kof’a</h1>
+            <p className="mt-4 text-muted">
+              Enable JavaScript to use property search, filters and the app
+              navigation.
+            </p>
+          </main>
+        </noscript>
+        <div id="app-content">{children}</div>
+        <MobileAppChrome />
       </body>
     </html>
   );

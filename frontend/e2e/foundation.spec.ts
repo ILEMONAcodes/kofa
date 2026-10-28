@@ -4,6 +4,7 @@ for (const width of [360, 768, 1280]) {
   test(`foundation routes and accessibility at ${width}px`, async ({
     page,
   }) => {
+    test.setTimeout(60000); // Seven route-level axe scans now include the full mobile browse content.
     await page.setViewportSize({ width, height: 900 });
     for (const path of [
       "/",
@@ -34,10 +35,18 @@ for (const width of [360, 768, 1280]) {
     await expect(
       page.getByRole("link", { name: "Skip to content" }),
     ).toBeFocused();
+    if (width < 768)
+      await page
+        .getByRole("button", { name: "Open filters", exact: true })
+        .click();
     await expect(
       page.getByRole("combobox", { name: "Location" }),
     ).toBeEnabled();
-    await page.evaluate(() => { if (document.activeElement instanceof HTMLElement) document.activeElement.blur(); });
+    if (width < 768) await page.keyboard.press("Escape");
+    await page.evaluate(() => {
+      if (document.activeElement instanceof HTMLElement)
+        document.activeElement.blur();
+    });
     await page.screenshot({
       path: `test-results/properties-${width}.png`,
       fullPage: true,
