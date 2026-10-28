@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { propertyDetailHref } from "@/lib/property-navigation";
 import Link from "next/link";
 import { Button } from "@/components/common/button";
 import { illustrativeListings } from "./home-content";
@@ -6,7 +7,13 @@ import { formatMoney } from "@/lib/formatters/money";
 // Six slots are transcribed from 14:220, including its repeated illustrative cards.
 const sourceSlots = [0, 1, 1, 2, 2, 0] as const;
 const sourceIds = ["15:292", "15:304", "15:317", "15:329", "15:342", "15:354"];
-export function SearchResults({ sort }: { sort: string }) {
+export function SearchResults({
+  sort,
+  query = "",
+}: {
+  sort: string;
+  query?: string;
+}) {
   const slots = sourceSlots.map((index, slot) => ({
     property: illustrativeListings[index],
     slot,
@@ -37,14 +44,23 @@ export function SearchResults({ sort }: { sort: string }) {
             />
             <div className="home-card-gradient" />
             <Link
-              href={`/properties/${property.slug}#verification`}
+              href={propertyDetailHref(
+                property.slug,
+                query ? `/properties?${query}` : undefined,
+                "verification",
+              )}
               className="home-verification-badge"
             >
               Verified on 20 Oct 2026
             </Link>
             <div className="home-card-copy">
               <h2 className="text-home-card">
-                <Link href={`/properties/${property.slug}`}>
+                <Link
+                  href={propertyDetailHref(
+                    property.slug,
+                    query ? `/properties?${query}` : undefined,
+                  )}
+                >
                   {property.title}
                 </Link>
               </h2>
@@ -60,7 +76,10 @@ export function SearchResults({ sort }: { sort: string }) {
               <p className="text-sm">{property.location}</p>
               <Link
                 className="text-home-caption"
-                href={`/properties/${property.slug}`}
+                href={propertyDetailHref(
+                  property.slug,
+                  query ? `/properties?${query}` : undefined,
+                )}
               >
                 Available · View property ↗
               </Link>

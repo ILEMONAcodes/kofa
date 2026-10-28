@@ -183,7 +183,7 @@ export function DesktopSearch({ query }: { query: string }) {
               property search is connected.
             </p>
           )}
-          <SearchResults sort={initial.sort} />
+          <SearchResults sort={initial.sort} query={query} />
         </section>
       </div>
     </>

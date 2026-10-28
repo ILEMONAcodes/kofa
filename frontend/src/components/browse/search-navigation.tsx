@@ -1,10 +1,23 @@
 /* eslint-disable @next/next/no-img-element -- Preserve fractional dimensions of the exported Figma vector. */
 import Link from "next/link";
 import { HomeLink } from "./home-link";
-export function SearchNavigation() {
+import { buttonStyles } from "@/components/common/button";
+export function SearchNavigation({
+  detail = false,
+  assistantHref = "/contact?topic=assistant",
+}: {
+  detail?: boolean;
+  assistantHref?: string;
+}) {
   return (
-    <header className="search-navigation-surround" data-node-id="28:781">
-      <div className="search-navigation" data-node-id="28:782">
+    <header
+      className="search-navigation-surround"
+      data-node-id={detail ? "28:826" : "28:781"}
+    >
+      <div
+        className="search-navigation"
+        data-node-id={detail ? "28:827" : "28:782"}
+      >
         <Link href="/" className="home-header-logo" aria-label="Kof’a home">
           <img
             src="/assets/search-logo-header.svg"
@@ -15,7 +28,7 @@ export function SearchNavigation() {
         </Link>
         <div className="home-nav-spacer" />
         <nav className="home-navigation-pill" aria-label="Main navigation">
-          <Link href="/properties" aria-current="page">
+          <Link href="/properties" aria-current={detail ? undefined : "page"}>
             Find a property
           </Link>
           <Link href="/#how-it-works">How it works</Link>
@@ -32,9 +45,18 @@ export function SearchNavigation() {
         <HomeLink href="/login" className="home-nav-login">
           Log in
         </HomeLink>
-        <HomeLink href="/contact?topic=assistant" className="home-nav-ask">
-          Ask Kof’a
-        </HomeLink>
+        {assistantHref.startsWith("#") ? (
+          <a
+            href={assistantHref}
+            className={buttonStyles("secondary", "home-nav-ask")}
+          >
+            Ask Kof’a
+          </a>
+        ) : (
+          <HomeLink href={assistantHref} className="home-nav-ask">
+            Ask Kof’a
+          </HomeLink>
+        )}
       </div>
     </header>
   );

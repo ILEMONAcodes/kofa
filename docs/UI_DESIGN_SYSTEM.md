@@ -241,3 +241,7 @@ The Plugin API reports opsz14, while Figma’s display raster matches the same v
 ## 17. Desktop search implementation provenance
 
 Node `14:220` reuses the approved homepage palette, DM Sans, card gradient and exact photo assets. `frontend/src/design-tokens/search-desktop.json` records its 1440×2786 geometry, menu references, disabled pagination paints and asset hashes. Location/neighbourhood use the exact exported 20px chevron. Amenities support multi-selection; Other maps to a text preference, never a fabricated taxonomy value. See [desktop search handoff](FIGMA_DESKTOP_SEARCH.md). Desktop presentation and URL state are implemented separately from real API and mobile acceptance.
+
+## 18. Desktop detail implementation provenance
+
+Node `14:221` uses the shared brown/cream shell, three exact existing photographs (792×430 and two 384×207 slots), source 30/38 title typography and public verification/charge/availability copy. `frontend/src/design-tokens/detail-desktop.json` records source bounds and hashes. See [detail handoff](FIGMA_DESKTOP_DETAIL.md). Existing cards resolve matching fictional property slugs; safe relative return URLs preserve search preferences. Main detail has no filter dropdowns; the source report Reason menu is implemented in a contextual unavailable-service preview. Photos/Video buttons follow source gallery structure; no video is fabricated.
