@@ -1,0 +1,296 @@
+/* Figma 43:983 — shared auth form shell, original token palette. */
+.listing-main {
+  width: 100%;
+  min-height: 100dvh;
+}
+.listing-screen .auth-header {
+  position: relative;
+}
+.listing-preview-tag {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  font-size: 12px;
+  line-height: 16px;
+  color: rgb(var(--muted));
+}
+.listing-eyebrow {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: 500;
+  color: rgb(var(--primary));
+}
+.listing-select-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.listing-select-group > .space-y-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.listing-select-group > .space-y-2 > :not([hidden]) ~ :not([hidden]),
+.listing-money .space-y-2 > :not([hidden]) ~ :not([hidden]) {
+  margin: 0;
+}
+.listing-select-group > .space-y-2 label {
+  font-size: 16px;
+  line-height: 24px;
+}
+.listing-select-group .field-control {
+  text-overflow: ellipsis;
+}
+.listing-source-chevron {
+  position: absolute;
+  right: 16px;
+  top: 46px;
+  pointer-events: none;
+  background: rgb(var(--surface));
+}
+.listing-select-group:has(.listing-source-chevron) svg {
+  display: none;
+}
+.listing-money {
+  position: relative;
+}
+.listing-money .space-y-2 {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.listing-money input {
+  padding-right: 96px;
+}
+.listing-money > div:last-child {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  display: flex;
+  gap: 4px;
+}
+.listing-money button {
+  width: 40px;
+  height: 40px;
+  border-radius: 9999px;
+  color: rgb(var(--primary));
+  background: rgb(var(--canvas));
+}
+.listing-form .home-select {
+  width: 100%;
+}
+.listing-form .home-field-label {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+.listing-form .home-select .field-control {
+  height: 48px;
+}
+.listing-form .home-select-menu {
+  max-width: 100%;
+}
+.listing-form .home-select .field-control > span:first-child {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.listing-textarea {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.listing-textarea textarea.field-control {
+  height: 144px;
+  resize: vertical;
+}
+.listing-media-fields {
+  display: contents;
+}
+.listing-media-fields[hidden] {
+  display: none !important;
+}
+.listing-photo-uploader,
+.listing-document-uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px;
+  border-radius: 24px;
+}
+.listing-photo-uploader {
+  border: 1px solid rgb(var(--border));
+}
+.listing-document-uploader {
+  background: rgb(var(--primary-tint));
+}
+.listing-photo-uploader h2,
+.listing-document-uploader h2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+}
+.listing-document-uploader h2 {
+  color: rgb(var(--primary));
+}
+.listing-document-uploader p {
+  overflow-wrap: anywhere;
+}
+.listing-photo-uploader > button,
+.listing-document-uploader > button,
+.listing-video-uploader > button {
+  width: 100%;
+}
+.listing-thumbnails {
+  display: flex;
+  gap: 12px;
+  overflow-x: auto;
+  min-height: 84px;
+}
+.listing-thumbnails button {
+  width: 110px;
+  height: 84px;
+  flex-shrink: 0;
+  border-radius: 24px;
+  overflow: hidden;
+}
+.listing-thumbnails img {
+  width: 110px;
+  height: 84px;
+  object-fit: cover;
+}
+.listing-video-uploader {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.listing-video-uploader h2 {
+  font-size: 24px;
+  line-height: 32px;
+  font-weight: 500;
+}
+.listing-video-uploader video {
+  width: 100%;
+  border-radius: 12px;
+  max-height: 280px;
+}
+.listing-media-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin-top: 20px;
+}
+.listing-media-manager p {
+  overflow-wrap: anywhere;
+}
+.listing-media-manager > div > div {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+.listing-consent {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+.listing-form .listing-consent {
+  font-size: 14px;
+  line-height: 20px;
+}
+.listing-consent > span:first-child {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  position: relative;
+}
+.listing-consent input {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--input-border));
+  border-radius: 4px;
+}
+.listing-consent input:checked {
+  background: rgb(var(--primary));
+}
+.listing-consent img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  display: none;
+}
+.listing-consent input:checked + img {
+  display: block;
+}
+.listing-status {
+  align-self: flex-start;
+  font-size: 12px;
+  line-height: 16px;
+  padding: 8px;
+  border-radius: 9999px;
+  background: rgb(var(--primary-tint));
+  color: rgb(var(--primary));
+}
+.listing-verification-step {
+  display: flex;
+  gap: 16px;
+}
+.listing-verification-step > span {
+  width: 40px;
+  flex-shrink: 0;
+  color: rgb(var(--primary));
+  font-size: 20px;
+  line-height: 28px;
+}
+.listing-verification-step > div {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.listing-verification-step h2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 500;
+}
+.listing-form .auth-callout > p {
+  white-space: pre-line;
+  overflow-wrap: anywhere;
+}
+.listing-error {
+  padding: 16px;
+  border: 1px solid rgb(var(--danger));
+  border-radius: 12px;
+  color: rgb(var(--danger));
+  font-size: 14px;
+  line-height: 20px;
+}
+.listing-error button {
+  margin-top: 12px;
+}
+@media (min-width: 768px) {
+  .listing-main {
+    padding: 32px;
+  }
+  .listing-preview-tag {
+    position: static;
+    display: block;
+  }
+  .listing-screen .auth-header {
+    flex-wrap: wrap;
+  }
+  .listing-preview-tag {
+    width: 100%;
+  }
+}
+
+/* Match the Figma single-line title using DM Sans’s size-appropriate optical rendering. */
+.listing-verification .listing-form h1 {
+  font-optical-sizing: auto;
+  font-variation-settings: normal;
+}
+.listing-review-video > button {
+  width: 100%;
+}

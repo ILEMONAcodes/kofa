@@ -2,8 +2,10 @@ import { SiteHeader } from "@/components/common/site-header";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <SiteHeader />
-      <main id="main-content" className="page-container">
+      <div className="desktop-only">
+        <SiteHeader />
+      </div>
+      <main id="main-content" className="listing-main">
         {children}
       </main>
     </>

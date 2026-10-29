@@ -255,3 +255,9 @@ Mobile frames 14:224–227 use 20px insets/gaps, 32px hero/gallery corners, 470p
 Nine views share the 108px brand header, 20px content inset/gap, DM Sans 30/38 medium heading, 16/24 body, 14/20 supporting copy, 48px controls and original brown/cream tokens. Login through password recovery use a persistent 154px action area and an independently scrollable form; account uses the existing 84px navigation. Safe-area padding extends these areas; no simulated status icons or device clipping in the website. Long registration content must remain reachable on short screens. Reuse common Input/Button/Modal and exact mobile SVG exports; active account uses `mobile-account-active.svg`.
 
 Presentation preview routes are documented in [the handoff](FIGMA_MOBILE_AUTH.md). Success/sample account states must be labelled as previews until backend-confirmed; real account remains signed out. Landlord contact registration stays at `/landlord` without a dedicated account.
+
+## 21. Mobile landlord listing — Figma 43:983
+
+Reuse the authentication form shell: 108px header, 20px content rhythm, 12/16 eyebrow, 30/38 heading, 48px controls and 154px persistent actions. Eight views cover six listing steps plus receipt and verification explanation. Photos use 110×84 thumbnails, 12px horizontal gaps and 24px corners. Evidence stays private; optional video is separate. Existing SVG/photo assets match the exports exactly; checkbox checkmark uses `listing-check.svg`.
+
+The local form uses `/landlord?step=<contact|property|pricing|features|uploads|review|verification>`. Explicit `preview=1` adds fictional sample data and receipt. Actual uploads, saved drafts, legal consent and submissions remain unavailable. No landlord account is introduced. See [mobile listing handoff](FIGMA_MOBILE_LANDLORD.md).
