@@ -303,8 +303,9 @@
   line-height: 24px;
   pointer-events: none;
 }
-.listing-money input {
+.listing-form .listing-money input {
   padding-left: 30px;
+  padding-right: 96px;
 }
 .listing-screen .auth-small,
 .listing-screen .auth-description,

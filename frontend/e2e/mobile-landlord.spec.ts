@@ -42,8 +42,30 @@ test("eight listing frames match source geometry and accessible assets", async (
           ?.y,
       ).toBe(314);
     }
-    if (step === "pricing")
+    if (step === "pricing") {
       await expect(page.locator(".listing-currency").first()).toHaveText("₦");
+      const spacing = await page
+        .locator(".listing-money")
+        .first()
+        .evaluate((element) => {
+          const input = element.querySelector("input")!;
+          const prefix = element.querySelector(".listing-currency")!;
+          return {
+            textStart:
+              input.getBoundingClientRect().left +
+              parseFloat(getComputedStyle(input).paddingLeft),
+            prefixEnd: prefix.getBoundingClientRect().right,
+            textEnd:
+              input.getBoundingClientRect().right -
+              parseFloat(getComputedStyle(input).paddingRight),
+            stepperStart: element
+              .querySelector("button")!
+              .getBoundingClientRect().left,
+          };
+        });
+      expect(spacing.textStart).toBeGreaterThan(spacing.prefixEnd);
+      expect(spacing.textEnd).toBeLessThan(spacing.stepperStart);
+    }
     if (step === "contact")
       expect(
         (await page.getByLabel("Full name", { exact: true }).boundingBox())?.y,
