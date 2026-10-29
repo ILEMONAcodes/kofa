@@ -1,0 +1,230 @@
+{
+  "fileKey": "TJtiCYvGNkGKJ6ibOIjGCd",
+  "section": "43:983",
+  "assets": [
+    {
+      "node": "51:1580",
+      "slot": "imgFrame",
+      "exportId": "c4ebcb65-ec5d-4028-99fe-bffbce140a9f.svg",
+      "index": 0,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "node": "51:1580",
+      "slot": "imgGroup",
+      "exportId": "d91ec24f-a63f-4a43-93c0-4a25694c6dea.svg",
+      "index": 1,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "node": "51:1785",
+      "slot": "imgFrame",
+      "exportId": "c3d86301-756e-49f0-9c29-2e93932d828c.svg",
+      "index": 2,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "node": "51:1785",
+      "slot": "imgGroup",
+      "exportId": "749dfad6-2166-49d9-85e9-c5e62ae6f230.svg",
+      "index": 3,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "node": "51:1785",
+      "slot": "imgDropdownChevron",
+      "exportId": "70135cf1-d5fc-461d-899d-aa69c5034e69.svg",
+      "index": 4,
+      "file": "search-chevron.svg",
+      "sha256": "594a56a0533e83256e62008000b0432262391f3f817c51dca43190489f5df1d6"
+    },
+    {
+      "node": "51:1785",
+      "slot": "imgDropdownChevron1",
+      "exportId": "1f66c8ea-beba-4751-8429-6b38c76d7604.svg",
+      "index": 5,
+      "file": "search-chevron.svg",
+      "sha256": "594a56a0533e83256e62008000b0432262391f3f817c51dca43190489f5df1d6"
+    },
+    {
+      "node": "51:1785",
+      "slot": "imgDropdownChevron2",
+      "exportId": "b4c56766-f86f-47d6-ab44-0765c879ba38.svg",
+      "index": 6,
+      "file": "search-chevron.svg",
+      "sha256": "594a56a0533e83256e62008000b0432262391f3f817c51dca43190489f5df1d6"
+    },
+    {
+      "node": "51:2002",
+      "slot": "imgFrame",
+      "exportId": "5d926c08-c3df-49a2-865c-fe79309a878f.svg",
+      "index": 7,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "node": "51:2002",
+      "slot": "imgGroup",
+      "exportId": "c58b628c-d317-480c-a4c1-580317160065.svg",
+      "index": 8,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "node": "51:2203",
+      "slot": "imgFrame",
+      "exportId": "27ede4d6-65ad-476a-a9bb-f7802da3f0b1.svg",
+      "index": 9,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "node": "51:2203",
+      "slot": "imgGroup",
+      "exportId": "38fa6b44-0280-4e3c-954f-5dcf572f6d40.svg",
+      "index": 10,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "node": "51:2380",
+      "slot": "imgSamplePhoto1",
+      "exportId": "2c212c25-92e1-41fe-9162-0154555a9833.png",
+      "index": 11,
+      "file": "home-living-room.jpg",
+      "sha256": "c1d978cae6f7d358502c5cda9deb9acd6e1756fff2f646dd59e741c0a7eae1d2"
+    },
+    {
+      "node": "51:2380",
+      "slot": "imgSamplePhoto2",
+      "exportId": "67e967fe-2258-426d-96e2-272bb1948507.png",
+      "index": 12,
+      "file": "home-architecture.jpg",
+      "sha256": "78cad4b90b4e16e3786ddfa7da2e7eae28c75c770c21429635057c7318d2fe7c"
+    },
+    {
+      "node": "51:2380",
+      "slot": "imgSamplePhoto3",
+      "exportId": "0d9809b4-3681-4ee1-ac28-108d870da23e.png",
+      "index": 13,
+      "file": "home-jabi.jpg",
+      "sha256": "3ed499d623af06e20514607471350e6ac9afa8ccf5c3662a8be4ff21cb9e58c0"
+    },
+    {
+      "node": "51:2380",
+      "slot": "imgFrame",
+      "exportId": "e98064d6-685e-468d-97de-369a7870e242.svg",
+      "index": 14,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "node": "51:2380",
+      "slot": "imgGroup",
+      "exportId": "10778e02-b76c-4c02-878b-65c1efdd7ccb.svg",
+      "index": 15,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "node": "51:2567",
+      "slot": "imgFrame",
+      "exportId": "20fad08a-9644-4461-8926-58e91e8d5511.svg",
+      "index": 16,
+      "file": "listing-check.svg",
+      "sha256": "3f34ba602862a1922d7a0760c58113507796ca747b5c702d9b6efebb02a7edd1"
+    },
+    {
+      "node": "51:2567",
+      "slot": "imgFrame1",
+      "exportId": "561f5464-02bc-4414-be3e-737a9e8db769.svg",
+      "index": 17,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "node": "51:2567",
+      "slot": "imgGroup",
+      "exportId": "66daae22-ebee-472e-9a68-442cc1bcc261.svg",
+      "index": 18,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "node": "51:2730",
+      "slot": "imgFrame",
+      "exportId": "83be5aee-f346-4296-89cd-456b58c0c418.svg",
+      "index": 19,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "node": "51:2730",
+      "slot": "imgGroup",
+      "exportId": "ad37eb02-2239-4636-b3fb-8fe85c3db6db.svg",
+      "index": 20,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "node": "51:2848",
+      "slot": "imgFrame",
+      "exportId": "5d598f31-7ecf-4085-a761-75b87cc75deb.svg",
+      "index": 21,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "node": "51:2848",
+      "slot": "imgGroup",
+      "exportId": "8c49f8c0-bdb1-4b56-8c3c-05a349d005b4.svg",
+      "index": 22,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    }
+  ],
+  "tokens": {
+    "palette": "Existing original Figma brown/cream tokens; no overrides",
+    "font": {
+      "family": "DM Sans",
+      "opticalSize": 14,
+      "heading": [30, 38, 500],
+      "body": [16, 24, 400],
+      "small": [14, 20, 400],
+      "eyebrow": [12, 16, 500],
+      "uploadHeading": [20, 28, 500],
+      "videoHeading": [24, 32, 500]
+    },
+    "geometry": {
+      "canvas": [390, 844],
+      "header": 108,
+      "inset": 20,
+      "gap": 20,
+      "eyebrowY": 128,
+      "headingY": 164,
+      "firstContactInputY": 322,
+      "actionY": 690,
+      "actionHeight": 154,
+      "photoThumbnail": [110, 84],
+      "photoGap": 12
+    },
+    "radii": {
+      "photo": 24,
+      "uploader": 24,
+      "field": 8,
+      "callout": 12,
+      "button": 9999
+    }
+  },
+  "notes": [
+    "Source success receipt and illustrative media only behind ?preview=1.",
+    "The persistent form shell reuses authentication layout styles. Device rounding/OS clock are not web UI.",
+    "All 23 exports verified against local assets; only listing-check.svg is new.",
+    "No real uploads, server draft saving, service progress or publication in this presentation.",
+    "Verification H1 uses automatic DM Sans optical sizing at its source 30px size to reproduce the screenshot\u2019s single 38px line; forcing opsz14 produced a spurious extra line. Body metadata remains opsz14."
+  ]
+}
