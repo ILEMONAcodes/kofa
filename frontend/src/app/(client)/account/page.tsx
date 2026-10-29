@@ -1,10 +1,9 @@
-import { StatePanel } from "@/components/common/state-panel";
+import { Suspense } from "react";
+import { AuthScreenView } from "@/components/features/auth/auth-screen";
 export default function Account() {
   return (
-    <StatePanel title="Your Kof’a account">
-      <p>
-        Account access will require sign-in when authentication is connected.
-      </p>
-    </StatePanel>
+    <Suspense fallback={<p className="p-5">Loading…</p>}>
+      <AuthScreenView screen="account" />
+    </Suspense>
   );
 }

@@ -79,7 +79,9 @@ export function MobileAppChrome() {
   const browse =
     pathname === "/" ||
     pathname === "/properties" ||
-    pathname.startsWith("/properties/");
+    pathname.startsWith("/properties/") ||
+    pathname === "/account" ||
+    pathname === "/auth-preview/account";
   const items = [
     {
       href: "/",
@@ -98,7 +100,14 @@ export function MobileAppChrome() {
       label: "Inquiries",
       icon: "mobile-inquiries",
     },
-    { href: "/account", label: "Account", icon: "mobile-account" },
+    {
+      href: "/account",
+      label: "Account",
+      icon:
+        pathname === "/account" || pathname === "/auth-preview/account"
+          ? "mobile-account-active"
+          : "mobile-account",
+    },
   ];
   return (
     <>
@@ -113,7 +122,11 @@ export function MobileAppChrome() {
               href={item.href}
               aria-current={
                 (item.label === "Home" && pathname === "/") ||
-                (item.label === "Explore" && pathname.startsWith("/properties"))
+                (item.label === "Explore" &&
+                  pathname.startsWith("/properties")) ||
+                (item.label === "Account" &&
+                  (pathname === "/account" ||
+                    pathname === "/auth-preview/account"))
                   ? "page"
                   : undefined
               }
