@@ -249,3 +249,9 @@ Node `14:221` uses the shared brown/cream shell, three exact existing photograph
 ## 19. Mobile browse and launch screen
 
 Mobile frames 14:224–227 use 20px insets/gaps, 32px hero/gallery corners, 470px property cards, a persistent 84px navigation bar, a 110px detail interest bar and a 106px filter action area. Heights include additional real safe-area padding where needed. `mobile-browse.json` and `mobile-assets.json` record source geometry and exact exported icons/photo reuse. The user-added launch view uses primary #643B29 and the existing white logo, once per mobile tab session with reduced-motion and CSS-only dismissal. The standalone manifest supplies local app icons; offline/private-data caching is not enabled. See [mobile handoff](FIGMA_MOBILE_BROWSE.md).
+
+## 20. Mobile authentication — Figma 43:981
+
+Nine views share the 108px brand header, 20px content inset/gap, DM Sans 30/38 medium heading, 16/24 body, 14/20 supporting copy, 48px controls and original brown/cream tokens. Login through password recovery use a persistent 154px action area and an independently scrollable form; account uses the existing 84px navigation. Safe-area padding extends these areas; no simulated status icons or device clipping in the website. Long registration content must remain reachable on short screens. Reuse common Input/Button/Modal and exact mobile SVG exports; active account uses `mobile-account-active.svg`.
+
+Presentation preview routes are documented in [the handoff](FIGMA_MOBILE_AUTH.md). Success/sample account states must be labelled as previews until backend-confirmed; real account remains signed out. Landlord contact registration stays at `/landlord` without a dedicated account.

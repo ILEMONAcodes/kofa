@@ -1,11 +1,13 @@
-import { StatePanel } from "@/components/common/state-panel";
-export default function Login() {
+import { Suspense } from "react";
+import { AuthScreenView } from "@/components/features/auth/auth-screen";
+export const metadata = {
+  title: "Kof’a — login",
+  robots: { index: false, follow: false },
+};
+export default function Page() {
   return (
-    <StatePanel title="Welcome back.">
-      <p>
-        Sign-in will be available when authentication is connected. No
-        credentials are collected in this foundation preview.
-      </p>
-    </StatePanel>
+    <Suspense fallback={<p className="p-5">Loading…</p>}>
+      <AuthScreenView screen="login" />
+    </Suspense>
   );
 }

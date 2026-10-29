@@ -1,0 +1,312 @@
+{
+  "fileKey": "TJtiCYvGNkGKJ6ibOIjGCd",
+  "section": "43:981",
+  "screens": [
+    {
+      "node": "29:1187",
+      "assets": [
+        {
+          "exportId": "fda34173-2dd7-4136-ad92-999607367d01.svg",
+          "index": 0
+        },
+        {
+          "exportId": "98562a7a-7443-4784-99b2-28c6a1e9af4a.svg",
+          "index": 1
+        }
+      ]
+    },
+    {
+      "node": "47:1232",
+      "assets": [
+        {
+          "exportId": "22e23e01-c85f-480b-ac5b-76feb70af9c6.svg",
+          "index": 2
+        },
+        {
+          "exportId": "c12de2ea-f9fc-43d7-bd07-126990c0131e.svg",
+          "index": 3
+        }
+      ]
+    },
+    {
+      "node": "47:1388",
+      "assets": [
+        {
+          "exportId": "d97841dd-38b0-449e-a64e-ecd78ff7e86b.svg",
+          "index": 4
+        },
+        {
+          "exportId": "f4f830e5-afe7-4fb3-8c36-525259110829.svg",
+          "index": 5
+        }
+      ]
+    },
+    {
+      "node": "47:1508",
+      "assets": [
+        {
+          "exportId": "e9638562-ca18-4ba1-b3e6-202808ad4c79.svg",
+          "index": 6
+        },
+        {
+          "exportId": "345d5c57-0337-4c60-9e7b-35e964f2643f.svg",
+          "index": 7
+        }
+      ]
+    },
+    {
+      "node": "47:1625",
+      "assets": [
+        {
+          "exportId": "2a5274be-d4df-4a4c-856f-0ccc2eb28779.svg",
+          "index": 8
+        },
+        {
+          "exportId": "20cffa26-df0a-468a-869b-cb66da066b3b.svg",
+          "index": 9
+        }
+      ]
+    },
+    {
+      "node": "47:1742",
+      "assets": [
+        {
+          "exportId": "4f62c944-f0e0-425d-9859-fff31d2d1087.svg",
+          "index": 10
+        },
+        {
+          "exportId": "175db270-2b7d-4be0-b836-4f6d658626fe.svg",
+          "index": 11
+        }
+      ]
+    },
+    {
+      "node": "47:1866",
+      "assets": [
+        {
+          "exportId": "bd28a52b-7203-4adc-b026-6d307647b202.svg",
+          "index": 12
+        },
+        {
+          "exportId": "530d183a-24af-4b42-a1da-b066eb72ec1a.svg",
+          "index": 13
+        }
+      ]
+    },
+    {
+      "node": "47:1983",
+      "assets": [
+        {
+          "exportId": "f2bf23e2-a79b-4453-be30-3ed1250a7cf8.svg",
+          "index": 14
+        },
+        {
+          "exportId": "3257a53f-0a4c-4df7-a87c-ce882b6dc6b8.svg",
+          "index": 15
+        }
+      ]
+    },
+    {
+      "node": "47:2107",
+      "assets": [
+        {
+          "exportId": "01af7f0b-baaf-4bf8-8a63-ee503dfe5c44.svg",
+          "index": 16
+        },
+        {
+          "exportId": "7056a182-86b7-45f8-b885-84cf67c7fd18.svg",
+          "index": 17
+        },
+        {
+          "exportId": "5afe895a-4bf2-4848-909f-a1ff5f0d5163.svg",
+          "index": 18
+        },
+        {
+          "exportId": "50422bb4-46fa-415b-a74f-4168e1a8fb2f.svg",
+          "index": 19
+        },
+        {
+          "exportId": "ce86707f-c6d8-4038-b108-f0292ecdf65f.svg",
+          "index": 20
+        },
+        {
+          "exportId": "bfb3c14e-2d47-451c-b7e0-8c7477818823.svg",
+          "index": 21
+        }
+      ]
+    }
+  ],
+  "tokens": {
+    "font": {
+      "family": "DM Sans",
+      "opticalSize": 14,
+      "heading": {
+        "size": 30,
+        "lineHeight": 38,
+        "weight": 500
+      },
+      "body": {
+        "size": 16,
+        "lineHeight": 24,
+        "weight": 400
+      },
+      "small": {
+        "size": 14,
+        "lineHeight": 20,
+        "weight": 400
+      }
+    },
+    "colors": {
+      "canvas": "#F7F3EE",
+      "primary": "#643B29",
+      "ink": "#281C16",
+      "muted": "#6A584D",
+      "tint": "#F0E7DE",
+      "surface": "#FFFFFF",
+      "border": "#DED3C9",
+      "inputBorder": "#8B7465",
+      "success": "#356344"
+    },
+    "spacing": {
+      "formInset": 20,
+      "gap": 20,
+      "headerTop": 52,
+      "headerBrandHeight": 36,
+      "actionGap": 12,
+      "calloutInset": 16,
+      "calloutGap": 8
+    },
+    "radius": {
+      "input": 8,
+      "callout": 12,
+      "button": 9999,
+      "figmaDeviceShell": 32
+    },
+    "geometry": {
+      "canvas": [390, 844],
+      "headerHeight": 108,
+      "formHeadingY": 128,
+      "actionTop": 690,
+      "actionHeight": 154,
+      "bottomNavigationHeight": 84
+    }
+  },
+  "notes": [
+    "Device corner rounding and simulated OS clock/battery belong to the Figma canvas, not production web content.",
+    "Existing source assets verified byte-for-byte; active account icon exported separately.",
+    "Success/account sample screens are explicit previews, never authenticated state.",
+    "Native form validation used for this presentation-only slice; RHF/Zod and API error mapping remain FE-3.5 integration work."
+  ],
+  "assets": [
+    {
+      "index": 0,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 1,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 2,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 3,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 4,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 5,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 6,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 7,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 8,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 9,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 10,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 11,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 12,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 13,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 14,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 15,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 16,
+      "file": "mobile-back.svg",
+      "sha256": "e36b88f332ef021562d3e3ee883c32822b926a56115d678dd1c9da74454ddee3"
+    },
+    {
+      "index": 17,
+      "file": "mobile-logo.svg",
+      "sha256": "7b84499e2e8a871d5c01739cd3d9fa816296de37c1fb6530969a33a6209c907e"
+    },
+    {
+      "index": 18,
+      "file": "mobile-home.svg",
+      "sha256": "2918fc4a8ace57d3711022a49a870e89e3f1ad24e12fbda66badf6b9f4eb93b1"
+    },
+    {
+      "index": 19,
+      "file": "mobile-search.svg",
+      "sha256": "b858825f36a4b5fd8b9cc7956528a63d9e73669b195f606144bc1cdfe3532ac3"
+    },
+    {
+      "index": 20,
+      "file": "mobile-inquiries.svg",
+      "sha256": "ae0ef23e6859b3cbe26ce24858d39295d32424507a123fcf6812d936cdbe23bc"
+    },
+    {
+      "index": 21,
+      "file": "mobile-account-active.svg",
+      "sha256": "5af8b7728ef6bee8cdf29fd7be1593dd9c3a7c46df4f6820cedcb9dc1ecb5250"
+    }
+  ]
+}
