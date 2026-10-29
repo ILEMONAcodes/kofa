@@ -200,6 +200,9 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
     };
     return (
       <div className="listing-money">
+        <span className="listing-currency" aria-hidden="true">
+          ₦
+        </span>
         <Input
           label={label}
           name={key}

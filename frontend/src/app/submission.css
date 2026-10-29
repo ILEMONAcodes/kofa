@@ -294,3 +294,20 @@
 .listing-review-video > button {
   width: 100%;
 }
+
+.listing-money .listing-currency {
+  position: absolute;
+  left: 16px;
+  bottom: 12px;
+  color: rgb(var(--ink));
+  line-height: 24px;
+  pointer-events: none;
+}
+.listing-money input {
+  padding-left: 30px;
+}
+.listing-screen .auth-small,
+.listing-screen .auth-description,
+.listing-error {
+  overflow-wrap: anywhere;
+}

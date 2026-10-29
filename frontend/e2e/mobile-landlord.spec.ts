@@ -42,6 +42,8 @@ test("eight listing frames match source geometry and accessible assets", async (
           ?.y,
       ).toBe(314);
     }
+    if (step === "pricing")
+      await expect(page.locator(".listing-currency").first()).toHaveText("₦");
     if (step === "contact")
       expect(
         (await page.getByLabel("Full name", { exact: true }).boundingBox())?.y,
