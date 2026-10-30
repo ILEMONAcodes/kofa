@@ -1,0 +1,5247 @@
+[
+  {
+    "slug": "media",
+    "id": "82:2477",
+    "blocks": [
+      {
+        "id": "82:2522",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:2523",
+        "name": "",
+        "type": "text",
+        "text": "Show the space. Tell its story.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:2524",
+        "name": "",
+        "type": "text",
+        "text": "Listing step 5 of 6 · Photos, optional video and private evidence",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:2525",
+        "name": "",
+        "type": "text",
+        "text": "Property photos · Required",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:2526",
+        "name": "",
+        "type": "text",
+        "text": "5–20 photos · JPEG / PNG / WebP · 10 MB each",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:2527",
+        "name": "Photo previews",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:2528",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-living-room.jpg",
+            "height": 110.0,
+            "radius": 24.0
+          },
+          {
+            "id": "82:2529",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-architecture.jpg",
+            "height": 110.0,
+            "radius": 24.0
+          },
+          {
+            "id": "82:2530",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-jabi.jpg",
+            "height": 110.0,
+            "radius": 24.0
+          }
+        ]
+      },
+      {
+        "id": "82:2531",
+        "name": "living-room.webp",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2532",
+            "name": "",
+            "type": "text",
+            "text": "living-room.webp",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2533",
+            "name": "",
+            "type": "text",
+            "text": "Ready · Photo 1 · Cover",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2534",
+        "name": "bedroom.jpg",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2535",
+            "name": "",
+            "type": "text",
+            "text": "bedroom.jpg",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2536",
+            "name": "",
+            "type": "text",
+            "text": "Ready · Photo 2",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2537",
+        "name": "Choose property photos",
+        "type": "action",
+        "text": "Choose property photos",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "82:2544",
+        "name": "Selected photo caption (optional)",
+        "type": "field",
+        "label": "Selected photo caption (optional)",
+        "value": "Living room",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:2551",
+        "name": "Display order",
+        "type": "field",
+        "label": "Display order",
+        "value": "1",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:2558",
+        "name": "Cover photo",
+        "type": "field",
+        "label": "Cover photo",
+        "value": "Living room ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "82:2565",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:2566",
+            "name": "Preview selected photo",
+            "type": "action",
+            "text": "Preview selected photo",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:2573",
+            "name": "Remove selected photo",
+            "type": "action",
+            "text": "Remove selected photo",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "82:2580",
+        "name": "",
+        "type": "text",
+        "text": "Walkthrough video · Optional",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:2581",
+        "name": "",
+        "type": "text",
+        "text": "One MP4 or WebM · Maximum 100 MB · No automatic transcoding",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:2582",
+        "name": "walkthrough.mp4",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2583",
+            "name": "",
+            "type": "text",
+            "text": "walkthrough.mp4",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2584",
+            "name": "",
+            "type": "text",
+            "text": "Ready · 42 MB",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2585",
+        "name": "Choose or replace video",
+        "type": "action",
+        "text": "Choose or replace video",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "82:2592",
+        "name": "Video player",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 16.0,
+        "radius": 24.0,
+        "row": false,
+        "border": false,
+        "tone": "dark",
+        "children": [
+          {
+            "id": "82:2593",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-architecture.jpg",
+            "height": 180.0,
+            "radius": 24.0
+          },
+          {
+            "id": "82:2594",
+            "name": "",
+            "type": "text",
+            "text": "▶  Property walkthrough",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "inverse"
+          },
+          {
+            "id": "82:2595",
+            "name": "",
+            "type": "text",
+            "text": "00:00 / 01:24    ━━━━━━━━━    Volume  ·  Captions  ·  Full screen",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "inverse"
+          },
+          {
+            "id": "82:2596",
+            "name": "Play walkthrough",
+            "type": "action",
+            "text": "Play walkthrough",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "82:2603",
+        "name": "",
+        "type": "text",
+        "text": "Tap to play. Video does not autoplay.",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "82:2604",
+        "name": "",
+        "type": "text",
+        "text": "Ownership / authorisation evidence · Private",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:2605",
+        "name": "",
+        "type": "text",
+        "text": "At least 1 evidence document · Maximum 10 · PDF / JPEG / PNG · 10 MB each",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:2606",
+        "name": "sample-ownership-proof.pdf",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2607",
+            "name": "",
+            "type": "text",
+            "text": "sample-ownership-proof.pdf",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2608",
+            "name": "",
+            "type": "text",
+            "text": "Ready · Private to authorised staff",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2609",
+        "name": "Add evidence",
+        "type": "action",
+        "text": "Add evidence",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "82:2616",
+        "name": "Keep the distinction clear",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2617",
+            "name": "",
+            "type": "text",
+            "text": "Keep the distinction clear",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2618",
+            "name": "",
+            "type": "text",
+            "text": "Property photos and optional video may be published after approval. Ownership and identity documents remain private.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2619",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:2620",
+            "name": "Review my listing",
+            "type": "action",
+            "text": "Review my listing",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:2627",
+            "name": "Back to features",
+            "type": "action",
+            "text": "Back to features",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "uploading",
+    "id": "82:2711",
+    "blocks": [
+      {
+        "id": "82:2756",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:2757",
+        "name": "",
+        "type": "text",
+        "text": "Your media is on its way.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:2758",
+        "name": "",
+        "type": "text",
+        "text": "Keep this page open while uploading.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:2759",
+        "name": "",
+        "type": "text",
+        "text": "Uploading files",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:2760",
+        "name": "",
+        "type": "text",
+        "text": "Files are validated by type, size and content.",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:2761",
+        "name": "living-room.webp",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2762",
+            "name": "",
+            "type": "text",
+            "text": "living-room.webp",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2763",
+            "name": "",
+            "type": "text",
+            "text": "Uploaded · 2.4 MB",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2764",
+        "name": "bedroom.jpg",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2765",
+            "name": "",
+            "type": "text",
+            "text": "bedroom.jpg",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2766",
+            "name": "",
+            "type": "text",
+            "text": "Uploading · 64% · 4.1 MB",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2767",
+        "name": "ownership-proof.pdf",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2768",
+            "name": "",
+            "type": "text",
+            "text": "ownership-proof.pdf",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2769",
+            "name": "",
+            "type": "text",
+            "text": "Waiting · Private",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2770",
+        "name": "View completed upload",
+        "type": "action",
+        "text": "View completed upload",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "82:2777",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:2778",
+            "name": "Cancel this upload",
+            "type": "action",
+            "text": "Cancel this upload",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:2785",
+            "name": "See retry state",
+            "type": "action",
+            "text": "See retry state",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "upload-complete",
+    "id": "82:2854",
+    "blocks": [
+      {
+        "id": "82:2899",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:2900",
+        "name": "",
+        "type": "text",
+        "text": "Ready for review.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:2901",
+        "name": "",
+        "type": "text",
+        "text": "5 photos and 1 private evidence document are ready. Video is optional.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:2902",
+        "name": "Upload completed",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:2903",
+            "name": "",
+            "type": "text",
+            "text": "Upload completed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:2904",
+            "name": "",
+            "type": "text",
+            "text": "Your files passed upload checks. Listing publication still requires staff verification and current landlord approval.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:2905",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:2906",
+            "name": "Back to media",
+            "type": "action",
+            "text": "Back to media",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:2913",
+            "name": "Review my listing",
+            "type": "action",
+            "text": "Review my listing",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "upload-failed",
+    "id": "82:2982",
+    "blocks": [
+      {
+        "id": "82:3027",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:3028",
+        "name": "",
+        "type": "text",
+        "text": "One file needs another try.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3029",
+        "name": "",
+        "type": "text",
+        "text": "Your completed uploads are retained in this design state.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:3030",
+        "name": "Upload failed",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:3031",
+            "name": "",
+            "type": "text",
+            "text": "Upload failed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:3032",
+            "name": "",
+            "type": "text",
+            "text": "walkthrough.mp4 could not upload because the connection was interrupted. Retry or remove the optional video.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:3033",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:3034",
+            "name": "Retry upload",
+            "type": "action",
+            "text": "Retry upload",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:3041",
+            "name": "Remove optional video",
+            "type": "action",
+            "text": "Remove optional video",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "unsupported-file",
+    "id": "82:3110",
+    "blocks": [
+      {
+        "id": "82:3155",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:3156",
+        "name": "",
+        "type": "text",
+        "text": "Choose a supported file.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3157",
+        "name": "",
+        "type": "text",
+        "text": "No invalid file has been added.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:3158",
+        "name": "File exceeds the limit",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:3159",
+            "name": "",
+            "type": "text",
+            "text": "File exceeds the limit",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:3160",
+            "name": "",
+            "type": "text",
+            "text": "walkthrough.mov is unsupported or too large. Use one MP4/WebM video up to 100 MB. Photos: JPEG/PNG/WebP up to 10 MB; documents: PDF/JPEG/PNG up to 10 MB.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:3161",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:3162",
+            "name": "Choose another file",
+            "type": "action",
+            "text": "Choose another file",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:3169",
+            "name": "Back to media",
+            "type": "action",
+            "text": "Back to media",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "add-video",
+    "id": "82:3247",
+    "blocks": [
+      {
+        "id": "82:3292",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:3293",
+        "name": "",
+        "type": "text",
+        "text": "Add a walkthrough.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3294",
+        "name": "",
+        "type": "text",
+        "text": "Optional video · One file only",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:3295",
+        "name": "",
+        "type": "text",
+        "text": "Choose your video",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3296",
+        "name": "",
+        "type": "text",
+        "text": "MP4 / WebM · Up to 100 MB · Check that faces, personal details and private documents are not visible.",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:3297",
+        "name": "Choose video file",
+        "type": "action",
+        "text": "Choose video file",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "82:3304",
+        "name": "Video guidance",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:3305",
+            "name": "",
+            "type": "text",
+            "text": "Video guidance",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:3306",
+            "name": "",
+            "type": "text",
+            "text": "A steady walkthrough helps people understand the layout. Video length is not limited by the current contract; file size is.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:3307",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:3308",
+            "name": "Skip video",
+            "type": "action",
+            "text": "Skip video",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:3315",
+            "name": "Unsupported-file example",
+            "type": "action",
+            "text": "Unsupported-file example",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "photo-preview",
+    "id": "82:3389",
+    "blocks": [
+      {
+        "id": "82:3434",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:3435",
+        "name": "",
+        "type": "text",
+        "text": "A closer look at the space.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3436",
+        "name": "",
+        "type": "text",
+        "text": "Living room · Photo 1 of 5",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:3437",
+        "name": "Illustrative property photo",
+        "type": "image",
+        "src": "/assets/home-living-room.jpg",
+        "height": 220.0,
+        "radius": 24.0
+      },
+      {
+        "id": "82:3438",
+        "name": "Caption",
+        "type": "field",
+        "label": "Caption",
+        "value": "Living room",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:3445",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:3446",
+            "name": "Use as cover",
+            "type": "action",
+            "text": "Use as cover",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:3453",
+            "name": "Back to photos",
+            "type": "action",
+            "text": "Back to photos",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "remove-photo",
+    "id": "82:3523",
+    "blocks": [
+      {
+        "id": "82:3568",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:3569",
+        "name": "",
+        "type": "text",
+        "text": "Remove this photo?",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3570",
+        "name": "",
+        "type": "text",
+        "text": "You must have at least 5 photos before final submission.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:3571",
+        "name": "Illustrative property photo",
+        "type": "image",
+        "src": "/assets/home-living-room.jpg",
+        "height": 220.0,
+        "radius": 24.0
+      },
+      {
+        "id": "82:3572",
+        "name": "Photo minimum",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:3573",
+            "name": "",
+            "type": "text",
+            "text": "Photo minimum",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:3574",
+            "name": "",
+            "type": "text",
+            "text": "If this leaves fewer than 5 photos, add another before submitting. Add at least 5 photos before submitting.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:3575",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:3576",
+            "name": "Remove and return",
+            "type": "action",
+            "text": "Remove and return",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:3583",
+            "name": "Keep photo",
+            "type": "action",
+            "text": "Keep photo",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "gallery",
+    "id": "82:3667",
+    "blocks": [
+      {
+        "id": "82:3712",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:3713",
+        "name": "",
+        "type": "text",
+        "text": "Explore every angle.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3714",
+        "name": "",
+        "type": "text",
+        "text": "3-bedroom flat · Wuse 2 · Photos and walkthrough",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:3715",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:3716",
+            "name": "Photos",
+            "type": "action",
+            "text": "Photos",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:3723",
+            "name": "Video walkthrough",
+            "type": "action",
+            "text": "Video walkthrough",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "82:3730",
+        "name": "Illustrative property photo",
+        "type": "image",
+        "src": "/assets/home-living-room.jpg",
+        "height": 220.0,
+        "radius": 24.0
+      },
+      {
+        "id": "82:3731",
+        "name": "",
+        "type": "text",
+        "text": "Living room · 1 of 5",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3732",
+        "name": "",
+        "type": "text",
+        "text": "Use previous/next photo controls in the full gallery.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3733",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:3734",
+            "name": "Next photo",
+            "type": "action",
+            "text": "Next photo",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:3741",
+            "name": "Back to property",
+            "type": "action",
+            "text": "Back to property",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "gallery-photo",
+    "id": "82:3815",
+    "blocks": [
+      {
+        "id": "82:3860",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:3861",
+        "name": "",
+        "type": "text",
+        "text": "Room to make it yours.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:3862",
+        "name": "",
+        "type": "text",
+        "text": "3-bedroom flat · Wuse 2 · Photo 2 of 5",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:3863",
+        "name": "Illustrative property photo",
+        "type": "image",
+        "src": "/assets/home-jabi.jpg",
+        "height": 220.0,
+        "radius": 24.0
+      },
+      {
+        "id": "82:3864",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:3865",
+            "name": "Previous photo",
+            "type": "action",
+            "text": "Previous photo",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:3872",
+            "name": "Video walkthrough",
+            "type": "action",
+            "text": "Video walkthrough",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:3879",
+            "name": "Back to property",
+            "type": "action",
+            "text": "Back to property",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "walkthrough",
+    "id": "82:3964",
+    "blocks": [
+      {
+        "id": "82:4009",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:4010",
+        "name": "",
+        "type": "text",
+        "text": "Walk through your next chapter.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4011",
+        "name": "",
+        "type": "text",
+        "text": "3-bedroom flat · Wuse 2 · Optional property video",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4012",
+        "name": "Video player",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 16.0,
+        "radius": 24.0,
+        "row": false,
+        "border": false,
+        "tone": "dark",
+        "children": [
+          {
+            "id": "82:4013",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-architecture.jpg",
+            "height": 180.0,
+            "radius": 24.0
+          },
+          {
+            "id": "82:4014",
+            "name": "",
+            "type": "text",
+            "text": "▶  Property walkthrough",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "inverse"
+          },
+          {
+            "id": "82:4015",
+            "name": "",
+            "type": "text",
+            "text": "00:00 / 01:24    ━━━━━━━━━    Volume  ·  Captions  ·  Full screen",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "inverse"
+          },
+          {
+            "id": "82:4016",
+            "name": "Play walkthrough",
+            "type": "group",
+            "gap": 0,
+            "padding": 0,
+            "radius": 9999.0,
+            "row": true,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "I82:4016;13:99",
+                "name": "SDS / Button",
+                "type": "action",
+                "text": "Play walkthrough",
+                "variant": "neutral",
+                "disabled": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "82:4023",
+        "name": "",
+        "type": "text",
+        "text": "Tap to play. Video does not autoplay.",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4024",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4025",
+            "name": "Photos",
+            "type": "action",
+            "text": "Photos",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:4032",
+            "name": "Back to property",
+            "type": "action",
+            "text": "Back to property",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:4039",
+            "name": "Express interest",
+            "type": "action",
+            "text": "Express interest",
+            "variant": "primary",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "report",
+    "id": "82:4157",
+    "blocks": [
+      {
+        "id": "82:4202",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:4203",
+        "name": "",
+        "type": "text",
+        "text": "Something doesn’t look right?",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4204",
+        "name": "",
+        "type": "text",
+        "text": "Report this listing. Our team investigates before deciding on action.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4205",
+        "name": "",
+        "type": "text",
+        "text": "Listing",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4206",
+        "name": "",
+        "type": "text",
+        "text": "3-bedroom flat · Wuse 2",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "167:20677",
+        "name": "Preference selector / Reason",
+        "type": "field",
+        "label": "Reason",
+        "value": "Asked to pay outside Kof’a ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:report:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Describe the concern",
+        "value": "20–2,000 characters. Please describe what happened.",
+        "error": null
+      },
+      {
+        "id": "82:4218",
+        "name": "Name (optional)",
+        "type": "field",
+        "label": "Name (optional)",
+        "value": "Your name",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:4225",
+        "name": "Email (optional)",
+        "type": "field",
+        "label": "Email (optional)",
+        "value": "Your email",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:4232",
+        "name": "Phone (optional)",
+        "type": "field",
+        "label": "Phone (optional)",
+        "value": "Your phone",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:4239",
+        "name": "",
+        "type": "text",
+        "text": "Evidence · Optional",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4240",
+        "name": "",
+        "type": "text",
+        "text": "Up to 3 JPEG/PNG/PDF files · 5 MB each · Private to authorised staff",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4241",
+        "name": "Add evidence",
+        "type": "action",
+        "text": "Add evidence",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "82:4248",
+        "name": "Your identity stays confidential",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:4249",
+            "name": "",
+            "type": "text",
+            "text": "Your identity stays confidential",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:4250",
+            "name": "",
+            "type": "text",
+            "text": "Without contact details, we cannot follow up. Do not include ID, card or bank numbers. Reports are unverified allegations until investigated.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:4251",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4252",
+            "name": "Submit report",
+            "type": "action",
+            "text": "Submit report",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:4259",
+            "name": "Back to listing",
+            "type": "action",
+            "text": "Back to listing",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "report-received",
+    "id": "82:4328",
+    "blocks": [
+      {
+        "id": "82:4373",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:4374",
+        "name": "",
+        "type": "text",
+        "text": "Thank you for speaking up.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4375",
+        "name": "",
+        "type": "text",
+        "text": "Reference CMP-2026-000125",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4376",
+        "name": "Report received",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:4377",
+            "name": "",
+            "type": "text",
+            "text": "Report received",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:4378",
+            "name": "",
+            "type": "text",
+            "text": "Our team will review your concern. If contact details were supplied, you may receive a generic update. Without contact details we cannot follow up.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:4379",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4380",
+            "name": "Back to listing",
+            "type": "action",
+            "text": "Back to listing",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:4387",
+            "name": "How reporting works",
+            "type": "action",
+            "text": "How reporting works",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "duplicate-report",
+    "id": "82:4456",
+    "blocks": [
+      {
+        "id": "82:4501",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:4502",
+        "name": "",
+        "type": "text",
+        "text": "We already have this report.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4503",
+        "name": "",
+        "type": "text",
+        "text": "A matching report was received within the past 24 hours.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4504",
+        "name": "No duplicate case created",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:4505",
+            "name": "",
+            "type": "text",
+            "text": "No duplicate case created",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:4506",
+            "name": "",
+            "type": "text",
+            "text": "Our team can review the existing concern. Contact the team if you need to share additional information.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:4507",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4508",
+            "name": "How reporting works",
+            "type": "action",
+            "text": "How reporting works",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:4515",
+            "name": "Back to listing",
+            "type": "action",
+            "text": "Back to listing",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "report-evidence",
+    "id": "82:4584",
+    "blocks": [
+      {
+        "id": "82:4629",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:4630",
+        "name": "",
+        "type": "text",
+        "text": "Evidence attached privately.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4631",
+        "name": "",
+        "type": "text",
+        "text": "Example screenshot.png · Ready · 1 of 3 files",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4632",
+        "name": "Authorised staff only",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:4633",
+            "name": "",
+            "type": "text",
+            "text": "Authorised staff only",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:4634",
+            "name": "",
+            "type": "text",
+            "text": "Evidence is not shown publicly or to the reported party. Do not upload card, bank or ID numbers.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:4635",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4636",
+            "name": "Continue report",
+            "type": "action",
+            "text": "Continue report",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:4643",
+            "name": "Continue complaint",
+            "type": "action",
+            "text": "Continue complaint",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "assistant",
+    "id": "82:4734",
+    "blocks": [
+      {
+        "id": "82:4779",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:4780",
+        "name": "",
+        "type": "text",
+        "text": "A little guidance, when you need it.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4781",
+        "name": "",
+        "type": "text",
+        "text": "Kof’a AI assistant",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4782",
+        "name": "You are chatting with AI",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:4783",
+            "name": "",
+            "type": "text",
+            "text": "You are chatting with AI",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:4784",
+            "name": "",
+            "type": "text",
+            "text": "I answer common questions from approved help content and public listings. I can make mistakes. For payments, legal questions or complaints, contact our team.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "92:15830",
+        "name": "Call team · Number not set",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 9999.0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "I92:15830;13:83",
+            "name": "SDS / Button",
+            "type": "action",
+            "text": "Call team · Number not set",
+            "variant": "primary",
+            "disabled": true
+          }
+        ]
+      },
+      {
+        "id": "82:4785",
+        "name": "Talk to a person",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:4786",
+            "name": "",
+            "type": "text",
+            "text": "Talk to a person",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:4787",
+            "name": "",
+            "type": "text",
+            "text": "Company phone number to be configured. Support hours to be confirmed. You can message our team below.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:4788",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4789",
+            "name": "How do property checks work?",
+            "type": "action",
+            "text": "How do property checks work?",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:4796",
+            "name": "Speak to a person",
+            "type": "action",
+            "text": "Speak to a person",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "ui:assistant:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Your question",
+        "value": "Ask about listings or how Kof’a works. Maximum 1,000 characters.",
+        "error": null
+      },
+      {
+        "id": "82:4807",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4808",
+            "name": "Send question",
+            "type": "action",
+            "text": "Send question",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:4815",
+            "name": "Back to browsing",
+            "type": "action",
+            "text": "Back to browsing",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "assistant-answer",
+    "id": "82:4916",
+    "blocks": [
+      {
+        "id": "82:4961",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:4962",
+        "name": "",
+        "type": "text",
+        "text": "Clear answers, with a source.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4963",
+        "name": "",
+        "type": "text",
+        "text": "Kof’a AI assistant",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:4964",
+        "name": "Talk to a person",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:4965",
+            "name": "",
+            "type": "text",
+            "text": "Talk to a person",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:4966",
+            "name": "",
+            "type": "text",
+            "text": "Company phone number to be configured. Support hours to be confirmed. You can message our team below.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "92:15837",
+        "name": "Call team · Number not set",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 9999.0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "I92:15837;13:83",
+            "name": "SDS / Button",
+            "type": "action",
+            "text": "Call team · Number not set",
+            "variant": "primary",
+            "disabled": true
+          }
+        ]
+      },
+      {
+        "id": "82:4967",
+        "name": "",
+        "type": "text",
+        "text": "You asked",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4968",
+        "name": "",
+        "type": "text",
+        "text": "How do property checks work?",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "82:4969",
+        "name": "Kof’a AI assistant",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:4970",
+            "name": "",
+            "type": "text",
+            "text": "Kof’a AI assistant",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:4971",
+            "name": "",
+            "type": "text",
+            "text": "Each listing shows the recorded checks and verification date. Verification does not guarantee legal ownership or title.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:4972",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4973",
+            "name": "Source: How property checks work",
+            "type": "action",
+            "text": "Source: How property checks work",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "82:4980",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:4981",
+            "name": "Helpful",
+            "type": "action",
+            "text": "Helpful",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:4988",
+            "name": "Not helpful",
+            "type": "action",
+            "text": "Not helpful",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "ui:assistant-answer:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Your question",
+        "value": "Ask another question.",
+        "error": null
+      },
+      {
+        "id": "82:4999",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:5000",
+            "name": "Send question",
+            "type": "action",
+            "text": "Send question",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:5007",
+            "name": "Contact a person",
+            "type": "action",
+            "text": "Contact a person",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "handoff",
+    "id": "82:5085",
+    "blocks": [
+      {
+        "id": "82:5130",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:5131",
+        "name": "",
+        "type": "text",
+        "text": "Let’s bring in a person.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5132",
+        "name": "",
+        "type": "text",
+        "text": "The assistant cannot help with this request confidently.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5133",
+        "name": "Company call line",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:5134",
+            "name": "",
+            "type": "text",
+            "text": "Company call line",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:5135",
+            "name": "",
+            "type": "text",
+            "text": "Company phone number to be configured. Support hours to be confirmed. You can message our team below.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "92:15844",
+        "name": "Call team · Number not set",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 9999.0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "I92:15844;13:83",
+            "name": "SDS / Button",
+            "type": "action",
+            "text": "Call team · Number not set",
+            "variant": "primary",
+            "disabled": true
+          }
+        ]
+      },
+      {
+        "id": "82:5136",
+        "name": "",
+        "type": "text",
+        "text": "Your next steps",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5137",
+        "name": "",
+        "type": "text",
+        "text": "For payment, refund, legal, complaint or account-specific questions, our team will help. The assistant stops answering this request.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5138",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:5139",
+            "name": "Message our team",
+            "type": "action",
+            "text": "Message our team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:5146",
+            "name": "Report a listing",
+            "type": "action",
+            "text": "Report a listing",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:5153",
+            "name": "Back to homes",
+            "type": "action",
+            "text": "Back to homes",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "team-handoff",
+    "id": "82:5229",
+    "blocks": [
+      {
+        "id": "82:5274",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:5275",
+        "name": "",
+        "type": "text",
+        "text": "Our team can take it from here.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5276",
+        "name": "",
+        "type": "text",
+        "text": "AI support is temporarily unavailable or its usage limit has been reached.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5277",
+        "name": "Company call line",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:5278",
+            "name": "",
+            "type": "text",
+            "text": "Company call line",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:5279",
+            "name": "",
+            "type": "text",
+            "text": "Company phone number to be configured. Support hours to be confirmed. You can message our team below.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "92:15851",
+        "name": "Call team · Number not set",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 9999.0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "I92:15851;13:83",
+            "name": "SDS / Button",
+            "type": "action",
+            "text": "Call team · Number not set",
+            "variant": "primary",
+            "disabled": true
+          }
+        ]
+      },
+      {
+        "id": "82:5280",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:5281",
+            "name": "Message the team",
+            "type": "action",
+            "text": "Message the team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:5288",
+            "name": "Report a listing",
+            "type": "action",
+            "text": "Report a listing",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "82:5295",
+            "name": "Browse homes",
+            "type": "action",
+            "text": "Browse homes",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "feedback",
+    "id": "82:5361",
+    "blocks": [
+      {
+        "id": "82:5406",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:5407",
+        "name": "",
+        "type": "text",
+        "text": "Thanks for helping us improve.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5408",
+        "name": "",
+        "type": "text",
+        "text": "Your answer feedback has been recorded in this design example.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5409",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:5410",
+            "name": "Back to assistant",
+            "type": "action",
+            "text": "Back to assistant",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:5417",
+            "name": "Speak to a person",
+            "type": "action",
+            "text": "Speak to a person",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "terms",
+    "id": "82:5491",
+    "blocks": [
+      {
+        "id": "82:5536",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:5537",
+        "name": "",
+        "type": "text",
+        "text": "Terms of use.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5538",
+        "name": "",
+        "type": "text",
+        "text": "Terms of use",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5539",
+        "name": "Draft — awaiting legal review",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:5540",
+            "name": "",
+            "type": "text",
+            "text": "Draft — awaiting legal review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:5541",
+            "name": "",
+            "type": "text",
+            "text": "This page is a design placeholder. Final wording, effective date and policy version require counsel approval.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:5542",
+        "name": "",
+        "type": "text",
+        "text": "Using Kof’a",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5543",
+        "name": "",
+        "type": "text",
+        "text": "Placeholder for account responsibilities, marketplace scope, acceptable use and managed communication.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5544",
+        "name": "",
+        "type": "text",
+        "text": "Listing and transaction terms",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5545",
+        "name": "",
+        "type": "text",
+        "text": "Placeholder for listing approval, parties’ obligations and dispute routes.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5546",
+        "name": "",
+        "type": "text",
+        "text": "Version: draft · Effective date: to be confirmed",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5547",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:5548",
+            "name": "Speak to our team",
+            "type": "action",
+            "text": "Speak to our team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:5555",
+            "name": "Help centre",
+            "type": "action",
+            "text": "Help centre",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "privacy",
+    "id": "82:5629",
+    "blocks": [
+      {
+        "id": "82:5674",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:5675",
+        "name": "",
+        "type": "text",
+        "text": "Your privacy matters.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5676",
+        "name": "",
+        "type": "text",
+        "text": "Privacy notice",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5677",
+        "name": "Draft — awaiting legal review",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:5678",
+            "name": "",
+            "type": "text",
+            "text": "Draft — awaiting legal review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:5679",
+            "name": "",
+            "type": "text",
+            "text": "This page is a design placeholder. Final wording, effective date and policy version require counsel approval.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:5680",
+        "name": "",
+        "type": "text",
+        "text": "Information we collect",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5681",
+        "name": "",
+        "type": "text",
+        "text": "Placeholder for data categories, purposes, lawful basis and retention.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5682",
+        "name": "",
+        "type": "text",
+        "text": "Your choices and rights",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5683",
+        "name": "",
+        "type": "text",
+        "text": "Placeholder for contact, access/correction requests and approved retention policy.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5684",
+        "name": "",
+        "type": "text",
+        "text": "Version: draft · Effective date: to be confirmed",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5685",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:5686",
+            "name": "Speak to our team",
+            "type": "action",
+            "text": "Speak to our team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:5693",
+            "name": "Help centre",
+            "type": "action",
+            "text": "Help centre",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "fees",
+    "id": "82:5767",
+    "blocks": [
+      {
+        "id": "82:5812",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:5813",
+        "name": "",
+        "type": "text",
+        "text": "Understand every fee.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5814",
+        "name": "",
+        "type": "text",
+        "text": "Fee disclosure",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5815",
+        "name": "Draft — awaiting legal review",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:5816",
+            "name": "",
+            "type": "text",
+            "text": "Draft — awaiting legal review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:5817",
+            "name": "",
+            "type": "text",
+            "text": "This page is a design placeholder. Final wording, effective date and policy version require counsel approval.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:5818",
+        "name": "",
+        "type": "text",
+        "text": "What you should see before agreement",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5819",
+        "name": "",
+        "type": "text",
+        "text": "The quoted amount, payer, rate/basis and what the fee covers.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5820",
+        "name": "",
+        "type": "text",
+        "text": "Refunds and credits",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5821",
+        "name": "",
+        "type": "text",
+        "text": "Approved conditions must be disclosed before agreement. No fee is calculated by the frontend.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5822",
+        "name": "",
+        "type": "text",
+        "text": "Version: draft · Effective date: to be confirmed",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5823",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:5824",
+            "name": "Speak to our team",
+            "type": "action",
+            "text": "Speak to our team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:5831",
+            "name": "Help centre",
+            "type": "action",
+            "text": "Help centre",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "verification",
+    "id": "82:5905",
+    "blocks": [
+      {
+        "id": "82:5950",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:5951",
+        "name": "",
+        "type": "text",
+        "text": "What our checks mean.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5952",
+        "name": "",
+        "type": "text",
+        "text": "Verification limitations",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5953",
+        "name": "Draft — awaiting legal review",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:5954",
+            "name": "",
+            "type": "text",
+            "text": "Draft — awaiting legal review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:5955",
+            "name": "",
+            "type": "text",
+            "text": "This page is a design placeholder. Final wording, effective date and policy version require counsel approval.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:5956",
+        "name": "",
+        "type": "text",
+        "text": "Checks and scope",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5957",
+        "name": "",
+        "type": "text",
+        "text": "Each listing shows recorded checks and date. Verification is not a guarantee of legal ownership or title.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5958",
+        "name": "",
+        "type": "text",
+        "text": "Your next step",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:5959",
+        "name": "",
+        "type": "text",
+        "text": "Review the listing details and ask our team about anything unclear.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5960",
+        "name": "",
+        "type": "text",
+        "text": "Version: draft · Effective date: to be confirmed",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "82:5961",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:5962",
+            "name": "Speak to our team",
+            "type": "action",
+            "text": "Speak to our team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:5969",
+            "name": "Help centre",
+            "type": "action",
+            "text": "Help centre",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "refunds",
+    "id": "82:6043",
+    "blocks": [
+      {
+        "id": "82:6088",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:6089",
+        "name": "",
+        "type": "text",
+        "text": "Know the conditions first.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6090",
+        "name": "",
+        "type": "text",
+        "text": "Refund and credit conditions",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6091",
+        "name": "Draft — awaiting legal review",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:6092",
+            "name": "",
+            "type": "text",
+            "text": "Draft — awaiting legal review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:6093",
+            "name": "",
+            "type": "text",
+            "text": "This page is a design placeholder. Final wording, effective date and policy version require counsel approval.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:6094",
+        "name": "",
+        "type": "text",
+        "text": "Inspection fees",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6095",
+        "name": "",
+        "type": "text",
+        "text": "Placeholder for approved cancellation, unavailability and material-difference conditions.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6096",
+        "name": "",
+        "type": "text",
+        "text": "Service fees",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6097",
+        "name": "",
+        "type": "text",
+        "text": "Placeholder for approved scope, refund and credit policy; no payment promises are made here.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6098",
+        "name": "",
+        "type": "text",
+        "text": "Version: draft · Effective date: to be confirmed",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6099",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6100",
+            "name": "Speak to our team",
+            "type": "action",
+            "text": "Speak to our team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:6107",
+            "name": "Help centre",
+            "type": "action",
+            "text": "Help centre",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "reporting",
+    "id": "82:6181",
+    "blocks": [
+      {
+        "id": "82:6226",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:6227",
+        "name": "",
+        "type": "text",
+        "text": "A safe place to raise a concern.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6228",
+        "name": "",
+        "type": "text",
+        "text": "How to report",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6229",
+        "name": "Draft — awaiting legal review",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:6230",
+            "name": "",
+            "type": "text",
+            "text": "Draft — awaiting legal review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:6231",
+            "name": "",
+            "type": "text",
+            "text": "This page is a design placeholder. Final wording, effective date and policy version require counsel approval.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:6232",
+        "name": "",
+        "type": "text",
+        "text": "Report a suspicious listing",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6233",
+        "name": "",
+        "type": "text",
+        "text": "Choose Report listing on a property and describe the concern. Optional evidence and contact details can help staff follow up.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6234",
+        "name": "",
+        "type": "text",
+        "text": "What happens next",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6235",
+        "name": "",
+        "type": "text",
+        "text": "Reports are allegations until investigated. Identity stays confidential; counts never trigger automatic permanent action.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6236",
+        "name": "",
+        "type": "text",
+        "text": "Version: draft · Effective date: to be confirmed",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6237",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6238",
+            "name": "Speak to our team",
+            "type": "action",
+            "text": "Speak to our team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:6245",
+            "name": "Help centre",
+            "type": "action",
+            "text": "Help centre",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "help",
+    "id": "82:6373",
+    "blocks": [
+      {
+        "id": "82:6418",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:6419",
+        "name": "",
+        "type": "text",
+        "text": "A clearer path, at every step.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6420",
+        "name": "",
+        "type": "text",
+        "text": "Help, policies and support",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6421",
+        "name": "Record cards",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6422",
+            "name": "Property checks",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "82:6423",
+                "name": "",
+                "type": "text",
+                "text": "Property checks",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "82:6424",
+                "name": "",
+                "type": "text",
+                "text": "Understand the scope and limits.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "82:6425",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          },
+          {
+            "id": "82:6432",
+            "name": "Fees and conditions",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "82:6433",
+                "name": "",
+                "type": "text",
+                "text": "Fees and conditions",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "82:6434",
+                "name": "",
+                "type": "text",
+                "text": "Know what to expect before agreement.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "82:6435",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          },
+          {
+            "id": "82:6442",
+            "name": "Report a concern",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "82:6443",
+                "name": "",
+                "type": "text",
+                "text": "Report a concern",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "82:6444",
+                "name": "",
+                "type": "text",
+                "text": "How staff review a report.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "82:6445",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "82:6452",
+        "name": "Record cards",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6453",
+            "name": "Terms",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "82:6454",
+                "name": "",
+                "type": "text",
+                "text": "Terms",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "82:6455",
+                "name": "",
+                "type": "text",
+                "text": "Draft terms awaiting legal review.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "82:6456",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          },
+          {
+            "id": "82:6463",
+            "name": "Privacy",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "82:6464",
+                "name": "",
+                "type": "text",
+                "text": "Privacy",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "82:6465",
+                "name": "",
+                "type": "text",
+                "text": "Draft privacy notice.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "82:6466",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          },
+          {
+            "id": "82:6473",
+            "name": "Refund conditions",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "82:6474",
+                "name": "",
+                "type": "text",
+                "text": "Refund conditions",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "82:6475",
+                "name": "",
+                "type": "text",
+                "text": "Draft refund and credit conditions.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "82:6476",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "82:6483",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6484",
+            "name": "Ask the assistant",
+            "type": "action",
+            "text": "Ask the assistant",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:6491",
+            "name": "Message the team",
+            "type": "action",
+            "text": "Message the team",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "empty",
+    "id": "82:6560",
+    "blocks": [
+      {
+        "id": "82:6605",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:6606",
+        "name": "",
+        "type": "text",
+        "text": "Let’s widen the doorway.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6607",
+        "name": "",
+        "type": "text",
+        "text": "No properties match these filters.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6608",
+        "name": "Try a broader search",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:6609",
+            "name": "",
+            "type": "text",
+            "text": "Try a broader search",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:6610",
+            "name": "",
+            "type": "text",
+            "text": "Adjust the area, budget or property type. No personal details are needed to browse.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:6611",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6612",
+            "name": "Clear filters",
+            "type": "action",
+            "text": "Clear filters",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:6619",
+            "name": "Edit filters",
+            "type": "action",
+            "text": "Edit filters",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "loading",
+    "id": "82:6690",
+    "blocks": [
+      {
+        "id": "82:6735",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:6736",
+        "name": "",
+        "type": "text",
+        "text": "Finding your next chapter.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6737",
+        "name": "",
+        "type": "text",
+        "text": "Property results are loading.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6738",
+        "name": "Loading properties",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:6739",
+            "name": "",
+            "type": "text",
+            "text": "Loading properties",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:6740",
+            "name": "",
+            "type": "text",
+            "text": "Property cards and filter controls appear here while the request is in progress.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:6741",
+        "name": "Loading result placeholder",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "82:6742",
+            "name": "Loading image",
+            "type": "skeleton",
+            "height": 140.0,
+            "radius": 12.0,
+            "tone": "tint",
+            "size": 318.0
+          },
+          {
+            "id": "82:6743",
+            "name": "Rectangle",
+            "type": "skeleton",
+            "height": 16.0,
+            "radius": 0,
+            "tone": "border",
+            "size": 222.6
+          }
+        ]
+      },
+      {
+        "id": "82:6744",
+        "name": "Loading result placeholder",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "82:6745",
+            "name": "Loading image",
+            "type": "skeleton",
+            "height": 140.0,
+            "radius": 12.0,
+            "tone": "tint",
+            "size": 318.0
+          },
+          {
+            "id": "82:6746",
+            "name": "Rectangle",
+            "type": "skeleton",
+            "height": 16.0,
+            "radius": 0,
+            "tone": "border",
+            "size": 222.6
+          }
+        ]
+      },
+      {
+        "id": "82:6747",
+        "name": "Loading result placeholder",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "82:6748",
+            "name": "Loading image",
+            "type": "skeleton",
+            "height": 140.0,
+            "radius": 12.0,
+            "tone": "tint",
+            "size": 318.0
+          },
+          {
+            "id": "82:6749",
+            "name": "Rectangle",
+            "type": "skeleton",
+            "height": 16.0,
+            "radius": 0,
+            "tone": "border",
+            "size": 222.6
+          }
+        ]
+      },
+      {
+        "id": "82:6750",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6751",
+            "name": "View loaded results",
+            "type": "action",
+            "text": "View loaded results",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "load-error",
+    "id": "82:6820",
+    "blocks": [
+      {
+        "id": "82:6865",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:6866",
+        "name": "",
+        "type": "text",
+        "text": "We couldn’t load this page.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6867",
+        "name": "",
+        "type": "text",
+        "text": "Check your connection and try again.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6868",
+        "name": "Your next step is still here",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:6869",
+            "name": "",
+            "type": "text",
+            "text": "Your next step is still here",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:6870",
+            "name": "",
+            "type": "text",
+            "text": "A network issue interrupted this request. Retry when connected; avoid resubmitting forms until the result is known.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:6871",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6872",
+            "name": "Try again",
+            "type": "action",
+            "text": "Try again",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:6879",
+            "name": "Back to account",
+            "type": "action",
+            "text": "Back to account",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "not-found",
+    "id": "82:6945",
+    "blocks": [
+      {
+        "id": "82:6990",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:6991",
+        "name": "",
+        "type": "text",
+        "text": "This doorway has moved.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:6992",
+        "name": "",
+        "type": "text",
+        "text": "404 · This page could not be found.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:6993",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:6994",
+            "name": "Explore homes",
+            "type": "action",
+            "text": "Explore homes",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:7001",
+            "name": "Go to homepage",
+            "type": "action",
+            "text": "Go to homepage",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "unavailable",
+    "id": "82:7067",
+    "blocks": [
+      {
+        "id": "82:7112",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:7113",
+        "name": "",
+        "type": "text",
+        "text": "This property is no longer available.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:7114",
+        "name": "",
+        "type": "text",
+        "text": "The listing may have been removed or is no longer published.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:7115",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:7116",
+            "name": "Find another home",
+            "type": "action",
+            "text": "Find another home",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:7123",
+            "name": "Speak to the team",
+            "type": "action",
+            "text": "Speak to the team",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "session-expired",
+    "id": "82:7189",
+    "blocks": [
+      {
+        "id": "82:7234",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:7235",
+        "name": "",
+        "type": "text",
+        "text": "Sign in to continue.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:7236",
+        "name": "",
+        "type": "text",
+        "text": "Your session has expired. Your private records remain protected.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:7237",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:7238",
+            "name": "Log in",
+            "type": "action",
+            "text": "Log in",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:7245",
+            "name": "Continue browsing",
+            "type": "action",
+            "text": "Continue browsing",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "forbidden",
+    "id": "82:7311",
+    "blocks": [
+      {
+        "id": "82:7356",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:7357",
+        "name": "",
+        "type": "text",
+        "text": "This area needs the right access.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:7358",
+        "name": "",
+        "type": "text",
+        "text": "403 · Your account cannot open this workspace.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:7359",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:7360",
+            "name": "Return to your account",
+            "type": "action",
+            "text": "Return to your account",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:7367",
+            "name": "Browse homes",
+            "type": "action",
+            "text": "Browse homes",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "validation",
+    "id": "82:7452",
+    "blocks": [
+      {
+        "id": "82:7497",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:7498",
+        "name": "",
+        "type": "text",
+        "text": "A few details need your attention.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:7499",
+        "name": "",
+        "type": "text",
+        "text": "Review the highlighted fields before continuing.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:7500",
+        "name": "Please fix these fields",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:7501",
+            "name": "",
+            "type": "text",
+            "text": "Please fix these fields",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:7502",
+            "name": "",
+            "type": "text",
+            "text": "Phone: enter a valid Nigerian phone number. Description: enter at least 20 characters.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:7503",
+        "name": "Phone",
+        "type": "field",
+        "label": "Phone",
+        "value": "Invalid phone",
+        "error": "Choose a neighbourhood.",
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "ui:validation:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Description",
+        "value": "Too short",
+        "error": null
+      },
+      {
+        "id": "82:7514",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:7515",
+            "name": "Return to listing form",
+            "type": "action",
+            "text": "Return to listing form",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:7522",
+            "name": "Back to media",
+            "type": "action",
+            "text": "Back to media",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "rate-limit",
+    "id": "82:7591",
+    "blocks": [
+      {
+        "id": "82:7636",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:7637",
+        "name": "",
+        "type": "text",
+        "text": "Please give it a moment.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:7638",
+        "name": "",
+        "type": "text",
+        "text": "You have made several requests in a short time.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:7639",
+        "name": "Try again shortly",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:7640",
+            "name": "",
+            "type": "text",
+            "text": "Try again shortly",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:7641",
+            "name": "",
+            "type": "text",
+            "text": "The live application uses the server retry interval. Your private information is not exposed.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:7642",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:7643",
+            "name": "Back to login",
+            "type": "action",
+            "text": "Back to login",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:7650",
+            "name": "Browse homes",
+            "type": "action",
+            "text": "Browse homes",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "conflict",
+    "id": "82:7702",
+    "blocks": [
+      {
+        "id": "82:7747",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:7748",
+        "name": "",
+        "type": "text",
+        "text": "This record has changed.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:7749",
+        "name": "",
+        "type": "text",
+        "text": "Another team member saved an update while you were editing.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:7750",
+        "name": "Review the latest version",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:7751",
+            "name": "",
+            "type": "text",
+            "text": "Review the latest version",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:7752",
+            "name": "",
+            "type": "text",
+            "text": "Reload the current record and compare your changes before saving. Do not silently overwrite another update.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:7753",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:7754",
+            "name": "Reload property record",
+            "type": "action",
+            "text": "Reload property record",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:7761",
+            "name": "Workspace overview",
+            "type": "action",
+            "text": "Workspace overview",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "saved",
+    "id": "82:7827",
+    "blocks": [
+      {
+        "id": "82:7872",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:7873",
+        "name": "",
+        "type": "text",
+        "text": "Your change is recorded.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:7874",
+        "name": "",
+        "type": "text",
+        "text": "Design confirmation",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:7875",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:7876",
+            "name": "Back to account",
+            "type": "action",
+            "text": "Back to account",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:7883",
+            "name": "Explore homes",
+            "type": "action",
+            "text": "Explore homes",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "accessibility",
+    "id": "82:7983",
+    "blocks": [
+      {
+        "id": "82:8028",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "82:8029",
+        "name": "",
+        "type": "text",
+        "text": "Accessible by design.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "82:8030",
+        "name": "",
+        "type": "text",
+        "text": "Implementation reference · Keyboard, forms and feedback",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "82:8031",
+        "name": "Email · Focus example",
+        "type": "field",
+        "label": "Email · Focus example",
+        "value": "ada@example.com",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:8038",
+        "name": "Email · Error example",
+        "type": "field",
+        "label": "Email · Error example",
+        "value": "Enter a valid email",
+        "error": "Choose a neighbourhood.",
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:8045",
+        "name": "Email · Disabled example",
+        "type": "field",
+        "label": "Email · Disabled example",
+        "value": "Unavailable",
+        "error": null,
+        "disabled": true,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "82:8052",
+        "name": "Implementation requirements",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "82:8053",
+            "name": "",
+            "type": "text",
+            "text": "Implementation requirements",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "82:8054",
+            "name": "",
+            "type": "text",
+            "text": "Use programmatic labels, linked error text, visible focus, logical reading order, alt text, reduced motion and announced status updates. Dialogs trap/restore focus; mobile controls retain clear touch targets.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "82:8055",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "82:8056",
+            "name": "Primary action",
+            "type": "action",
+            "text": "Primary action",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "82:8063",
+            "name": "Secondary action",
+            "type": "action",
+            "text": "Secondary action",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  }
+]

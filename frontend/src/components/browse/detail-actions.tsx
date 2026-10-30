@@ -1,4 +1,5 @@
 "use client";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Modal } from "@/components/common/modal";
 import { Button } from "@/components/common/button";
@@ -53,6 +54,14 @@ export function DetailActions({
         <p className="text-home-caption text-muted">
           Design preview · Stock photography
         </p>
+      </div>
+      <div className="mobile-only">
+        <Link
+          className="text-sm text-primary underline"
+          href="/media-help-preview/gallery"
+        >
+          Explore mobile gallery, reporting and help
+        </Link>
       </div>
       <div className="detail-support-actions" data-node-id="88:14848">
         <Button variant="secondary" onClick={() => setView("gallery")}>

@@ -464,6 +464,12 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
           )}
           <div className="listing-media-fields" hidden={step !== "uploads"}>
             <MediaPicker media={media} onChange={setMedia} preview={preview} />
+            <Link
+              href="/media-help-preview/media"
+              className="text-primary underline"
+            >
+              Explore mobile media and upload states
+            </Link>
           </div>
           {step === "review" && (
             <>
