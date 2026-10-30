@@ -21,6 +21,18 @@ import {
   type StaffBlock,
 } from "./model";
 
+import {
+  administrationDestination,
+  administrationFields,
+  administrationLists,
+  administrationOptions,
+  administrationOutcome,
+  administrationPath,
+  administrationScreens,
+  administrationSections,
+  validateAdministrationMoney,
+} from "@/components/features/administration/model";
+
 const tone: Record<string, string> = {
   primary: "rgb(var(--primary))",
   muted: "rgb(var(--muted))",
@@ -30,8 +42,33 @@ const tone: Record<string, string> = {
   tint: "rgb(var(--primary-tint))",
   dark: "rgb(var(--primary-hover))",
 };
-export function StaffScreen({ slug }: { slug: string }) {
-  const screen = staffScreens.find((item) => item.slug === slug)!;
+export function StaffScreen({
+  slug,
+  administration = false,
+}: {
+  slug: string;
+  administration?: boolean;
+}) {
+  const screens = administration ? administrationScreens : staffScreens;
+  const path = administration ? administrationPath : staffPath;
+  const sections = administration
+    ? administrationSections
+    : [
+        "overview",
+        "properties",
+        "landlords",
+        "inquiries",
+        "clients",
+        "inspections",
+        "calendar",
+      ];
+  const directoryLabel = administration
+    ? "View all 50 administration screens"
+    : "View all 37 staff screens";
+  const listSlugs = administration
+    ? administrationLists
+    : ["properties", "landlords", "inquiries", "clients", "inspections"];
+  const screen = screens.find((item) => item.slug === slug)!;
   const router = useRouter();
   const form = useRef<HTMLFormElement>(null);
   const photoInput = useRef<HTMLInputElement>(null);
@@ -67,16 +104,30 @@ export function StaffScreen({ slug }: { slug: string }) {
       );
       return;
     }
-    if (label === "Review status change") {
+    if (!administration && label === "Review status change") {
       const field = screen.blocks.find((item) => item.label === "Action");
       if (field && get(field) !== "Unpublish") {
         unavailable(get(field));
         return;
       }
     }
-    const next = previewDestination(slug, label, context);
+    const next = administration
+      ? administrationDestination(slug, label, context)
+      : previewDestination(slug, label, context);
+    if (
+      administration &&
+      (!next || /^(Review|Create|Record|Save|Send|Confirm)/.test(label))
+    ) {
+      if (!form.current?.reportValidity()) return;
+      const issue = validateAdministrationMoney(screen.blocks, values);
+      if (issue) {
+        setError(issue);
+        return;
+      }
+      setError("");
+    }
     if (next) {
-      router.push(staffPath(next));
+      router.push(next.startsWith("/") ? next : path(next));
       return;
     }
     if (
@@ -114,37 +165,31 @@ export function StaffScreen({ slug }: { slug: string }) {
     setError("");
     unavailable(label);
   }
-  function matches(block: StaffBlock) {
-    if (
-      !block.children?.some(
+  function isListRecord(block: StaffBlock) {
+    return (
+      !!block.children?.some(
         (child) => child.type === "action" && child.text === "Open record →",
-      )
-    )
-      return true;
-    if (
-      ![
-        "properties",
-        "landlords",
-        "inquiries",
-        "clients",
-        "inspections",
-      ].includes(slug)
-    )
-      return true;
+      ) || !!(administration && slug === "audit" && block.border)
+    );
+  }
+  function matches(block: StaffBlock) {
+    if (!isListRecord(block)) return true;
+    if (!listSlugs.includes(slug)) return true;
     const text = visibleRecordText(block).toLowerCase();
-    return screen.blocks
-      .filter((item) => item.type === "field")
-      .every((field) => {
-        const selected = values[field.id];
-        if (
-          !selected ||
-          selected === (field.value ?? "").replace(/\s*▾$/, "") ||
-          /^(all |my queue|other|this week|next week)/i.test(selected)
-        )
-          return true;
-        if (field.label === "Date range") return selected !== "Today";
-        return text.includes(selected.toLowerCase());
-      });
+    const filters = administration
+      ? administrationFields(screen.blocks)
+      : screen.blocks.filter((item) => item.type === "field");
+    return filters.every((field) => {
+      const selected = values[field.id];
+      if (
+        !selected ||
+        selected === (field.value ?? "").replace(/\s*▾$/, "") ||
+        /^(all |my queue|other|this week|next week)/i.test(selected)
+      )
+        return true;
+      if (field.label === "Date range") return selected !== "Today";
+      return text.includes(selected.toLowerCase());
+    });
   }
   function field(block: StaffBlock) {
     const label = block.label ?? "Preference";
@@ -153,8 +198,15 @@ export function StaffScreen({ slug }: { slug: string }) {
     const isDate = label === "Date" || label === "Move-in target";
     const isDateTime = /Received at|Confirmed at/.test(label);
     const dropdown = block.select;
-    let options = staffOptions[label] ?? [];
-    if (label === "Status")
+    let options =
+      (administration
+        ? (administrationOptions[label] ?? staffOptions[label])
+        : staffOptions[label]) ?? [];
+    if (administration && label === "Role" && slug !== "users")
+      options = ["Staff", "Admin"];
+    if (administration && label === "Category" && slug === "edit-article")
+      options = ["Verification", "Fees", "Inspections", "General"];
+    if (!administration && label === "Status")
       options =
         slug === "properties"
           ? [
@@ -185,7 +237,9 @@ export function StaffScreen({ slug }: { slug: string }) {
               value={value}
               onChange={(event) => update(block.id, event.target.value)}
               required={!/optional/i.test(label)}
-              maxLength={4000}
+              maxLength={
+                administration && label === "Article body" ? undefined : 4000
+              }
             />
           </>
         ) : dropdown ? (
@@ -211,6 +265,7 @@ export function StaffScreen({ slug }: { slug: string }) {
           </>
         ) : (
           <Input
+            className={administration ? "placeholder:text-ink" : undefined}
             label={label}
             id={block.id}
             type={
@@ -218,12 +273,16 @@ export function StaffScreen({ slug }: { slug: string }) {
                 ? "date"
                 : isDateTime
                   ? "datetime-local"
-                  : label === "Display order"
-                    ? "number"
-                    : "text"
+                  : administration && label === "Email"
+                    ? "email"
+                    : label === "Display order"
+                      ? "number"
+                      : "text"
             }
             min={label === "Display order" ? 1 : undefined}
-            inputMode={label === "Price (₦)" ? "decimal" : undefined}
+            inputMode={
+              /^(Price|Agreed price|Amount)/.test(label) ? "decimal" : undefined
+            }
             placeholder={search ? original : undefined}
             value={
               search
@@ -233,8 +292,10 @@ export function StaffScreen({ slug }: { slug: string }) {
                     (label === "Date" ? "2026-11-03" : "2026-12-01"))
                   : isDateTime
                     ? (values[block.id] ??
-                      (label === "Received at"
-                        ? "2026-10-27T09:00"
+                      (/^Received at/.test(label)
+                        ? administration
+                          ? "2026-10-26T09:00"
+                          : "2026-10-27T09:00"
                         : "2026-10-26T09:41"))
                     : value
             }
@@ -247,7 +308,9 @@ export function StaffScreen({ slug }: { slug: string }) {
   function render(block: StaffBlock, context = ""): React.ReactNode {
     if (!matches(block)) return null;
     if (block.type === "text") {
-      const style = {
+      const style: CSSProperties = {
+        whiteSpace:
+          administration && block.text?.includes("  ") ? "pre-wrap" : undefined,
         fontSize: block.size,
         lineHeight: `${block.line}px`,
         fontWeight: block.weight,
@@ -357,17 +420,12 @@ export function StaffScreen({ slug }: { slug: string }) {
       </div>
     );
   }
-  const outcome = exampleOutcome(slug, operation);
+  const outcome = administration
+    ? administrationOutcome(slug, operation)
+    : exampleOutcome(slug, operation);
   const empty =
-    ["properties", "landlords", "inquiries", "clients", "inspections"].includes(
-      slug,
-    ) &&
-    !screen.blocks.some(
-      (block) =>
-        block.children?.some(
-          (child) => child.type === "action" && child.text === "Open record →",
-        ) && matches(block),
-    );
+    listSlugs.includes(slug) &&
+    !screen.blocks.some((block) => isListRecord(block) && matches(block));
   return (
     <main id="main-content" className="journey-screen staff-preview">
       <header className="journey-header">
@@ -436,7 +494,7 @@ export function StaffScreen({ slug }: { slug: string }) {
           </p>
           <p role="status">{notice}</p>
           <Button variant="secondary" onClick={() => setDialog("menu")}>
-            View all 37 staff screens
+            {directoryLabel}
           </Button>
           <p className="text-sm text-muted">
             Fictional design examples. Staff sign-in, permissions and
@@ -524,7 +582,9 @@ export function StaffScreen({ slug }: { slug: string }) {
         onClose={() => setDialog(null)}
         title={
           dialog === "menu"
-            ? "Staff workspace · design screens"
+            ? administration
+              ? "Administration · design screens"
+              : "Staff workspace · design screens"
             : "Service not connected"
         }
       >
@@ -534,24 +594,25 @@ export function StaffScreen({ slug }: { slug: string }) {
               aria-label="Workspace sections"
               className="staff-menu-sections"
             >
-              {[
-                "overview",
-                "properties",
-                "landlords",
-                "inquiries",
-                "clients",
-                "inspections",
-                "calendar",
-              ].map((target) => (
-                <Link key={target} href={staffPath(target)}>
-                  {target[0].toUpperCase() + target.slice(1)}
+              {sections.map((target) => (
+                <Link key={target} href={path(target)}>
+                  {target[0].toUpperCase() +
+                    target.slice(1).replaceAll("-", " ")}
                 </Link>
               ))}
+              {!administration && (
+                <Link href={administrationPath("administration")}>
+                  Administration & support
+                </Link>
+              )}
+              {administration && (
+                <Link href={staffPath("overview")}>Staff operations</Link>
+              )}
             </nav>
             <ol className="journey-directory">
-              {staffScreens.map((item, index) => (
+              {screens.map((item, index) => (
                 <li key={item.slug}>
-                  <Link href={staffPath(item.slug)}>
+                  <Link href={path(item.slug)}>
                     {String(index + 1).padStart(2, "0")} · {item.blocks[1].text}
                   </Link>
                 </li>
@@ -566,7 +627,7 @@ export function StaffScreen({ slug }: { slug: string }) {
                 : "No request was sent, document accessed or record changed. This is a fictional design preview; live staff services are not connected."}
             </p>
             {outcome && (
-              <Link className="staff-public-link" href={staffPath(outcome)}>
+              <Link className="staff-public-link" href={path(outcome)}>
                 Preview example outcome
               </Link>
             )}
