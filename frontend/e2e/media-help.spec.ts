@@ -9,7 +9,10 @@ type Block = {
   children?: Block[];
 };
 const screens: { slug: string; blocks: Block[] }[] = JSON.parse(
-  readFileSync("src/components/features/media-help/screens.json", "utf8"),
+  readFileSync(
+    new URL("../src/components/features/media-help/screens.json", import.meta.url),
+    "utf8",
+  ),
 );
 for (let start = 0; start < screens.length; start += 10) {
   test(`media help source screens ${start + 1}–${Math.min(start + 10, 39)}`, async ({
