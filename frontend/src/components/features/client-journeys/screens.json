@@ -1,0 +1,4174 @@
+[
+  {
+    "slug": "overview",
+    "id": "78:2446",
+    "blocks": [
+      {
+        "id": "78:2491",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:2492",
+        "name": "",
+        "type": "text",
+        "text": "Your next move, together.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:2493",
+        "name": "",
+        "type": "text",
+        "text": "Everything you need for your home search, in one place.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:2494",
+        "name": "Summary metrics",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:2495",
+            "name": "Open inquiries",
+            "type": "group",
+            "gap": 8,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2496",
+                "name": "",
+                "type": "text",
+                "text": "02",
+                "size": 30,
+                "line": 38,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "78:2497",
+                "name": "",
+                "type": "text",
+                "text": "Open inquiries",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "78:2498",
+            "name": "Upcoming inspections",
+            "type": "group",
+            "gap": 8,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2499",
+                "name": "",
+                "type": "text",
+                "text": "01",
+                "size": 30,
+                "line": 38,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "78:2500",
+                "name": "",
+                "type": "text",
+                "text": "Upcoming inspections",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "78:2501",
+            "name": "Active transaction",
+            "type": "group",
+            "gap": 8,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2502",
+                "name": "",
+                "type": "text",
+                "text": "01",
+                "size": 30,
+                "line": 38,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "78:2503",
+                "name": "",
+                "type": "text",
+                "text": "Active transaction",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:2504",
+        "name": "Record cards",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:2505",
+            "name": "My inquiries",
+            "type": "group",
+            "gap": 12,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2506",
+                "name": "",
+                "type": "text",
+                "text": "My inquiries",
+                "size": 20,
+                "line": 28,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:2507",
+                "name": "",
+                "type": "text",
+                "text": "Conversations with the Kof’a team.",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "78:2508",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          },
+          {
+            "id": "78:2515",
+            "name": "Inspections",
+            "type": "group",
+            "gap": 12,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2516",
+                "name": "",
+                "type": "text",
+                "text": "Inspections",
+                "size": 20,
+                "line": 28,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:2517",
+                "name": "",
+                "type": "text",
+                "text": "Review and manage your visits.",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "78:2518",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          },
+          {
+            "id": "78:2525",
+            "name": "Transactions",
+            "type": "group",
+            "gap": 12,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2526",
+                "name": "",
+                "type": "text",
+                "text": "Transactions",
+                "size": 20,
+                "line": 28,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:2527",
+                "name": "",
+                "type": "text",
+                "text": "Agreed terms and disclosed fees.",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "78:2528",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:2535",
+        "name": "Record cards",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:2536",
+            "name": "Complaints",
+            "type": "group",
+            "gap": 12,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2537",
+                "name": "",
+                "type": "text",
+                "text": "Complaints",
+                "size": 20,
+                "line": 28,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:2538",
+                "name": "",
+                "type": "text",
+                "text": "View your cases and public updates.",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "78:2539",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          },
+          {
+            "id": "78:2546",
+            "name": "Notifications",
+            "type": "group",
+            "gap": 12,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2547",
+                "name": "",
+                "type": "text",
+                "text": "Notifications",
+                "size": 20,
+                "line": 28,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:2548",
+                "name": "",
+                "type": "text",
+                "text": "Updates about your next steps.",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "78:2549",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          },
+          {
+            "id": "78:2556",
+            "name": "Account details",
+            "type": "group",
+            "gap": 12,
+            "padding": 20,
+            "radius": 12,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "78:2557",
+                "name": "",
+                "type": "text",
+                "text": "Account details",
+                "size": 20,
+                "line": 28,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:2558",
+                "name": "",
+                "type": "text",
+                "text": "Ada Obi · ada@example.com · Email verified",
+                "size": 14,
+                "line": 20,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:2559",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:2560",
+            "name": "Find a property",
+            "type": "action",
+            "text": "Find a property",
+            "variant": "primary"
+          },
+          {
+            "id": "78:2567",
+            "name": "Sign out",
+            "type": "action",
+            "text": "Sign out",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "88:14909",
+        "name": "Continue your property inquiry",
+        "type": "group",
+        "gap": 12,
+        "padding": 20,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "88:14910",
+            "name": "",
+            "type": "text",
+            "text": "Continue your property inquiry",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "88:14911",
+            "name": "",
+            "type": "text",
+            "text": "3-bedroom flat, Wuse 2 · Tell our team your requirements.",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "88:14912",
+            "name": "Express interest / Request inspection",
+            "type": "action",
+            "text": "Express interest / Request inspection",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "inquiry",
+    "id": "78:2667",
+    "blocks": [
+      {
+        "id": "78:2712",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:2713",
+        "name": "",
+        "type": "text",
+        "text": "Let’s take the next step.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:2714",
+        "name": "",
+        "type": "text",
+        "text": "Express interest or request an inspection. A team member will follow up.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:21410",
+        "name": "Preference selector / Request type",
+        "type": "field",
+        "label": "Request type",
+        "value": "Request inspection ▾"
+      },
+      {
+        "id": "167:20350",
+        "name": "Grouped controls / Budget (₦)",
+        "type": "group",
+        "gap": 8,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "167:21419",
+            "name": "Budget stepper / Minimum budget (₦)",
+            "type": "budget",
+            "label": "Minimum budget (₦)",
+            "value": "₦3,000,000"
+          },
+          {
+            "id": "167:21438",
+            "name": "Budget stepper / Maximum budget (₦)",
+            "type": "budget",
+            "label": "Maximum budget (₦)",
+            "value": "₦4,000,000"
+          }
+        ]
+      },
+      {
+        "id": "78:2729",
+        "name": "Preferred move-in date",
+        "type": "field",
+        "label": "Preferred move-in date",
+        "value": "01 December 2026"
+      },
+      {
+        "id": "ui:inquiry:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Tell us what you need",
+        "value": "I would like to arrange a visit and ask about payment terms."
+      },
+      {
+        "id": "78:2740",
+        "name": "Managed by Kof’a",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:2741",
+            "name": "",
+            "type": "text",
+            "text": "Managed by Kof’a",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:2742",
+            "name": "",
+            "type": "text",
+            "text": "Your inquiry goes to our team. Landlord contact information stays private.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:2743",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:2744",
+            "name": "Send inquiry",
+            "type": "action",
+            "text": "Send inquiry",
+            "variant": "primary"
+          },
+          {
+            "id": "78:2751",
+            "name": "Back to property",
+            "type": "action",
+            "text": "Back to property",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "general-inquiry",
+    "id": "78:2844",
+    "blocks": [
+      {
+        "id": "78:2889",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:2890",
+        "name": "",
+        "type": "text",
+        "text": "Speak to our team.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:2891",
+        "name": "",
+        "type": "text",
+        "text": "Tell us what you are looking for. A property selection is optional.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:20342",
+        "name": "Grouped controls / Budget (₦)",
+        "type": "group",
+        "gap": 8,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "167:21371",
+            "name": "Budget stepper / Minimum budget (₦)",
+            "type": "budget",
+            "label": "Minimum budget (₦)",
+            "value": "₦3,000,000"
+          },
+          {
+            "id": "167:21390",
+            "name": "Budget stepper / Maximum budget (₦)",
+            "type": "budget",
+            "label": "Maximum budget (₦)",
+            "value": "₦4,000,000"
+          }
+        ]
+      },
+      {
+        "id": "78:2899",
+        "name": "Preferred move-in date",
+        "type": "field",
+        "label": "Preferred move-in date",
+        "value": "Choose a date"
+      },
+      {
+        "id": "ui:general-inquiry:1",
+        "name": "",
+        "type": "textarea",
+        "label": "How can we help?",
+        "value": "Tell us your preferred area and home requirements."
+      },
+      {
+        "id": "78:2910",
+        "name": "Your conversation stays here",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:2911",
+            "name": "",
+            "type": "text",
+            "text": "Your conversation stays here",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:2912",
+            "name": "",
+            "type": "text",
+            "text": "Sign in to send a general inquiry and keep track of replies.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:2913",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:2914",
+            "name": "Send inquiry",
+            "type": "action",
+            "text": "Send inquiry",
+            "variant": "primary"
+          },
+          {
+            "id": "78:2921",
+            "name": "Browse homes",
+            "type": "action",
+            "text": "Browse homes",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "inquiry-received",
+    "id": "78:3002",
+    "blocks": [
+      {
+        "id": "78:3047",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:3048",
+        "name": "",
+        "type": "text",
+        "text": "Your inquiry is with us.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3049",
+        "name": "",
+        "type": "text",
+        "text": "Reference INQ-2026-000123 · Fictional design example",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3050",
+        "name": "What happens next",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:3051",
+            "name": "",
+            "type": "text",
+            "text": "What happens next",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3052",
+            "name": "",
+            "type": "text",
+            "text": "Our team will review your requirements and reply in your inquiry thread.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:3053",
+        "name": "Inquiry received",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:3054",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:3055",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:3056",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:3057",
+                "name": "",
+                "type": "text",
+                "text": "Inquiry received",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:3058",
+                "name": "",
+                "type": "text",
+                "text": "26 Oct 2026 · 09:41 WAT",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:3059",
+        "name": "Team follow-up",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:3060",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:3061",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:3062",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:3063",
+                "name": "",
+                "type": "text",
+                "text": "Team follow-up",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:3064",
+                "name": "",
+                "type": "text",
+                "text": "Watch your inquiry for the next update.",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:3065",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:3066",
+            "name": "Open conversation",
+            "type": "action",
+            "text": "Open conversation",
+            "variant": "primary"
+          },
+          {
+            "id": "78:3073",
+            "name": "My inquiries",
+            "type": "action",
+            "text": "My inquiries",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "inquiries",
+    "id": "78:3165",
+    "blocks": [
+      {
+        "id": "78:3210",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:3211",
+        "name": "",
+        "type": "text",
+        "text": "Your conversations.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3212",
+        "name": "",
+        "type": "text",
+        "text": "Keep every property question and next step together.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3213",
+        "name": "Filter status",
+        "type": "field",
+        "label": "Filter status",
+        "value": "All inquiries ▾"
+      },
+      {
+        "id": "78:3220",
+        "name": "INQ-000123",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:3221",
+            "name": "",
+            "type": "text",
+            "text": "INQ-000123",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:3222",
+            "name": "",
+            "type": "text",
+            "text": "Property: 3-bedroom flat · Wuse 2",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3223",
+            "name": "",
+            "type": "text",
+            "text": "Status: Awaiting team reply",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3224",
+            "name": "",
+            "type": "text",
+            "text": "Updated: Today",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3225",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:3232",
+        "name": "INQ-000122",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:3233",
+            "name": "",
+            "type": "text",
+            "text": "INQ-000122",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:3234",
+            "name": "",
+            "type": "text",
+            "text": "Property: General home search",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3235",
+            "name": "",
+            "type": "text",
+            "text": "Status: In progress",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3236",
+            "name": "",
+            "type": "text",
+            "text": "Updated: 25 Oct 2026",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3237",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:3244",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:3245",
+            "name": "Start a general inquiry",
+            "type": "action",
+            "text": "Start a general inquiry",
+            "variant": "primary"
+          },
+          {
+            "id": "78:3252",
+            "name": "Explore properties",
+            "type": "action",
+            "text": "Explore properties",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "conversation",
+    "id": "78:3345",
+    "blocks": [
+      {
+        "id": "78:3390",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:3391",
+        "name": "",
+        "type": "text",
+        "text": "A conversation worth keeping.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3392",
+        "name": "",
+        "type": "text",
+        "text": "INQ-2026-000123 · 3-bedroom flat, Wuse 2 · In progress",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3393",
+        "name": "Keep your conversations here",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:3394",
+            "name": "",
+            "type": "text",
+            "text": "Keep your conversations here",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3395",
+            "name": "",
+            "type": "text",
+            "text": "Use Kof’a messaging. Never pay into a personal account or move the conversation off-platform.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:3396",
+        "name": "Ada · 09:20",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:3397",
+            "name": "",
+            "type": "text",
+            "text": "Ada · 09:20",
+            "size": 12,
+            "line": 16,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3398",
+            "name": "",
+            "type": "text",
+            "text": "Could I inspect this home next week?",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "78:3399",
+        "name": "Kof’a team · 09:35",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:3400",
+            "name": "",
+            "type": "text",
+            "text": "Kof’a team · 09:35",
+            "size": 12,
+            "line": 16,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3401",
+            "name": "",
+            "type": "text",
+            "text": "We can help arrange a visit. Please share a preferred day and time.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "78:3402",
+        "name": "",
+        "type": "text",
+        "text": "Messages refresh periodically. Last updated 09:41 WAT.",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3403",
+        "name": "Refresh messages",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 9999,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "I78:3403;13:140",
+            "name": "SDS / Button",
+            "type": "action",
+            "text": "Refresh messages",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "ui:conversation:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Your message",
+        "value": "Tuesday morning would work for me."
+      },
+      {
+        "id": "78:3414",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:3415",
+            "name": "Send message",
+            "type": "action",
+            "text": "Send message",
+            "variant": "primary"
+          },
+          {
+            "id": "78:3422",
+            "name": "View inspection",
+            "type": "action",
+            "text": "View inspection",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "message-sent",
+    "id": "78:3505",
+    "blocks": [
+      {
+        "id": "78:3550",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:3551",
+        "name": "",
+        "type": "text",
+        "text": "Message sent.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3552",
+        "name": "",
+        "type": "text",
+        "text": "INQ-2026-000123 · Updated just now",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3553",
+        "name": "Keep your conversations here",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:3554",
+            "name": "",
+            "type": "text",
+            "text": "Keep your conversations here",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3555",
+            "name": "",
+            "type": "text",
+            "text": "Use Kof’a messaging. Never pay into a personal account or move the conversation off-platform.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:3556",
+        "name": "Ada · 09:41",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:3557",
+            "name": "",
+            "type": "text",
+            "text": "Ada · 09:41",
+            "size": 12,
+            "line": 16,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3558",
+            "name": "",
+            "type": "text",
+            "text": "Tuesday morning would work for me.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "78:3559",
+        "name": "Kof’a team",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:3560",
+            "name": "",
+            "type": "text",
+            "text": "Kof’a team",
+            "size": 12,
+            "line": 16,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3561",
+            "name": "",
+            "type": "text",
+            "text": "Your message is with our team. We will reply in this thread.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "78:3562",
+        "name": "",
+        "type": "text",
+        "text": "Messages refresh periodically. Last updated 09:41 WAT.",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3563",
+        "name": "Refresh messages",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 9999,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "I78:3563;13:140",
+            "name": "SDS / Button",
+            "type": "action",
+            "text": "Refresh messages",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:3570",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:3571",
+            "name": "Back to conversation",
+            "type": "action",
+            "text": "Back to conversation",
+            "variant": "primary"
+          },
+          {
+            "id": "78:3578",
+            "name": "My inquiries",
+            "type": "action",
+            "text": "My inquiries",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "inspections",
+    "id": "78:3651",
+    "blocks": [
+      {
+        "id": "78:3696",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:3697",
+        "name": "",
+        "type": "text",
+        "text": "Make room for a visit.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3698",
+        "name": "",
+        "type": "text",
+        "text": "Your inspection appointments and their next steps.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3699",
+        "name": "APT-000123",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:3700",
+            "name": "",
+            "type": "text",
+            "text": "APT-000123",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:3701",
+            "name": "",
+            "type": "text",
+            "text": "Property: 3-bedroom flat · Wuse 2",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3702",
+            "name": "",
+            "type": "text",
+            "text": "When: 03 Nov · 10:00 WAT",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3703",
+            "name": "",
+            "type": "text",
+            "text": "Status: Awaiting confirmation",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3704",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:3711",
+        "name": "APT-000120",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:3712",
+            "name": "",
+            "type": "text",
+            "text": "APT-000120",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:3713",
+            "name": "",
+            "type": "text",
+            "text": "Property: 2-bedroom flat · Jabi",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3714",
+            "name": "",
+            "type": "text",
+            "text": "When: 20 Oct · 11:00 WAT",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3715",
+            "name": "",
+            "type": "text",
+            "text": "Status: Completed",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:3716",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:3723",
+        "name": "Address privacy",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:3724",
+            "name": "",
+            "type": "text",
+            "text": "Address privacy",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3725",
+            "name": "",
+            "type": "text",
+            "text": "The exact inspection address is shown after you confirm the appointment.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "inspection-review",
+    "id": "78:3798",
+    "blocks": [
+      {
+        "id": "78:3843",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:3844",
+        "name": "",
+        "type": "text",
+        "text": "Your visit is almost set.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3845",
+        "name": "",
+        "type": "text",
+        "text": "APT-2026-000123 · Awaiting confirmation",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3846",
+        "name": "Illustrative property photo",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 24,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:inspection-review:1",
+            "name": "",
+            "type": "image"
+          }
+        ]
+      },
+      {
+        "id": "78:3847",
+        "name": "",
+        "type": "text",
+        "text": "Tuesday, 3 November · 10:00 WAT",
+        "size": 24,
+        "line": 32,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3848",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:inspection-review:2",
+            "name": "",
+            "type": "text",
+            "text": "3-bedroom flat · Wuse 2, Abuja",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:inspection-review:3",
+            "name": "",
+            "type": "text",
+            "text": "Kof’a representative: Sample coordinator",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:inspection-review:4",
+            "name": "",
+            "type": "text",
+            "text": "Exact address available after confirmation.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "78:3849",
+        "name": "Inspection fee",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:3850",
+            "name": "",
+            "type": "text",
+            "text": "Inspection fee",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3851",
+            "name": "",
+            "type": "text",
+            "text": "No inspection fee in this sample. Any applicable amount and refund/credit conditions must be disclosed before agreement.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:3852",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:3853",
+            "name": "Confirm inspection",
+            "type": "action",
+            "text": "Confirm inspection",
+            "variant": "primary"
+          },
+          {
+            "id": "78:3860",
+            "name": "Request another time",
+            "type": "action",
+            "text": "Request another time",
+            "variant": "neutral"
+          },
+          {
+            "id": "78:3867",
+            "name": "Cancel visit",
+            "type": "action",
+            "text": "Cancel visit",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "88:15033",
+        "name": "Example: inspection fee enabled",
+        "type": "action",
+        "text": "Example: inspection fee enabled",
+        "variant": "neutral"
+      }
+    ]
+  },
+  {
+    "slug": "inspection-confirmed",
+    "id": "78:3947",
+    "blocks": [
+      {
+        "id": "78:3992",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:3993",
+        "name": "",
+        "type": "text",
+        "text": "See you at the doorway.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3994",
+        "name": "",
+        "type": "text",
+        "text": "APT-2026-000123 · Confirmed",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:3995",
+        "name": "Your inspection is confirmed",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:3996",
+            "name": "",
+            "type": "text",
+            "text": "Your inspection is confirmed",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:3997",
+            "name": "",
+            "type": "text",
+            "text": "Tuesday, 3 November 2026 · 10:00 WAT",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:3998",
+        "name": "",
+        "type": "text",
+        "text": "Inspection location",
+        "size": 24,
+        "line": 32,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:3999",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:inspection-confirmed:1",
+            "name": "",
+            "type": "text",
+            "text": "12 Example Street, Wuse 2, Abuja",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:inspection-confirmed:2",
+            "name": "",
+            "type": "text",
+            "text": "Fictional address · disclosed after confirmation.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "78:4000",
+        "name": "",
+        "type": "text",
+        "text": "Your Kof’a representative",
+        "size": 24,
+        "line": 32,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4001",
+        "name": "",
+        "type": "text",
+        "text": "Sample coordinator will meet you at the property. Keep follow-up messages in your inquiry.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4002",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4003",
+            "name": "Open inquiry",
+            "type": "action",
+            "text": "Open inquiry",
+            "variant": "primary"
+          },
+          {
+            "id": "78:4010",
+            "name": "Request reschedule",
+            "type": "action",
+            "text": "Request reschedule",
+            "variant": "neutral"
+          },
+          {
+            "id": "78:4017",
+            "name": "Cancel visit",
+            "type": "action",
+            "text": "Cancel visit",
+            "variant": "subtle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "reschedule",
+    "id": "78:4107",
+    "blocks": [
+      {
+        "id": "78:4152",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:4153",
+        "name": "",
+        "type": "text",
+        "text": "Find a time that works.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4154",
+        "name": "",
+        "type": "text",
+        "text": "A request does not change the appointment until the team confirms it.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:4155",
+        "name": "Preferred date",
+        "type": "field",
+        "label": "Preferred date",
+        "value": "05 November 2026"
+      },
+      {
+        "id": "167:21361",
+        "name": "Preference selector / Preferred time (WAT)",
+        "type": "field",
+        "label": "Preferred time (WAT)",
+        "value": "11:00 ▾"
+      },
+      {
+        "id": "ui:reschedule:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Reason or note",
+        "value": "Please move my inspection to Thursday if possible."
+      },
+      {
+        "id": "78:4173",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4174",
+            "name": "Send reschedule request",
+            "type": "action",
+            "text": "Send reschedule request",
+            "variant": "primary"
+          },
+          {
+            "id": "78:4181",
+            "name": "Keep current appointment",
+            "type": "action",
+            "text": "Keep current appointment",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "reschedule-requested",
+    "id": "78:4259",
+    "blocks": [
+      {
+        "id": "78:4304",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:4305",
+        "name": "",
+        "type": "text",
+        "text": "Your request is with us.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4306",
+        "name": "",
+        "type": "text",
+        "text": "The original appointment remains in place until our team confirms a new time.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:4307",
+        "name": "Request received",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4308",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:4309",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:4310",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:4311",
+                "name": "",
+                "type": "text",
+                "text": "Request received",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:4312",
+                "name": "",
+                "type": "text",
+                "text": "05 Nov · 11:00 WAT requested",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:4313",
+        "name": "Team confirmation",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4314",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:4315",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:4316",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:4317",
+                "name": "",
+                "type": "text",
+                "text": "Team confirmation",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:4318",
+                "name": "",
+                "type": "text",
+                "text": "We will update your inspection and notify you.",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:4319",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4320",
+            "name": "View appointment",
+            "type": "action",
+            "text": "View appointment",
+            "variant": "primary"
+          },
+          {
+            "id": "78:4327",
+            "name": "Message the team",
+            "type": "action",
+            "text": "Message the team",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "cancel-visit",
+    "id": "78:4406",
+    "blocks": [
+      {
+        "id": "78:4451",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:4452",
+        "name": "",
+        "type": "text",
+        "text": "Cancel this visit?",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4453",
+        "name": "",
+        "type": "text",
+        "text": "APT-2026-000123 · 3 November · 10:00 WAT",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:cancel-visit:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Reason for cancellation",
+        "value": "My plans have changed."
+      },
+      {
+        "id": "78:4458",
+        "name": "Fee conditions",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:4459",
+            "name": "",
+            "type": "text",
+            "text": "Fee conditions",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:4460",
+            "name": "",
+            "type": "text",
+            "text": "Any inspection-fee refund or credit follows the conditions disclosed for this appointment. Contact the team for help.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:4461",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4462",
+            "name": "Confirm cancellation",
+            "type": "action",
+            "text": "Confirm cancellation",
+            "variant": "primary"
+          },
+          {
+            "id": "78:4469",
+            "name": "Keep my visit",
+            "type": "action",
+            "text": "Keep my visit",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "visit-cancelled",
+    "id": "78:4538",
+    "blocks": [
+      {
+        "id": "78:4583",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:4584",
+        "name": "",
+        "type": "text",
+        "text": "Your visit is cancelled.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4585",
+        "name": "",
+        "type": "text",
+        "text": "The appointment history is retained.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:4586",
+        "name": "You can keep looking",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:4587",
+            "name": "",
+            "type": "text",
+            "text": "You can keep looking",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:4588",
+            "name": "",
+            "type": "text",
+            "text": "Your inquiry stays available if you want to arrange another visit.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:4589",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4590",
+            "name": "Open conversation",
+            "type": "action",
+            "text": "Open conversation",
+            "variant": "primary"
+          },
+          {
+            "id": "78:4597",
+            "name": "Explore homes",
+            "type": "action",
+            "text": "Explore homes",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "transactions",
+    "id": "78:4664",
+    "blocks": [
+      {
+        "id": "78:4709",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:4710",
+        "name": "",
+        "type": "text",
+        "text": "A clear path to your home.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4711",
+        "name": "",
+        "type": "text",
+        "text": "Your transactions, agreed terms and fee records.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:4712",
+        "name": "TXN-000123",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:4713",
+            "name": "",
+            "type": "text",
+            "text": "TXN-000123",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:4714",
+            "name": "",
+            "type": "text",
+            "text": "Property: 3-bedroom flat · Wuse 2",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:4715",
+            "name": "",
+            "type": "text",
+            "text": "Status: Terms proposed",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:4716",
+            "name": "",
+            "type": "text",
+            "text": "Updated: Today",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:4717",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:4724",
+        "name": "Approved company channels only",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:4725",
+            "name": "",
+            "type": "text",
+            "text": "Approved company channels only",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:4726",
+            "name": "",
+            "type": "text",
+            "text": "Kof’a does not offer online checkout or escrow in this MVP. Ask the team about any unclear request.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "92:15814",
+        "name": "View active agreement example",
+        "type": "action",
+        "text": "View active agreement example",
+        "variant": "neutral"
+      },
+      {
+        "id": "92:15822",
+        "name": "View completed transaction",
+        "type": "action",
+        "text": "View completed transaction",
+        "variant": "subtle"
+      }
+    ]
+  },
+  {
+    "slug": "transaction-detail",
+    "id": "78:4830",
+    "blocks": [
+      {
+        "id": "78:4875",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:4876",
+        "name": "",
+        "type": "text",
+        "text": "Know where you stand.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4877",
+        "name": "",
+        "type": "text",
+        "text": "TXN-2026-000123 · Rent · Terms proposed",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:4878",
+        "name": "Illustrative property photo",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 24,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:transaction-detail:1",
+            "name": "",
+            "type": "image"
+          }
+        ]
+      },
+      {
+        "id": "78:4879",
+        "name": "",
+        "type": "text",
+        "text": "Agreed-price proposal",
+        "size": 24,
+        "line": 32,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:4880",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:transaction-detail:2",
+            "name": "",
+            "type": "text",
+            "text": "₦3,500,000 / year · One year upfront",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:transaction-detail:3",
+            "name": "",
+            "type": "text",
+            "text": "Fees shown separately before agreement.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "78:4881",
+        "name": "Service fee",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:4882",
+            "name": "",
+            "type": "text",
+            "text": "Service fee",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:4883",
+            "name": "",
+            "type": "text",
+            "text": "Amount: Awaiting disclosed quote",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:4884",
+            "name": "",
+            "type": "text",
+            "text": "Conditions: Amount and payer shown in your quote",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:4885",
+        "name": "Inspection fee",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:4886",
+            "name": "",
+            "type": "text",
+            "text": "Inspection fee",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:4887",
+            "name": "",
+            "type": "text",
+            "text": "Amount: ₦0",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:4888",
+            "name": "",
+            "type": "text",
+            "text": "Conditions: Disabled in this example",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:4889",
+        "name": "Offer recorded",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4890",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:4891",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:4892",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:4893",
+                "name": "",
+                "type": "text",
+                "text": "Offer recorded",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:4894",
+                "name": "",
+                "type": "text",
+                "text": "26 Oct · Proposed annual rent ₦3,500,000",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:4895",
+        "name": "Terms review",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4896",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:4897",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:4898",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:4899",
+                "name": "",
+                "type": "text",
+                "text": "Terms review",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:4900",
+                "name": "",
+                "type": "text",
+                "text": "Your team will record the agreed terms and fee disclosure.",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:4901",
+        "name": "Payment record",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4902",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:4903",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:4904",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:4905",
+                "name": "",
+                "type": "text",
+                "text": "Payment record",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:4906",
+                "name": "",
+                "type": "text",
+                "text": "No payment recorded.",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:4907",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:4908",
+            "name": "Understand the fees",
+            "type": "action",
+            "text": "Understand the fees",
+            "variant": "primary"
+          },
+          {
+            "id": "78:4915",
+            "name": "Ask the team",
+            "type": "action",
+            "text": "Ask the team",
+            "variant": "neutral"
+          },
+          {
+            "id": "78:4922",
+            "name": "Raise a complaint",
+            "type": "action",
+            "text": "Raise a complaint",
+            "variant": "subtle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaints",
+    "id": "78:5001",
+    "blocks": [
+      {
+        "id": "78:5046",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:5047",
+        "name": "",
+        "type": "text",
+        "text": "Your concerns, followed through.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5048",
+        "name": "",
+        "type": "text",
+        "text": "Only your own complaints and public updates appear here.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:5049",
+        "name": "CMP-000123",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:5050",
+            "name": "",
+            "type": "text",
+            "text": "CMP-000123",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:5051",
+            "name": "",
+            "type": "text",
+            "text": "Subject: Inspection service",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5052",
+            "name": "",
+            "type": "text",
+            "text": "Status: Investigating",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5053",
+            "name": "",
+            "type": "text",
+            "text": "Updated: Today",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5054",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:5061",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5062",
+            "name": "File a complaint",
+            "type": "action",
+            "text": "File a complaint",
+            "variant": "primary"
+          },
+          {
+            "id": "78:5069",
+            "name": "How reporting works",
+            "type": "action",
+            "text": "How reporting works",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaint-form",
+    "id": "78:5182",
+    "blocks": [
+      {
+        "id": "78:5227",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:5228",
+        "name": "",
+        "type": "text",
+        "text": "Tell us what happened.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5229",
+        "name": "",
+        "type": "text",
+        "text": "We will review your concern before deciding on any action.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:21341",
+        "name": "Preference selector / Complaint kind",
+        "type": "field",
+        "label": "Complaint kind",
+        "value": "Service complaint ▾"
+      },
+      {
+        "id": "167:21351",
+        "name": "Preference selector / Related to",
+        "type": "field",
+        "label": "Related to",
+        "value": "My appointment APT-000123 ▾"
+      },
+      {
+        "id": "ui:complaint-form:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Description",
+        "value": "Describe what happened. 20–4,000 characters."
+      },
+      {
+        "id": "78:5248",
+        "name": "Date it happened (optional)",
+        "type": "field",
+        "label": "Date it happened (optional)",
+        "value": "Choose date"
+      },
+      {
+        "id": "ui:complaint-form:2",
+        "name": "",
+        "type": "textarea",
+        "label": "Desired outcome (optional)",
+        "value": "Tell us what resolution you are seeking. Maximum 500 characters."
+      },
+      {
+        "id": "78:5259",
+        "name": "",
+        "type": "text",
+        "text": "Supporting evidence · Optional",
+        "size": 24,
+        "line": 32,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5260",
+        "name": "",
+        "type": "text",
+        "text": "Up to 3 files · JPEG, PNG or PDF · 5 MB each · Private to authorised staff",
+        "size": 14,
+        "line": 20,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:5261",
+        "name": "Add evidence",
+        "type": "action",
+        "text": "Add evidence",
+        "variant": "neutral"
+      },
+      {
+        "id": "78:5268",
+        "name": "Keep sensitive details out",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:5269",
+            "name": "",
+            "type": "text",
+            "text": "Keep sensitive details out",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:5270",
+            "name": "",
+            "type": "text",
+            "text": "Do not include card, bank or identity-document numbers. Investigation notes and other people’s information stay private.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:5271",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5272",
+            "name": "Submit complaint",
+            "type": "action",
+            "text": "Submit complaint",
+            "variant": "primary"
+          },
+          {
+            "id": "78:5279",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaint-received",
+    "id": "78:5348",
+    "blocks": [
+      {
+        "id": "78:5393",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:5394",
+        "name": "",
+        "type": "text",
+        "text": "We have your concern.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5395",
+        "name": "",
+        "type": "text",
+        "text": "Reference CMP-2026-000123 · New",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:5396",
+        "name": "What happens next",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:5397",
+            "name": "",
+            "type": "text",
+            "text": "What happens next",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:5398",
+            "name": "",
+            "type": "text",
+            "text": "Our team will review the case. You can follow its status and any public updates from your account.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:5399",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5400",
+            "name": "Track complaint",
+            "type": "action",
+            "text": "Track complaint",
+            "variant": "primary"
+          },
+          {
+            "id": "78:5407",
+            "name": "Back to account",
+            "type": "action",
+            "text": "Back to account",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaint-detail",
+    "id": "78:5490",
+    "blocks": [
+      {
+        "id": "78:5535",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:5536",
+        "name": "",
+        "type": "text",
+        "text": "Your case, at a glance.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5537",
+        "name": "",
+        "type": "text",
+        "text": "CMP-2026-000123 · Investigating",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:5538",
+        "name": "",
+        "type": "text",
+        "text": "Inspection service",
+        "size": 24,
+        "line": 32,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5539",
+        "name": "",
+        "type": "text",
+        "text": "Submitted 26 October 2026",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5540",
+        "name": "Received",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5541",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:5542",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:5543",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:5544",
+                "name": "",
+                "type": "text",
+                "text": "Received",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:5545",
+                "name": "",
+                "type": "text",
+                "text": "Your complaint has been recorded.",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:5546",
+        "name": "Investigating",
+        "type": "group",
+        "gap": 16,
+        "padding": 0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5547",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0,
+            "padding": 8,
+            "radius": 9999,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "78:5548",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "78:5549",
+            "name": "Event",
+            "type": "group",
+            "gap": 4,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "78:5550",
+                "name": "",
+                "type": "text",
+                "text": "Investigating",
+                "size": 16,
+                "line": 24,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "78:5551",
+                "name": "",
+                "type": "text",
+                "text": "The team is reviewing the information.",
+                "size": 16,
+                "line": 24,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "78:5552",
+        "name": "Latest public update",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:5553",
+            "name": "",
+            "type": "text",
+            "text": "Latest public update",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:5554",
+            "name": "",
+            "type": "text",
+            "text": "We are reviewing your inspection concern and will share an update here.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:5555",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5556",
+            "name": "My complaints",
+            "type": "action",
+            "text": "My complaints",
+            "variant": "primary"
+          },
+          {
+            "id": "78:5563",
+            "name": "Contact the team",
+            "type": "action",
+            "text": "Contact the team",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "notifications",
+    "id": "78:5652",
+    "blocks": [
+      {
+        "id": "78:5697",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:5698",
+        "name": "",
+        "type": "text",
+        "text": "Your latest updates.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5699",
+        "name": "",
+        "type": "text",
+        "text": "Optional in-app centre · Email remains the main notification channel.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:notifications:1",
+        "name": "",
+        "type": "badge",
+        "text": "Optional"
+      },
+      {
+        "id": "78:5702",
+        "name": "Team replied to INQ-000123",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:5703",
+            "name": "",
+            "type": "text",
+            "text": "Team replied to INQ-000123",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:5704",
+            "name": "",
+            "type": "text",
+            "text": "Time: 09:35 WAT",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5705",
+            "name": "",
+            "type": "text",
+            "text": "Read: Unread",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5706",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:5713",
+        "name": "Inspection awaiting confirmation",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:5714",
+            "name": "",
+            "type": "text",
+            "text": "Inspection awaiting confirmation",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:5715",
+            "name": "",
+            "type": "text",
+            "text": "Time: Yesterday",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5716",
+            "name": "",
+            "type": "text",
+            "text": "Read: Read",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5717",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:5724",
+        "name": "Transaction terms updated",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "78:5725",
+            "name": "",
+            "type": "text",
+            "text": "Transaction terms updated",
+            "size": 20,
+            "line": 28,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "78:5726",
+            "name": "",
+            "type": "text",
+            "text": "Time: 25 Oct",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5727",
+            "name": "",
+            "type": "text",
+            "text": "Read: Read",
+            "size": 14,
+            "line": 20,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "78:5728",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "78:5735",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5736",
+            "name": "Mark update read",
+            "type": "action",
+            "text": "Mark update read",
+            "variant": "primary"
+          },
+          {
+            "id": "78:5743",
+            "name": "Back to account",
+            "type": "action",
+            "text": "Back to account",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "notification-detail",
+    "id": "78:5814",
+    "blocks": [
+      {
+        "id": "78:5859",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:5860",
+        "name": "",
+        "type": "text",
+        "text": "A reply is waiting for you.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5861",
+        "name": "",
+        "type": "text",
+        "text": "Inquiry INQ-000123 · Read",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:notification-detail:1",
+        "name": "",
+        "type": "badge",
+        "text": "Optional"
+      },
+      {
+        "id": "78:5864",
+        "name": "Kof’a team replied",
+        "type": "group",
+        "gap": 8,
+        "padding": 16,
+        "radius": 12,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "78:5865",
+            "name": "",
+            "type": "text",
+            "text": "Kof’a team replied",
+            "size": 16,
+            "line": 24,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "78:5866",
+            "name": "",
+            "type": "text",
+            "text": "Open your inquiry to read the message and continue the conversation.",
+            "size": 16,
+            "line": 24,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "78:5867",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5868",
+            "name": "Open inquiry",
+            "type": "action",
+            "text": "Open inquiry",
+            "variant": "primary"
+          },
+          {
+            "id": "78:5875",
+            "name": "All notifications",
+            "type": "action",
+            "text": "All notifications",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "signed-out",
+    "id": "78:5941",
+    "blocks": [
+      {
+        "id": "78:5986",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12,
+        "line": 16,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "78:5987",
+        "name": "",
+        "type": "text",
+        "text": "You’re signed out.",
+        "size": 30,
+        "line": 38,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "78:5988",
+        "name": "",
+        "type": "text",
+        "text": "Your conversations and records will be here when you return.",
+        "size": 16,
+        "line": 24,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "78:5989",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "78:5990",
+            "name": "Log in again",
+            "type": "action",
+            "text": "Log in again",
+            "variant": "primary"
+          },
+          {
+            "id": "78:5997",
+            "name": "Explore homes",
+            "type": "action",
+            "text": "Explore homes",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  }
+]

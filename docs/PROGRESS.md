@@ -239,3 +239,9 @@ Each developer creates a local, git-ignored `.dev-role` file in the repo root co
 
 
 - 2026-10-28 FE-1.4 design follow-up: added 21 persistent location-selector chevrons and the missing mobile Sort by overlay/trigger. Catalog parity: 60 desktop / 60 mobile control frames. Verified target links and filter render; see `docs/FIGMA_FILTER_CONTROLS.md`. Next: frontend review/implementation; API contract unchanged.
+
+### 2026-10-30 — FE-5.7 mobile client journey presentation
+
+Developer 2 continues explicitly authorized frontend work on `joint/FE-5.7-mobile-client-journeys`. Implemented the 23 Figma `78:2309` client states under `/client-preview/[screen]`, with shared original-theme cards/forms, a numbered directory, local source assets and explicit sample/unavailable-service feedback. Authentication account preview links to the overview. This does not mark client service integrations complete: no API handlers, real records, mutations or contract changes. Handoff: `docs/FIGMA_MOBILE_CLIENT_JOURNEYS.md`. Next: FE-5.7 authenticated inquiry integration after the backend freeze; related appointment/transaction/complaint modules remain separate tasks.
+
+Client presentation validation: production build, typecheck and lint passed; 64 unit tests passed; five focused Chrome checks passed across the final run/rerun (23-screen rendering/overflow, inquiry/Other/outcome, complaint accessibility, evidence limits, record navigation). Mock audit found no active TEMP-MOCK handlers. The 23-screen loop's parallel-load timeout was addressed with a 90-second test allowance.
