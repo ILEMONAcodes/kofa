@@ -4,6 +4,7 @@
 @import "./mobile.css";
 @import "./auth.css";
 @import "./submission.css";
+@import "./client-journeys.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

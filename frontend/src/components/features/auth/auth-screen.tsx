@@ -278,7 +278,7 @@ export function AuthScreenView({
           {account && (
             <Link
               className={buttonStyles("subtle")}
-              href={preview ? "/account" : href("register")}
+              href={preview ? "/client-preview/overview" : href("register")}
             >
               {preview ? "Open full account" : "Create an account"}
             </Link>
