@@ -1,0 +1,7570 @@
+[
+  {
+    "slug": "transactions",
+    "id": "80:2386",
+    "blocks": [
+      {
+        "id": "80:2435",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:2436",
+        "name": "",
+        "type": "text",
+        "text": "Terms, fees and a clear record.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:2437",
+        "name": "",
+        "type": "text",
+        "text": "Manage transactions through completion or cancellation.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:20051",
+        "name": "Grouped controls / Search / status",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2438",
+            "name": "Search transactions",
+            "type": "field",
+            "label": "Search transactions",
+            "value": "Reference, client or property",
+            "select": false,
+            "chevron": null
+          },
+          {
+            "id": "167:20052",
+            "name": "Transaction status",
+            "type": "field",
+            "label": "Transaction status",
+            "value": "All transactions ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "80:2445",
+        "name": "TXN-000123",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:2446",
+            "name": "",
+            "type": "text",
+            "text": "TXN-000123",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:2447",
+            "name": "",
+            "type": "text",
+            "text": "Client / property: Ada · Wuse 2",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:2448",
+            "name": "",
+            "type": "text",
+            "text": "Status: Terms proposed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:2449",
+            "name": "",
+            "type": "text",
+            "text": "Updated: Today",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:2450",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:2457",
+        "name": "TXN-000120",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:2458",
+            "name": "",
+            "type": "text",
+            "text": "TXN-000120",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:2459",
+            "name": "",
+            "type": "text",
+            "text": "Client / property: Sample client · Jabi",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:2460",
+            "name": "",
+            "type": "text",
+            "text": "Status: Completed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:2461",
+            "name": "",
+            "type": "text",
+            "text": "Updated: 20 Oct",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:2462",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:2469",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2470",
+            "name": "Create transaction",
+            "type": "action",
+            "text": "Create transaction",
+            "variant": "primary"
+          },
+          {
+            "id": "80:2477",
+            "name": "Fee rules",
+            "type": "action",
+            "text": "Fee rules",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "create-transaction",
+    "id": "80:2577",
+    "blocks": [
+      {
+        "id": "80:2622",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:2623",
+        "name": "",
+        "type": "text",
+        "text": "Start the transaction record.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:2624",
+        "name": "",
+        "type": "text",
+        "text": "Link the inquiry or inspection and record the agreed price.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:2625",
+        "name": "Source inquiry / inspection",
+        "type": "field",
+        "label": "Source inquiry / inspection",
+        "value": "INQ-000123 / APT-000123 ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:2632",
+        "name": "Transaction type",
+        "type": "field",
+        "label": "Transaction type",
+        "value": "Rent ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "167:20035",
+        "name": "Grouped controls / Client / landlord",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2639",
+            "name": "Client",
+            "type": "field",
+            "label": "Client",
+            "value": "Ada Obi ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20036",
+            "name": "Landlord",
+            "type": "field",
+            "label": "Landlord",
+            "value": "Sample owner ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "80:2646",
+        "name": "Property",
+        "type": "field",
+        "label": "Property",
+        "value": "3-bedroom flat · Wuse 2 ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:2653",
+        "name": "Agreed price (₦)",
+        "type": "field",
+        "label": "Agreed price (₦)",
+        "value": "3,500,000",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "167:20043",
+        "name": "Grouped controls / Period / payment terms",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2660",
+            "name": "Period",
+            "type": "field",
+            "label": "Period",
+            "value": "Per year ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20821",
+            "name": "Preference selector / Payment terms",
+            "type": "field",
+            "label": "Payment terms",
+            "value": "One year upfront ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "80:2667",
+        "name": "Fees come from the server",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:2668",
+            "name": "",
+            "type": "text",
+            "text": "Fees come from the server",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:2669",
+            "name": "",
+            "type": "text",
+            "text": "The next step displays the backend quote, payer, calculation basis, disclosure and refund/credit conditions.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:2670",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2671",
+            "name": "Create transaction",
+            "type": "action",
+            "text": "Create transaction",
+            "variant": "primary"
+          },
+          {
+            "id": "80:2678",
+            "name": "Back",
+            "type": "action",
+            "text": "Back",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "transaction",
+    "id": "80:2774",
+    "blocks": [
+      {
+        "id": "80:2819",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:2820",
+        "name": "",
+        "type": "text",
+        "text": "Transaction TXN-000123.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:2821",
+        "name": "",
+        "type": "text",
+        "text": "Rent · Terms proposed · Fictional sample",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:2822",
+        "name": "Summary metrics",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2823",
+            "name": "Agreed annual rent",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:2824",
+                "name": "",
+                "type": "text",
+                "text": "₦3,500,000",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "80:2825",
+                "name": "",
+                "type": "text",
+                "text": "Agreed annual rent",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "80:2826",
+            "name": "Recorded payments",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:2827",
+                "name": "",
+                "type": "text",
+                "text": "₦0",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "80:2828",
+                "name": "",
+                "type": "text",
+                "text": "Recorded payments",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "80:2829",
+            "name": "Service fee",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:2830",
+                "name": "",
+                "type": "text",
+                "text": "Quote pending",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "80:2831",
+                "name": "",
+                "type": "text",
+                "text": "Service fee",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "80:2832",
+        "name": "Before agreement",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:2833",
+            "name": "",
+            "type": "text",
+            "text": "Before agreement",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:2834",
+            "name": "",
+            "type": "text",
+            "text": "Present the backend fee quote and refund/credit conditions to the parties. No fee amount is calculated in the frontend.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:2835",
+        "name": "Offer recorded",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2836",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "80:2837",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "80:2838",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "80:2839",
+                "name": "",
+                "type": "text",
+                "text": "Offer recorded",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:2840",
+                "name": "",
+                "type": "text",
+                "text": "26 Oct · Annual rent proposed at ₦3,500,000",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "80:2841",
+        "name": "Terms proposed",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2842",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "80:2843",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "80:2844",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "80:2845",
+                "name": "",
+                "type": "text",
+                "text": "Terms proposed",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:2846",
+                "name": "",
+                "type": "text",
+                "text": "Payment period: yearly · One year upfront",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "80:2847",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2848",
+            "name": "Record terms / offer",
+            "type": "action",
+            "text": "Record terms / offer",
+            "variant": "primary"
+          },
+          {
+            "id": "80:2855",
+            "name": "Fee disclosure",
+            "type": "action",
+            "text": "Fee disclosure",
+            "variant": "neutral"
+          },
+          {
+            "id": "80:2862",
+            "name": "Payment ledger",
+            "type": "action",
+            "text": "Payment ledger",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "80:2869",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:2870",
+            "name": "Complete transaction",
+            "type": "action",
+            "text": "Complete transaction",
+            "variant": "neutral"
+          },
+          {
+            "id": "80:2877",
+            "name": "Cancel transaction",
+            "type": "action",
+            "text": "Cancel transaction",
+            "variant": "subtle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "agreement",
+    "id": "80:2950",
+    "blocks": [
+      {
+        "id": "80:2995",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:2996",
+        "name": "",
+        "type": "text",
+        "text": "Record the next agreement.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:2997",
+        "name": "",
+        "type": "text",
+        "text": "Keep offers and terms in an auditable timeline.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:20805",
+        "name": "Preference selector / Event type",
+        "type": "field",
+        "label": "Event type",
+        "value": "Terms agreed ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:3005",
+        "name": "Amount (₦), if applicable",
+        "type": "field",
+        "label": "Amount (₦), if applicable",
+        "value": "3,500,000",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "ui:agreement:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Terms / note",
+        "value": "Annual rent and payment period confirmed by both parties."
+      },
+      {
+        "id": "80:3016",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:3017",
+            "name": "Record event",
+            "type": "action",
+            "text": "Record event",
+            "variant": "primary"
+          },
+          {
+            "id": "80:3024",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "fee-disclosure",
+    "id": "80:3108",
+    "blocks": [
+      {
+        "id": "80:3153",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:3154",
+        "name": "",
+        "type": "text",
+        "text": "Make every charge clear.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3155",
+        "name": "",
+        "type": "text",
+        "text": "Server-provided quote · Example awaiting configured fee rules",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:3156",
+        "name": "Service fee",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:3157",
+            "name": "",
+            "type": "text",
+            "text": "Service fee",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:3158",
+            "name": "",
+            "type": "text",
+            "text": "Payer / basis: From backend quote",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:3159",
+            "name": "",
+            "type": "text",
+            "text": "Amount: Pending quote",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:3160",
+        "name": "Inspection fee",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:3161",
+            "name": "",
+            "type": "text",
+            "text": "Inspection fee",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:3162",
+            "name": "",
+            "type": "text",
+            "text": "Payer / basis: Disabled in sample",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:3163",
+            "name": "",
+            "type": "text",
+            "text": "Amount: ₦0",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:3164",
+        "name": "",
+        "type": "text",
+        "text": "Disclosure checklist",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3165",
+        "name": "",
+        "type": "text",
+        "text": "Show rate, basis, payer, what the fee covers and applicable refund/credit conditions before agreement.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "167:20795",
+        "name": "Preference selector / Disclosure method",
+        "type": "field",
+        "label": "Disclosure method",
+        "value": "In-platform message ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:fee-disclosure:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Disclosure note",
+        "value": "Record the quote version, recipients and the conditions shared."
+      },
+      {
+        "id": "80:3177",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:3178",
+            "name": "Record fee disclosure",
+            "type": "action",
+            "text": "Record fee disclosure",
+            "variant": "primary"
+          },
+          {
+            "id": "80:3185",
+            "name": "Review fee rules",
+            "type": "action",
+            "text": "Review fee rules",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "88:15025",
+        "name": "View calculated example quote",
+        "type": "action",
+        "text": "View calculated example quote",
+        "variant": "neutral"
+      }
+    ]
+  },
+  {
+    "slug": "ledger",
+    "id": "80:3263",
+    "blocks": [
+      {
+        "id": "80:3308",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:3309",
+        "name": "",
+        "type": "text",
+        "text": "A payment record you can follow.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3310",
+        "name": "",
+        "type": "text",
+        "text": "TXN-000123 · Append-only ledger",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:3311",
+        "name": "LED-000123",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:3312",
+            "name": "",
+            "type": "text",
+            "text": "LED-000123",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:3313",
+            "name": "",
+            "type": "text",
+            "text": "Type: Manual receipt",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:3314",
+            "name": "",
+            "type": "text",
+            "text": "Amount: ₦50,000",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:3315",
+            "name": "",
+            "type": "text",
+            "text": "Recorded: 26 Oct · Sample staff",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:3316",
+        "name": "LED-000124",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:3317",
+            "name": "",
+            "type": "text",
+            "text": "LED-000124",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:3318",
+            "name": "",
+            "type": "text",
+            "text": "Type: Reversal of LED-000123",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:3319",
+            "name": "",
+            "type": "text",
+            "text": "Amount: −₦50,000",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:3320",
+            "name": "",
+            "type": "text",
+            "text": "Recorded: 26 Oct · Sample staff",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:3321",
+        "name": "Corrections retain history",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:3322",
+            "name": "",
+            "type": "text",
+            "text": "Corrections retain history",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:3323",
+            "name": "",
+            "type": "text",
+            "text": "Never edit or delete a posted entry. Record a reversing entry with a reason.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:3324",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:3325",
+            "name": "Record payment",
+            "type": "action",
+            "text": "Record payment",
+            "variant": "primary"
+          },
+          {
+            "id": "80:3332",
+            "name": "Record reversal",
+            "type": "action",
+            "text": "Record reversal",
+            "variant": "neutral"
+          },
+          {
+            "id": "80:3339",
+            "name": "Transaction",
+            "type": "action",
+            "text": "Transaction",
+            "variant": "subtle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "record-payment",
+    "id": "80:3426",
+    "blocks": [
+      {
+        "id": "80:3471",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:3472",
+        "name": "",
+        "type": "text",
+        "text": "Record a received payment.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3473",
+        "name": "",
+        "type": "text",
+        "text": "Manual company-channel record; this screen does not collect payment.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:3474",
+        "name": "Ledger type",
+        "type": "field",
+        "label": "Ledger type",
+        "value": "Service fee receipt ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:3481",
+        "name": "Amount (₦)",
+        "type": "field",
+        "label": "Amount (₦)",
+        "value": "50,000",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:3488",
+        "name": "Received at (WAT)",
+        "type": "field",
+        "label": "Received at (WAT)",
+        "value": "26 Oct 2026 · 09:00",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "167:20027",
+        "name": "Grouped controls / Approved channel / reference",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "167:20785",
+            "name": "Preference selector / Payment channel",
+            "type": "field",
+            "label": "Payment channel",
+            "value": "Approved company bank channel ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20028",
+            "name": "Payment reference",
+            "type": "field",
+            "label": "Payment reference",
+            "value": "SAMPLE-REF",
+            "select": false,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "ui:record-payment:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Record note",
+        "value": "Receipt confirmed by authorised staff."
+      },
+      {
+        "id": "80:3506",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:3507",
+            "name": "Review payment entry",
+            "type": "action",
+            "text": "Review payment entry",
+            "variant": "primary"
+          },
+          {
+            "id": "80:3514",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "confirm-payment",
+    "id": "80:3568",
+    "blocks": [
+      {
+        "id": "80:3613",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:3614",
+        "name": "",
+        "type": "text",
+        "text": "Confirm this ledger entry.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3615",
+        "name": "",
+        "type": "text",
+        "text": "Review the amount and reference before posting.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:3616",
+        "name": "",
+        "type": "text",
+        "text": "Manual receipt",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3617",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:confirm-payment:1",
+            "name": "",
+            "type": "text",
+            "text": "₦50,000 · Service fee receipt",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:confirm-payment:2",
+            "name": "",
+            "type": "text",
+            "text": "Reference SAMPLE-REF · 26 Oct 2026",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "80:3618",
+        "name": "Permanent history",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:3619",
+            "name": "",
+            "type": "text",
+            "text": "Permanent history",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:3620",
+            "name": "",
+            "type": "text",
+            "text": "Posted entries are retained. Corrections are made through a reversing entry.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:3621",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:3622",
+            "name": "Post ledger entry",
+            "type": "action",
+            "text": "Post ledger entry",
+            "variant": "primary"
+          },
+          {
+            "id": "80:3629",
+            "name": "Edit entry",
+            "type": "action",
+            "text": "Edit entry",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "reverse-payment",
+    "id": "80:3690",
+    "blocks": [
+      {
+        "id": "80:3735",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:3736",
+        "name": "",
+        "type": "text",
+        "text": "Correct the record with a reversal.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3737",
+        "name": "",
+        "type": "text",
+        "text": "Original entry LED-000123 remains in the ledger.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:3738",
+        "name": "",
+        "type": "text",
+        "text": "Original receipt",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3739",
+        "name": "",
+        "type": "text",
+        "text": "₦50,000 · SAMPLE-REF",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "ui:reverse-payment:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Reason",
+        "value": "Receipt was recorded against the wrong transaction."
+      },
+      {
+        "id": "80:3744",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:3745",
+            "name": "Record reversing entry",
+            "type": "action",
+            "text": "Record reversing entry",
+            "variant": "primary"
+          },
+          {
+            "id": "80:3752",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complete-transaction",
+    "id": "80:3814",
+    "blocks": [
+      {
+        "id": "80:3859",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:3860",
+        "name": "",
+        "type": "text",
+        "text": "Complete this transaction?",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3861",
+        "name": "",
+        "type": "text",
+        "text": "Check the terms, fee records and outstanding items.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:3862",
+        "name": "Completion review",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:3863",
+            "name": "",
+            "type": "text",
+            "text": "Completion review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:3864",
+            "name": "",
+            "type": "text",
+            "text": "The backend validates whether this transition is permitted. Outstanding or invalid states return a clear error.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "ui:complete-transaction:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Completion note",
+        "value": "All required records have been reviewed."
+      },
+      {
+        "id": "80:3869",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:3870",
+            "name": "Confirm completion",
+            "type": "action",
+            "text": "Confirm completion",
+            "variant": "primary"
+          },
+          {
+            "id": "80:3877",
+            "name": "Keep open",
+            "type": "action",
+            "text": "Keep open",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "cancel-transaction",
+    "id": "80:3939",
+    "blocks": [
+      {
+        "id": "80:3984",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:3985",
+        "name": "",
+        "type": "text",
+        "text": "Cancel this transaction.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:3986",
+        "name": "",
+        "type": "text",
+        "text": "Retain all offers, disclosures and ledger history.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:cancel-transaction:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Cancellation reason",
+        "value": "The client chose not to proceed."
+      },
+      {
+        "id": "80:3991",
+        "name": "Refund / credit handling",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:3992",
+            "name": "",
+            "type": "text",
+            "text": "Refund / credit handling",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:3993",
+            "name": "",
+            "type": "text",
+            "text": "Record any required reversal or refund according to the disclosed conditions; cancellation does not erase ledger entries.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:3994",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:3995",
+            "name": "Record cancellation",
+            "type": "action",
+            "text": "Record cancellation",
+            "variant": "primary"
+          },
+          {
+            "id": "80:4002",
+            "name": "Keep open",
+            "type": "action",
+            "text": "Keep open",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "transaction-recorded",
+    "id": "80:4051",
+    "blocks": [
+      {
+        "id": "80:4096",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:4097",
+        "name": "",
+        "type": "text",
+        "text": "Transaction status recorded.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4098",
+        "name": "",
+        "type": "text",
+        "text": "History and payment records remain available.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:4099",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4100",
+            "name": "View transaction",
+            "type": "action",
+            "text": "View transaction",
+            "variant": "primary"
+          },
+          {
+            "id": "80:4107",
+            "name": "All transactions",
+            "type": "action",
+            "text": "All transactions",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "fee-rules",
+    "id": "80:4204",
+    "blocks": [
+      {
+        "id": "80:4249",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:4250",
+        "name": "",
+        "type": "text",
+        "text": "Fee rules, clearly defined.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4251",
+        "name": "",
+        "type": "text",
+        "text": "Admin configuration · Proposed business defaults require review.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:4252",
+        "name": "Transaction type",
+        "type": "field",
+        "label": "Transaction type",
+        "value": "Rent ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:4259",
+        "name": "Payer",
+        "type": "field",
+        "label": "Payer",
+        "value": "Client ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:4266",
+        "name": "Calculation basis",
+        "type": "field",
+        "label": "Calculation basis",
+        "value": "Annual rent ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:4273",
+        "name": "Rate (basis points)",
+        "type": "field",
+        "label": "Rate (basis points)",
+        "value": "200 · Illustrative 2% working assumption",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:4280",
+        "name": "Inspection fee (₦)",
+        "type": "field",
+        "label": "Inspection fee (₦)",
+        "value": "0 · Disabled",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "ui:fee-rules:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Disclosure / refund / credit conditions",
+        "value": "Draft conditions awaiting business and legal review."
+      },
+      {
+        "id": "80:4291",
+        "name": "Configuration boundary",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:4292",
+            "name": "",
+            "type": "text",
+            "text": "Configuration boundary",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:4293",
+            "name": "",
+            "type": "text",
+            "text": "Backend calculates and snapshots fees. Existing transactions retain their rule version. No real charge is configured by this prototype.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:4294",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4295",
+            "name": "Review rule change",
+            "type": "action",
+            "text": "Review rule change",
+            "variant": "primary"
+          },
+          {
+            "id": "80:4302",
+            "name": "Back to transactions",
+            "type": "action",
+            "text": "Back to transactions",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "review-fee-rules",
+    "id": "80:4353",
+    "blocks": [
+      {
+        "id": "80:4398",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:4399",
+        "name": "",
+        "type": "text",
+        "text": "Review the new rule version.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4400",
+        "name": "",
+        "type": "text",
+        "text": "Admin-only action · Applies according to the backend versioning rules.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:4401",
+        "name": "",
+        "type": "text",
+        "text": "Proposed configuration",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4402",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:review-fee-rules:1",
+            "name": "",
+            "type": "text",
+            "text": "Rent · Client · Annual-rent basis · 200 basis points",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:review-fee-rules:2",
+            "name": "",
+            "type": "text",
+            "text": "Inspection fee disabled · Draft conditions",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "80:4403",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4404",
+            "name": "Save rule version",
+            "type": "action",
+            "text": "Save rule version",
+            "variant": "primary"
+          },
+          {
+            "id": "80:4411",
+            "name": "Edit rules",
+            "type": "action",
+            "text": "Edit rules",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "fee-rules-saved",
+    "id": "80:4460",
+    "blocks": [
+      {
+        "id": "80:4505",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:4506",
+        "name": "",
+        "type": "text",
+        "text": "Rule version saved.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4507",
+        "name": "",
+        "type": "text",
+        "text": "Illustrative design confirmation. No production settings changed.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:4508",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4509",
+            "name": "Fee rules",
+            "type": "action",
+            "text": "Fee rules",
+            "variant": "primary"
+          },
+          {
+            "id": "80:4516",
+            "name": "Transactions",
+            "type": "action",
+            "text": "Transactions",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaints",
+    "id": "80:4597",
+    "blocks": [
+      {
+        "id": "80:4642",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:4643",
+        "name": "",
+        "type": "text",
+        "text": "Every concern deserves a review.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4644",
+        "name": "",
+        "type": "text",
+        "text": "Reports are unverified allegations until investigated.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:19997",
+        "name": "Grouped controls / Search / status / assignee",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4645",
+            "name": "Search inquiries",
+            "type": "field",
+            "label": "Search inquiries",
+            "value": "Reference or client",
+            "select": false,
+            "chevron": null
+          },
+          {
+            "id": "167:19998",
+            "name": "Inquiry status",
+            "type": "field",
+            "label": "Inquiry status",
+            "value": "All inquiries ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20005",
+            "name": "Assignee",
+            "type": "field",
+            "label": "Assignee",
+            "value": "My queue ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "167:20012",
+        "name": "Grouped controls / Reason / outcome / overdue",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "167:20769",
+            "name": "Preference selector / Reason",
+            "type": "field",
+            "label": "Reason",
+            "value": "All reasons ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20013",
+            "name": "Outcome",
+            "type": "field",
+            "label": "Outcome",
+            "value": "Any outcome ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20020",
+            "name": "Overdue",
+            "type": "field",
+            "label": "Overdue",
+            "value": "No ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "80:4659",
+        "name": "CMP-000123",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:4660",
+            "name": "",
+            "type": "text",
+            "text": "CMP-000123",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:4661",
+            "name": "",
+            "type": "text",
+            "text": "Reason / subject: Inspection service",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4662",
+            "name": "",
+            "type": "text",
+            "text": "Status: Investigating",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4663",
+            "name": "",
+            "type": "text",
+            "text": "Review due: 28 Oct",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4664",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:4671",
+        "name": "CMP-000125",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:4672",
+            "name": "",
+            "type": "text",
+            "text": "CMP-000125",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:4673",
+            "name": "",
+            "type": "text",
+            "text": "Reason / subject: Asked to pay outside",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4674",
+            "name": "",
+            "type": "text",
+            "text": "Status: Triage · hold review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4675",
+            "name": "",
+            "type": "text",
+            "text": "Review due: 28 Oct",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4676",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:4683",
+        "name": "CMP-000126",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:4684",
+            "name": "",
+            "type": "text",
+            "text": "CMP-000126",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:4685",
+            "name": "",
+            "type": "text",
+            "text": "Reason / subject: Wrong price",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4686",
+            "name": "",
+            "type": "text",
+            "text": "Status: New",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4687",
+            "name": "",
+            "type": "text",
+            "text": "Review due: 29 Oct",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:4688",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:4695",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4696",
+            "name": "Open investigation",
+            "type": "action",
+            "text": "Open investigation",
+            "variant": "primary"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaint",
+    "id": "80:4789",
+    "blocks": [
+      {
+        "id": "80:4834",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:4835",
+        "name": "",
+        "type": "text",
+        "text": "Investigate before deciding.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4836",
+        "name": "",
+        "type": "text",
+        "text": "CMP-000125 · Asked to pay outside · Unverified allegation",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:4837",
+        "name": "Confidential reporter",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:4838",
+            "name": "",
+            "type": "text",
+            "text": "Confidential reporter",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:4839",
+            "name": "",
+            "type": "text",
+            "text": "Sample reporter · reporter@example.com · Staff-only. Never share identity or identifying detail with the landlord.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:4840",
+        "name": "",
+        "type": "text",
+        "text": "Reported concern",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4841",
+        "name": "",
+        "type": "text",
+        "text": "The reporter says they were asked to send a deposit to a personal account. This is an allegation, not a finding.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4842",
+        "name": "Evidence",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:4843",
+            "name": "",
+            "type": "text",
+            "text": "Evidence",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:4844",
+            "name": "",
+            "type": "text",
+            "text": "1 private screenshot · Expiring signed access only",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:4845",
+        "name": "Assignee",
+        "type": "field",
+        "label": "Assignee",
+        "value": "Sample case coordinator ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:4852",
+        "name": "Case stage",
+        "type": "field",
+        "label": "Case stage",
+        "value": "Investigating ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:4859",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4860",
+            "name": "Save triage / assignment",
+            "type": "action",
+            "text": "Save triage / assignment",
+            "variant": "primary"
+          },
+          {
+            "id": "80:4867",
+            "name": "Review evidence",
+            "type": "action",
+            "text": "Review evidence",
+            "variant": "neutral"
+          },
+          {
+            "id": "80:4874",
+            "name": "Record investigation",
+            "type": "action",
+            "text": "Record investigation",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "80:4881",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4882",
+            "name": "Place precautionary hold",
+            "type": "action",
+            "text": "Place precautionary hold",
+            "variant": "neutral"
+          },
+          {
+            "id": "80:4889",
+            "name": "Dismiss case",
+            "type": "action",
+            "text": "Dismiss case",
+            "variant": "subtle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaint-assigned",
+    "id": "80:4938",
+    "blocks": [
+      {
+        "id": "80:4983",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:4984",
+        "name": "",
+        "type": "text",
+        "text": "Case assignment updated.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:4985",
+        "name": "",
+        "type": "text",
+        "text": "Status and assignee recorded in case history.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:4986",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:4987",
+            "name": "Return to case",
+            "type": "action",
+            "text": "Return to case",
+            "variant": "primary"
+          },
+          {
+            "id": "80:4994",
+            "name": "Case queue",
+            "type": "action",
+            "text": "Case queue",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaint-evidence",
+    "id": "80:5048",
+    "blocks": [
+      {
+        "id": "80:5093",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:5094",
+        "name": "",
+        "type": "text",
+        "text": "Review the evidence privately.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5095",
+        "name": "",
+        "type": "text",
+        "text": "CMP-000125 · Authorised staff only",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:5096",
+        "name": "Private evidence preview",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:5097",
+            "name": "",
+            "type": "text",
+            "text": "Private evidence preview",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:5098",
+            "name": "",
+            "type": "text",
+            "text": "Fictional screenshot placeholder. Signed access expires within 15 minutes.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:5099",
+        "name": "",
+        "type": "text",
+        "text": "Evidence reviewed",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5100",
+        "name": "",
+        "type": "text",
+        "text": "Record the file reference and what was checked in the investigation. Do not send the evidence or reporter identity to the reported party.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5101",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:5102",
+            "name": "Record investigation",
+            "type": "action",
+            "text": "Record investigation",
+            "variant": "primary"
+          },
+          {
+            "id": "80:5109",
+            "name": "Return to case",
+            "type": "action",
+            "text": "Return to case",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "investigation",
+    "id": "80:5193",
+    "blocks": [
+      {
+        "id": "80:5238",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:5239",
+        "name": "",
+        "type": "text",
+        "text": "Build a supported conclusion.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5240",
+        "name": "",
+        "type": "text",
+        "text": "Findings, evidence, outcome and actions are required before resolution.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:investigation:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Findings",
+        "value": "Summarise what the investigation established."
+      },
+      {
+        "id": "ui:investigation:2",
+        "name": "",
+        "type": "textarea",
+        "label": "Evidence reviewed",
+        "value": "List the evidence references and checks completed."
+      },
+      {
+        "id": "80:5249",
+        "name": "Outcome",
+        "type": "field",
+        "label": "Outcome",
+        "value": "Inconclusive ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:5256",
+        "name": "Actions",
+        "type": "field",
+        "label": "Actions",
+        "value": "No action ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:investigation:3",
+        "name": "",
+        "type": "textarea",
+        "label": "Public note (optional)",
+        "value": "A generic update that does not expose private findings or reporter details."
+      },
+      {
+        "id": "80:5267",
+        "name": "Permission safeguards",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:5268",
+            "name": "",
+            "type": "text",
+            "text": "Permission safeguards",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:5269",
+            "name": "",
+            "type": "text",
+            "text": "Permanent listing rejection or landlord blocking is admin-only and requires a substantiated or partially substantiated outcome.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:5270",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:5271",
+            "name": "Save working record",
+            "type": "action",
+            "text": "Save working record",
+            "variant": "primary"
+          },
+          {
+            "id": "80:5278",
+            "name": "Review resolution",
+            "type": "action",
+            "text": "Review resolution",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "precautionary-hold",
+    "id": "80:5340",
+    "blocks": [
+      {
+        "id": "80:5385",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:5386",
+        "name": "",
+        "type": "text",
+        "text": "Place a precautionary hold.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5387",
+        "name": "",
+        "type": "text",
+        "text": "Available only for fake-listing or off-platform-payment concerns.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:precautionary-hold:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Reason for temporary unpublish",
+        "value": "Reviewing a concern about an off-platform payment request."
+      },
+      {
+        "id": "80:5392",
+        "name": "Review within 2 business days",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:5393",
+            "name": "",
+            "type": "text",
+            "text": "Review within 2 business days",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:5394",
+            "name": "",
+            "type": "text",
+            "text": "The listing is temporarily unpublished while staff investigate. Report counts never trigger automatic unpublishing.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:5395",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:5396",
+            "name": "Record temporary hold",
+            "type": "action",
+            "text": "Record temporary hold",
+            "variant": "primary"
+          },
+          {
+            "id": "80:5403",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "hold-recorded",
+    "id": "80:5455",
+    "blocks": [
+      {
+        "id": "80:5500",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:5501",
+        "name": "",
+        "type": "text",
+        "text": "Temporary hold recorded.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5502",
+        "name": "",
+        "type": "text",
+        "text": "Listing unpublished · Review due 28 October 2026",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:5503",
+        "name": "Review deadline",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:5504",
+            "name": "",
+            "type": "text",
+            "text": "Review deadline",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:5505",
+            "name": "",
+            "type": "text",
+            "text": "Assess the evidence within 2 business days. This is a precaution, not a permanent finding.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:5506",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:5507",
+            "name": "Continue investigation",
+            "type": "action",
+            "text": "Continue investigation",
+            "variant": "primary"
+          },
+          {
+            "id": "80:5514",
+            "name": "Return to case",
+            "type": "action",
+            "text": "Return to case",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "resolve-complaint",
+    "id": "80:5575",
+    "blocks": [
+      {
+        "id": "80:5620",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:5621",
+        "name": "",
+        "type": "text",
+        "text": "Review the resolution.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5622",
+        "name": "",
+        "type": "text",
+        "text": "Check required evidence and permissions before closing.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:5623",
+        "name": "",
+        "type": "text",
+        "text": "Resolution summary",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5624",
+        "name": "",
+        "type": "text",
+        "text": "Findings recorded · Evidence reviewed · Outcome: inconclusive · Action: no action",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5625",
+        "name": "Generic reporter update",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:5626",
+            "name": "",
+            "type": "text",
+            "text": "Generic reporter update",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:5627",
+            "name": "",
+            "type": "text",
+            "text": "When contact details exist, send only that the report was reviewed and the approved public note. Do not include outcome categories, evidence or landlord identity.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:5628",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:5629",
+            "name": "Resolve case",
+            "type": "action",
+            "text": "Resolve case",
+            "variant": "primary"
+          },
+          {
+            "id": "80:5636",
+            "name": "Edit investigation",
+            "type": "action",
+            "text": "Edit investigation",
+            "variant": "neutral"
+          },
+          {
+            "id": "80:5643",
+            "name": "Admin permanent action",
+            "type": "action",
+            "text": "Admin permanent action",
+            "variant": "subtle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "permanent-action",
+    "id": "80:5719",
+    "blocks": [
+      {
+        "id": "80:5764",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:5765",
+        "name": "",
+        "type": "text",
+        "text": "Permanent action needs evidence.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5766",
+        "name": "",
+        "type": "text",
+        "text": "Admin-only · Substantiated or partially substantiated outcome required",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:5767",
+        "name": "Action",
+        "type": "field",
+        "label": "Action",
+        "value": "Reject listing / Block landlord ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:5774",
+        "name": "Supported outcome",
+        "type": "field",
+        "label": "Supported outcome",
+        "value": "Substantiated ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:permanent-action:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Reason and evidence references",
+        "value": "Record the conclusion and supporting evidence."
+      },
+      {
+        "id": "80:5785",
+        "name": "Guarded action",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:5786",
+            "name": "",
+            "type": "text",
+            "text": "Guarded action",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:5787",
+            "name": "",
+            "type": "text",
+            "text": "Unavailable for an unverified allegation or inconclusive outcome. The server validates role and investigation guards.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:5788",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:5789",
+            "name": "Review permanent action",
+            "type": "action",
+            "text": "Review permanent action",
+            "variant": "primary"
+          },
+          {
+            "id": "80:5796",
+            "name": "Return to investigation",
+            "type": "action",
+            "text": "Return to investigation",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "confirm-permanent-action",
+    "id": "80:5848",
+    "blocks": [
+      {
+        "id": "80:5893",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:5894",
+        "name": "",
+        "type": "text",
+        "text": "Confirm the permanent action.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:5895",
+        "name": "",
+        "type": "text",
+        "text": "Admin-only confirmation after a supported investigation.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:5896",
+        "name": "Review carefully",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:5897",
+            "name": "",
+            "type": "text",
+            "text": "Review carefully",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:5898",
+            "name": "",
+            "type": "text",
+            "text": "Reject the listing with the recorded substantiated findings and reason. The action is written to the case and property histories.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:5899",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:5900",
+            "name": "Record admin action",
+            "type": "action",
+            "text": "Record admin action",
+            "variant": "primary"
+          },
+          {
+            "id": "80:5907",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "dismiss-complaint",
+    "id": "80:5973",
+    "blocks": [
+      {
+        "id": "80:6018",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:6019",
+        "name": "",
+        "type": "text",
+        "text": "Dismiss with a reason.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:6020",
+        "name": "",
+        "type": "text",
+        "text": "Dismissal records a reason and retains case history.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:6021",
+        "name": "Dismissal reason",
+        "type": "field",
+        "label": "Dismissal reason",
+        "value": "Duplicate ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:dismiss-complaint:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Note",
+        "value": "Linked to the existing case CMP-000123."
+      },
+      {
+        "id": "80:6032",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6033",
+            "name": "Record dismissal",
+            "type": "action",
+            "text": "Record dismissal",
+            "variant": "primary"
+          },
+          {
+            "id": "80:6040",
+            "name": "Keep investigating",
+            "type": "action",
+            "text": "Keep investigating",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "complaint-recorded",
+    "id": "80:6101",
+    "blocks": [
+      {
+        "id": "80:6146",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:6147",
+        "name": "",
+        "type": "text",
+        "text": "Case outcome recorded.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:6148",
+        "name": "",
+        "type": "text",
+        "text": "History retained · Confidential details remain staff-only",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:6149",
+        "name": "Investigation saved",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6150",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "80:6151",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "80:6152",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "80:6153",
+                "name": "",
+                "type": "text",
+                "text": "Investigation saved",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:6154",
+                "name": "",
+                "type": "text",
+                "text": "Findings and evidence references retained.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "80:6155",
+        "name": "Case closed",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6156",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "80:6157",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "80:6158",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "80:6159",
+                "name": "",
+                "type": "text",
+                "text": "Case closed",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:6160",
+                "name": "",
+                "type": "text",
+                "text": "Generic reporter notification queued when contact exists.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "80:6161",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6162",
+            "name": "All cases",
+            "type": "action",
+            "text": "All cases",
+            "variant": "primary"
+          },
+          {
+            "id": "80:6169",
+            "name": "Reopen case · Admin",
+            "type": "action",
+            "text": "Reopen case · Admin",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "reopen-complaint",
+    "id": "80:6228",
+    "blocks": [
+      {
+        "id": "80:6273",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:6274",
+        "name": "",
+        "type": "text",
+        "text": "Reopen this case.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:6275",
+        "name": "",
+        "type": "text",
+        "text": "Admin-only · A reason is required.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:reopen-complaint:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Reason",
+        "value": "New evidence requires further investigation."
+      },
+      {
+        "id": "80:6280",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6281",
+            "name": "Reopen investigation",
+            "type": "action",
+            "text": "Reopen investigation",
+            "variant": "primary"
+          },
+          {
+            "id": "80:6288",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "administration",
+    "id": "80:6384",
+    "blocks": [
+      {
+        "id": "80:6429",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:6430",
+        "name": "",
+        "type": "text",
+        "text": "Manage the workspace.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:6431",
+        "name": "",
+        "type": "text",
+        "text": "Administration and content tools",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:6432",
+        "name": "Record cards",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6433",
+            "name": "Staff & users",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:6434",
+                "name": "",
+                "type": "text",
+                "text": "Staff & users",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:6435",
+                "name": "",
+                "type": "text",
+                "text": "Create staff accounts and manage access.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "80:6436",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          },
+          {
+            "id": "80:6443",
+            "name": "Knowledge base",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:6444",
+                "name": "",
+                "type": "text",
+                "text": "Knowledge base",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:6445",
+                "name": "",
+                "type": "text",
+                "text": "Draft and publish approved help articles.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "80:6446",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          },
+          {
+            "id": "80:6453",
+            "name": "Support settings",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:6454",
+                "name": "",
+                "type": "text",
+                "text": "Support settings",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:6455",
+                "name": "",
+                "type": "text",
+                "text": "Company call line, hours and assistant controls.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "80:6456",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "80:6463",
+        "name": "Record cards",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6464",
+            "name": "Reports",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:6465",
+                "name": "",
+                "type": "text",
+                "text": "Reports",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:6466",
+                "name": "",
+                "type": "text",
+                "text": "Operational metrics and date filters.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "80:6467",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          },
+          {
+            "id": "80:6474",
+            "name": "Audit history",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:6475",
+                "name": "",
+                "type": "text",
+                "text": "Audit history",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:6476",
+                "name": "",
+                "type": "text",
+                "text": "Optional audit viewer.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "80:6477",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          },
+          {
+            "id": "80:6484",
+            "name": "AI conversation review",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:6485",
+                "name": "",
+                "type": "text",
+                "text": "AI conversation review",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "80:6486",
+                "name": "",
+                "type": "text",
+                "text": "Flagged and handed-off conversations.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "80:6487",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "workspace-menu",
+    "id": "80:6596",
+    "blocks": [
+      {
+        "id": "80:6641",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:6642",
+        "name": "",
+        "type": "text",
+        "text": "Where would you like to go?",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:6643",
+        "name": "",
+        "type": "text",
+        "text": "Staff workspace navigation",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:6644",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6645",
+            "name": "Overview",
+            "type": "action",
+            "text": "Overview",
+            "variant": "primary"
+          },
+          {
+            "id": "80:6652",
+            "name": "Properties",
+            "type": "action",
+            "text": "Properties",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "80:6659",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6660",
+            "name": "Inquiries",
+            "type": "action",
+            "text": "Inquiries",
+            "variant": "primary"
+          },
+          {
+            "id": "80:6667",
+            "name": "Inspections",
+            "type": "action",
+            "text": "Inspections",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "80:6674",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6675",
+            "name": "Transactions",
+            "type": "action",
+            "text": "Transactions",
+            "variant": "primary"
+          },
+          {
+            "id": "80:6682",
+            "name": "Complaints",
+            "type": "action",
+            "text": "Complaints",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "80:6689",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6690",
+            "name": "Landlords",
+            "type": "action",
+            "text": "Landlords",
+            "variant": "primary"
+          },
+          {
+            "id": "80:6697",
+            "name": "Clients",
+            "type": "action",
+            "text": "Clients",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "80:6704",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6705",
+            "name": "Administration",
+            "type": "action",
+            "text": "Administration",
+            "variant": "primary"
+          },
+          {
+            "id": "80:6712",
+            "name": "Reports",
+            "type": "action",
+            "text": "Reports",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "users",
+    "id": "80:6786",
+    "blocks": [
+      {
+        "id": "80:6831",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:6832",
+        "name": "",
+        "type": "text",
+        "text": "The right access for each person.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:6833",
+        "name": "",
+        "type": "text",
+        "text": "Admin-only user management",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:19982",
+        "name": "Grouped controls / Search / role / status",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6834",
+            "name": "Search users",
+            "type": "field",
+            "label": "Search users",
+            "value": "Name or email",
+            "select": false,
+            "chevron": null
+          },
+          {
+            "id": "167:19983",
+            "name": "Role",
+            "type": "field",
+            "label": "Role",
+            "value": "All roles ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:19990",
+            "name": "User status",
+            "type": "field",
+            "label": "User status",
+            "value": "Active ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "80:6841",
+        "name": "Sample coordinator",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:6842",
+            "name": "",
+            "type": "text",
+            "text": "Sample coordinator",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:6843",
+            "name": "",
+            "type": "text",
+            "text": "Role: Staff",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6844",
+            "name": "",
+            "type": "text",
+            "text": "Status: Active",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6845",
+            "name": "",
+            "type": "text",
+            "text": "Email: coordinator@example.com",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6846",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:6853",
+        "name": "Sample admin",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:6854",
+            "name": "",
+            "type": "text",
+            "text": "Sample admin",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:6855",
+            "name": "",
+            "type": "text",
+            "text": "Role: Admin",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6856",
+            "name": "",
+            "type": "text",
+            "text": "Status: Active",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6857",
+            "name": "",
+            "type": "text",
+            "text": "Email: admin@example.com",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6858",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:6865",
+        "name": "Ada Obi",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:6866",
+            "name": "",
+            "type": "text",
+            "text": "Ada Obi",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:6867",
+            "name": "",
+            "type": "text",
+            "text": "Role: Client",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6868",
+            "name": "",
+            "type": "text",
+            "text": "Status: Active",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6869",
+            "name": "",
+            "type": "text",
+            "text": "Email: ada@example.com",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:6870",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:6877",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:6878",
+            "name": "Create staff account",
+            "type": "action",
+            "text": "Create staff account",
+            "variant": "primary"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "invite-user",
+    "id": "80:6964",
+    "blocks": [
+      {
+        "id": "80:7009",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:7010",
+        "name": "",
+        "type": "text",
+        "text": "Invite a teammate.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7011",
+        "name": "",
+        "type": "text",
+        "text": "Only an admin can create staff/admin accounts.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:7012",
+        "name": "Full name",
+        "type": "field",
+        "label": "Full name",
+        "value": "Sample verifier",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:7019",
+        "name": "Email",
+        "type": "field",
+        "label": "Email",
+        "value": "verifier@example.com",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:7026",
+        "name": "Phone (optional)",
+        "type": "field",
+        "label": "Phone (optional)",
+        "value": "Enter phone",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:7033",
+        "name": "Role",
+        "type": "field",
+        "label": "Role",
+        "value": "Staff ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:7040",
+        "name": "Set-password email",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:7041",
+            "name": "",
+            "type": "text",
+            "text": "Set-password email",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:7042",
+            "name": "",
+            "type": "text",
+            "text": "Leave the temporary password unset to send a set-password invitation. Never display credentials in a public page.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:7043",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7044",
+            "name": "Create staff account",
+            "type": "action",
+            "text": "Create staff account",
+            "variant": "primary"
+          },
+          {
+            "id": "80:7051",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "invitation-ready",
+    "id": "80:7100",
+    "blocks": [
+      {
+        "id": "80:7145",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:7146",
+        "name": "",
+        "type": "text",
+        "text": "The invitation is ready.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7147",
+        "name": "",
+        "type": "text",
+        "text": "A set-password email is sent by the application when implemented.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:7148",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7149",
+            "name": "View user",
+            "type": "action",
+            "text": "View user",
+            "variant": "primary"
+          },
+          {
+            "id": "80:7156",
+            "name": "All users",
+            "type": "action",
+            "text": "All users",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "user",
+    "id": "80:7235",
+    "blocks": [
+      {
+        "id": "80:7280",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:7281",
+        "name": "",
+        "type": "text",
+        "text": "Manage workspace access.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7282",
+        "name": "",
+        "type": "text",
+        "text": "Sample coordinator · Staff · Active",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:7283",
+        "name": "Full name",
+        "type": "field",
+        "label": "Full name",
+        "value": "Sample coordinator",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:7290",
+        "name": "Phone",
+        "type": "field",
+        "label": "Phone",
+        "value": "Sample phone",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:7297",
+        "name": "Role",
+        "type": "field",
+        "label": "Role",
+        "value": "Staff ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:7304",
+        "name": "Protect your own access",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:7305",
+            "name": "",
+            "type": "text",
+            "text": "Protect your own access",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:7306",
+            "name": "",
+            "type": "text",
+            "text": "An admin cannot demote or deactivate their own account.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:7307",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7308",
+            "name": "Save user changes",
+            "type": "action",
+            "text": "Save user changes",
+            "variant": "primary"
+          },
+          {
+            "id": "80:7315",
+            "name": "Deactivate user",
+            "type": "action",
+            "text": "Deactivate user",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "deactivate-user",
+    "id": "80:7366",
+    "blocks": [
+      {
+        "id": "80:7411",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:7412",
+        "name": "",
+        "type": "text",
+        "text": "Deactivate this user?",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7413",
+        "name": "",
+        "type": "text",
+        "text": "The user will lose access. Their historical records are retained.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:7414",
+        "name": "",
+        "type": "text",
+        "text": "Selected account",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7415",
+        "name": "",
+        "type": "text",
+        "text": "Sample coordinator · coordinator@example.com",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7416",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7417",
+            "name": "Confirm deactivation",
+            "type": "action",
+            "text": "Confirm deactivation",
+            "variant": "primary"
+          },
+          {
+            "id": "80:7424",
+            "name": "Keep active",
+            "type": "action",
+            "text": "Keep active",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "user-updated",
+    "id": "80:7473",
+    "blocks": [
+      {
+        "id": "80:7518",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:7519",
+        "name": "",
+        "type": "text",
+        "text": "User access updated.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7520",
+        "name": "",
+        "type": "text",
+        "text": "The change is recorded in the audit history.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:7521",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7522",
+            "name": "All users",
+            "type": "action",
+            "text": "All users",
+            "variant": "primary"
+          },
+          {
+            "id": "80:7529",
+            "name": "Administration",
+            "type": "action",
+            "text": "Administration",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "reports",
+    "id": "80:7621",
+    "blocks": [
+      {
+        "id": "80:7666",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:7667",
+        "name": "",
+        "type": "text",
+        "text": "Measure the work that matters.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7668",
+        "name": "",
+        "type": "text",
+        "text": "Operational data · Sample values · No forecast claims",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:20746",
+        "name": "Preference selector / Date range",
+        "type": "field",
+        "label": "Date range",
+        "value": "01–26 October 2026 ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:7676",
+        "name": "Summary metrics",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7677",
+            "name": "Published listings",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:7678",
+                "name": "",
+                "type": "text",
+                "text": "42",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "80:7679",
+                "name": "",
+                "type": "text",
+                "text": "Published listings",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "80:7680",
+            "name": "New inquiries",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:7681",
+                "name": "",
+                "type": "text",
+                "text": "86",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "80:7682",
+                "name": "",
+                "type": "text",
+                "text": "New inquiries",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "80:7683",
+            "name": "Completed inspections",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:7684",
+                "name": "",
+                "type": "text",
+                "text": "24",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "80:7685",
+                "name": "",
+                "type": "text",
+                "text": "Completed inspections",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "80:7686",
+            "name": "Completed transactions",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "80:7687",
+                "name": "",
+                "type": "text",
+                "text": "08",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "80:7688",
+                "name": "",
+                "type": "text",
+                "text": "Completed transactions",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "80:7689",
+        "name": "",
+        "type": "text",
+        "text": "Submission → published  ·  42 of 60",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7692",
+        "name": "",
+        "type": "text",
+        "text": "Inquiry → inspection  ·  24 of 86",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7695",
+        "name": "",
+        "type": "text",
+        "text": "Inspection → transaction  ·  8 of 24",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7698",
+        "name": "Median verification time",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:7699",
+            "name": "",
+            "type": "text",
+            "text": "Median verification time",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:7700",
+            "name": "",
+            "type": "text",
+            "text": "Value: 2.4 days",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7701",
+            "name": "",
+            "type": "text",
+            "text": "Definition: Submission to passed verification",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:7702",
+        "name": "Inquiry response time",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:7703",
+            "name": "",
+            "type": "text",
+            "text": "Inquiry response time",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:7704",
+            "name": "",
+            "type": "text",
+            "text": "Value: 3.1 hours",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7705",
+            "name": "",
+            "type": "text",
+            "text": "Definition: First staff reply after inquiry",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:7706",
+        "name": "Open complaints",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:7707",
+            "name": "",
+            "type": "text",
+            "text": "Open complaints",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:7708",
+            "name": "",
+            "type": "text",
+            "text": "Value: 03",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7709",
+            "name": "",
+            "type": "text",
+            "text": "Definition: Unresolved cases",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:7710",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7711",
+            "name": "Export CSV · Optional",
+            "type": "action",
+            "text": "Export CSV · Optional",
+            "variant": "neutral"
+          }
+        ]
+      },
+      {
+        "id": "103:17255",
+        "name": "",
+        "type": "text",
+        "text": "Operational definitions",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "103:17256",
+        "name": "Landlords onboarded",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17257",
+            "name": "",
+            "type": "text",
+            "text": "Landlords onboarded",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17258",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: 31",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17259",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Landlord records",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "103:17260",
+        "name": "Verified active listings",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17261",
+            "name": "",
+            "type": "text",
+            "text": "Verified active listings",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17262",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: 42",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17263",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Published and verified",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "103:17264",
+        "name": "Confirmed availability",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17265",
+            "name": "",
+            "type": "text",
+            "text": "Confirmed availability",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17266",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: 78%",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17267",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Within configured threshold",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "103:17268",
+        "name": "Qualified inquiries",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17269",
+            "name": "",
+            "type": "text",
+            "text": "Qualified inquiries",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17270",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: 60",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17271",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Qualification recorded",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "103:17272",
+        "name": "Inquiry to inspection",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17273",
+            "name": "",
+            "type": "text",
+            "text": "Inquiry to inspection",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17274",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: 1.3 days",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17275",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Inquiry creation → scheduled inspection",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "103:17276",
+        "name": "Completed inspections",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17277",
+            "name": "",
+            "type": "text",
+            "text": "Completed inspections",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17278",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: 24",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17279",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Completed appointment status",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "103:17280",
+        "name": "Completed transactions",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17281",
+            "name": "",
+            "type": "text",
+            "text": "Completed transactions",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17282",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: 08",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17283",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Completed transaction status",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "103:17284",
+        "name": "Revenue per transaction",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17285",
+            "name": "",
+            "type": "text",
+            "text": "Revenue per transaction",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17286",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: ₦50,000",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17287",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Ledger-derived sample",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "103:17288",
+        "name": "Complaints / fraudulent submissions / disputes",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "103:17289",
+            "name": "",
+            "type": "text",
+            "text": "Complaints / fraudulent submissions / disputes",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "103:17290",
+            "name": "",
+            "type": "text",
+            "text": "Sample value: 3 / 1 / 2",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "103:17291",
+            "name": "",
+            "type": "text",
+            "text": "Basis: Case records and fraud rejection reasons",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "export-ready",
+    "id": "80:7762",
+    "blocks": [
+      {
+        "id": "80:7807",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:7808",
+        "name": "",
+        "type": "text",
+        "text": "Report export is ready.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7809",
+        "name": "",
+        "type": "text",
+        "text": "Optional CSV export concept · Fictional sample data",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:export-ready:1",
+        "name": "",
+        "type": "badge",
+        "text": "Optional"
+      },
+      {
+        "id": "80:7812",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7813",
+            "name": "Back to reports",
+            "type": "action",
+            "text": "Back to reports",
+            "variant": "primary"
+          },
+          {
+            "id": "80:7820",
+            "name": "Administration",
+            "type": "action",
+            "text": "Administration",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "audit",
+    "id": "80:7888",
+    "blocks": [
+      {
+        "id": "80:7933",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:7934",
+        "name": "",
+        "type": "text",
+        "text": "A history you can follow.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:7935",
+        "name": "",
+        "type": "text",
+        "text": "Optional audit viewer · Read-only records",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:audit:1",
+        "name": "",
+        "type": "badge",
+        "text": "Optional"
+      },
+      {
+        "id": "167:19967",
+        "name": "Grouped controls / Actor / action / date",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:7938",
+            "name": "Actor",
+            "type": "field",
+            "label": "Actor",
+            "value": "All actors ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:19968",
+            "name": "Audit action",
+            "type": "field",
+            "label": "Audit action",
+            "value": "All actions ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20736",
+            "name": "Preference selector / Date range",
+            "type": "field",
+            "label": "Date range",
+            "value": "This month ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "80:7945",
+        "name": "26 Oct · 09:41",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:7946",
+            "name": "",
+            "type": "text",
+            "text": "26 Oct · 09:41",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:7947",
+            "name": "",
+            "type": "text",
+            "text": "Actor: Sample coordinator",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7948",
+            "name": "",
+            "type": "text",
+            "text": "Action: Availability confirmed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7949",
+            "name": "",
+            "type": "text",
+            "text": "Record: SUB-000123",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:7950",
+        "name": "26 Oct · 09:20",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:7951",
+            "name": "",
+            "type": "text",
+            "text": "26 Oct · 09:20",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:7952",
+            "name": "",
+            "type": "text",
+            "text": "Actor: Sample admin",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7953",
+            "name": "",
+            "type": "text",
+            "text": "Action: User created",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7954",
+            "name": "",
+            "type": "text",
+            "text": "Record: Sample verifier",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:7955",
+        "name": "25 Oct · 14:00",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:7956",
+            "name": "",
+            "type": "text",
+            "text": "25 Oct · 14:00",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:7957",
+            "name": "",
+            "type": "text",
+            "text": "Actor: Sample verifier",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7958",
+            "name": "",
+            "type": "text",
+            "text": "Action: Verification saved",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:7959",
+            "name": "",
+            "type": "text",
+            "text": "Record: SUB-000123",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "knowledge",
+    "id": "80:8021",
+    "blocks": [
+      {
+        "id": "80:8066",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:8067",
+        "name": "",
+        "type": "text",
+        "text": "Answers grounded in approved content.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8068",
+        "name": "",
+        "type": "text",
+        "text": "Knowledge base · Staff draft, admins publish",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:19959",
+        "name": "Grouped controls / Status / category",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8069",
+            "name": "Article status",
+            "type": "field",
+            "label": "Article status",
+            "value": "All articles ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20724",
+            "name": "Preference selector / Category",
+            "type": "field",
+            "label": "Category",
+            "value": "All categories ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "80:8076",
+        "name": "How property checks work",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:8077",
+            "name": "",
+            "type": "text",
+            "text": "How property checks work",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:8078",
+            "name": "",
+            "type": "text",
+            "text": "Category: Verification",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8079",
+            "name": "",
+            "type": "text",
+            "text": "Status: Published",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8080",
+            "name": "",
+            "type": "text",
+            "text": "Updated: 25 Oct",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8081",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:8088",
+        "name": "Understanding fees",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:8089",
+            "name": "",
+            "type": "text",
+            "text": "Understanding fees",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:8090",
+            "name": "",
+            "type": "text",
+            "text": "Category: Fees",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8091",
+            "name": "",
+            "type": "text",
+            "text": "Status: Draft",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8092",
+            "name": "",
+            "type": "text",
+            "text": "Updated: 26 Oct",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8093",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:8100",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8101",
+            "name": "Create article",
+            "type": "action",
+            "text": "Create article",
+            "variant": "primary"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "article",
+    "id": "80:8152",
+    "blocks": [
+      {
+        "id": "80:8197",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:8198",
+        "name": "",
+        "type": "text",
+        "text": "How property checks work.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8199",
+        "name": "",
+        "type": "text",
+        "text": "Knowledge article · Published",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:8200",
+        "name": "",
+        "type": "text",
+        "text": "Approved help content",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8201",
+        "name": "",
+        "type": "text",
+        "text": "Kof’a shows the checks completed and the verification date on each listing. Verification is not a guarantee of legal ownership or title.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8202",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8203",
+            "name": "Edit draft",
+            "type": "action",
+            "text": "Edit draft",
+            "variant": "primary"
+          },
+          {
+            "id": "80:8210",
+            "name": "Unpublish · Admin",
+            "type": "action",
+            "text": "Unpublish · Admin",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "edit-article",
+    "id": "80:8290",
+    "blocks": [
+      {
+        "id": "80:8335",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:8336",
+        "name": "",
+        "type": "text",
+        "text": "Write an answer people can trust.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8337",
+        "name": "",
+        "type": "text",
+        "text": "Staff can save drafts. Only an admin can publish.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:8338",
+        "name": "Title",
+        "type": "field",
+        "label": "Title",
+        "value": "How property checks work",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "167:20713",
+        "name": "Preference selector / Category",
+        "type": "field",
+        "label": "Category",
+        "value": "Verification ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:8352",
+        "name": "Slug",
+        "type": "field",
+        "label": "Slug",
+        "value": "how-property-checks-work",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "ui:edit-article:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Article body",
+        "value": "Explain recorded checks, their scope and limitations. Use approved content only."
+      },
+      {
+        "id": "80:8363",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8364",
+            "name": "Save draft",
+            "type": "action",
+            "text": "Save draft",
+            "variant": "primary"
+          },
+          {
+            "id": "80:8371",
+            "name": "Review publication · Admin",
+            "type": "action",
+            "text": "Review publication · Admin",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "draft-saved",
+    "id": "80:8420",
+    "blocks": [
+      {
+        "id": "80:8465",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:8466",
+        "name": "",
+        "type": "text",
+        "text": "Draft saved.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8467",
+        "name": "",
+        "type": "text",
+        "text": "The assistant cannot use unpublished drafts.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:8468",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8469",
+            "name": "Continue editing",
+            "type": "action",
+            "text": "Continue editing",
+            "variant": "primary"
+          },
+          {
+            "id": "80:8476",
+            "name": "Knowledge base",
+            "type": "action",
+            "text": "Knowledge base",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "publish-article",
+    "id": "80:8528",
+    "blocks": [
+      {
+        "id": "80:8573",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:8574",
+        "name": "",
+        "type": "text",
+        "text": "Publish this approved article?",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8575",
+        "name": "",
+        "type": "text",
+        "text": "Admin-only · The assistant may retrieve this content once published.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:8576",
+        "name": "Review content and sources",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:8577",
+            "name": "",
+            "type": "text",
+            "text": "Review content and sources",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:8578",
+            "name": "",
+            "type": "text",
+            "text": "Check accuracy, fee/policy approvals and verification limitations before publication.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:8579",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8580",
+            "name": "Publish article",
+            "type": "action",
+            "text": "Publish article",
+            "variant": "primary"
+          },
+          {
+            "id": "80:8587",
+            "name": "Return to draft",
+            "type": "action",
+            "text": "Return to draft",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "unpublish-article",
+    "id": "80:8636",
+    "blocks": [
+      {
+        "id": "80:8681",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:8682",
+        "name": "",
+        "type": "text",
+        "text": "Remove this article from assistant sources?",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8683",
+        "name": "",
+        "type": "text",
+        "text": "Admin-only · History is retained.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:8684",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8685",
+            "name": "Unpublish article",
+            "type": "action",
+            "text": "Unpublish article",
+            "variant": "primary"
+          },
+          {
+            "id": "80:8692",
+            "name": "Keep published",
+            "type": "action",
+            "text": "Keep published",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "assistant-conversations",
+    "id": "80:8752",
+    "blocks": [
+      {
+        "id": "80:8797",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:8798",
+        "name": "",
+        "type": "text",
+        "text": "Review the handoff, improve the help.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8799",
+        "name": "",
+        "type": "text",
+        "text": "Staff-only assistant conversation review",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:19944",
+        "name": "Grouped controls / Handoff / flagged / dates",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8800",
+            "name": "Handoff reason",
+            "type": "field",
+            "label": "Handoff reason",
+            "value": "All reasons ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:19945",
+            "name": "Flag",
+            "type": "field",
+            "label": "Flag",
+            "value": "Review needed ▾",
+            "select": true,
+            "chevron": null
+          },
+          {
+            "id": "167:20703",
+            "name": "Preference selector / Date range",
+            "type": "field",
+            "label": "Date range",
+            "value": "This month ▾",
+            "select": true,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "80:8807",
+        "name": "CHAT-000123",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:8808",
+            "name": "",
+            "type": "text",
+            "text": "CHAT-000123",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:8809",
+            "name": "",
+            "type": "text",
+            "text": "Reason: Low confidence",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8810",
+            "name": "",
+            "type": "text",
+            "text": "Flag: Review needed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8811",
+            "name": "",
+            "type": "text",
+            "text": "When: 26 Oct",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8812",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:8819",
+        "name": "CHAT-000124",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:8820",
+            "name": "",
+            "type": "text",
+            "text": "CHAT-000124",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "80:8821",
+            "name": "",
+            "type": "text",
+            "text": "Reason: User requested person",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8822",
+            "name": "",
+            "type": "text",
+            "text": "Flag: Reviewed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8823",
+            "name": "",
+            "type": "text",
+            "text": "When: 25 Oct",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "80:8824",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "assistant-conversation",
+    "id": "80:8897",
+    "blocks": [
+      {
+        "id": "80:8942",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:8943",
+        "name": "",
+        "type": "text",
+        "text": "Conversation CHAT-000123.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:8944",
+        "name": "",
+        "type": "text",
+        "text": "Handoff reason: low confidence · Private staff review",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:8945",
+        "name": "Keep your conversations here",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:8946",
+            "name": "",
+            "type": "text",
+            "text": "Keep your conversations here",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:8947",
+            "name": "",
+            "type": "text",
+            "text": "Use Kof’a messaging. Never pay into a personal account or move the conversation off-platform.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:8948",
+        "name": "Visitor",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:8949",
+            "name": "",
+            "type": "text",
+            "text": "Visitor",
+            "size": 12.0,
+            "line": 16.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:8950",
+            "name": "",
+            "type": "text",
+            "text": "Can you explain the property checks?",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "80:8951",
+        "name": "Kof’a assistant",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "80:8952",
+            "name": "",
+            "type": "text",
+            "text": "Kof’a assistant",
+            "size": 12.0,
+            "line": 16.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:8953",
+            "name": "",
+            "type": "text",
+            "text": "I cannot answer this confidently. Please contact our team using the company call line.",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "80:8954",
+        "name": "",
+        "type": "text",
+        "text": "Messages refresh periodically. Last updated 09:41 WAT.",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "80:8955",
+        "name": "Refresh messages",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 9999.0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "I80:8955;13:140",
+            "name": "SDS / Button",
+            "type": "action",
+            "text": "Refresh messages",
+            "variant": "subtle"
+          }
+        ]
+      },
+      {
+        "id": "80:8962",
+        "name": "Flag",
+        "type": "field",
+        "label": "Flag",
+        "value": "Review needed ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:assistant-conversation:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Review note",
+        "value": "Improve approved content about verification scope."
+      },
+      {
+        "id": "80:8973",
+        "name": "Sensitive data",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:8974",
+            "name": "",
+            "type": "text",
+            "text": "Sensitive data",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:8975",
+            "name": "",
+            "type": "text",
+            "text": "Transcripts redact card-like numbers. Review content stays in the staff workspace.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:8976",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:8977",
+            "name": "Save review",
+            "type": "action",
+            "text": "Save review",
+            "variant": "primary"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "support-settings",
+    "id": "80:9070",
+    "blocks": [
+      {
+        "id": "80:9115",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:9116",
+        "name": "",
+        "type": "text",
+        "text": "A reliable route to a person.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:9117",
+        "name": "",
+        "type": "text",
+        "text": "Admin configuration · Staff have read-only access.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:9118",
+        "name": "Company call line (E.164)",
+        "type": "field",
+        "label": "Company call line (E.164)",
+        "value": "Not configured — enter approved number",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:9125",
+        "name": "Display phone",
+        "type": "field",
+        "label": "Display phone",
+        "value": "Not configured",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:9132",
+        "name": "Support hours (Africa/Lagos)",
+        "type": "field",
+        "label": "Support hours (Africa/Lagos)",
+        "value": "Set approved support hours",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:9139",
+        "name": "Assistant enabled",
+        "type": "field",
+        "label": "Assistant enabled",
+        "value": "Enabled ▾",
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "80:9146",
+        "name": "Daily token budget",
+        "type": "field",
+        "label": "Daily token budget",
+        "value": "Set approved budget",
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "80:9153",
+        "name": "Configuration required before release",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:9154",
+            "name": "",
+            "type": "text",
+            "text": "Configuration required before release",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:9155",
+            "name": "",
+            "type": "text",
+            "text": "Use real approved support details before enabling handoff. The prototype has no callable sample number.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:9156",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:9157",
+            "name": "Review settings change",
+            "type": "action",
+            "text": "Review settings change",
+            "variant": "primary"
+          },
+          {
+            "id": "80:9164",
+            "name": "Cancel",
+            "type": "action",
+            "text": "Cancel",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "review-support-settings",
+    "id": "80:9216",
+    "blocks": [
+      {
+        "id": "80:9261",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:9262",
+        "name": "",
+        "type": "text",
+        "text": "Review support settings.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:9263",
+        "name": "",
+        "type": "text",
+        "text": "Admin-only · Validate phone format and opening hours.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:9264",
+        "name": "No live change",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "80:9265",
+            "name": "",
+            "type": "text",
+            "text": "No live change",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "80:9266",
+            "name": "",
+            "type": "text",
+            "text": "This is a design confirmation. Actual settings require approved company contact details.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "80:9267",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:9268",
+            "name": "Save settings",
+            "type": "action",
+            "text": "Save settings",
+            "variant": "primary"
+          },
+          {
+            "id": "80:9275",
+            "name": "Edit settings",
+            "type": "action",
+            "text": "Edit settings",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "settings-recorded",
+    "id": "80:9324",
+    "blocks": [
+      {
+        "id": "80:9369",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "80:9370",
+        "name": "",
+        "type": "text",
+        "text": "Settings recorded.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "80:9371",
+        "name": "",
+        "type": "text",
+        "text": "Design example only · No service configuration changed.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "80:9372",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "80:9373",
+            "name": "Support settings",
+            "type": "action",
+            "text": "Support settings",
+            "variant": "primary"
+          },
+          {
+            "id": "80:9380",
+            "name": "Administration",
+            "type": "action",
+            "text": "Administration",
+            "variant": "neutral"
+          }
+        ]
+      }
+    ]
+  }
+]

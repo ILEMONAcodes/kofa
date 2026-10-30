@@ -15,6 +15,12 @@ export default function Admin() {
       >
         Open staff design preview
       </Link>
+      <Link
+        href="/administration-preview/administration"
+        className={buttonStyles("secondary", "mt-4")}
+      >
+        Open administration design preview
+      </Link>
     </StatePanel>
   );
 }

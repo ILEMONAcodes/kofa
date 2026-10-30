@@ -80,6 +80,11 @@ export function previewDestination(
   label: string,
   context: string,
 ): string | null {
+  if (label === "Create transaction")
+    return "/administration-preview/create-transaction";
+  if (label === "View reports") return "/administration-preview/reports";
+  if (label === "View details →" && context === "Review concerns")
+    return "/administration-preview/complaints";
   if (label === "Open record →") {
     if (slug === "properties" || slug === "landlord") return "property";
     if (slug === "landlords") return "landlord";
@@ -89,7 +94,7 @@ export function previewDestination(
       return context === "Inspection"
         ? "inspection"
         : context === "Transaction"
-          ? null
+          ? "/administration-preview/transaction"
           : "inquiry";
     return "inquiry";
   }
