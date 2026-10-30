@@ -115,6 +115,8 @@ Format of an entry: Context → Decision → Consequences → Alternatives consi
 
 ## Working assumptions (AI and developers append here)
 
+- 2026-10-30 — FE-4.14 mobile staff presentation: continue the established fictional design-preview approach for all 37 source views in Figma 79:2309. No frozen-service shapes, identity checks, publication decisions or signed-document access are implemented. Branch retains client preview commit 1564bba; real service integration remains separate. Developer 2 continues explicitly authorized frontend work.
+
 - 2026-10-30 — FE-5.7 mobile client presentation: continue the existing labelled design-preview approach while API_CONTRACT §4.7/4.8 remains Draft. Figma records and outcomes are fictional examples; no service mutations or backend mocks are introduced. Developer 2 continues previously authorized frontend work.
 Format: `date · role · task · assumption relied on (ADR/OQ) · status (open | confirmed | revisit)`
 

@@ -1,14 +1,17 @@
+import Image from "next/image";
 import { useId, type SelectHTMLAttributes } from "react";
 import type { SelectOption } from "@/types/filters";
 import { cn } from "@/lib/cn";
 type Props = SelectHTMLAttributes<HTMLSelectElement> & {
   label: string;
+  chevronAsset?: string;
   options: readonly SelectOption[];
   error?: string;
 };
 // Native select provides platform keyboard/screen-reader behavior and a persistent chevron.
 export function Dropdown({
   label,
+  chevronAsset,
   options,
   error,
   id,
@@ -44,20 +47,30 @@ export function Dropdown({
             </option>
           ))}
         </select>
-        <svg
-          aria-hidden="true"
-          className="pointer-events-none absolute right-4 top-4 h-4 w-4 text-primary"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="m6 9 6 6 6-6"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
+        {chevronAsset ? (
+          <Image
+            src={chevronAsset}
+            width={20}
+            height={20}
+            alt=""
+            className="pointer-events-none absolute right-4 top-3.5"
           />
-        </svg>
+        ) : (
+          <svg
+            aria-hidden="true"
+            className="pointer-events-none absolute right-4 top-4 h-4 w-4 text-primary"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <path
+              d="m6 9 6 6 6-6"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        )}
       </div>
       {error && (
         <p id={`${selectId}-error`} className="text-sm text-danger">

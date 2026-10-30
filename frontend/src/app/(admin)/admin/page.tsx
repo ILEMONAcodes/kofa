@@ -1,3 +1,5 @@
+import Link from "next/link";
+import { buttonStyles } from "@/components/common/button";
 import { StatePanel } from "@/components/common/state-panel";
 export default function Admin() {
   return (
@@ -7,6 +9,12 @@ export default function Admin() {
         contains no operational controls or private data. Access must be
         enforced by the backend before integration.
       </p>
+      <Link
+        href="/staff-preview/overview"
+        className={buttonStyles("secondary", "mt-6")}
+      >
+        Open staff design preview
+      </Link>
     </StatePanel>
   );
 }
