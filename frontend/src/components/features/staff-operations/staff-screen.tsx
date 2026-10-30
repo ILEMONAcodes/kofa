@@ -293,7 +293,9 @@ export function StaffScreen({
                   : isDateTime
                     ? (values[block.id] ??
                       (/^Received at/.test(label)
-                        ? "2026-10-27T09:00"
+                        ? administration
+                          ? "2026-10-26T09:00"
+                          : "2026-10-27T09:00"
                         : "2026-10-26T09:41"))
                     : value
             }

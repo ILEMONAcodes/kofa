@@ -234,3 +234,19 @@ test("representative administration views have no serious accessibility violatio
     ).toEqual([]);
   }
 });
+
+test("payment receipt keeps the date supplied by the source design", async ({
+  page,
+}) => {
+  await page.goto("/administration-preview/record-payment");
+  await expect(
+    page.getByLabel("Received at (WAT)", { exact: true }),
+  ).toHaveValue("2026-10-26T09:00");
+  await page
+    .getByRole("button", { name: "Review payment entry", exact: true })
+    .click();
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Confirm this ledger entry.",
+  );
+  await expect(page.locator(".journey-body")).toContainText("26 Oct 2026");
+});
