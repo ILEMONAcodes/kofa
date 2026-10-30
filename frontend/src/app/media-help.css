@@ -1,0 +1,45 @@
+.media-help-preview {
+  border-radius: 32px;
+  overflow: hidden;
+}
+.media-help-preview .journey-body {
+  overflow-wrap: anywhere;
+}
+.media-help-preview .media-listing-actions {
+  flex: none;
+  padding: 20px 20px calc(25px + env(safe-area-inset-bottom));
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgb(var(--surface));
+  border-top: 1px solid rgb(var(--border));
+}
+.media-help-preview video {
+  width: 100%;
+  border-radius: 12px;
+}
+.media-local-manager {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.media-local-manager section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.media-focus-example {
+  outline: 3px solid rgb(var(--primary));
+  outline-offset: 2px;
+}
+@media (max-width: 389px) {
+  .media-help-preview .journey-header > div {
+    gap: 8px;
+  }
+  .media-help-preview .journey-header button:first-of-type {
+    width: 96px;
+  }
+  .media-help-preview .journey-header button:last-of-type {
+    width: 64px;
+  }
+}

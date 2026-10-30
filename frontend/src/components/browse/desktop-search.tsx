@@ -28,7 +28,9 @@ const labels: Record<ChoiceKey, string> = {
 };
 export function DesktopSearch({ query }: { query: string }) {
   const router = useRouter();
-  const [filtersOpen, setFiltersOpen] = useState(false);
+  const [filtersOpen, setFiltersOpen] = useState(
+    () => new URLSearchParams(query).get("filters") === "open",
+  );
   const initial = readPreferences(new URLSearchParams(query));
   const [draft, setDraft] = useState(initial);
   const [other, setOther] = useState<Partial<Record<ChoiceKey, string>>>({});

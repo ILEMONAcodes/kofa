@@ -38,9 +38,16 @@ export function MobileHeader({ back }: { back?: string }) {
         title="A little guidance, when you need it."
       >
         <p className="text-muted">
-          Help and the assistant are being connected. No messages are sent in
-          this design preview.
+          Help and the assistant are available as design previews. No messages
+          are sent.
         </p>
+        <Link
+          href="/media-help-preview/help"
+          onClick={() => setHelp(false)}
+          className="mt-4 inline-flex min-h-12 items-center text-primary underline"
+        >
+          Open help centre
+        </Link>
       </Modal>
     </header>
   );

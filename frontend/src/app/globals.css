@@ -6,6 +6,7 @@
 @import "./submission.css";
 @import "./client-journeys.css";
 @import "./staff-operations.css";
+@import "./media-help.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
