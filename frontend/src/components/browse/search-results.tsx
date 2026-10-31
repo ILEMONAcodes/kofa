@@ -6,9 +6,7 @@ import { propertyDetailHref } from "@/lib/property-navigation";
 import Link from "next/link";
 import { Button } from "@/components/common/button";
 import { illustrativeListings } from "./home-content";
-import { formatMoney } from "@/lib/formatters/money";
-// Six slots are transcribed from 14:220, including its repeated illustrative cards.
-const sourceSlots = [0, 1, 1, 2, 2, 0] as const;
+import { listingPrice, furnishingLabel } from "@/lib/property-presentation";
 const sourceIds = ["15:292", "15:304", "15:317", "15:329", "15:342", "15:354"];
 export function SearchResults({
   sort,
@@ -23,8 +21,8 @@ export function SearchResults({
     mobileProperties.sort(
       (a, b) => (a.price.amount - b.price.amount) * (sort === "price" ? 1 : -1),
     );
-  const slots = sourceSlots.map((index, slot) => ({
-    property: illustrativeListings[index],
+  const slots = illustrativeListings.map((property, slot) => ({
+    property,
     slot,
   }));
   if (sort === "price" || sort === "-price")
@@ -46,15 +44,17 @@ export function SearchResults({
                 : "Newest first"}
           </span>
         </div>
-        <p className="text-sm text-muted">6 illustrative results</p>
-        {(expanded
-          ? [...mobileProperties, ...mobileProperties]
-          : mobileProperties
-        ).map((property, index) => (
-          <MobilePropertyCard key={index} property={property} query={query} />
-        ))}
         <p className="text-sm text-muted">
-          Showing {expanded ? 6 : 3} of 6 sample results
+          {illustrativeListings.length} illustrative results
+        </p>
+        {(expanded ? mobileProperties : mobileProperties.slice(0, 6)).map(
+          (property, index) => (
+            <MobilePropertyCard key={index} property={property} query={query} />
+          ),
+        )}
+        <p className="text-sm text-muted">
+          Showing {expanded ? mobileProperties.length : 6} of{" "}
+          {mobileProperties.length} sample results
         </p>
         {!expanded && (
           <Button variant="secondary" onClick={() => setExpanded(true)}>
@@ -103,14 +103,10 @@ export function SearchResults({
                   {property.title}
                 </Link>
               </h2>
-              <p className="text-home-card">
-                {formatMoney(property.price.amount)} /year
-              </p>
+              <p className="text-home-card">{listingPrice(property.price)}</p>
               <p className="text-sm">
                 {property.bedrooms} bed · {property.bathrooms} bath ·{" "}
-                {property.furnishing === "furnished"
-                  ? "Furnished"
-                  : "Unfurnished"}
+                {furnishingLabel[property.furnishing]}
               </p>
               <p className="text-sm">{property.location}</p>
               <Link

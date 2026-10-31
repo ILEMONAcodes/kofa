@@ -174,3 +174,8 @@
     height: 240px;
   }
 }
+
+.detail-gallery-single .detail-photo-0 {
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
+}

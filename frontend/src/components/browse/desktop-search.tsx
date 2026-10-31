@@ -232,12 +232,12 @@ export function DesktopSearch({ query }: { query: string }) {
           aria-label="Sample property results"
         >
           <div className="search-result-controls" data-node-id="15:282">
-            <p className="font-medium">6 properties</p>
+            <p className="font-medium">12 sample properties</p>
             {choice("sort")}
           </div>
           {query && (
             <p role="status" className="search-preview-note text-sm text-muted">
-              Your preferences are saved in this URL. These six cards
+              Your preferences are saved in this URL. These twelve cards
               demonstrate the design; live filtered results will appear when
               property search is connected.
             </p>

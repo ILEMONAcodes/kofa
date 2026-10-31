@@ -14,8 +14,13 @@ import {
   DetailInterestLink,
 } from "@/components/browse/detail-navigation-links";
 
+import {
+  listingPrice,
+  pricePeriodLabel,
+  furnishingLabel,
+} from "@/lib/property-presentation";
 import { formatMoney } from "@/lib/formatters/money";
-// This design preview has exactly three known slugs. Real publication gating belongs to the public API.
+// This design preview uses the twelve known sample slugs. Real publication gating belongs to the public API.
 export const dynamicParams = false;
 export function generateStaticParams() {
   return illustrativeListings.map((property) => ({ id: property.slug }));
@@ -97,9 +102,7 @@ export default async function PropertyDetail({ params }: Props) {
             </h2>
             <p className="font-medium">
               {property.bedrooms} bed · {property.bathrooms} bath ·{" "}
-              {property.furnishing === "furnished"
-                ? "Furnished"
-                : "Unfurnished"}
+              {furnishingLabel[property.furnishing]}
             </p>
             <p className="text-muted desktop-only">{property.description}</p>
             <div className="mobile-only mobile-detail-intro">
@@ -187,7 +190,7 @@ export default async function PropertyDetail({ params }: Props) {
             aria-label="Price and availability"
           >
             <p className="text-home-title text-primary">
-              {formatMoney(property.price.amount)} /year
+              {listingPrice(property.price)}
             </p>
             <p className="text-sm text-muted">
               Payment terms:{" "}
@@ -234,7 +237,10 @@ export default async function PropertyDetail({ params }: Props) {
       >
         <div>
           <p>{formatMoney(property.price.amount)}</p>
-          <span>per year · {property.paymentTerms ?? "Sample listing"}</span>
+          <span>
+            {pricePeriodLabel(property.price)} ·{" "}
+            {property.paymentTerms ?? "Sample listing"}
+          </span>
         </div>
         <Suspense
           fallback={

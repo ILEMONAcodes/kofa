@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import type { HomeListing } from "@/components/browse/home-content";
-import { formatMoney } from "@/lib/formatters/money";
+import { listingPrice, furnishingLabel } from "@/lib/property-presentation";
 import { propertyDetailHref } from "@/lib/property-navigation";
 export function MobilePropertyCard({
   property,
@@ -36,12 +36,10 @@ export function MobilePropertyCard({
         <h3 className="text-home-card">
           <Link href={href}>{property.title}</Link>
         </h3>
-        <p className="text-home-card">
-          {formatMoney(property.price.amount)} /year
-        </p>
+        <p className="text-home-card">{listingPrice(property.price)}</p>
         <p className="text-sm">
           {property.bedrooms} bed · {property.bathrooms} bath ·{" "}
-          {property.furnishing === "furnished" ? "Furnished" : "Unfurnished"}
+          {furnishingLabel[property.furnishing]}
         </p>
         <p className="text-sm">{property.location}</p>
         <Link className="text-home-caption" href={href}>

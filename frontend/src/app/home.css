@@ -265,6 +265,8 @@
   font-weight: 500;
 }
 .home-card-copy {
+  color: rgb(var(--inverse));
+  z-index: 1;
   position: absolute;
   left: 20px;
   right: 20px;
@@ -536,4 +538,10 @@
 .home-page .text-home-section,
 .home-page .text-home-footer-wordmark {
   font-variation-settings: "opsz" 40;
+}
+
+@media (min-width: 768px) and (max-width: 1100px) {
+  .home-property-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
 }

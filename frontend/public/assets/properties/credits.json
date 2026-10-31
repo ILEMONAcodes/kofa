@@ -1,0 +1,74 @@
+[
+  {
+    "file": "/assets/properties/studio-maitama.webp",
+    "page": "https://unsplash.com/photos/mNrSV2tB35g",
+    "photographer": "Lisa Anna",
+    "download": "https://images.unsplash.com/photo-1722247478803-54dd67b86c41?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 64008,
+    "license": "https://unsplash.com/license"
+  },
+  {
+    "file": "/assets/properties/apartment-asokoro.webp",
+    "page": "https://unsplash.com/photos/Itg6WGOAJaY",
+    "photographer": "Clay Banks",
+    "download": "https://images.unsplash.com/photo-1720096004902-9954af4e2fae?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 98600,
+    "license": "https://unsplash.com/license"
+  },
+  {
+    "file": "/assets/properties/bungalow-lugbe.webp",
+    "page": "https://unsplash.com/photos/8R_eeyi5bFg",
+    "photographer": "Luis J. Corniel",
+    "download": "https://images.unsplash.com/photo-1747336754979-cb1078ce73f5?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 104592,
+    "license": "https://unsplash.com/license"
+  },
+  {
+    "file": "/assets/properties/house-katampe.webp",
+    "page": "https://unsplash.com/photos/p_9w69xML7o",
+    "photographer": "Clay Banks",
+    "download": "https://images.unsplash.com/photo-1780427670049-43aa7921e3f0?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 92872,
+    "license": "https://unsplash.com/license"
+  },
+  {
+    "file": "/assets/properties/room-garki.webp",
+    "page": "https://unsplash.com/photos/f_mWO1Spf4w",
+    "photographer": "Marc Wieland",
+    "download": "https://images.unsplash.com/photo-1776348065117-02285a905b0b?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 87080,
+    "license": "https://unsplash.com/license"
+  },
+  {
+    "file": "/assets/properties/terrace-apo.webp",
+    "page": "https://unsplash.com/photos/LPUTPUyZr68",
+    "photographer": "Lisa Anna",
+    "download": "https://images.unsplash.com/photo-1723641881214-75af0b43fa0b?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 133436,
+    "license": "https://unsplash.com/license"
+  },
+  {
+    "file": "/assets/properties/bungalow-kubwa.webp",
+    "page": "https://unsplash.com/photos/uzNUoanh8ok",
+    "photographer": "Josh Lemmon",
+    "download": "https://images.unsplash.com/photo-1792630862596-038e95672446?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 172456,
+    "license": "https://unsplash.com/license"
+  },
+  {
+    "file": "/assets/properties/duplex-guzape.webp",
+    "page": "https://unsplash.com/photos/3qRx6B4cT6g",
+    "photographer": "GoodLifeConstruction",
+    "download": "https://images.unsplash.com/photo-1770756051811-1612ac8bedfa?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 162404,
+    "license": "https://unsplash.com/license"
+  },
+  {
+    "file": "/assets/properties/terrace-life-camp.webp",
+    "page": "https://unsplash.com/photos/Hnec2oEbbxk",
+    "photographer": "Clay Banks",
+    "download": "https://images.unsplash.com/photo-1774200981075-a728eaaa3824?auto=format&fit=crop&w=960&q=82&fm=webp",
+    "bytes": 88958,
+    "license": "https://unsplash.com/license"
+  }
+]

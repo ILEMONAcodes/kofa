@@ -86,7 +86,10 @@ export function PropertyGallery({ photos }: { photos: DetailPhoto[] }) {
   const [selected, setSelected] = useState<number | null>(null);
   return (
     <>
-      <div className="detail-gallery" data-node-id="15:420">
+      <div
+        className={`detail-gallery${photos.length === 1 ? " detail-gallery-single" : ""}`}
+        data-node-id="15:420"
+      >
         {photos.map((photo, index) => (
           <button
             key={photo.src}

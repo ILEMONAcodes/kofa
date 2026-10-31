@@ -39,11 +39,11 @@ test("desktop search matches source geometry, assets and accessibility", async (
   const expected = [
     [0, 0, 1440, 116],
     [0, 116, 1440, 270],
-    [0, 386, 1440, 1786],
+    [0, 386, 1440, 3292],
     [120, 450, 280, 1276],
-    [432, 450, 888, 1658],
-    [0, 2172, 1440, 614],
-    [32, 2204, 1376, 550],
+    [432, 450, 888, 3164],
+    [0, 3678, 1440, 614],
+    [32, 3710, 1376, 550],
   ];
   for (let i = 0; i < bounds.length; i++)
     for (const [j, key] of ["x", "y", "width", "height"].entries())
@@ -52,7 +52,7 @@ test("desktop search matches source geometry, assets and accessibility", async (
         0,
       );
   const cards = page.locator(".search-property-card");
-  await expect(cards).toHaveCount(6);
+  await expect(cards).toHaveCount(12);
   for (const card of await cards.all()) {
     await card.scrollIntoViewIfNeeded();
     await expect
@@ -140,7 +140,7 @@ test("filters support Other, multi-selection, money validation, URL reload and c
   expect(url.searchParams.get("q")).toBe("near a park");
   expect(url.searchParams.has("area")).toBe(false);
   await expect(page.getByRole("status")).toContainText(
-    "six cards demonstrate the design",
+    "twelve cards demonstrate the design",
   );
   await page.reload();
   await expect(
@@ -183,7 +183,7 @@ test("homepage preferences hydrate search and sample sorting changes order", asy
     .click();
   await page.waitForURL(/sort=price/);
   await expect(page.locator(".search-property-card").first()).toContainText(
-    "2-bedroom flat, Jabi",
+    "Self-contained room, Garki",
   );
   await expect(
     page.getByRole("button", { name: "Previous", exact: true }),

@@ -166,7 +166,7 @@ test("mobile filter viewport scrolls and keeps apply reachable", async ({
     .click();
   await expect(
     page.locator(".mobile-result-cards .mobile-property-card"),
-  ).toHaveCount(6);
+  ).toHaveCount(12);
 });
 test("reduced motion and no-JS entry never leave a blocking splash", async ({
   browser,

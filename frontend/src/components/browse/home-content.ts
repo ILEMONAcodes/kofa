@@ -1,12 +1,21 @@
 import type { PropertySummary } from "@/types/property";
-// Design-only content transcribed from node 14:219. No API endpoint is mocked.
+// Illustrative catalogue: the original three Figma examples plus nine requested stock-photo samples. No API endpoint is mocked.
 export type HomeListing = Pick<
   PropertySummary,
-  "slug" | "title" | "price" | "bedrooms" | "bathrooms" | "furnishing"
+  | "slug"
+  | "title"
+  | "price"
+  | "bedrooms"
+  | "bathrooms"
+  | "furnishing"
+  | "listing_type"
+  | "property_type"
 > & { image: string; alt: string; location: string };
 export const illustrativeListings: readonly HomeListing[] = [
   {
     slug: "3-bedroom-flat-wuse-2",
+    listing_type: "rent",
+    property_type: "apartment",
     title: "3-bedroom flat, Wuse 2",
     price: { amount: 350000000, currency: "NGN", period: "year" },
     bedrooms: 3,
@@ -18,6 +27,8 @@ export const illustrativeListings: readonly HomeListing[] = [
   },
   {
     slug: "4-bedroom-duplex-gwarinpa",
+    listing_type: "rent",
+    property_type: "duplex",
     title: "4-bedroom duplex, Gwarinpa",
     price: { amount: 600000000, currency: "NGN", period: "year" },
     bedrooms: 4,
@@ -29,6 +40,8 @@ export const illustrativeListings: readonly HomeListing[] = [
   },
   {
     slug: "2-bedroom-flat-jabi",
+    listing_type: "rent",
+    property_type: "apartment",
     title: "2-bedroom flat, Jabi",
     price: { amount: 250000000, currency: "NGN", period: "year" },
     bedrooms: 2,
@@ -37,6 +50,159 @@ export const illustrativeListings: readonly HomeListing[] = [
     image: "/assets/home-jabi.jpg",
     alt: "Illustrative furnished open-plan living room",
     location: "Jabi, Abuja",
+  },
+  {
+    slug: "studio-apartment-maitama",
+    title: "Studio apartment, Maitama",
+    listing_type: "rent",
+    property_type: "studio",
+    price: {
+      amount: 120000000,
+      currency: "NGN",
+      period: "year",
+    },
+    bedrooms: 0,
+    bathrooms: 1,
+    furnishing: "furnished",
+    image: "/assets/properties/studio-maitama.webp",
+    alt: "Illustrative open-plan kitchen and living area",
+    location: "Maitama, Abuja",
+  },
+  {
+    slug: "1-bedroom-apartment-asokoro",
+    title: "1-bedroom apartment, Asokoro",
+    listing_type: "rent",
+    property_type: "apartment",
+    price: {
+      amount: 200000000,
+      currency: "NGN",
+      period: "year",
+    },
+    bedrooms: 1,
+    bathrooms: 1,
+    furnishing: "semi_furnished",
+    image: "/assets/properties/apartment-asokoro.webp",
+    alt: "Illustrative bright home with a kitchen and living area",
+    location: "Asokoro, Abuja",
+  },
+  {
+    slug: "3-bedroom-bungalow-lugbe",
+    title: "3-bedroom bungalow, Lugbe",
+    listing_type: "rent",
+    property_type: "bungalow",
+    price: {
+      amount: 280000000,
+      currency: "NGN",
+      period: "year",
+    },
+    bedrooms: 3,
+    bathrooms: 3,
+    furnishing: "unfurnished",
+    image: "/assets/properties/bungalow-lugbe.webp",
+    alt: "Illustrative warm living area with natural wood furniture",
+    location: "Lugbe, Abuja",
+  },
+  {
+    slug: "4-bedroom-terrace-life-camp",
+    title: "4-bedroom terrace, Life Camp",
+    listing_type: "rent",
+    property_type: "terrace",
+    price: {
+      amount: 550000000,
+      currency: "NGN",
+      period: "year",
+    },
+    bedrooms: 4,
+    bathrooms: 4,
+    furnishing: "semi_furnished",
+    image: "/assets/properties/terrace-life-camp.webp",
+    alt: "Illustrative contemporary living room with natural wood accents",
+    location: "Life Camp, Abuja",
+  },
+  {
+    slug: "5-bedroom-house-katampe",
+    title: "5-bedroom house, Katampe",
+    listing_type: "sale",
+    property_type: "house",
+    price: {
+      amount: 18000000000,
+      currency: "NGN",
+      period: "one_time",
+    },
+    bedrooms: 5,
+    bathrooms: 5,
+    furnishing: "unfurnished",
+    image: "/assets/properties/house-katampe.webp",
+    alt: "Illustrative spacious living room with built-in wooden shelves",
+    location: "Katampe, Abuja",
+  },
+  {
+    slug: "self-contained-room-garki",
+    title: "Self-contained room, Garki",
+    listing_type: "rent",
+    property_type: "room",
+    price: {
+      amount: 85000000,
+      currency: "NGN",
+      period: "year",
+    },
+    bedrooms: 1,
+    bathrooms: 1,
+    furnishing: "furnished",
+    image: "/assets/properties/room-garki.webp",
+    alt: "Illustrative bedroom with a desk and city view",
+    location: "Garki, Abuja",
+  },
+  {
+    slug: "2-bedroom-terrace-apo",
+    title: "2-bedroom terrace, Apo",
+    listing_type: "rent",
+    property_type: "terrace",
+    price: {
+      amount: 320000000,
+      currency: "NGN",
+      period: "year",
+    },
+    bedrooms: 2,
+    bathrooms: 2,
+    furnishing: "furnished",
+    image: "/assets/properties/terrace-apo.webp",
+    alt: "Illustrative open living space viewed from above",
+    location: "Apo, Abuja",
+  },
+  {
+    slug: "4-bedroom-bungalow-kubwa",
+    title: "4-bedroom bungalow, Kubwa",
+    listing_type: "sale",
+    property_type: "bungalow",
+    price: {
+      amount: 6500000000,
+      currency: "NGN",
+      period: "one_time",
+    },
+    bedrooms: 4,
+    bathrooms: 4,
+    furnishing: "unfurnished",
+    image: "/assets/properties/bungalow-kubwa.webp",
+    alt: "Illustrative single-storey grey house with a covered entry",
+    location: "Kubwa, Abuja",
+  },
+  {
+    slug: "6-bedroom-duplex-guzape",
+    title: "6-bedroom duplex, Guzape",
+    listing_type: "sale",
+    property_type: "duplex",
+    price: {
+      amount: 25000000000,
+      currency: "NGN",
+      period: "one_time",
+    },
+    bedrooms: 6,
+    bathrooms: 6,
+    furnishing: "semi_furnished",
+    image: "/assets/properties/duplex-guzape.webp",
+    alt: "Illustrative modern white house exterior with garage doors",
+    location: "Guzape, Abuja",
   },
 ];
 export const journeySteps = [
