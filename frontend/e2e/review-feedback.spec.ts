@@ -1,0 +1,236 @@
+import { test, expect } from "@playwright/test";
+import AxeBuilder from "@axe-core/playwright";
+import { readFileSync } from "node:fs";
+type Block = {
+  id: string;
+  type: string;
+  text?: string;
+  height?: number;
+  children?: Block[];
+};
+const screens: { slug: string; blocks: Block[] }[] = JSON.parse(
+  readFileSync(
+    new URL(
+      "../src/components/features/review-feedback/screens.json",
+      import.meta.url,
+    ),
+    "utf8",
+  ),
+);
+const flatten = (blocks: Block[]): Block[] =>
+  blocks.flatMap((b) => [b, ...flatten(b.children ?? [])]);
+test("all six source screens preserve content, exact assets and navigation", async ({
+  page,
+}) => {
+  test.setTimeout(90000);
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const screen of screens) {
+    await page.goto(`/review-feedback-preview/${screen.slug}`);
+    await expect(page.locator(".mobile-launch")).toBeHidden();
+    await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+      screen.blocks[1].text!,
+    );
+    const body = page.locator(".journey-body");
+    const content = await body.innerText();
+    for (const b of flatten(screen.blocks).filter((b) => b.type === "text"))
+      expect(content).toContain(b.text);
+    expect(await body.evaluate((el) => el.scrollWidth <= el.clientWidth)).toBe(
+      true,
+    );
+    for (const image of await body.locator("img[data-source-node]").all()) {
+      await image.scrollIntoViewIfNeeded();
+      expect(
+        await image.evaluate(
+          (img: HTMLImageElement) => img.complete && img.naturalWidth > 0,
+        ),
+      ).toBe(true);
+      const box = (await image.boundingBox())!;
+      expect(box.width).toBe(350);
+      expect(box.height).toBe(220);
+    }
+    const brand = (await page.locator(".staff-brand").boundingBox())!;
+    expect(brand.width).toBeCloseTo(101.15, 1);
+    expect(brand.height).toBeCloseTo(32.7833, 1);
+    const icons = page.locator(".journey-nav img");
+    await expect(icons).toHaveCount(4);
+    for (const icon of await icons.all()) {
+      const box = (await icon.boundingBox())!;
+      expect(box.width).toBe(22);
+      expect(box.height).toBe(22);
+      expect(
+        await icon.evaluate(
+          (img: HTMLImageElement) => img.complete && img.naturalWidth > 0,
+        ),
+      ).toBe(true);
+    }
+    if (screen.slug === "feedback") {
+      await expect(
+        page.getByRole("button", { name: "Back", exact: true }),
+      ).toBeVisible();
+      await expect(
+        page.getByRole("button", { name: "Help", exact: true }),
+      ).toHaveCount(0);
+    } else
+      await expect(
+        page.getByRole("button", { name: "Menu", exact: true }).first(),
+      ).toBeVisible();
+    await page.locator(".journey-scroll").evaluate((el) => (el.scrollTop = 0));
+    await page.screenshot({ path: `/tmp/kofa-review-${screen.slug}.png` });
+  }
+});
+test("review checks and sample outcomes remain separate from real operations", async ({
+  page,
+}) => {
+  let mutations = 0;
+  page.on("request", (r) => {
+    if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) mutations++;
+  });
+  await page.goto("/review-feedback-preview/staff-review");
+  await expect(page.getByLabel("Features", { exact: true })).toHaveValue(
+    "Pending",
+  );
+  await page.getByLabel("Features", { exact: true }).selectOption("Other");
+  await page
+    .getByLabel("Scope summary")
+    .fill("Fictional sample checks and evidence summary.");
+  await page
+    .getByRole("button", { name: "Save verification", exact: true })
+    .click();
+  await expect(
+    page.getByRole("dialog", { name: "Service not connected" }),
+  ).not.toBeVisible();
+  await page.getByLabel("Specify features").fill("Additional sample feature");
+  await page
+    .getByRole("button", { name: "Save verification", exact: true })
+    .click();
+  await expect(page.getByRole("dialog")).toContainText(
+    "not the values entered here",
+  );
+  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(page).toHaveURL(/verification-passed$/);
+  await expect(page.getByLabel("Features", { exact: true })).toHaveValue(
+    "Pass",
+  );
+  await page
+    .getByRole("button", { name: "Continue to landlord approval" })
+    .click();
+  await expect(page).toHaveURL(/landlord-approval$/);
+  expect(mutations).toBe(0);
+});
+test("landlord approval validates price, Other and description checkbox before example publication", async ({
+  page,
+}) => {
+  let mutations = 0;
+  page.on("request", (r) => {
+    if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) mutations++;
+  });
+  await page.goto("/review-feedback-preview/landlord-approval");
+  await expect(page.getByLabel("Approved at", { exact: true })).toHaveValue(
+    "2026-10-26T10:30",
+  );
+  const combo = page.getByRole("combobox", {
+    name: "Approval method",
+    exact: true,
+  });
+  expect((await combo.boundingBox())!.height).toBe(72);
+  await combo.click();
+  await page
+    .getByRole("listbox", { name: "Approval method", exact: true })
+    .getByRole("option", { name: "Other", exact: true })
+    .click();
+  await page
+    .getByLabel("Specify approval method")
+    .fill("Sample written permission");
+  await page
+    .getByLabel("Record note")
+    .fill("A fictional approval note references the current advertisement.");
+  await page.getByRole("button", { name: "Save approval record" }).click();
+  await expect(
+    page.getByRole("dialog", { name: "Service not connected" }),
+  ).not.toBeVisible();
+  await page
+    .getByRole("checkbox", {
+      name: "The current advertised description was approved.",
+    })
+    .check();
+  await page.getByLabel("Approved price", { exact: true }).fill("invalid");
+  await page.getByRole("button", { name: "Save approval record" }).click();
+  await expect(page.locator(".journey-body").getByRole("alert")).toContainText(
+    "Enter a valid approved price",
+  );
+  await page.getByLabel("Approved price", { exact: true }).fill("₦3,500,000");
+  await page.getByRole("button", { name: "Save approval record" }).click();
+  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(page).toHaveURL(/publication-review$/);
+  await page
+    .getByRole("button", { name: "Publish property", exact: true })
+    .click();
+  await expect(page.getByRole("dialog")).toContainText("No request was sent");
+  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(page).toHaveURL(/\/published$/);
+  expect(mutations).toBe(0);
+  await page.getByRole("button", { name: "View public listing" }).click();
+  await expect(page).toHaveURL(/properties\/3-bedroom-flat-wuse-2$/);
+});
+test("recovery, documents and existing workspace entries are linked", async ({
+  page,
+}) => {
+  for (const [label, target] of [
+    ["Clear filters", "/properties"],
+    ["Try again", "/media-help-preview/loading"],
+    ["Browse properties", "/properties"],
+    ["Try logging in again", "/login"],
+    ["Request verification link", "/auth-preview/verify-email"],
+    ["Request a new reset link", "/forgot-password"],
+  ]) {
+    await page.goto("/review-feedback-preview/feedback");
+    await page.getByRole("button", { name: label, exact: true }).click();
+    await expect(page).toHaveURL(new RegExp(`${target}$`));
+  }
+  await page.goto("/review-feedback-preview/staff-review");
+  await page.getByRole("button", { name: "Open ownership proof" }).click();
+  await expect(page).toHaveURL(/staff-preview\/document$/);
+  await page.goto("/staff-preview/property");
+  await page.getByRole("button", { name: "Menu", exact: true }).first().click();
+  await page
+    .getByRole("link", { name: "Review & recovery references" })
+    .click();
+  await expect(page).toHaveURL(/review-feedback-preview\/staff-review$/);
+  await page.goto("/media-help-preview/help");
+  await page.getByRole("link", { name: "Recovery feedback examples" }).click();
+  await expect(page).toHaveURL(/review-feedback-preview\/feedback$/);
+});
+test("responsive source references are accessible and their six-screen menu restores focus", async ({
+  page,
+}) => {
+  test.setTimeout(90000);
+  for (const width of [360, 768, 1280])
+    for (const slug of ["staff-review", "landlord-approval", "feedback"]) {
+      await page.setViewportSize({ width, height: 844 });
+      await page.goto(`/review-feedback-preview/${slug}`);
+      expect(
+        await page
+          .locator(".journey-body")
+          .evaluate((el) => el.scrollWidth <= el.clientWidth),
+      ).toBe(true);
+    }
+  for (const slug of [
+    "staff-review",
+    "landlord-approval",
+    "publication-review",
+    "feedback",
+  ]) {
+    await page.goto(`/review-feedback-preview/${slug}`);
+    const issues = (await new AxeBuilder({ page }).analyze()).violations.filter(
+      (v) => ["serious", "critical"].includes(v.impact ?? ""),
+    );
+    expect(issues).toEqual([]);
+  }
+  await page.goto("/review-feedback-preview/staff-review");
+  await page.getByRole("button", { name: "Menu", exact: true }).first().click();
+  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(6);
+  await page.keyboard.press("Escape");
+  await expect(
+    page.getByRole("button", { name: "Menu", exact: true }).first(),
+  ).toBeFocused();
+});

@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
+import { PopoverSelect } from "@/components/common/popover-select";
 import { Dropdown } from "@/components/common/dropdown";
 import { Modal } from "@/components/common/modal";
 import { useMediaSession } from "./session";
@@ -25,6 +26,14 @@ import {
   verificationOutcome,
   isVerificationWorkspace,
 } from "@/components/features/verification/model";
+import {
+  reviewScreens,
+  reviewPath,
+  reviewOptions,
+  reviewDestination,
+  reviewOutcome,
+  approvalPriceError,
+} from "@/components/features/review-feedback/model";
 const tones: Record<string, string> = {
   primary: "rgb(var(--primary))",
   muted: "rgb(var(--muted))",
@@ -37,19 +46,34 @@ const tones: Record<string, string> = {
 };
 export function MediaHelpScreen({
   slug,
-  verification = false,
+  section = "media-help",
 }: {
   slug: string;
-  verification?: boolean;
+  section?: "media-help" | "verification" | "review-feedback";
 }) {
-  const screens = verification ? verificationScreens : mediaScreens;
-  const path = verification ? verificationPath : mediaPath;
-  const directoryLabel = verification
-    ? "View all 8 verification and transaction screens"
-    : "View all 39 media and help screens";
-  const workspace = verification
-    ? isVerificationWorkspace(slug)
-    : slug === "conflict";
+  const verification = section === "verification";
+  const references = section === "review-feedback";
+  const workflow = verification || references;
+  const screens = references
+    ? reviewScreens
+    : verification
+      ? verificationScreens
+      : mediaScreens;
+  const path = references
+    ? reviewPath
+    : verification
+      ? verificationPath
+      : mediaPath;
+  const directoryLabel = references
+    ? "View all 6 review and feedback screens"
+    : verification
+      ? "View all 8 verification and transaction screens"
+      : "View all 39 media and help screens";
+  const workspace = references
+    ? slug !== "feedback"
+    : verification
+      ? isVerificationWorkspace(slug)
+      : slug === "conflict";
   const screen = screens.find((s) => s.slug === slug)!;
   const router = useRouter();
   const form = useRef<HTMLFormElement>(null);
@@ -57,6 +81,7 @@ export function MediaHelpScreen({
   const [values, setValues] = useState<Record<string, string>>({});
   const [dialog, setDialog] = useState<"menu" | "service" | null>(null);
   const [operation, setOperation] = useState("");
+  const [validationMessage, setValidationMessage] = useState("");
   const [playing, setPlaying] = useState(false);
   const photos = session.media.filter((m) => m.kind === "photo");
   const video = session.media.find((m) => m.kind === "video");
@@ -137,18 +162,26 @@ export function MediaHelpScreen({
       go("media");
       return;
     }
-    const next = verification
-      ? verificationDestination(slug, label)
-      : destination(slug, label, context);
+    const next = references
+      ? reviewDestination(slug, label)
+      : verification
+        ? verificationDestination(slug, label)
+        : destination(slug, label, context);
     if (next) {
       go(next);
       return;
     }
     if (
-      (verification || ["Submit report", "Send question"].includes(label)) &&
+      (workflow || ["Submit report", "Send question"].includes(label)) &&
       !form.current?.reportValidity()
     )
       return;
+    if (references && slug === "landlord-approval") {
+      const field = screen.blocks.find((b) => b.label === "Approved price")!;
+      const issue = approvalPriceError(get(field));
+      setValidationMessage(issue ?? "");
+      if (issue) return;
+    }
     if (label === "Secondary action") {
       go("help");
       return;
@@ -157,6 +190,32 @@ export function MediaHelpScreen({
     setDialog("service");
   }
   function render(b: MediaBlock, context = ""): ReactNode {
+    if (b.type === "consent")
+      return (
+        <label
+          key={b.id}
+          className="listing-consent text-sm leading-5"
+          style={{ minHeight: 40 }}
+          htmlFor={b.id}
+        >
+          <span>
+            <input
+              id={b.id}
+              type="checkbox"
+              required
+              checked={values[b.id] === "true"}
+              onChange={(event) => update(b.id, String(event.target.checked))}
+            />
+            <Image
+              src="/assets/listing-check.svg"
+              width={20}
+              height={20}
+              alt=""
+            />
+          </span>
+          <span>{b.label}</span>
+        </label>
+      );
     if (b.type === "text") {
       const style: CSSProperties = {
         fontSize: b.size,
@@ -224,7 +283,10 @@ export function MediaHelpScreen({
     if (b.type === "field" || b.type === "textarea") {
       const label = b.label!;
       const placeholder =
-        /^(Your |Ask |20–|Enter )/.test(b.value ?? "") && !b.error;
+        (/^(Your |Ask |20–|Enter )/.test(b.value ?? "") ||
+          (references &&
+            /^(Describe how|Record the checks)/.test(b.value ?? ""))) &&
+        !b.error;
       const value = values[b.id] ?? (placeholder ? "" : get(b));
       const error = b.error
         ? label === "Phone"
@@ -240,17 +302,13 @@ export function MediaHelpScreen({
             <label htmlFor={b.id}>{label}</label>
             <textarea
               id={b.id}
-              value={
-                verification && label === "Approved at (WAT)"
-                  ? (values[b.id] ?? "2026-10-26T09:30")
-                  : value
-              }
+              value={value}
               placeholder={placeholder ? b.value : undefined}
               onChange={(e) => update(b.id, e.target.value)}
               minLength={slug === "report" ? 20 : undefined}
               maxLength={slug === "report" ? 2000 : 1000}
               required={
-                verification || slug === "report" || label === "Your question"
+                workflow || slug === "report" || label === "Your question"
               }
             />
           </div>
@@ -259,21 +317,42 @@ export function MediaHelpScreen({
         <div key={b.id} className="staff-field">
           {b.select ? (
             <>
-              <Dropdown
-                id={b.id}
-                label={label}
-                value={get(b)}
-                options={Array.from(
-                  new Set([
-                    get(b),
-                    ...((verification
-                      ? verificationOptions[label]
-                      : fieldOptions[label]) ?? []),
-                    "Other",
-                  ]),
-                ).map((v) => ({ value: v, label: v }))}
-                onChange={(e) => update(b.id, e.target.value)}
-              />
+              {references && label === "Approval method" ? (
+                <div className="review-approval-method">
+                  <PopoverSelect
+                    label={label}
+                    title="Approval method"
+                    description="Choose how the sample approval was recorded."
+                    value={get(b)}
+                    options={Array.from(
+                      new Set([
+                        get(b),
+                        ...(reviewOptions[label] ?? []),
+                        "Other",
+                      ]),
+                    ).map((value) => ({ value, label: value }))}
+                    onChange={(value) => update(b.id, value)}
+                  />
+                </div>
+              ) : (
+                <Dropdown
+                  id={b.id}
+                  label={label}
+                  value={get(b)}
+                  options={Array.from(
+                    new Set([
+                      get(b),
+                      ...((references
+                        ? reviewOptions[label]
+                        : verification
+                          ? verificationOptions[label]
+                          : fieldOptions[label]) ?? []),
+                      "Other",
+                    ]),
+                  ).map((v) => ({ value: v, label: v }))}
+                  onChange={(e) => update(b.id, e.target.value)}
+                />
+              )}
               {get(b) === "Other" && (
                 <Input
                   label={`Specify ${label.toLowerCase()}`}
@@ -288,13 +367,16 @@ export function MediaHelpScreen({
               id={b.id}
               label={label}
               value={
-                verification && label === "Approved at (WAT)"
-                  ? (values[b.id] ?? "2026-10-26T09:30")
-                  : value
+                references && label === "Approved at"
+                  ? (values[b.id] ?? "2026-10-26T10:30")
+                  : verification && label === "Approved at (WAT)"
+                    ? (values[b.id] ?? "2026-10-26T09:30")
+                    : value
               }
               placeholder={placeholder ? b.value : undefined}
               type={
-                verification && label === "Approved at (WAT)"
+                (references && label === "Approved at") ||
+                (verification && label === "Approved at (WAT)")
                   ? "datetime-local"
                   : label.includes("Email")
                     ? "email"
@@ -306,7 +388,10 @@ export function MediaHelpScreen({
               }
               min={label === "Display order" ? 1 : undefined}
               max={label === "Display order" ? photos.length : undefined}
-              required={verification}
+              required={workflow}
+              inputMode={
+                references && label === "Approved price" ? "decimal" : undefined
+              }
               disabled={b.disabled}
               error={fieldError}
               className={
@@ -383,7 +468,7 @@ export function MediaHelpScreen({
   return (
     <main
       id="main-content"
-      className="journey-screen staff-preview media-help-preview"
+      className={`journey-screen staff-preview media-help-preview${references ? " review-feedback-preview" : ""}`}
     >
       <header className="journey-header">
         <p>Design preview · sample content</p>
@@ -406,7 +491,7 @@ export function MediaHelpScreen({
           >
             {workspace ? "Menu" : "Back"}
           </Button>
-          {slug !== "assistant" && !workspace && (
+          {slug !== "assistant" && !workspace && !references && (
             <Button
               variant="secondary"
               onClick={() => go(verification ? mediaPath("help") : "help")}
@@ -423,6 +508,16 @@ export function MediaHelpScreen({
           onSubmit={(e) => e.preventDefault()}
         >
           {screen.blocks.map((b) => render(b))}
+          {validationMessage && (
+            <p role="alert" className="text-danger">
+              {validationMessage}
+            </p>
+          )}
+          {!workflow && slug === "help" && (
+            <Link className="staff-public-link" href={reviewPath("feedback")}>
+              Recovery feedback examples
+            </Link>
+          )}
           {session.notice && <p role="status">{session.notice}</p>}
           {slug === "media" && (
             <p className="text-sm text-muted">
@@ -435,7 +530,7 @@ export function MediaHelpScreen({
             {directoryLabel}
           </Button>
           <p className="text-sm text-muted">
-            {verification
+            {workflow
               ? "Fictional verification and transaction examples. Permissions, approval, publication and financial services are not connected. No real record changes are made."
               : "Design examples. Uploads, reports and assistant services are not connected. Selected files stay on this device."}
           </p>
@@ -500,9 +595,11 @@ export function MediaHelpScreen({
         onClose={() => setDialog(null)}
         title={
           dialog === "menu"
-            ? verification
-              ? "Verification and transactions · design screens"
-              : "Media, help and states · design screens"
+            ? references
+              ? "Review and feedback · design screens"
+              : verification
+                ? "Verification and transactions · design screens"
+                : "Media, help and states · design screens"
             : "Service not connected"
         }
       >
@@ -523,21 +620,25 @@ export function MediaHelpScreen({
                 ? "The source contains a poster only, with no playable video. Choose a local video to preview playback."
                 : `${operation} is not connected. No request was sent and no record was changed.`}
             </p>
-            {(verification
-              ? verificationOutcome(operation)
-              : outcome(operation)) && (
+            {(references
+              ? reviewOutcome(operation)
+              : verification
+                ? verificationOutcome(operation)
+                : outcome(operation)) && (
               <Link
                 className="staff-public-link"
                 href={path(
-                  (verification
-                    ? verificationOutcome(operation)
-                    : outcome(operation))!,
+                  (references
+                    ? reviewOutcome(operation)
+                    : verification
+                      ? verificationOutcome(operation)
+                      : outcome(operation))!,
                 )}
               >
                 Preview example outcome
               </Link>
             )}
-            {verification && (
+            {workflow && (
               <p>
                 Example outcomes show the supplied sample only, not the values
                 entered here. Live checks and permissions must be validated by
@@ -548,10 +649,20 @@ export function MediaHelpScreen({
               variant="secondary"
               onClick={() => {
                 setDialog(null);
-                go(verification ? "checks" : "media");
+                go(
+                  references
+                    ? "staff-review"
+                    : verification
+                      ? "checks"
+                      : "media",
+                );
               }}
             >
-              {verification ? "Back to checks" : "Back to media"}
+              {references
+                ? "Back to staff review"
+                : verification
+                  ? "Back to checks"
+                  : "Back to media"}
             </Button>
           </div>
         )}

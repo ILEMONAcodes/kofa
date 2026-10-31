@@ -1,0 +1,2099 @@
+[
+  {
+    "slug": "staff-review",
+    "id": "117:17186",
+    "blocks": [
+      {
+        "id": "117:17235",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "117:17236",
+        "name": "",
+        "type": "text",
+        "text": "Staff review.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17237",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:staff-review:1",
+            "name": "",
+            "type": "text",
+            "text": "Properties / Review submission · 3-bedroom flat, Wuse 2 · In review",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "ui:staff-review:2",
+            "name": "",
+            "type": "text",
+            "text": "Sample SUB-2026-000123 · Submitted 24 Oct 2026",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17238",
+        "name": "Illustrative property photo",
+        "type": "image",
+        "src": "/assets/home-living-room.jpg",
+        "height": 220.0,
+        "radius": 24.0
+      },
+      {
+        "id": "117:17239",
+        "name": "",
+        "type": "text",
+        "text": "Submitted information",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17240",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:staff-review:3",
+            "name": "",
+            "type": "text",
+            "text": "Rent · Apartment · 3 bed · 3 bath",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:staff-review:4",
+            "name": "",
+            "type": "text",
+            "text": "₦3,500,000 /year · 1 year upfront",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:staff-review:5",
+            "name": "",
+            "type": "text",
+            "text": "Wuse 2, Abuja",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "117:17241",
+        "name": "Private landlord & address",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17242",
+            "name": "",
+            "type": "text",
+            "text": "Private landlord & address",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17243",
+            "name": "",
+            "type": "group",
+            "gap": 0,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "ui:staff-review:6",
+                "name": "",
+                "type": "text",
+                "text": "Sample owner · Contact restricted to staff",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "ui:staff-review:7",
+                "name": "",
+                "type": "text",
+                "text": "12 Example Street, Wuse 2 (fictional)",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "117:17244",
+        "name": "Evidence documents",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17245",
+            "name": "",
+            "type": "text",
+            "text": "Evidence documents",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17246",
+            "name": "",
+            "type": "text",
+            "text": "Signed links expire. Documents are private.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17247",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17248",
+            "name": "Open ownership proof",
+            "type": "action",
+            "text": "Open ownership proof",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17259",
+        "name": "Submission received",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17260",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "117:17261",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "117:17262",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "117:17263",
+                "name": "",
+                "type": "text",
+                "text": "Submission received",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "117:17264",
+                "name": "",
+                "type": "text",
+                "text": "24 Oct · Submission received",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "117:17265",
+        "name": "Review started",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17266",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "117:17267",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "117:17268",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "117:17269",
+                "name": "",
+                "type": "text",
+                "text": "Review started",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "117:17270",
+                "name": "",
+                "type": "text",
+                "text": "25 Oct · Review started",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "117:17271",
+        "name": "Identity",
+        "type": "field",
+        "label": "Identity",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17278",
+        "name": "Ownership documents",
+        "type": "field",
+        "label": "Ownership documents",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17285",
+        "name": "Location",
+        "type": "field",
+        "label": "Location",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17292",
+        "name": "Price",
+        "type": "field",
+        "label": "Price",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17299",
+        "name": "Features",
+        "type": "field",
+        "label": "Features",
+        "value": "Pending ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17306",
+        "name": "Method",
+        "type": "field",
+        "label": "Method",
+        "value": "Desk review + physical inspection ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:staff-review:8",
+        "name": "",
+        "type": "textarea",
+        "label": "Scope summary",
+        "value": "Record the checks completed and the evidence reviewed.",
+        "error": null
+      },
+      {
+        "id": "117:17317",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17318",
+            "name": "Save verification",
+            "type": "action",
+            "text": "Save verification",
+            "variant": "primary",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17329",
+        "name": "Landlord approval",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17330",
+            "name": "",
+            "type": "text",
+            "text": "Landlord approval",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17331",
+            "name": "",
+            "type": "text",
+            "text": "Price and description approval must be recorded before approval and publication.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17332",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17333",
+            "name": "Record landlord approval",
+            "type": "action",
+            "text": "Record landlord approval",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17340",
+        "name": "Publication is not ready",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17341",
+            "name": "",
+            "type": "text",
+            "text": "Publication is not ready",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17342",
+            "name": "",
+            "type": "text",
+            "text": "Verification is incomplete and landlord approval is not recorded.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17343",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17344",
+            "name": "Request changes",
+            "type": "action",
+            "text": "Request changes",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "117:17351",
+            "name": "Complete verification",
+            "type": "action",
+            "text": "Complete verification",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "feedback",
+    "id": "117:17358",
+    "blocks": [
+      {
+        "id": "117:17403",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "117:17404",
+        "name": "",
+        "type": "text",
+        "text": "Every outcome has a next step.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17405",
+        "name": "",
+        "type": "text",
+        "text": "Property and authentication feedback references.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "117:17406",
+        "name": "No properties match these filters.",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17407",
+            "name": "",
+            "type": "text",
+            "text": "No properties match these filters.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17408",
+            "name": "",
+            "type": "text",
+            "text": "Try a wider budget or a different neighbourhood.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17409",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17410",
+            "name": "Clear filters",
+            "type": "action",
+            "text": "Clear filters",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17417",
+        "name": "We couldn’t load properties.",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17418",
+            "name": "",
+            "type": "text",
+            "text": "We couldn’t load properties.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17419",
+            "name": "",
+            "type": "text",
+            "text": "Something went wrong. Try again. Ref: sample-request-id",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17420",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17421",
+            "name": "Try again",
+            "type": "action",
+            "text": "Try again",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17428",
+        "name": "Loading properties…",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17429",
+            "name": "",
+            "type": "text",
+            "text": "Loading properties…",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17430",
+            "name": "",
+            "type": "text",
+            "text": "Property results are loading.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17431",
+        "name": "This property is no longer available.",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17432",
+            "name": "",
+            "type": "text",
+            "text": "This property is no longer available.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17433",
+            "name": "",
+            "type": "text",
+            "text": "It may have been unpublished. Explore other properties.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17434",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17435",
+            "name": "Browse properties",
+            "type": "action",
+            "text": "Browse properties",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17442",
+        "name": "",
+        "type": "text",
+        "text": "Authentication recovery",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17443",
+        "name": "",
+        "type": "text",
+        "text": "Invalid email or password",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17444",
+        "name": "Invalid email or password",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17445",
+            "name": "",
+            "type": "text",
+            "text": "Invalid email or password",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17446",
+            "name": "",
+            "type": "text",
+            "text": "Keep the email, clear the password, and let the user retry. Never disclose which credential was wrong.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17447",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17448",
+            "name": "Try logging in again",
+            "type": "action",
+            "text": "Try logging in again",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17455",
+        "name": "Too many attempts",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17456",
+            "name": "",
+            "type": "text",
+            "text": "Too many attempts",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17457",
+            "name": "",
+            "type": "text",
+            "text": "Show the Retry-After countdown and disable resubmission until it ends.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17458",
+        "name": "Verification link expired or invalid",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17459",
+            "name": "",
+            "type": "text",
+            "text": "Verification link expired or invalid",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17460",
+            "name": "",
+            "type": "text",
+            "text": "Request another verification email. Do not mark the email as verified.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17461",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17462",
+            "name": "Request verification link",
+            "type": "action",
+            "text": "Request verification link",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17469",
+        "name": "Password-reset link expired or used",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17470",
+            "name": "",
+            "type": "text",
+            "text": "Password-reset link expired or used",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17471",
+            "name": "",
+            "type": "text",
+            "text": "Request a new reset link. Password-reset emails return the same confirmation whether an account exists or not.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17472",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17473",
+            "name": "Request a new reset link",
+            "type": "action",
+            "text": "Request a new reset link",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "verification-passed",
+    "id": "117:17480",
+    "blocks": [
+      {
+        "id": "117:17525",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "117:17526",
+        "name": "",
+        "type": "text",
+        "text": "Verification passed.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17527",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:verification-passed:1",
+            "name": "",
+            "type": "text",
+            "text": "Properties / Review submission · 3-bedroom flat, Wuse 2 · In review",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "ui:verification-passed:2",
+            "name": "",
+            "type": "text",
+            "text": "Sample SUB-2026-000123 · Submitted 24 Oct 2026",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17528",
+        "name": "Illustrative property photo",
+        "type": "image",
+        "src": "/assets/home-living-room.jpg",
+        "height": 220.0,
+        "radius": 24.0
+      },
+      {
+        "id": "117:17529",
+        "name": "",
+        "type": "text",
+        "text": "Submitted information",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17530",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:verification-passed:3",
+            "name": "",
+            "type": "text",
+            "text": "Rent · Apartment · 3 bed · 3 bath",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:verification-passed:4",
+            "name": "",
+            "type": "text",
+            "text": "₦3,500,000 /year · 1 year upfront",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:verification-passed:5",
+            "name": "",
+            "type": "text",
+            "text": "Wuse 2, Abuja",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "117:17531",
+        "name": "Private landlord & address",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17532",
+            "name": "",
+            "type": "text",
+            "text": "Private landlord & address",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17533",
+            "name": "",
+            "type": "group",
+            "gap": 0,
+            "padding": 0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "ui:verification-passed:6",
+                "name": "",
+                "type": "text",
+                "text": "Sample owner · Contact restricted to staff",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "ui:verification-passed:7",
+                "name": "",
+                "type": "text",
+                "text": "12 Example Street, Wuse 2 (fictional)",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "117:17534",
+        "name": "Evidence documents",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17535",
+            "name": "",
+            "type": "text",
+            "text": "Evidence documents",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17536",
+            "name": "",
+            "type": "text",
+            "text": "Signed links expire. Documents are private.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17537",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17538",
+            "name": "Open ownership proof",
+            "type": "action",
+            "text": "Open ownership proof",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17545",
+        "name": "Submission received",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17546",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "117:17547",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "117:17548",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "117:17549",
+                "name": "",
+                "type": "text",
+                "text": "Submission received",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "117:17550",
+                "name": "",
+                "type": "text",
+                "text": "24 Oct · Submission received",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "117:17551",
+        "name": "Review started",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17552",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "117:17553",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "117:17554",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "117:17555",
+                "name": "",
+                "type": "text",
+                "text": "Review started",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "117:17556",
+                "name": "",
+                "type": "text",
+                "text": "25 Oct · Review started",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "117:17557",
+        "name": "Identity",
+        "type": "field",
+        "label": "Identity",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17564",
+        "name": "Ownership documents",
+        "type": "field",
+        "label": "Ownership documents",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17571",
+        "name": "Location",
+        "type": "field",
+        "label": "Location",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17578",
+        "name": "Price",
+        "type": "field",
+        "label": "Price",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17585",
+        "name": "Features",
+        "type": "field",
+        "label": "Features",
+        "value": "Pass ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17592",
+        "name": "Method",
+        "type": "field",
+        "label": "Method",
+        "value": "Desk review + physical inspection ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:verification-passed:8",
+        "name": "",
+        "type": "textarea",
+        "label": "Scope summary",
+        "value": "Identity, ownership documents, location, price and features checked.",
+        "error": null
+      },
+      {
+        "id": "117:17603",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17604",
+            "name": "Save verification",
+            "type": "group",
+            "gap": 0,
+            "padding": 0,
+            "radius": 9999.0,
+            "row": true,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "I117:17604;13:60",
+                "name": "SDS / Button",
+                "type": "action",
+                "text": "Save verification",
+                "variant": "primary",
+                "disabled": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "117:17611",
+        "name": "Landlord approval",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17612",
+            "name": "",
+            "type": "text",
+            "text": "Landlord approval",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17613",
+            "name": "",
+            "type": "text",
+            "text": "Price and description approval must be recorded before approval and publication.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17614",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17615",
+            "name": "Record landlord approval",
+            "type": "action",
+            "text": "Record landlord approval",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "117:17622",
+        "name": "Verification passed",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17623",
+            "name": "",
+            "type": "text",
+            "text": "Verification passed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17624",
+            "name": "",
+            "type": "text",
+            "text": "All required checks passed. Record current landlord approval before approving and publishing.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17625",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17626",
+            "name": "Request changes",
+            "type": "action",
+            "text": "Request changes",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "117:17633",
+            "name": "Complete verification",
+            "type": "group",
+            "gap": 0,
+            "padding": 0,
+            "radius": 9999.0,
+            "row": true,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "I117:17633;13:140",
+                "name": "SDS / Button",
+                "type": "action",
+                "text": "Complete verification",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "117:17640",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17641",
+            "name": "Continue to landlord approval",
+            "type": "action",
+            "text": "Continue to landlord approval",
+            "variant": "primary",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "landlord-approval",
+    "id": "117:17648",
+    "blocks": [
+      {
+        "id": "117:17693",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "117:17694",
+        "name": "",
+        "type": "text",
+        "text": "Record the landlord’s approval.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17695",
+        "name": "",
+        "type": "text",
+        "text": "Confirm the advertised price and description with the owner or authorised representative before publication.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "117:17696",
+        "name": "Approved price",
+        "type": "field",
+        "label": "Approved price",
+        "value": "₦3,500,000",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "117:17703",
+        "name": "Period",
+        "type": "field",
+        "label": "Period",
+        "value": "Per year ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "167:20568",
+        "name": "Preference selector / Approval method",
+        "type": "field",
+        "label": "Approval method",
+        "value": "Recorded phone call / email / signed document ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "117:17717",
+        "name": "Approved at",
+        "type": "field",
+        "label": "Approved at",
+        "value": "26 Oct 2026, 10:30",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "ui:landlord-approval:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Record note",
+        "value": "Describe how approval was received and reference the evidence.",
+        "error": null
+      },
+      {
+        "id": "ui:landlord-approval:2",
+        "name": "",
+        "type": "consent",
+        "label": "The current advertised description was approved."
+      },
+      {
+        "id": "117:17731",
+        "name": "Approval applies to the current details",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17732",
+            "name": "",
+            "type": "text",
+            "text": "Approval applies to the current details",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17733",
+            "name": "",
+            "type": "text",
+            "text": "Changing the advertised price or description requires a fresh approval record.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17734",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17735",
+            "name": "Save approval record",
+            "type": "action",
+            "text": "Save approval record",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "117:17742",
+            "name": "Back to verification",
+            "type": "action",
+            "text": "Back to verification",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "publication-review",
+    "id": "117:17749",
+    "blocks": [
+      {
+        "id": "117:17794",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "117:17795",
+        "name": "",
+        "type": "text",
+        "text": "A final check before it goes live.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17796",
+        "name": "",
+        "type": "text",
+        "text": "Properties / 3-bedroom flat, Wuse 2 · Approved · Ready to publish",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "117:17797",
+        "name": "Illustrative property photo",
+        "type": "image",
+        "src": "/assets/home-living-room.jpg",
+        "height": 220.0,
+        "radius": 24.0
+      },
+      {
+        "id": "117:17798",
+        "name": "",
+        "type": "text",
+        "text": "3-bedroom flat, Wuse 2",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17799",
+        "name": "",
+        "type": "text",
+        "text": "₦3,500,000 /year",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17800",
+        "name": "Verification passed",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17801",
+            "name": "",
+            "type": "text",
+            "text": "Verification passed",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17802",
+            "name": "",
+            "type": "text",
+            "text": "Identity, ownership documents, location, price and features checked.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17803",
+        "name": "Landlord approval recorded",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17804",
+            "name": "",
+            "type": "text",
+            "text": "Landlord approval recorded",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17805",
+            "name": "",
+            "type": "text",
+            "text": "Current price and description approved; approval is not invalidated.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17806",
+        "name": "Public listing only",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17807",
+            "name": "",
+            "type": "text",
+            "text": "Public listing only",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17808",
+            "name": "",
+            "type": "text",
+            "text": "Contact details, exact address and evidence documents remain private.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17809",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17810",
+            "name": "Publish property",
+            "type": "action",
+            "text": "Publish property",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "117:17817",
+            "name": "Back to review",
+            "type": "action",
+            "text": "Back to review",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "published",
+    "id": "117:17824",
+    "blocks": [
+      {
+        "id": "117:17869",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "117:17870",
+        "name": "",
+        "type": "text",
+        "text": "The property is now visible.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "117:17871",
+        "name": "",
+        "type": "text",
+        "text": "Properties / 3-bedroom flat, Wuse 2 · Published",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "117:17872",
+        "name": "Published",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "117:17873",
+            "name": "",
+            "type": "text",
+            "text": "Published",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "117:17874",
+            "name": "",
+            "type": "text",
+            "text": "The public listing shows its verified scope, verification date and availability information. Private landlord data and documents remain in the staff workspace.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "117:17875",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "117:17876",
+            "name": "View public listing",
+            "type": "action",
+            "text": "View public listing",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "117:17883",
+            "name": "Back to property review",
+            "type": "action",
+            "text": "Back to property review",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  }
+]

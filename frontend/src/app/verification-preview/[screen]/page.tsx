@@ -16,5 +16,5 @@ export default async function Page({
 }) {
   const { screen } = await params;
   if (!verificationScreens.some((s) => s.slug === screen)) notFound();
-  return <MediaHelpScreen key={screen} slug={screen} verification />;
+  return <MediaHelpScreen key={screen} slug={screen} section="verification" />;
 }

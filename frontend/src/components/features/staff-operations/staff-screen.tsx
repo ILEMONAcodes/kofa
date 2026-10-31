@@ -597,6 +597,9 @@ export function StaffScreen({
               <Link href="/verification-preview/checks">
                 Verification &amp; publication
               </Link>
+              <Link href="/review-feedback-preview/staff-review">
+                Review &amp; recovery references
+              </Link>
               {sections.map((target) => (
                 <Link key={target} href={path(target)}>
                   {target[0].toUpperCase() +
