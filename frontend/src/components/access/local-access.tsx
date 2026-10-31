@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useRef,
   type ReactNode,
 } from "react";
 import Link from "next/link";
@@ -11,9 +12,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { BrandLoading } from "@/components/common/brand-loading";
 import { Button, buttonStyles } from "@/components/common/button";
 
+import {accountSession,signIn,registerAccount,signOut} from "@/lib/auth/client";
+import type {AccountUser, Registration} from "@/types/auth";
+import { reviewHome } from "@/lib/review-routing";
+
+
 export type LocalRole = "client" | "staff" | "admin";
-export const localAccessEnabled =
-  process.env.NEXT_PUBLIC_LOCAL_ACCESS === "true";
 const KEY = "kofa-local-access-v1";
 export function validLocalRole(value: unknown): value is LocalRole {
   return value === "client" || value === "staff" || value === "admin";
@@ -30,19 +34,23 @@ export function canOpenLocalArea(
 }
 const Access = createContext<{
   role: LocalRole | null;
+  user: AccountUser | null;
   ready: boolean;
   leaving: boolean;
-  enter: (role: LocalRole) => void;
-  leave: () => void;
+  enter: (email:string,password:string,intent:"login"|"register",registration?:Registration) => Promise<LocalRole>;
+  leave: () => Promise<void>;
 }>({
   role: null,
+  user: null,
   ready: false,
   leaving: false,
-  enter: () => {},
-  leave: () => {},
+  enter: async () => {throw new Error("Access provider required.");},
+  leave: async () => {},
 });
 export function LocalAccessProvider({ children }: { children: ReactNode }) {
-  const [role, setRole] = useState<LocalRole | null>(null);
+  const [user,setUser] = useState<AccountUser|null>(null);
+  const role=user?.role ?? null;
+  const revision=useRef(0);
   const [ready, setReady] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const pathname = usePathname();
@@ -51,40 +59,25 @@ export function LocalAccessProvider({ children }: { children: ReactNode }) {
     return () => cancelAnimationFrame(frame);
   }, [pathname]);
   useEffect(() => {
-    let value: string | null = null;
-    try {
-      value = sessionStorage.getItem(KEY);
-    } catch {
-      /* Memory-only fallback. */
-    }
-    const frame = requestAnimationFrame(() => {
-      if (localAccessEnabled && validLocalRole(value)) setRole(value);
-      setReady(true);
-    });
-    return () => cancelAnimationFrame(frame);
+    let live=true;
+    // Retire the editable browser role marker. Only the server cookie assigns a role.
+    try { sessionStorage.removeItem(KEY); sessionStorage.removeItem("kofa-local-staff-v1"); } catch {}
+    const version=revision.current;
+    accountSession().then(next=>{if(live && revision.current===version)setUser(next);}).catch(()=>{}).finally(()=>{if(live)setReady(true);});
+    return ()=>{live=false;};
   }, []);
-  function enter(next: LocalRole) {
-    if (!localAccessEnabled) return;
-    setLeaving(false);
-    setRole(next);
-    try {
-      sessionStorage.setItem(KEY, next);
-    } catch {
-      /* Memory-only access. */
-    }
+  async function enter(email:string,password:string,intent:"login"|"register",registration?:Registration) {
+    revision.current++;
+    if(intent==="register" && !registration) throw new Error("Complete your registration details.");
+    const next=intent==="register" ? await registerAccount(registration!) : await signIn(email,password);
+    setLeaving(false);setUser(next);return next.role;
   }
-  function leave() {
-    setLeaving(true);
-    setRole(null);
-    try {
-      sessionStorage.removeItem(KEY);
-      sessionStorage.removeItem("kofa-local-staff-v1");
-    } catch {
-      /* No storage. */
-    }
+  async function leave() {
+    revision.current++;
+    await signOut();setLeaving(true);setUser(null);
   }
   return (
-    <Access.Provider value={{ role, ready, leaving, enter, leave }}>
+    <Access.Provider value={{ role, user, ready, leaving, enter, leave }}>
       {children}
     </Access.Provider>
   );
@@ -101,25 +94,15 @@ export function LocalGate({
   const pathname = usePathname();
   const router = useRouter();
   useEffect(() => {
-    if (ready && localAccessEnabled && !role && !leaving)
+    if (ready && !role && !leaving)
       router.replace(
-        `${area === "client" ? "/login" : "/staff/login"}?returnTo=${encodeURIComponent(pathname + window.location.search)}`,
+        `/login?returnTo=${encodeURIComponent(pathname + window.location.search)}`,
       );
   }, [ready, role, router, pathname, area, leaving]);
   if (!ready)
     return (
       <main id="main-content">
         <BrandLoading />
-      </main>
-    );
-  if (!localAccessEnabled)
-    return (
-      <main id="main-content" className="page-container">
-        <h1 className="text-2xl">Sign-in is being connected.</h1>
-        <p className="my-5">Account services are currently unavailable.</p>
-        <Link className={buttonStyles()} href="/properties">
-          Explore properties
-        </Link>
       </main>
     );
   if (!role)
@@ -132,8 +115,8 @@ export function LocalGate({
     return (
       <main id="main-content" className="page-container">
         <h1 className="text-2xl">This area needs a different role.</h1>
-        <Link href="/account" className={buttonStyles("primary", "mt-5")}>
-          Back to my account
+        <Link href={role ? reviewHome(role) : "/login"} className={buttonStyles("primary", "mt-5")}>
+          Back to my workspace
         </Link>
       </main>
     );
@@ -141,24 +124,27 @@ export function LocalGate({
 }
 export function AccessStatus() {
   const { role, leave } = useLocalAccess();
-  const router = useRouter();
-  if (!role || !localAccessEnabled) return null;
+  const [busy,setBusy]=useState(false);
+  const [notice,setNotice]=useState("");
+  if (!role) return null;
   return (
-    <aside className="local-access-bar" aria-label="Local access">
+    <aside className="local-access-bar" aria-label="Account access">
       <span>
-        Local access ·{" "}
+        Signed in ·{" "}
         {role === "admin"
           ? "Administrator"
           : role === "staff"
             ? "Staff"
             : "Your account"}
       </span>
-      <span>Sample records · no live changes</span>
+      <span role={notice ? "alert" : undefined}>{notice || ""}</span>
       <Button
         variant="subtle"
-        onClick={() => {
-          leave();
-          router.push("/");
+        loading={busy}
+        onClick={async () => {
+          setBusy(true);
+          try {await leave();window.location.replace("/");}
+          catch {setNotice("Unable to sign out. Try again.");setBusy(false);}
         }}
       >
         Sign out

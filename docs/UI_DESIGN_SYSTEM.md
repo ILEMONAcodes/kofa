@@ -271,3 +271,17 @@ The local form uses `/landlord?step=<contact|property|pricing|features|uploads|r
 Property title links stretch to cover their card; verification badges remain separate targets. Keep original card typography, image and brown/cream contrast. Use the shared `BrandLoading` logo/orbit in actual loading boundaries, with a screen-reader label and reduced-motion fallback. Mobile entrance holds three seconds, then fades over 350ms once per tab.
 
 Product routes are `/account/*`, `/staff/*`, `/admin/*` and `/resources/*`; product menus show sections rather than enumerated screen/state catalogues. `/staff/login` is the shared staff/admin entrance, linked from the footer. Admin user management is `/admin/users`. Temporary local access must remain visibly identified, configurable and separate from real authentication; fixed app shells reserve space for its sign-out control. See [connected journey](FRONTEND_CONNECTED_FLOW.md).
+
+### Hosted review access and currency prefixes — 2026-10-31
+
+Keep Staff & admin reachable from the PWA's Help dialog and the client login/register form; use the role's workspace directly when already signed in. Show Team review for the temporary frontend session. Missing access configuration now enables the backend-free review build on hosted URLs; explicit false disables it before real authentication/data integration.
+
+Use Input's shared `prefix` adornment for SearchBudget instead of a symbol positioned against label height. Prefixes align vertically to the actual control, with 40px start padding and a 16px inset; validation/hint text lives outside that control wrapper. This applies across client inquiry, staff, responsive references, desktop search and mobile filters. Original tokens, borders and fonts remain.
+
+### Unified review sign-in (2026-10-31)
+
+Public navigation has one sign-in entry and no staff/admin link or role selector. The server assigns account roles and `/account` opens the assigned workspace. Admin team review lists privately configured accounts; real invitations follow backend integration. See `docs/UNIFIED_REVIEW_SIGN_IN.md` for host setup. Original brown/cream theme remains unchanged.
+
+### Database-backed sign-in (2026-10-31)
+
+Supersedes the review setup above. Keep the shared login, original brown/cream palette and existing mobile app shell. Password creation/change/sign-in fields use a minimum of 8 characters, maximum 128, matching contract v0.3.0. Name/phone and explicit policy-version consent are required at registration. Backend validation appears inline; loading disables submissions; reset/verification follow actual single-use links. Admin Users now creates and activates/deactivates real database accounts. No public role selector or staff/admin entrance link is added. Private configuration belongs in `backend/.env`; only server-side `API_ORIGIN` is needed by Next.js.

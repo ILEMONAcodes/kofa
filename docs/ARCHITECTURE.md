@@ -217,3 +217,13 @@ Branching: trunk-based with short-lived feature branches and PRs into `main`; se
 | NFR-03 | SSR public pages, slugs, metadata, sitemap (FE-7.6) |
 | NFR-05 | Section 12 |
 | NFR-07/08 | Backup policy in BE-7.5, structured logs |
+
+### Temporary deployed review authentication (superseded by real authentication)
+
+Before the FastAPI identity module, the authorized team-review build uses a separate Next.js Node route `/api/review-auth` and private `REVIEW_SESSION_SECRET` / `REVIEW_ACCOUNTS_JSON` host variables. This is not `/api/v1/auth`. All private pages verify signed HttpOnly session cookies on the server; registration cannot choose privileged roles. Real invitations, password management and production role persistence remain backend work. Disable review mode and rotate the review secret on migration. Configuration and limitations: `docs/UNIFIED_REVIEW_SIGN_IN.md`.
+
+### Database-backed authentication integration (2026-10-31)
+
+ADR-003 is implemented in `backend/app/api/v1`, `core`, `services`, `repositories`, and PostgreSQL identity models/migrations. Neon supplies PostgreSQL only; application authentication remains FastAPI/Argon2id/JWT plus rotating opaque refresh cookies. Anonymous forms bootstrap signed CSRF at `/api/v1/auth/csrf`; every unsafe auth/admin request checks the exact configured Origin and signed double-submit cookie/header. Admin roles/activity are read from PostgreSQL on every protected request. Test/dev email uses a private outbox; configured SMTP delivery is an explicit operator command.
+
+The temporary Next review endpoint and private review account list are removed. Frontend SSR forwards the access cookie to `/auth/me`; `/session/restore` performs browser-side refresh at the auth cookie path when necessary, preserving safe return URLs. Browser access guards remain UX; FastAPI enforces API permissions. See `docs/BACKEND_AUTHENTICATION.md` for evidence, configuration and rollout boundaries.

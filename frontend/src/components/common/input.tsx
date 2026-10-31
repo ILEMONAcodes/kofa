@@ -2,12 +2,14 @@ import { useId, type InputHTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 type Props = InputHTMLAttributes<HTMLInputElement> & {
   label: string;
+  prefix?: string;
   error?: string;
   hint?: string;
   labelClassName?: string;
 };
 export function Input({
   label,
+  prefix,
   error,
   hint,
   id,
@@ -25,6 +27,20 @@ export function Input({
     ]
       .filter(Boolean)
       .join(" ") || undefined;
+  const control = (
+    <input
+      {...props}
+      id={inputId}
+      aria-invalid={Boolean(error) || undefined}
+      aria-describedby={description}
+      className={cn(
+        "field-control",
+        prefix && "input-prefixed",
+        error && "border-danger",
+        className,
+      )}
+    />
+  );
   return (
     <div className="space-y-2">
       <label
@@ -33,13 +49,16 @@ export function Input({
       >
         {label}
       </label>
-      <input
-        {...props}
-        id={inputId}
-        aria-invalid={Boolean(error) || undefined}
-        aria-describedby={description}
-        className={cn("field-control", error && "border-danger", className)}
-      />
+      {prefix ? (
+        <div className="input-prefix-control">
+          <span className="input-prefix-symbol" aria-hidden="true">
+            {prefix}
+          </span>
+          {control}
+        </div>
+      ) : (
+        control
+      )}
       {hint && (
         <p id={`${inputId}-hint`} className="text-sm text-muted">
           {hint}

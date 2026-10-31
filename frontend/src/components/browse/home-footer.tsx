@@ -40,7 +40,6 @@ export function HomeFooter({
               <Link href="/resources/terms">Terms</Link> ·{" "}
               <Link href="/resources/report">Report a listing</Link>
             </p>
-            <Link href="/staff/login">Staff sign in</Link>
           </div>
         </nav>
       </div>

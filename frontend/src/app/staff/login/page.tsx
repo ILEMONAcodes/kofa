@@ -1,16 +1,2 @@
-import { Suspense } from "react";
-import { AuthScreenView } from "@/components/features/auth/auth-screen";
-import { BrandLoading } from "@/components/common/brand-loading";
-export const metadata = {
-  title: "Staff sign in",
-  robots: { index: false, follow: false },
-};
-export default function Page() {
-  return (
-    <main id="main-content" className="auth-main">
-      <Suspense fallback={<BrandLoading />}>
-        <AuthScreenView screen="login" staff />
-      </Suspense>
-    </main>
-  );
-}
+import { redirect } from "next/navigation";
+export default async function Page({searchParams}:{searchParams:Promise<{returnTo?:string}>}) { const {returnTo}=await searchParams; redirect(`/login${returnTo ? `?${new URLSearchParams({returnTo})}` : ""}`); }

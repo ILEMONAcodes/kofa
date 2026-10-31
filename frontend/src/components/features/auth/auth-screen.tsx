@@ -1,17 +1,19 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- Exact exported SVG assets at intrinsic size. */
-import { useState, type FormEvent } from "react";
+import { useState, useEffect, type FormEvent } from "react";
 import Link from "next/link";
 import {
-  localAccessEnabled,
   useLocalAccess,
-  type LocalRole,
 } from "@/components/access/local-access";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { Button, buttonStyles } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Modal } from "@/components/common/modal";
+import {currentPolicies,requestPasswordReset,confirmPasswordReset,verifyEmail,resendVerification} from "@/lib/auth/client";
+import {ApiError} from "@/lib/api/error";
+import type {CurrentPolicies} from "@/types/auth";
+import { reviewDestination } from "@/lib/review-routing";
 import { authScreens, safeReturnPath, type AuthScreen } from "./screens";
 
 export function AuthScreenView({
@@ -23,11 +25,14 @@ export function AuthScreenView({
   preview?: boolean;
   staff?: boolean;
 }) {
-  const local = localAccessEnabled && !preview;
   const params = useSearchParams();
   const router = useRouter();
   const access = useLocalAccess();
-  const [localRole, setLocalRole] = useState<LocalRole>("staff");
+  const [error,setError]=useState("");
+  const [busy,setBusy]=useState(false);
+  const [info,setInfo]=useState("");
+  const [policyVersions,setPolicyVersions]=useState<CurrentPolicies|null>(null);
+  useEffect(()=>{if(!preview && screen==="register") currentPolicies().then(setPolicyVersions).catch(()=>{});},[preview,screen]);
   const returnTo = safeReturnPath(params.get("returnTo"));
   const [notice, setNotice] = useState(false);
   const [policies, setPolicies] = useState(false);
@@ -46,7 +51,7 @@ export function AuthScreenView({
       {text}
     </Link>
   );
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const password = form.elements.namedItem(
@@ -59,26 +64,47 @@ export function AuthScreenView({
       password?.value !== confirmation.value ? "Passwords must match." : "",
     );
     if (!form.reportValidity()) return;
-    if (local && (screen === "login" || screen === "register")) {
-      const role = staff ? localRole : "client";
-      access.enter(role);
-      form.reset();
-      const requested = params.get("returnTo");
-      router.push(
-        requested
-          ? safeReturnPath(requested)
-          : staff
-            ? role === "admin"
-              ? "/admin/administration"
-              : "/staff/overview"
-            : "/account/overview",
-      );
+    if (!preview) {
+      setError("");setInfo("");setBusy(true);
+      const data=new FormData(form);
+      const email=String(data.get("email") ?? "");
+      try {
+        if(screen==="login" || screen==="register") {
+          const policies=screen==="register" ? policyVersions : null;
+          if(screen==="register" && !policies) throw new Error("Policy versions could not be loaded. Reload and try again.");
+          const registration=policies ? {email,password:password!.value,full_name:String(data.get("full_name") ?? ""),phone:String(data.get("phone") ?? ""),accepted_policies:policies.policies.map(({type,version})=>({type,version}))} : undefined;
+          const role=await access.enter(email,password!.value,screen,registration);
+          form.reset();
+          window.location.replace(reviewDestination(role,params.get("returnTo")));
+        } else if(screen==="forgot-password") {
+          await requestPasswordReset(email);form.reset();router.push(href("reset-link-sent"));
+        } else if(screen==="reset-password") {
+          const token=new URLSearchParams(window.location.hash.slice(1)).get("token") ?? params.get("token") ?? "";
+          await confirmPasswordReset(token,password!.value);form.reset();window.history.replaceState(null,"",window.location.pathname);router.push(href("password-updated"));
+        }
+      } catch(issue) {
+        setError(issue instanceof ApiError && issue.status>=500 ? `Account services are unavailable. Please try again.${issue.requestId ? ` Reference: ${issue.requestId}` : ""}` : issue instanceof Error ? issue.message : "Unable to continue. Please try again.");
+        if(issue instanceof ApiError) for(const detail of issue.details) {
+          const input=form.elements.namedItem(detail.field);
+          if(input instanceof HTMLInputElement) {input.setCustomValidity(detail.message);input.reportValidity();break;}
+        }
+      } finally {setBusy(false);}
       return;
     }
     // No backend authentication or credential persistence.
 
     form.reset();
     setNotice(true);
+  }
+  async function verificationAction(resend:boolean) {
+    if(preview) {setNotice(true);return;}
+    setError("");setInfo("");setBusy(true);
+    try {
+      const token=new URLSearchParams(window.location.hash.slice(1)).get("token") ?? params.get("token") ?? "";
+      if(resend || !token) {await resendVerification();setInfo("A verification link has been requested. Please check your inbox.");}
+      else {await verifyEmail(token);window.history.replaceState(null,"",window.location.pathname);router.push(href("verified"));}
+    } catch(issue) {setError(issue instanceof Error ? issue.message : "Unable to verify your email. Please try again.");}
+    finally {setBusy(false);}
   }
   const field = (
     name: string,
@@ -94,22 +120,12 @@ export function AuthScreenView({
       placeholder={placeholder}
       type={type}
       autoComplete={autoComplete}
-      required={!(local && ["phone", "full_name"].includes(name))}
-      minLength={
-        name === "full_name"
-          ? local
-            ? undefined
-            : 2
-          : type === "password" && (local || screen !== "login")
-            ? local
-              ? 6
-              : 10
-            : undefined
-      }
+      required
+      minLength={name === "full_name" ? 2 : type === "password" ? 8 : undefined}
       maxLength={
         name === "full_name" ? 150 : type === "password" ? 128 : undefined
       }
-      pattern={name === "phone" && !local ? "\\+[1-9][0-9]{6,14}" : undefined}
+      pattern={name === "phone" ? "\\+[1-9][0-9]{7,14}" : undefined}
       title={
         name === "phone"
           ? "Use international format, for example +2348012345678"
@@ -118,7 +134,7 @@ export function AuthScreenView({
       onInput={(event) => {
         const input = event.currentTarget;
         input.setCustomValidity(
-          !local && name === "full_name" && input.value.trim().length < 2
+          name === "full_name" && input.value.trim().length < 2
             ? "Enter at least two characters for your name."
             : "",
         );
@@ -166,29 +182,11 @@ export function AuthScreenView({
           className="auth-form"
           onSubmit={submit}
         >
-          <h1>{staff ? "Your workspace starts here." : data.title}</h1>
-          {local && (
-            <div className="auth-callout">
-              <p>Temporary local access</p>
-              <p>
-                Use an example email and any password of at least 6 characters.
-                Credentials are not saved or sent. Sample records only.
-              </p>
-            </div>
-          )}
-          {staff && local && (
-            <label className="block">
-              Workspace role
-              <select
-                className="field-control mt-2"
-                value={localRole}
-                onChange={(e) => setLocalRole(e.target.value as LocalRole)}
-              >
-                <option value="staff">Staff</option>
-                <option value="admin">Administrator · manages staff</option>
-              </select>
-            </label>
-          )}
+          <h1>{data.title}</h1>
+          {error && <p role="alert" className="text-danger">{error}</p>}
+          {info && <p role="status">{info}</p>}
+          {!preview && screen==="register" && policyVersions && <p className="auth-small">{policyVersions.policies.map(policy=>`${policy.type === "terms" ? "Terms" : "Privacy"}: ${policy.version}`).join(" · ")}</p>}
+          {!preview && screen==="register" && policyVersions && !policyVersions.approved && <p className="auth-small">Terms and Privacy Policy are draft versions for internal testing.</p>}
           <p className="auth-description">{data.description}</p>
           {screen === "register" &&
             field("full_name", "Full name", "Your full name", "text", "name")}
@@ -230,19 +228,17 @@ export function AuthScreenView({
           {screen === "register" && (
             <>
               <p className="auth-small">
-                Use a strong password you don’t use elsewhere.
+                Use at least 8 characters and a password you don’t use elsewhere.
               </p>
               <div className="auth-consent">
                 <input
                   id="auth-consent"
                   name="consent"
                   type="checkbox"
-                  required={!local}
+                  required
                 />
                 <label htmlFor="auth-consent">
-                  {local
-                    ? "I understand this uses sample records only."
-                    : "I agree to the Terms and Privacy Policy."}
+                  I agree to the Terms and Privacy Policy.
                 </label>
               </div>
               <button
@@ -261,9 +257,9 @@ export function AuthScreenView({
                 "Check your verification email",
                 preview
                   ? "We sent a verification link to ada@example.com. Check your inbox and spam folder."
-                  : "Email verification is currently unavailable. No email has been sent.",
+                  : "Open the verification link in your email, or request a new one below.",
               )}
-              <Button variant="subtle" onClick={() => setNotice(true)}>
+              <Button variant="subtle" loading={busy} onClick={() => verificationAction(true)}>
                 Resend verification link
               </Button>
               {link("register", "Use a different email")}
@@ -347,11 +343,11 @@ export function AuthScreenView({
       {!account && (
         <div className="auth-actions">
           {formScreen ? (
-            <Button type="submit" form={`auth-${screen}`}>
+            <Button type="submit" loading={busy} disabled={!preview && screen==="register" && !policyVersions} form={`auth-${screen}`}>
               {data.action}
             </Button>
           ) : screen === "verify-email" ? (
-            <Button onClick={() => setNotice(true)}>{data.action}</Button>
+            <Button loading={busy} onClick={() => verificationAction(false)}>{data.action}</Button>
           ) : (
             <Link
               className={buttonStyles()}
@@ -388,8 +384,7 @@ export function AuthScreenView({
         title="Policies are being prepared."
       >
         <p>
-          Approved Terms and Privacy Policy versions will be shown here before
-          registration becomes available. No legal acceptance is recorded here.
+          Review the Terms and Privacy Policy versions shown on the form. Draft versions are for internal testing; approved policies are required before public registration goes live.
         </p>
       </Modal>
     </div>

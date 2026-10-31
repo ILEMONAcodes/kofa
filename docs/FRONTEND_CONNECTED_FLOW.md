@@ -1,3 +1,5 @@
+> Access setup superseded by [UNIFIED_REVIEW_SIGN_IN.md](UNIFIED_REVIEW_SIGN_IN.md): server-issued roles, no public staff links or role picker, private host configuration required. Historical results below describe the earlier browser-only flow.
+
 # Connected frontend journey
 
 Task: FE-3.6 — Connected navigation and temporary local access
@@ -11,7 +13,7 @@ Contract: v0.2.0 Draft unchanged. No endpoint emulation or real service calls.
 Acceptance: whole-card navigation; three-second mobile entrance; branded loading fallbacks; navigable account and staff entry; role-specific local access and admin staff creation; no screen catalogues in product menus.
 Tests: local access and URL unit tests; Playwright client/staff navigation, invalid passwords, role checks, sign-out, card clicks, loading and responsive accessibility; lint, typecheck, build, mock audit.
 Out of scope: real authentication, backend authorization, real staff provisioning, real records, payments and legal consent.
-Working assumptions: user approved six-character minimum for temporary local access only; existing admin role is the requested super administrator. Real password rules remain 10–128 characters. Keep local mode explicitly identified and opt-in; never store entered passwords or treat browser roles as backend authorization. Build on preceding UI polish commit pending merge to preserve requested changes.
+Working assumptions: user approved six-character minimum for temporary local access only; existing admin role is the requested super administrator. Real password rules remain 10–128 characters. The original opt-in/local-only default is superseded by [deployed team review](DEPLOYED_REVIEW_ACCESS_FIX.md); keep review mode explicitly identified; never store entered passwords or treat browser roles as backend authorization. Build on preceding UI polish commit pending merge to preserve requested changes.
 
 ## Product route map
 
@@ -20,7 +22,7 @@ Working assumptions: user approved six-character minimum for temporary local acc
 | Visitor | `/` → `/properties` | Tap anywhere on a card → `/properties/[slug]` → Express interest |
 | Client | `/login` or `/register` | Return to selected property's `/account/inquiry?property=…`, or `/account/overview`; inquiries, inspections, transactions, complaints, notifications |
 | Landlord | `/landlord` | Existing contact registration → property → pricing → features → photos/video and private evidence → review; no landlord account |
-| Staff | Footer **Staff sign in** → `/staff/login` | Staff role → `/staff/overview`; properties, landlords, inquiries, clients, inspections and calendar |
+| Staff | PWA **Help → Staff & admin**, login **Staff & admin**, or footer **Staff sign in** → `/staff/login` | Staff role → `/staff/overview`; properties, landlords, inquiries, clients, inspections and calendar |
 | Administrator | Same `/staff/login`, Administrator role | `/admin/administration`; **Users** → `/admin/users` to add/reactivate/deactivate local example team entries; staff operations remain accessible |
 | Help | `/resources/help` | Verification, fees, help and policies; existing draft-policy limitations remain |
 
@@ -28,7 +30,7 @@ One staff sign-in on the same domain is recommended. Staff and administrators sh
 
 ## Temporary access
 
-Opt in with `NEXT_PUBLIC_LOCAL_ACCESS=true` in ignored `frontend/.env.local`; restart dev or rebuild because this is a compile-time browser flag. `.env.example` defaults to false. Enabled locally for this task. Any example email and password of 6–128 characters can enter the sample frontend; registration checks confirmation. There is deliberately no credential matching or real identity assertion. No entered email, name, phone or password is stored or sent. Only the local role marker and explicit invented team labels are kept in sessionStorage, scoped to the tab. Sign-out clears both. Restricted storage falls back to in-memory navigation; persistence across reload is not promised there.
+For the current backend-free team review build, missing `NEXT_PUBLIC_LOCAL_ACCESS` enables review access on both localhost and deployed builds. `.env.example` shows true; set the flag explicitly to false and rebuild to disable it. Existing hosting settings of false must be changed to true (or removed) and redeployed. This supersedes the original local-only default; see [follow-up](DEPLOYED_REVIEW_ACCESS_FIX.md). Any example email and password of 6–128 characters can enter the sample frontend; registration checks confirmation. There is deliberately no credential matching or real identity assertion. No entered email, name, phone or password is stored or sent. Only the local role marker and explicit invented team labels are kept in sessionStorage, scoped to the tab. Sign-out clears both. Restricted storage falls back to in-memory navigation; persistence across reload is not promised there.
 
 This does not implement FE-3.5/3.6/3.8 production authentication or provision real staff. No API tokens/cookies/requests, security boundary, emails, real account creation or legal consent are introduced. Recovery and service mutations stay unavailable. Existing real contract validation is retained when local access is disabled; the real password contract remains 10–128 characters. Do not enable local mode against private/live records.
 

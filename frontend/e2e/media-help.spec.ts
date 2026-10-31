@@ -1,3 +1,4 @@
+import { reviewLogin } from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync } from "node:fs";
@@ -24,6 +25,7 @@ for (let start = 0; start < screens.length; start += 10) {
     test.setTimeout(90000);
     await page.setViewportSize({ width: 390, height: 844 });
     for (const s of screens.slice(start, start + 10)) {
+      if (s.slug === "conflict") await reviewLogin(page,"staff");
       await page.goto(`/resources/${s.slug}`);
       await expect(page.locator(".mobile-launch")).toBeHidden();
       if (s.slug === "loading") {
@@ -231,6 +233,7 @@ test("source-specific workspace navigation and persistent listing actions", asyn
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
+  await reviewLogin(page,"staff");
   await page.goto("/resources/conflict");
   await expect(
     page.getByRole("button", { name: "Help", exact: true }),

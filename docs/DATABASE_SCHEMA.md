@@ -1,6 +1,6 @@
 # Database Schema
 
-**Owner:** Developer 2 (Backend) · **Status:** Draft v0.2 — finalised in BE-1.2, reviewed by Developer 1 for API fit · **Engine:** PostgreSQL 16 · **Migrations:** Alembic
+**Owner:** Developer 2 (Backend) · **Status:** Draft v0.3 (identity implementation; other domains remain draft) — finalised in BE-1.2, reviewed by Developer 1 for API fit · **Engine:** PostgreSQL 16 · **Migrations:** Alembic
 
 Changes to this file that affect API shapes must go through the contract change protocol (`docs/API_CONTRACT.md` §1).
 
@@ -77,7 +77,11 @@ Index: unique(email). Seed: admin from env via CLI (BE-3.1).
 `id`, `user_id` FK, `token_hash char(64)` UNIQUE (SHA-256 of token), `family_id uuid` (rotation family), `expires_at`, `revoked_at`, `replaced_by_id` FK self, `user_agent varchar(255)`, `ip inet`, `created_at`. Indexes: `user_id`, `family_id`.
 
 ### `password_reset_tokens`
-`id`, `user_id` FK, `token_hash char(64)` UNIQUE, `expires_at`, `used_at`, `created_at`.
+`id`, `user_id` FK, `token_hash char(64)` UNIQUE, `purpose varchar(20)` CHECK (`reset`,`invitation`,`verification`), `expires_at`, `used_at`, `created_at`. Purpose prevents verification links being used as password-reset links; all are single-use and ≤1 hour. Only digests are stored here.
+
+### `auth_rate_limits`
+`key char(64)` PK (HMAC of operation/IP or normalized email), `count integer`, `reset_at timestamptz` indexed. PostgreSQL atomic upsert and committed attempts enforce contract limits across backend workers without storing raw email/IP in bucket keys. Expired buckets can be pruned by an operator; account/auth failures do not roll back attempts.
+
 
 ### `policy_acceptances`  (consent records, FR-POL-02)
 `id`, `user_id` FK NULL, `landlord_id` FK NULL, `policy_type` CHECK (`terms`,`privacy`), `version varchar(20)`, `accepted_at`, `ip inet`. CHECK exactly one of `user_id`/`landlord_id` is set.
@@ -280,3 +284,7 @@ CHECKs: `status='resolved'` ⇒ `outcome`, `investigation_findings`, `evidence_r
 - Right-to-erasure handling for clients: anonymise `users` row and message authorship, retain transaction financial records as legally required — to be confirmed by counsel.
 - Assistant transcripts: default retention 90 days, then anonymised or deleted by a scheduled job (OQ-23); flagged conversations may be kept longer for review with a recorded reason.
 - Complaint evidence and reporter contact details follow the retention period set by counsel (OQ-18); reporter contact is purged first.
+
+### Identity implementation scope (2026-10-31)
+
+Alembic baseline implements users, sessions, purpose-scoped single-use tokens, user policy acceptances, private email outbox and database rate buckets. A separate BE-3.3 migration enforces audit append-only UPDATE/DELETE protection with a PostgreSQL trigger. Landlord policy acceptance linkage will be added with the landlord-domain migration once that table exists; current identity acceptance rows require user_id. PostgreSQL 16-compatible SQL is used; local validation runs on the installed PostgreSQL 18 server. No existing Neon schema is modified until the user supplies development connection strings and explicitly runs the documented migration command.

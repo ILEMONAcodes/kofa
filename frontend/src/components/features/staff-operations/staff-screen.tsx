@@ -92,8 +92,7 @@ export function StaffScreen({
   function action(block: StaffBlock, context: string) {
     const label = block.text ?? "Continue";
     if (/sign out/i.test(label)) {
-      leave();
-      router.push("/staff/login");
+      void leave().then(()=>window.location.replace("/")).catch(()=>unavailable("Sign out"));
       return;
     }
     if (label === "Add photo") {

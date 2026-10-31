@@ -1,3 +1,4 @@
+import { reviewLogin } from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, existsSync } from "node:fs";
@@ -78,12 +79,8 @@ test("staff reports and administration menu are connected", async ({
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Your team, together.",
   );
-  await page
-    .getByRole("combobox", { name: "Role", exact: true })
-    .selectOption("staff");
-  await expect(
-    page.getByRole("button", { name: "Add team member", exact: true }),
-  ).toBeVisible();
+  await expect(page.getByRole("heading", {name:"Add a team member", exact:true})).toBeVisible();
+  await expect(page.getByRole("button", {name:"Add team member", exact:true})).toBeVisible();
 });
 test("transaction fields validate without posting or calculating fees", async ({
   page,
@@ -268,8 +265,8 @@ test("payment receipt keeps the date supplied by the source design", async ({
 });
 
 test.beforeEach(async ({ page }) => {
+  await reviewLogin(page,"admin");
   await page.addInitScript(() => {
-    sessionStorage.setItem("kofa-local-access-v1", "admin");
     sessionStorage.setItem("kofa-launch-seen", "1");
   });
 });

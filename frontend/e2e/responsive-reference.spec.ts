@@ -1,3 +1,4 @@
+import { reviewLogin } from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync } from "node:fs";
@@ -17,7 +18,7 @@ test("all seven 360 px references retain content, geometry and accessible contro
   for (const width of [360, 390, 768, 1280]) {
     await page.setViewportSize({ width, height: 844 });
     for (const screen of screens) {
-      await page.goto(`/responsive-preview/${screen.slug}`);
+      await roleNavigate(page, `/responsive-preview/${screen.slug}`);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(
         screen.blocks[1].text!,
       );
@@ -64,7 +65,7 @@ test("budgets step by 100000 and reject reversed ranges; Other remains editable"
   page,
 }) => {
   await page.setViewportSize({ width: 360, height: 844 });
-  await page.goto("/responsive-preview/inquiry");
+  await roleNavigate(page, "/responsive-preview/inquiry");
   await page
     .getByRole("button", {
       name: "Increase minimum budget (₦) by 100,000 naira",
@@ -91,7 +92,7 @@ test("queue filters and message refresh stay local; investigation requires findi
     if (!["GET", "HEAD"].includes(request.method()))
       mutations.push(request.url());
   });
-  await page.goto("/responsive-preview/properties");
+  await roleNavigate(page, "/responsive-preview/properties");
   await page.getByLabel("Area", { exact: true }).selectOption("Jabi");
   await expect(page.locator('[data-source-node="94:16215"]')).toBeVisible();
   await expect(page.locator('[data-source-node="94:16203"]')).toHaveCount(0);
@@ -99,10 +100,10 @@ test("queue filters and message refresh stay local; investigation requires findi
     .getByRole("button", { name: "Clear filters", exact: true })
     .click();
   await expect(page.locator('[data-source-node="94:16203"]')).toBeVisible();
-  await page.goto("/responsive-preview/conversation");
+  await roleNavigate(page, "/responsive-preview/conversation");
   await page.getByRole("button", { name: "Refresh messages" }).click();
   await expect(page.getByRole("status")).toContainText("currently unavailable");
-  await page.goto("/responsive-preview/investigation");
+  await roleNavigate(page, "/responsive-preview/investigation");
   await page.getByRole("button", { name: "Save working record" }).click();
   await expect(page.getByLabel("Findings", { exact: true })).toBeFocused();
   await expect(page.getByRole("dialog")).toHaveCount(0);
@@ -113,7 +114,7 @@ test("media preview and removal keep a single local dialog and persistent metada
   page,
 }) => {
   await page.setViewportSize({ width: 360, height: 844 });
-  await page.goto("/responsive-preview/media");
+  await roleNavigate(page, "/responsive-preview/media");
   await page
     .getByLabel("Selected photo caption (optional)", { exact: true })
     .fill("My local room");
@@ -137,8 +138,14 @@ test("media preview and removal keep a single local dialog and persistent metada
 });
 
 test.beforeEach(async ({ page }) => {
+  await reviewLogin(page,"admin");
   await page.addInitScript(() => {
-    sessionStorage.setItem("kofa-local-access-v1", "admin");
     sessionStorage.setItem("kofa-launch-seen", "1");
   });
 });
+
+async function roleNavigate(page: import("@playwright/test").Page, path:string) {
+ const client=/^\/(account|review\/feedback|verification\/(agreement|completed)|responsive-preview\/(inquiry|inquiries|conversation))($|[/?])/.test(path);
+ await reviewLogin(page,client ? "client" : "admin");
+ await page.goto(path);
+}

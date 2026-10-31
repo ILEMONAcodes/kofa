@@ -11,3 +11,12 @@ coverage/
 playwright-report/
 test-results/
 *.tsbuildinfo
+
+# Python backend and private Neon links
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+*.egg-info/
+.neon

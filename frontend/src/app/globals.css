@@ -231,3 +231,20 @@ body:has(.local-access-bar) .journey-screen {
     height: calc(100dvh - 64px);
   }
 }
+
+/* Shared input adornment: the prefix follows the control, not the label height. */
+.input-prefix-control {
+  position: relative;
+}
+.input-prefix-symbol {
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 16px;
+  display: flex;
+  align-items: center;
+  line-height: 24px;
+  pointer-events: none;
+}
+.input-prefix-control input.input-prefixed {
+  padding-inline-start: 40px;
+}

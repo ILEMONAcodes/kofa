@@ -131,8 +131,7 @@ export function ClientJourney({ slug }: { slug: string }) {
     }
     setError("");
     if (/sign out/i.test(label)) {
-      access.leave();
-      router.push("/");
+      void access.leave().then(()=>window.location.replace("/")).catch(()=>setDialog("service"));
       return;
     }
     if (/refresh/i.test(label)) {
