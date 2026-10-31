@@ -17,6 +17,14 @@ import {
   policySlugs,
   type MediaBlock,
 } from "./model";
+import {
+  verificationScreens,
+  verificationPath,
+  verificationOptions,
+  verificationDestination,
+  verificationOutcome,
+  isVerificationWorkspace,
+} from "@/components/features/verification/model";
 const tones: Record<string, string> = {
   primary: "rgb(var(--primary))",
   muted: "rgb(var(--muted))",
@@ -27,8 +35,22 @@ const tones: Record<string, string> = {
   dark: "rgb(var(--primary-hover))",
   border: "rgb(var(--border))",
 };
-export function MediaHelpScreen({ slug }: { slug: string }) {
-  const screen = mediaScreens.find((s) => s.slug === slug)!;
+export function MediaHelpScreen({
+  slug,
+  verification = false,
+}: {
+  slug: string;
+  verification?: boolean;
+}) {
+  const screens = verification ? verificationScreens : mediaScreens;
+  const path = verification ? verificationPath : mediaPath;
+  const directoryLabel = verification
+    ? "View all 8 verification and transaction screens"
+    : "View all 39 media and help screens";
+  const workspace = verification
+    ? isVerificationWorkspace(slug)
+    : slug === "conflict";
+  const screen = screens.find((s) => s.slug === slug)!;
   const router = useRouter();
   const form = useRef<HTMLFormElement>(null);
   const session = useMediaSession();
@@ -40,7 +62,7 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
   const video = session.media.find((m) => m.kind === "video");
   const isPolicy = policySlugs.includes(slug);
   const go = (target: string) =>
-    router.push(target.startsWith("/") ? target : mediaPath(target));
+    router.push(target.startsWith("/") ? target : path(target));
   const update = (id: string, value: string) => {
     setValues((v) => ({ ...v, [id]: value }));
     if (id === "82:2544" || id === "82:3438") session.setCaption(value);
@@ -115,13 +137,15 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
       go("media");
       return;
     }
-    const next = destination(slug, label, context);
+    const next = verification
+      ? verificationDestination(slug, label)
+      : destination(slug, label, context);
     if (next) {
       go(next);
       return;
     }
     if (
-      ["Submit report", "Send question"].includes(label) &&
+      (verification || ["Submit report", "Send question"].includes(label)) &&
       !form.current?.reportValidity()
     )
       return;
@@ -216,12 +240,18 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
             <label htmlFor={b.id}>{label}</label>
             <textarea
               id={b.id}
-              value={value}
+              value={
+                verification && label === "Approved at (WAT)"
+                  ? (values[b.id] ?? "2026-10-26T09:30")
+                  : value
+              }
               placeholder={placeholder ? b.value : undefined}
               onChange={(e) => update(b.id, e.target.value)}
               minLength={slug === "report" ? 20 : undefined}
               maxLength={slug === "report" ? 2000 : 1000}
-              required={slug === "report" || label === "Your question"}
+              required={
+                verification || slug === "report" || label === "Your question"
+              }
             />
           </div>
         );
@@ -234,7 +264,13 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
                 label={label}
                 value={get(b)}
                 options={Array.from(
-                  new Set([get(b), ...(fieldOptions[label] ?? []), "Other"]),
+                  new Set([
+                    get(b),
+                    ...((verification
+                      ? verificationOptions[label]
+                      : fieldOptions[label]) ?? []),
+                    "Other",
+                  ]),
                 ).map((v) => ({ value: v, label: v }))}
                 onChange={(e) => update(b.id, e.target.value)}
               />
@@ -251,19 +287,26 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
             <Input
               id={b.id}
               label={label}
-              value={value}
+              value={
+                verification && label === "Approved at (WAT)"
+                  ? (values[b.id] ?? "2026-10-26T09:30")
+                  : value
+              }
               placeholder={placeholder ? b.value : undefined}
               type={
-                label.includes("Email")
-                  ? "email"
-                  : label === "Display order"
-                    ? "number"
-                    : label.includes("Phone")
-                      ? "tel"
-                      : "text"
+                verification && label === "Approved at (WAT)"
+                  ? "datetime-local"
+                  : label.includes("Email")
+                    ? "email"
+                    : label === "Display order"
+                      ? "number"
+                      : label.includes("Phone")
+                        ? "tel"
+                        : "text"
               }
               min={label === "Display order" ? 1 : undefined}
               max={label === "Display order" ? photos.length : undefined}
+              required={verification}
               disabled={b.disabled}
               error={fieldError}
               className={
@@ -321,7 +364,7 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
             ? "note"
             : undefined
         }
-        className={`staff-group ${b.name === "Photo previews" ? "staff-photo-row" : ""}`}
+        className={`staff-group ${b.name === "Photo previews" ? "staff-photo-row" : b.name === "Timeline marker" ? "staff-timeline-marker" : ""}`}
         style={style}
       >
         {b.children?.map((c) => render(c, b.name || context))}
@@ -345,7 +388,10 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
       <header className="journey-header">
         <p>Design preview · sample content</p>
         <div>
-          <Link href="/" aria-label="Kof’a home">
+          <Link
+            href={workspace ? "/staff-preview/overview" : "/"}
+            aria-label={workspace ? "Kof’a staff overview" : "Kof’a home"}
+          >
             <Image
               src="/assets/client-logo.svg"
               width={101}
@@ -356,14 +402,15 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
           </Link>
           <Button
             variant="subtle"
-            onClick={() =>
-              slug === "conflict" ? setDialog("menu") : action("Back")
-            }
+            onClick={() => (workspace ? setDialog("menu") : action("Back"))}
           >
-            {slug === "conflict" ? "Menu" : "Back"}
+            {workspace ? "Menu" : "Back"}
           </Button>
-          {slug !== "assistant" && slug !== "conflict" && (
-            <Button variant="secondary" onClick={() => go("help")}>
+          {slug !== "assistant" && !workspace && (
+            <Button
+              variant="secondary"
+              onClick={() => go(verification ? mediaPath("help") : "help")}
+            >
               Help
             </Button>
           )}
@@ -385,11 +432,12 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
             </p>
           )}
           <Button variant="secondary" onClick={() => setDialog("menu")}>
-            View all 39 media and help screens
+            {directoryLabel}
           </Button>
           <p className="text-sm text-muted">
-            Design examples. Uploads, reports and assistant services are not
-            connected. Selected files stay on this device.
+            {verification
+              ? "Fictional verification and transaction examples. Permissions, approval, publication and financial services are not connected. No real record changes are made."
+              : "Design examples. Uploads, reports and assistant services are not connected. Selected files stay on this device."}
           </p>
         </form>
       </div>
@@ -411,7 +459,7 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
         </div>
       ) : (
         <nav aria-label="Mobile navigation" className="journey-nav">
-          {(slug === "conflict"
+          {(workspace
             ? [
                 ["Overview", "/staff-preview/overview", "home"],
                 ["Properties", "/staff-preview/properties", "search"],
@@ -434,7 +482,7 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
               {label}
             </Link>
           ))}
-          {slug === "conflict" && (
+          {workspace && (
             <button type="button" onClick={() => setDialog("menu")}>
               <Image
                 src="/assets/mobile-account-active.svg"
@@ -452,15 +500,17 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
         onClose={() => setDialog(null)}
         title={
           dialog === "menu"
-            ? "Media, help and states · design screens"
+            ? verification
+              ? "Verification and transactions · design screens"
+              : "Media, help and states · design screens"
             : "Service not connected"
         }
       >
         {dialog === "menu" ? (
           <ol className="journey-directory">
-            {mediaScreens.map((s, i) => (
+            {screens.map((s, i) => (
               <li key={s.slug}>
-                <Link href={mediaPath(s.slug)} onClick={() => setDialog(null)}>
+                <Link href={path(s.slug)} onClick={() => setDialog(null)}>
                   {String(i + 1).padStart(2, "0")} · {s.blocks[1].text}
                 </Link>
               </li>
@@ -473,22 +523,35 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
                 ? "The source contains a poster only, with no playable video. Choose a local video to preview playback."
                 : `${operation} is not connected. No request was sent and no record was changed.`}
             </p>
-            {outcome(operation) && (
+            {(verification
+              ? verificationOutcome(operation)
+              : outcome(operation)) && (
               <Link
                 className="staff-public-link"
-                href={mediaPath(outcome(operation)!)}
+                href={path(
+                  (verification
+                    ? verificationOutcome(operation)
+                    : outcome(operation))!,
+                )}
               >
                 Preview example outcome
               </Link>
+            )}
+            {verification && (
+              <p>
+                Example outcomes show the supplied sample only, not the values
+                entered here. Live checks and permissions must be validated by
+                the server.
+              </p>
             )}
             <Button
               variant="secondary"
               onClick={() => {
                 setDialog(null);
-                go("media");
+                go(verification ? "checks" : "media");
               }}
             >
-              Back to media
+              {verification ? "Back to checks" : "Back to media"}
             </Button>
           </div>
         )}

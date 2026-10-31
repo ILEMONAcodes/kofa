@@ -413,6 +413,14 @@ export function ClientJourney({ slug }: { slug: string }) {
           onSubmit={(event) => event.preventDefault()}
         >
           {screen.blocks.map((block) => render(block))}
+          {(slug === "transaction-detail" || slug === "transactions") && (
+            <Link
+              href="/verification-preview/agreement"
+              className="journey-link"
+            >
+              Agreement and completion timeline
+            </Link>
+          )}
           <p role="alert">{error}</p>
           <p role="status">{notice}</p>
           <Button variant="secondary" onClick={() => setDialog("screens")}>
