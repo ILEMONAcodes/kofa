@@ -1,4 +1,5 @@
 "use client";
+import { WorkspaceEntry } from "@/components/access/workspace-entry";
 /* eslint-disable @next/next/no-img-element -- Exact exported SVG assets at intrinsic size. */
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
@@ -169,7 +170,7 @@ export function AuthScreenView({
           <h1>{staff ? "Your workspace starts here." : data.title}</h1>
           {local && (
             <div className="auth-callout">
-              <p>Temporary local access</p>
+              <p>Team review access</p>
               <p>
                 Use an example email and any password of at least 6 characters.
                 Credentials are not saved or sent. Sample records only.
@@ -190,6 +191,9 @@ export function AuthScreenView({
             </label>
           )}
           <p className="auth-description">{data.description}</p>
+          {!staff && !preview && ["login", "register"].includes(screen) && (
+            <WorkspaceEntry />
+          )}
           {screen === "register" &&
             field("full_name", "Full name", "Your full name", "text", "name")}
           {["login", "register", "forgot-password"].includes(screen) &&

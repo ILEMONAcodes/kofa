@@ -11,9 +11,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { BrandLoading } from "@/components/common/brand-loading";
 import { Button, buttonStyles } from "@/components/common/button";
 
+import { isReviewAccessEnabled } from "@/lib/review-access";
+
 export type LocalRole = "client" | "staff" | "admin";
-export const localAccessEnabled =
-  process.env.NEXT_PUBLIC_LOCAL_ACCESS === "true";
+export const localAccessEnabled = isReviewAccessEnabled(
+  process.env.NEXT_PUBLIC_LOCAL_ACCESS,
+);
 const KEY = "kofa-local-access-v1";
 export function validLocalRole(value: unknown): value is LocalRole {
   return value === "client" || value === "staff" || value === "admin";
@@ -144,9 +147,9 @@ export function AccessStatus() {
   const router = useRouter();
   if (!role || !localAccessEnabled) return null;
   return (
-    <aside className="local-access-bar" aria-label="Local access">
+    <aside className="local-access-bar" aria-label="Review access">
       <span>
-        Local access ·{" "}
+        Team review ·{" "}
         {role === "admin"
           ? "Administrator"
           : role === "staff"

@@ -26,11 +26,9 @@ export function SearchBudget({
   return (
     <div className="search-budget">
       <div className="search-money-field">
-        <span aria-hidden="true" className="search-money-symbol">
-          ₦
-        </span>
         <Input
           label={label}
+          prefix="₦"
           labelClassName="home-field-label"
           className="search-money-input"
           inputMode="decimal"

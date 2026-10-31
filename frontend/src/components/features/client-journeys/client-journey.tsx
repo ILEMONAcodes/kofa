@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { WorkspaceEntry } from "@/components/access/workspace-entry";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useLocalAccess } from "@/components/access/local-access";
 import { illustrativeListings } from "@/components/browse/home-content";
@@ -502,6 +503,7 @@ export function ClientJourney({ slug }: { slug: string }) {
                 ? "Support is currently unavailable. Please try again later."
                 : "This action is currently unavailable. Nothing was submitted or changed."}
             </p>
+            {dialog === "help" && <WorkspaceEntry />}
             {dialog === "service" && (
               <Link className="journey-link" href="/resources/help">
                 Get help

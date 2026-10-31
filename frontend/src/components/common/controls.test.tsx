@@ -41,3 +41,26 @@ it("keeps caller descriptions alongside validation errors", () => {
     screen.getByRole("textbox", { name: "Name" }),
   ).toHaveAccessibleDescription("Use your full name Required");
 });
+
+it("keeps a currency prefix outside editable text and preserves validation semantics", () => {
+  render(
+    <Input
+      label="Minimum budget (₦)"
+      prefix="₦"
+      defaultValue="3,000,000"
+      hint="Enter your budget"
+      error="Check the amount"
+    />,
+  );
+  const input = screen.getByRole("textbox", { name: "Minimum budget (₦)" });
+  expect(input).toHaveValue("3,000,000");
+  expect(input).toHaveAccessibleDescription(
+    "Enter your budget Check the amount",
+  );
+  expect(input).toHaveAttribute("aria-invalid", "true");
+  expect(input.parentElement).toHaveClass("input-prefix-control");
+  expect(
+    input.parentElement?.querySelector(".input-prefix-symbol"),
+  ).toHaveAttribute("aria-hidden", "true");
+  expect(input.parentElement?.querySelectorAll("input")).toHaveLength(1);
+});

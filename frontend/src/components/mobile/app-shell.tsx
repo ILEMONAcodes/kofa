@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { WorkspaceEntry } from "@/components/access/workspace-entry";
 import { Modal } from "@/components/common/modal";
 export function MobileHeader({ back }: { back?: string }) {
   const [help, setHelp] = useState(false);
@@ -47,6 +48,9 @@ export function MobileHeader({ back }: { back?: string }) {
         >
           Open help centre
         </Link>
+        <div>
+          <WorkspaceEntry />
+        </div>
       </Modal>
     </header>
   );
