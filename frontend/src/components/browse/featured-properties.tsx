@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { illustrativeListings } from "./home-content";
 import { HomeLink } from "./home-link";
-import { formatMoney } from "@/lib/formatters/money";
+import { listingPrice, furnishingLabel } from "@/lib/property-presentation";
 export function FeaturedProperties() {
   return (
     <section
@@ -28,7 +28,7 @@ export function FeaturedProperties() {
         </div>
       </div>
       <div className="home-property-grid">
-        {illustrativeListings.map((property, index) => (
+        {illustrativeListings.slice(0, 3).map((property, index) => (
           <article
             key={property.slug}
             className="home-property-card"
@@ -56,14 +56,10 @@ export function FeaturedProperties() {
                   {property.title}
                 </Link>
               </h3>
-              <p className="text-home-card">
-                {formatMoney(property.price.amount)} /year
-              </p>
+              <p className="text-home-card">{listingPrice(property.price)}</p>
               <p className="text-sm">
                 {property.bedrooms} bed · {property.bathrooms} bath ·{" "}
-                {property.furnishing === "furnished"
-                  ? "Furnished"
-                  : "Unfurnished"}
+                {furnishingLabel[property.furnishing]}
               </p>
               <p className="text-sm">{property.location}</p>
               <Link

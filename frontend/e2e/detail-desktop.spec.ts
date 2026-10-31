@@ -201,7 +201,6 @@ test("home and search cards resolve correct details and preserve search URL", as
   await page.goto(search);
   await page
     .locator(".search-property-card")
-    .first()
     .getByRole("link", { name: "2-bedroom flat, Jabi", exact: true })
     .click();
   await expect(

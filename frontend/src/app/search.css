@@ -251,4 +251,14 @@
 .search-page .search-money-input {
   padding-left: 28px;
 }
-.search-page .home-field-label { font-size:16px; line-height:24px; font-weight:400; }
+.search-page .home-field-label {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+
+@media (min-width: 768px) and (max-width: 1050px) {
+  .search-property-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

@@ -66,13 +66,8 @@ export function MobileHome() {
         <h2>Places to make yours</h2>
         <p className="text-sm text-muted">Verified listings · Abuja</p>
         <div className="mobile-card-carousel">
-          {illustrativeListings.slice(0, 2).map((property) => (
-            <MobilePropertyCard
-              key={property.slug}
-              property={property}
-              image="/assets/home-living-room.jpg"
-              imageAlt={illustrativeListings[0].alt}
-            />
+          {illustrativeListings.map((property) => (
+            <MobilePropertyCard key={property.slug} property={property} />
           ))}
         </div>
         <HomeLink href={href}>Explore all properties</HomeLink>

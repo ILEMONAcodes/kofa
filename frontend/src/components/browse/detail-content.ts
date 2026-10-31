@@ -24,10 +24,16 @@ export function previewDetail(slug: string): PreviewDetail | undefined {
         illustrativeListings[2],
         illustrativeListings[1],
       ]
-    : [
-        listing,
-        ...illustrativeListings.filter((property) => property.slug !== slug),
-      ];
+    : illustrativeListings
+          .slice(0, 3)
+          .some((property) => property.slug === slug)
+      ? [
+          listing,
+          ...illustrativeListings
+            .slice(0, 3)
+            .filter((property) => property.slug !== slug),
+        ]
+      : [listing];
   return {
     ...listing,
     neighbourhood: listing.location.split(",")[0],
@@ -40,9 +46,11 @@ export function previewDetail(slug: string): PreviewDetail | undefined {
     photos: order.map((property) => ({
       src: property.image,
       alt: property.alt,
-      label: property.image.includes("architecture")
-        ? "Exterior"
-        : "Living room",
+      label: property.image.startsWith("/assets/properties/")
+        ? "Sample cover photo"
+        : property.image.includes("architecture")
+          ? "Exterior"
+          : "Living room",
     })),
   };
 }
