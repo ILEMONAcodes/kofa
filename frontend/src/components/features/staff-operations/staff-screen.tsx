@@ -1,5 +1,6 @@
 "use client";
 
+import { useLocalAccess } from "@/components/access/local-access";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -48,6 +49,7 @@ export function StaffScreen({
   slug: string;
   administration?: boolean;
 }) {
+  const { role, leave } = useLocalAccess();
   const screens = administration ? administrationScreens : staffScreens;
   const path = administration ? administrationPath : staffPath;
   const sections = administration
@@ -89,6 +91,11 @@ export function StaffScreen({
   }
   function action(block: StaffBlock, context: string) {
     const label = block.text ?? "Continue";
+    if (/sign out/i.test(label)) {
+      leave();
+      router.push("/staff/login");
+      return;
+    }
     if (label === "Add photo") {
       photoInput.current?.click();
       return;
@@ -579,11 +586,11 @@ export function StaffScreen({
               aria-label="Workspace sections"
               className="staff-menu-sections"
             >
-              <Link href="/verification-preview/checks">
+              <Link href="/verification/checks">
                 Verification &amp; publication
               </Link>
-              <Link href="/review-feedback-preview/staff-review">
-                Review &amp; recovery references
+              <Link href="/review/staff-review">
+                Review property submission
               </Link>
               {sections.map((target) => (
                 <Link key={target} href={path(target)}>
@@ -591,7 +598,7 @@ export function StaffScreen({
                     target.slice(1).replaceAll("-", " ")}
                 </Link>
               ))}
-              {!administration && (
+              {!administration && role === "admin" && (
                 <Link href={administrationPath("administration")}>
                   Administration & support
                 </Link>
@@ -600,15 +607,6 @@ export function StaffScreen({
                 <Link href={staffPath("overview")}>Staff operations</Link>
               )}
             </nav>
-            <ol className="journey-directory">
-              {screens.map((item, index) => (
-                <li key={item.slug}>
-                  <Link href={path(item.slug)}>
-                    {String(index + 1).padStart(2, "0")} · {item.blocks[1].text}
-                  </Link>
-                </li>
-              ))}
-            </ol>
           </div>
         ) : (
           <>
@@ -617,7 +615,7 @@ export function StaffScreen({
                 ? "A video walkthrough is not available for this property."
                 : "This action is currently unavailable. Nothing was submitted or changed."}
             </p>
-            <Link className="staff-public-link" href="/media-help-preview/help">
+            <Link className="staff-public-link" href="/resources/help">
               Get help
             </Link>
           </>

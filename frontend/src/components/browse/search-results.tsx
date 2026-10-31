@@ -95,6 +95,7 @@ export function SearchResults({
             <div className="home-card-copy">
               <h2 className="text-home-card">
                 <Link
+                  className="property-card-link"
                   href={propertyDetailHref(
                     property.slug,
                     query ? `/properties?${query}` : undefined,

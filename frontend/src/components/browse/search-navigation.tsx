@@ -1,3 +1,4 @@
+import { AccountEntry } from "@/components/access/account-entry";
 /* eslint-disable @next/next/no-img-element -- Preserve fractional dimensions of the exported Figma vector. */
 import Link from "next/link";
 import { MobileHeader } from "@/components/mobile/app-shell";
@@ -5,7 +6,7 @@ import { HomeLink } from "./home-link";
 import { buttonStyles } from "@/components/common/button";
 export function SearchNavigation({
   detail = false,
-  assistantHref = "/contact?topic=assistant",
+  assistantHref = "/resources/assistant",
 }: {
   detail?: boolean;
   assistantHref?: string;
@@ -45,9 +46,7 @@ export function SearchNavigation({
           >
             List a property ↗
           </HomeLink>
-          <HomeLink href="/login" className="home-nav-login">
-            Log in
-          </HomeLink>
+          <AccountEntry />
           {assistantHref.startsWith("#") ? (
             <a
               href={assistantHref}

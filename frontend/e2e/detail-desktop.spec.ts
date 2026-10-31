@@ -179,7 +179,12 @@ test("gallery, reason dropdown and interest actions work without fake submission
     .getByRole("link", { name: "Express interest", exact: true })
     .click();
   await page.waitForURL(/\/login\?/);
-  expect(new URL(page.url()).searchParams.get("returnTo")).toBe(path);
+  const inquiry = new URL(
+    new URL(page.url()).searchParams.get("returnTo")!,
+    "https://kofa.invalid",
+  );
+  expect(inquiry.pathname).toBe("/account/inquiry");
+  expect(inquiry.searchParams.get("returnTo")).toBe(path);
 });
 test("home and search cards resolve correct details and preserve search URL", async ({
   page,

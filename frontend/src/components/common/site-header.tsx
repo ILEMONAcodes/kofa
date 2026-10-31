@@ -19,7 +19,8 @@ export function SiteHeader() {
         >
           <Link href="/properties">Explore properties</Link>
           <Link href="/landlord">List your property</Link>
-          <Link href="/login">Sign in</Link>
+          <Link href="/account">My account</Link>
+          <Link href="/staff/login">Staff sign in</Link>
         </nav>
       </div>
     </header>

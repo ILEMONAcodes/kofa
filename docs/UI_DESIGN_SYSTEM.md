@@ -265,3 +265,9 @@ Presentation preview routes are documented in [the handoff](FIGMA_MOBILE_AUTH.md
 Reuse the authentication form shell: 108px header, 20px content rhythm, 12/16 eyebrow, 30/38 heading, 48px controls and 154px persistent actions. Eight views cover six listing steps plus receipt and verification explanation. Photos use 110×84 thumbnails, 12px horizontal gaps and 24px corners. Evidence stays private; optional video is separate. Existing SVG/photo assets match the exports exactly; checkbox checkmark uses `listing-check.svg`.
 
 The local form uses `/landlord?step=<contact|property|pricing|features|uploads|review|verification>`. Explicit `preview=1` adds fictional sample data and receipt. Actual uploads, saved drafts, legal consent and submissions remain unavailable. No landlord account is introduced. See [mobile listing handoff](FIGMA_MOBILE_LANDLORD.md).
+
+### Connected frontend navigation — 2026-10-31
+
+Property title links stretch to cover their card; verification badges remain separate targets. Keep original card typography, image and brown/cream contrast. Use the shared `BrandLoading` logo/orbit in actual loading boundaries, with a screen-reader label and reduced-motion fallback. Mobile entrance holds three seconds, then fades over 350ms once per tab.
+
+Product routes are `/account/*`, `/staff/*`, `/admin/*` and `/resources/*`; product menus show sections rather than enumerated screen/state catalogues. `/staff/login` is the shared staff/admin entrance, linked from the footer. Admin user management is `/admin/users`. Temporary local access must remain visibly identified, configurable and separate from real authentication; fixed app shells reserve space for its sign-out control. See [connected journey](FRONTEND_CONNECTED_FLOW.md).

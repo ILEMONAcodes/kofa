@@ -20,7 +20,7 @@ for (let start = 0; start < screens.length; start += 10) {
     test.setTimeout(90_000);
     await page.setViewportSize({ width: 390, height: 844 });
     for (const screen of group) {
-      await page.goto(`/staff-preview/${screen.slug}`);
+      await page.goto(`/staff/${screen.slug}`);
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(
         screen.blocks[1].text!,
       );
@@ -82,7 +82,7 @@ test("staff menu, records, filters and Other stay connected", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 360, height: 740 });
-  await page.goto("/staff-preview/overview");
+  await page.goto("/staff/overview");
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
   await page
     .getByRole("navigation", { name: "Workspace sections" })
@@ -95,7 +95,7 @@ test("staff menu, records, filters and Other stay connected", async ({
   await page
     .getByRole("button", { name: "Open record →", exact: true })
     .click();
-  await expect(page).toHaveURL(/staff-preview\/property$/);
+  await expect(page).toHaveURL(/staff\/property$/);
   await page.getByRole("button", { name: "Edit listing", exact: true }).click();
   await page.getByLabel("Area", { exact: true }).selectOption("Other");
   await page.getByLabel("Specify area", { exact: true }).fill("Maitama");
@@ -107,8 +107,8 @@ test("staff menu, records, filters and Other stay connected", async ({
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/staff-preview/changes-saved");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/staff/changes-saved");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Changes saved.",
   );
@@ -116,7 +116,7 @@ test("staff menu, records, filters and Other stay connected", async ({
 test("private notes and reply are distinct and never sent by the preview", async ({
   page,
 }) => {
-  await page.goto("/staff-preview/inquiry");
+  await page.goto("/staff/inquiry");
   await page
     .getByLabel("Reply to client", { exact: true })
     .fill("Please share a preferred date.");
@@ -145,7 +145,7 @@ test("private notes and reply are distinct and never sent by the preview", async
 test("media selection is local and rejects unsupported photo types", async ({
   page,
 }) => {
-  await page.goto("/staff-preview/media");
+  await page.goto("/staff/media");
   await page
     .locator('input[aria-label="Choose property photos"]')
     .setInputFiles({
@@ -176,7 +176,7 @@ test("staff preview fits short mobile and desktop review widths", async ({
 }) => {
   for (const width of [360, 768, 1280]) {
     await page.setViewportSize({ width, height: 640 });
-    await page.goto("/staff-preview/schedule-inspection");
+    await page.goto("/staff/schedule-inspection");
     expect(
       await page
         .locator(".journey-body")
@@ -202,7 +202,7 @@ test("staff forms, media and calendar have no serious accessibility violations",
     "schedule-inspection",
     "calendar",
   ]) {
-    await page.goto(`/staff-preview/${slug}`);
+    await page.goto(`/staff/${slug}`);
     await expect(page.locator(".mobile-launch")).toBeHidden();
     const result = await new AxeBuilder({ page })
       .include(".staff-preview")
@@ -219,11 +219,11 @@ test("source header and exported location chevrons retain their geometry", async
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/staff-preview/edit-property");
+  await page.goto("/staff/edit-property");
   await expect(page.locator(".mobile-launch")).toBeHidden();
   const brand = (await page.locator(".staff-brand").boundingBox())!;
   expect(brand.x).toBeCloseTo(20, 1);
-  expect(brand.y).toBeCloseTo(57.166, 1);
+  expect(brand.y).toBeCloseTo(121.166, 1);
   for (const label of ["State", "City", "Area"]) {
     const select = page.getByLabel(label, { exact: true });
     await select.scrollIntoViewIfNeeded();
@@ -237,4 +237,11 @@ test("source header and exported location chevrons retain their geometry", async
   }
   await page.locator(".journey-scroll").evaluate((el) => (el.scrollTop = 0));
   await page.screenshot({ path: "/tmp/kofa-staff-edit-property-final.png" });
+});
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem("kofa-local-access-v1", "admin");
+    sessionStorage.setItem("kofa-launch-seen", "1");
+  });
 });

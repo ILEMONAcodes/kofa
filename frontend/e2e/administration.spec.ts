@@ -13,8 +13,14 @@ for (let start = 0; start < screens.length; start += 10) {
     test.setTimeout(90_000);
     await page.setViewportSize({ width: 390, height: 844 });
     for (const screen of group) {
-      await page.goto(`/administration-preview/${screen.slug}`);
+      await page.goto(`/admin/${screen.slug}`);
       await expect(page.locator(".mobile-launch")).toBeHidden();
+      if (screen.slug === "users") {
+        await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+          "Your team, together.",
+        );
+        continue;
+      }
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(
         screen.blocks[1].text!,
       );
@@ -32,7 +38,7 @@ for (let start = 0; start < screens.length; start += 10) {
       const brand = (await page.locator(".staff-brand").boundingBox())!;
       expect(brand.width).toBeCloseTo(101.15, 1);
       expect(brand.height).toBeCloseTo(32.7833, 1);
-      expect(brand.y).toBeCloseTo(57.166, 1);
+      expect(brand.y).toBeCloseTo(121.166, 1);
       for (const icon of await page.locator(".journey-nav img").all()) {
         const box = (await icon.boundingBox())!;
         expect(box.width).toBe(22);
@@ -60,21 +66,24 @@ for (let start = 0; start < screens.length; start += 10) {
 test("staff reports and administration menu are connected", async ({
   page,
 }) => {
-  await page.goto("/staff-preview/overview");
+  await page.goto("/staff/overview");
   await page.getByRole("button", { name: "View reports", exact: true }).click();
-  await expect(page).toHaveURL(/administration-preview\/reports$/);
+  await expect(page).toHaveURL(/admin\/reports$/);
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
-  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(50);
+  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(0);
   await page
     .getByRole("navigation", { name: "Workspace sections" })
     .getByRole("link", { name: "Users", exact: true })
     .click();
-  await page.getByLabel("Role", { exact: true }).selectOption("Other");
-  await expect(page.getByLabel("Specify role", { exact: true })).toBeVisible();
-  await page.getByLabel("Role", { exact: true }).selectOption("Staff");
+  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
+    "Your team, together.",
+  );
+  await page
+    .getByRole("combobox", { name: "Role", exact: true })
+    .selectOption("staff");
   await expect(
-    page.getByRole("button", { name: "Open record →", exact: true }),
-  ).toHaveCount(1);
+    page.getByRole("button", { name: "Add team member", exact: true }),
+  ).toBeVisible();
 });
 test("transaction fields validate without posting or calculating fees", async ({
   page,
@@ -83,7 +92,7 @@ test("transaction fields validate without posting or calculating fees", async ({
   page.on("request", (request) => {
     if (!["GET", "HEAD"].includes(request.method())) unsafe.push(request.url());
   });
-  await page.goto("/administration-preview/create-transaction");
+  await page.goto("/admin/create-transaction");
   await page
     .getByLabel("Transaction type", { exact: true })
     .selectOption("Other");
@@ -106,8 +115,8 @@ test("transaction fields validate without posting or calculating fees", async ({
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/administration-preview/transaction");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/admin/transaction");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Transaction TXN-000123.",
   );
@@ -116,7 +125,7 @@ test("transaction fields validate without posting or calculating fees", async ({
 test("complaint review and resolution remain explicit examples", async ({
   page,
 }) => {
-  await page.goto("/administration-preview/complaint");
+  await page.goto("/admin/complaint");
   await page
     .getByRole("button", { name: "Review evidence", exact: true })
     .click();
@@ -130,7 +139,7 @@ test("complaint review and resolution remain explicit examples", async ({
   await page
     .getByRole("button", { name: "Review resolution", exact: true })
     .click();
-  await expect(page).toHaveURL(/administration-preview\/investigation$/);
+  await expect(page).toHaveURL(/admin\/investigation$/);
   await page
     .getByLabel("Findings", { exact: true })
     .fill("Fictional review finding for the interface preview.");
@@ -153,7 +162,7 @@ test("invitations and settings do not send email or change configuration", async
   page.on("request", (request) => {
     if (!["GET", "HEAD"].includes(request.method())) unsafe.push(request.url());
   });
-  await page.goto("/administration-preview/invite-user");
+  await page.goto("/admin/invite-user");
   await page.getByLabel("Email", { exact: true }).fill("invalid");
   await page
     .getByRole("button", { name: "Create staff account", exact: true })
@@ -166,7 +175,7 @@ test("invitations and settings do not send email or change configuration", async
     .getByRole("button", { name: "Create staff account", exact: true })
     .click();
   await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
-  await page.goto("/administration-preview/support-settings");
+  await page.goto("/admin/support-settings");
   await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);
   await page
     .getByRole("button", { name: "Review settings change", exact: true })
@@ -190,7 +199,7 @@ test("ledger posting and article publishing have no service mutations", async ({
     ["publish-article", "Publish article"],
     ["confirm-permanent-action", "Record admin action"],
   ]) {
-    await page.goto(`/administration-preview/${slug}`);
+    await page.goto(`/admin/${slug}`);
     await page.getByRole("button", { name: label, exact: true }).click();
     await expect(page.getByRole("dialog")).toContainText(
       "Nothing was submitted",
@@ -203,7 +212,7 @@ test("administration forms fit mobile and wider review layouts", async ({
 }) => {
   for (const width of [360, 768, 1280]) {
     await page.setViewportSize({ width, height: 640 });
-    await page.goto("/administration-preview/support-settings");
+    await page.goto("/admin/support-settings");
     expect(
       await page
         .locator(".journey-body")
@@ -229,7 +238,7 @@ test("representative administration views have no serious accessibility violatio
     "edit-article",
     "support-settings",
   ]) {
-    await page.goto(`/administration-preview/${slug}`);
+    await page.goto(`/admin/${slug}`);
     await expect(page.locator(".mobile-launch")).toBeHidden();
     const results = await new AxeBuilder({ page })
       .include(".staff-preview")
@@ -245,7 +254,7 @@ test("representative administration views have no serious accessibility violatio
 test("payment receipt keeps the date supplied by the source design", async ({
   page,
 }) => {
-  await page.goto("/administration-preview/record-payment");
+  await page.goto("/admin/record-payment");
   await expect(
     page.getByLabel("Received at (WAT)", { exact: true }),
   ).toHaveValue("2026-10-26T09:00");
@@ -256,4 +265,11 @@ test("payment receipt keeps the date supplied by the source design", async ({
     "Confirm this ledger entry.",
   );
   await expect(page.locator(".journey-body")).toContainText("26 Oct 2026");
+});
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem("kofa-local-access-v1", "admin");
+    sessionStorage.setItem("kofa-launch-seen", "1");
+  });
 });

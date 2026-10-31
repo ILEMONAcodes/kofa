@@ -52,7 +52,10 @@ export function FeaturedProperties() {
             </Link>
             <div className="home-card-copy">
               <h3 className="text-home-card">
-                <Link href={`/properties/${property.slug}`}>
+                <Link
+                  className="property-card-link"
+                  href={`/properties/${property.slug}`}
+                >
                   {property.title}
                 </Link>
               </h3>

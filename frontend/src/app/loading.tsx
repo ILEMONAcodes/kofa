@@ -1,7 +1,8 @@
+import { BrandLoading } from "@/components/common/brand-loading";
 export default function Loading() {
   return (
-    <main id="main-content" className="page-container" role="status">
-      <p>Loading Kof’a…</p>
+    <main id="main-content">
+      <BrandLoading />
     </main>
   );
 }

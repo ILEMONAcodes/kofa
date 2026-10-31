@@ -53,7 +53,6 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
   );
   const [error, setError] = useState("");
   const [service, setService] = useState(false);
-  const [gallery, setGallery] = useState(false);
   const [policies, setPolicies] = useState(false);
   const [consent, setConsent] = useState({ owner: preview, policies: preview });
   const scroll = useRef<HTMLDivElement>(null);
@@ -460,12 +459,6 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
           )}
           <div className="listing-media-fields" hidden={step !== "uploads"}>
             <MediaPicker media={media} onChange={setMedia} preview={preview} />
-            <Link
-              href="/media-help-preview/media"
-              className="text-primary underline"
-            >
-              Explore mobile media and upload states
-            </Link>
           </div>
           {step === "review" && (
             <>
@@ -607,15 +600,6 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
               {error}
             </p>
           )}
-          <div className="auth-preview-note">
-            <button
-              className="auth-text-link"
-              type="button"
-              onClick={() => setGallery(true)}
-            >
-              Listing steps
-            </button>
-          </div>
         </form>
       </div>
       <div className="auth-actions">
@@ -657,29 +641,12 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
           details have not been sent.
         </p>
         <Link
-          href="/media-help-preview/help"
+          href="/resources/help"
           onClick={() => setService(false)}
           className={buttonStyles("secondary", "mt-5")}
         >
           Get help
         </Link>
-      </Modal>
-      <Modal
-        open={gallery}
-        onClose={() => setGallery(false)}
-        title="Listing steps"
-      >
-        <nav className="auth-preview-links" aria-label="Listing steps">
-          {steps.map((key, i) => (
-            <Link
-              key={key}
-              href={path(key, true)}
-              onClick={() => setGallery(false)}
-            >
-              {String(i + 1).padStart(2, "0")} — {screens[key].title}
-            </Link>
-          ))}
-        </nav>
       </Modal>
       <Modal
         open={policies}
@@ -688,7 +655,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
       >
         <p>
           Approved policy versions will appear before real submissions become
-          available. No legal consent is recorded in this preview.
+          available. No legal consent is recorded here.
         </p>
       </Modal>
     </div>

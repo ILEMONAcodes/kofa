@@ -5,7 +5,6 @@ import {
   sampleMedia,
   type LocalMedia,
 } from "@/components/features/submission/media";
-import Link from "next/link";
 import { Input } from "@/components/common/input";
 import { Button } from "@/components/common/button";
 import { fileProblem } from "@/components/features/submission/model";
@@ -101,13 +100,6 @@ export function MediaSession({ children }: { children: ReactNode }) {
               </Button>
             </div>
           ))}
-          <Link
-            href="/media-help-preview/report-evidence"
-            className="staff-public-link"
-            onClick={() => setManager(null)}
-          >
-            Preview evidence attached state
-          </Link>
         </div>
       </Modal>
     </Session.Provider>

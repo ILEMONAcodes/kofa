@@ -6,7 +6,7 @@ export const reviewScreens: {
   id: string;
   blocks: MediaBlock[];
 }[] = source;
-export const reviewPath = (slug: string) => `/review-feedback-preview/${slug}`;
+export const reviewPath = (slug: string) => `/review/${slug}`;
 export const reviewOptions: Record<string, string[]> = {
   ...Object.fromEntries(
     ["Identity", "Ownership documents", "Location", "Price", "Features"].map(
@@ -30,18 +30,18 @@ export const reviewOptions: Record<string, string[]> = {
 };
 export function reviewDestination(slug: string, label: string): string | null {
   const links: Record<string, string> = {
-    "Open ownership proof": "/staff-preview/document",
+    "Open ownership proof": "/staff/document",
     "Record landlord approval": "landlord-approval",
     "Continue to landlord approval": "landlord-approval",
-    "Request changes": "/staff-preview/request-changes",
+    "Request changes": "/staff/request-changes",
     "Back to verification": "verification-passed",
     "Back to review": "verification-passed",
     "Back to property review": "staff-review",
     "View public listing": "/properties/3-bedroom-flat-wuse-2",
-    Back: "/media-help-preview/help",
+    Back: "/resources/help",
     "Clear filters": "/properties",
     "Browse properties": "/properties",
-    "Try again": "/media-help-preview/loading",
+    "Try again": "/resources/loading",
     "Try logging in again": "/login",
     "Request verification link": "/auth-preview/verify-email",
     "Request a new reset link": "/forgot-password",

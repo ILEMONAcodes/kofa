@@ -1,13 +1,8 @@
-import { notFound } from "next/navigation";
-import { MediaHelpScreen } from "@/components/features/media-help/screen";
-import { reviewScreens } from "@/components/features/review-feedback/model";
-export const metadata = {
-  title: "Review and feedback | Kof’a",
-  robots: { index: false, follow: false },
-};
+import { redirect, notFound } from "next/navigation";
+import { reviewScreens as screens } from "@/components/features/review-feedback/model";
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return reviewScreens.map(({ slug }) => ({ screen: slug }));
+  return screens.map(({ slug }) => ({ screen: slug }));
 }
 export default async function Page({
   params,
@@ -15,8 +10,6 @@ export default async function Page({
   params: Promise<{ screen: string }>;
 }) {
   const { screen } = await params;
-  if (!reviewScreens.some((s) => s.slug === screen)) notFound();
-  return (
-    <MediaHelpScreen key={screen} slug={screen} section="review-feedback" />
-  );
+  if (!screens.some((item) => item.slug === screen)) notFound();
+  redirect(`/review/${screen}`);
 }

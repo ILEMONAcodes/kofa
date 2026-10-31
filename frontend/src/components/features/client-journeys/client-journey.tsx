@@ -1,6 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { useSearchParams, useRouter } from "next/navigation";
+import { useLocalAccess } from "@/components/access/local-access";
+import { illustrativeListings } from "@/components/browse/home-content";
+import { listingPrice } from "@/lib/property-presentation";
 import Image from "next/image";
 import { parseMoneyInput } from "@/lib/formatters/money";
 import { useState } from "react";
@@ -30,7 +34,7 @@ type Block = {
   children?: Block[];
 };
 export const clientScreens = data;
-const path = (slug: string) => `/client-preview/${slug}`;
+const path = (slug: string) => `/account/${slug}`;
 const options: Record<string, string[]> = {
   "Request type": ["Express interest", "Request inspection"],
   "Filter status": ["All inquiries", "Awaiting team reply", "In progress"],
@@ -46,13 +50,17 @@ const options: Record<string, string[]> = {
   "Related to": ["My appointment — APT000123", "My inquiry — INQ000123"],
 };
 export function ClientJourney({ slug }: { slug: string }) {
+  const params = useSearchParams();
+  const router = useRouter();
+  const access = useLocalAccess();
+  const selected = illustrativeListings.find(
+    (item) => item.slug === params.get("property"),
+  );
   const screen: { slug: string; id: string; blocks: Block[] } = data.find(
     (item) => item.slug === slug,
   )!;
   const [values, setValues] = useState<Record<string, string>>({});
-  const [dialog, setDialog] = useState<"help" | "service" | "screens" | null>(
-    null,
-  );
+  const [dialog, setDialog] = useState<"help" | "service" | null>(null);
   const [files, setFiles] = useState<File[]>([]);
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
@@ -122,6 +130,11 @@ export function ClientJourney({ slug }: { slug: string }) {
       }
     }
     setError("");
+    if (/sign out/i.test(label)) {
+      access.leave();
+      router.push("/");
+      return;
+    }
     if (/refresh/i.test(label)) {
       setNotice(
         "Messaging is currently unavailable. Your conversation has not changed.",
@@ -136,9 +149,24 @@ export function ClientJourney({ slug }: { slug: string }) {
       setDialog("help");
       return;
     }
-    window.location.assign(path(destination(label, context)));
+    router.push(path(destination(label, context)));
   }
   function render(block: Block, context = ""): React.ReactNode {
+    if (
+      slug === "inquiry" &&
+      selected &&
+      block.type === "action" &&
+      block.text === "Back to property"
+    )
+      return (
+        <Link
+          key={block.id}
+          className="journey-link"
+          href={`/properties/${selected.slug}`}
+        >
+          Back to property
+        </Link>
+      );
     if (slug === "inquiries" && block.name.startsWith("INQ-")) {
       const filter = screen.blocks.find(
         (item) => item.label === "Filter status",
@@ -158,6 +186,27 @@ export function ClientJourney({ slug }: { slug: string }) {
       values[block.id] ?? (block.value ?? "").replace(/\s*▾$/, "");
     const update = (value: string) =>
       setValues((previous) => ({ ...previous, [block.id]: value }));
+    if (slug === "inquiry" && block.name === "Managed by Kof’a" && selected)
+      return (
+        <section
+          key={block.id}
+          className="rounded-xl border bg-surface p-4 space-y-3"
+        >
+          <Image
+            src={selected.image}
+            alt={selected.alt}
+            width={600}
+            height={360}
+            className="rounded-lg"
+          />
+          <h2>{selected.title}</h2>
+          <p>{listingPrice(selected.price)}</p>
+          <p>{selected.location}</p>
+          <Link className="journey-link" href={`/properties/${selected.slug}`}>
+            View property
+          </Link>
+        </section>
+      );
     if (block.type === "text") {
       const style = {
         fontSize: block.size,
@@ -383,7 +432,7 @@ export function ClientJourney({ slug }: { slug: string }) {
           </Link>
           <Button
             variant="secondary"
-            onClick={() => window.location.assign(path("overview"))}
+            onClick={() => router.push(path("overview"))}
           >
             Back
           </Button>
@@ -399,18 +448,26 @@ export function ClientJourney({ slug }: { slug: string }) {
         >
           {screen.blocks.map((block) => render(block))}
           {(slug === "transaction-detail" || slug === "transactions") && (
-            <Link
-              href="/verification-preview/agreement"
-              className="journey-link"
-            >
+            <Link href="/verification/agreement" className="journey-link">
               Agreement and completion timeline
             </Link>
           )}
           <p role="alert">{error}</p>
           <p role="status">{notice}</p>
-          <Button variant="secondary" onClick={() => setDialog("screens")}>
-            Account options
-          </Button>
+          <nav className="account-sections" aria-label="Account sections">
+            {[
+              "overview",
+              "inquiries",
+              "inspections",
+              "transactions",
+              "complaints",
+              "notifications",
+            ].map((item) => (
+              <Link key={item} href={path(item)}>
+                {item[0].toUpperCase() + item.slice(1)}
+              </Link>
+            ))}
+          </nav>
         </form>
       </div>
       <nav aria-label="Mobile navigation" className="journey-nav">
@@ -435,24 +492,10 @@ export function ClientJourney({ slug }: { slug: string }) {
         open={dialog !== null}
         onClose={() => setDialog(null)}
         title={
-          dialog === "screens"
-            ? "Your account"
-            : dialog === "help"
-              ? "Help with your next step"
-              : "Action unavailable"
+          dialog === "help" ? "Help with your next step" : "Action unavailable"
         }
       >
-        {dialog === "screens" ? (
-          <ol className="journey-directory">
-            {data.map((item, i) => (
-              <li key={item.slug}>
-                <Link href={path(item.slug)}>
-                  {String(i + 1).padStart(2, "0")} · {item.blocks[1].text}
-                </Link>
-              </li>
-            ))}
-          </ol>
-        ) : (
+        {
           <>
             <p>
               {dialog === "help"
@@ -460,12 +503,12 @@ export function ClientJourney({ slug }: { slug: string }) {
                 : "This action is currently unavailable. Nothing was submitted or changed."}
             </p>
             {dialog === "service" && (
-              <Link className="journey-link" href="/media-help-preview/help">
+              <Link className="journey-link" href="/resources/help">
                 Get help
               </Link>
             )}
           </>
-        )}
+        }
       </Modal>
     </main>
   );

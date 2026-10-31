@@ -1,12 +1,14 @@
 # Progress
 
-**Last updated:** 2026-10-29 · **Current phase:** 2 (frontend foundation; backend not started) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
+**Last updated:** 2026-10-31 · **Current phase:** 2 (frontend foundation; backend not started) · **PRD:** v0.2 · **Contract version:** 0.2.0 (Draft)
 
 Rules: each developer updates only the rows they own; joint rows are updated by whoever completes the task and confirmed by the other. Test results are the **actual** output summary, never assumed. See `docs/IMPLEMENTATION_PLAN.md` for files and test requirements per task.
 
 **Status values:** Not started · Ready · In progress · In review · Blocked · Done · In use (approval optional) · Deferred
 
 ## Current focus
+
+- **2026-10-31 connected frontend flow — In review (local walkthrough):** Developer 2 authorized connected navigation on `joint/FE-3.6-connected-frontend-flow`: whole-card links; three-second entrance and branded loading; canonical account/staff/admin/resources paths; removed product screen catalogues; footer staff sign-in and local admin team management. User approved six-character temporary access and existing admin role; opt-in `NEXT_PUBLIC_LOCAL_ACCESS`, no stored/sent credentials or real backend mutations. 106 unit tests passed; build/lint/typecheck/mock-audit passed. Full browser run 81/93; affected rerun 36/37; final new journeys 7/7 after fixes. All 93 distinct cases have passing results across runs. Local access is intentionally active for sample records; real auth/provisioning remains pending. [Handoff and route map](FRONTEND_CONNECTED_FLOW.md).
 
 - **2026-10-29 mobile landlord listing — In review (presentation):** eight Figma 43:983 screens implemented on `joint/FE-4.10-mobile-landlord`; six-step contact registration, property/pricing/features, local photo/evidence/video selection and management, review/edit, labelled receipt and verification explanation. 64 unit tests and 26/26 browser tests passed; final affected listing suite 5/5; lint/typecheck/build/mock audit passed. No landlord account, real uploads or submissions. [Handoff](FIGMA_MOBILE_LANDLORD.md).
 

@@ -20,7 +20,7 @@ export function PropertyGrid({
       {properties.map((property) => (
         <article
           key={property.id}
-          className="overflow-hidden rounded-xl border bg-surface"
+          className="relative overflow-hidden rounded-xl border bg-surface"
         >
           <div className="relative aspect-[4/3]">
             <Image
@@ -46,7 +46,10 @@ export function PropertyGrid({
               <Badge tone="success">Verified checks</Badge>
             )}
             <h2 className="text-xl">
-              <Link href={`/properties/${encodeURIComponent(property.slug)}`}>
+              <Link
+                className="property-card-link"
+                href={`/properties/${encodeURIComponent(property.slug)}`}
+              >
                 {property.title}
               </Link>
             </h2>

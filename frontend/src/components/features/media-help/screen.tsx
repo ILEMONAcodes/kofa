@@ -664,7 +664,7 @@ export function MediaHelpScreen({
         <p>The doorway to your home</p>
         <div>
           <Link
-            href={workspace ? "/staff-preview/overview" : "/"}
+            href={workspace ? "/staff/overview" : "/"}
             aria-label={workspace ? "Kof’a staff overview" : "Kof’a home"}
           >
             <Image
@@ -702,16 +702,6 @@ export function MediaHelpScreen({
             <p role="alert" className="text-danger">
               {validationMessage}
             </p>
-          )}
-          {!workflow && slug === "help" && (
-            <Link className="staff-public-link" href={reviewPath("feedback")}>
-              Recovery feedback examples
-            </Link>
-          )}
-          {!workflow && slug === "help" && (
-            <Link href={responsivePath("inquiry")}>
-              360 px responsive references
-            </Link>
           )}
           {responsive &&
             ["properties", "inquiries"].includes(slug) &&
@@ -755,14 +745,14 @@ export function MediaHelpScreen({
         <nav aria-label="Mobile navigation" className="journey-nav">
           {(workspace
             ? [
-                ["Overview", "/staff-preview/overview", "home"],
-                ["Properties", "/staff-preview/properties", "search"],
-                ["Inquiries", "/staff-preview/inquiries", "inquiries"],
+                ["Overview", "/staff/overview", "home"],
+                ["Properties", "/staff/properties", "search"],
+                ["Inquiries", "/staff/inquiries", "inquiries"],
               ]
             : [
                 ["Home", "/", "home"],
                 ["Explore", "/properties", "search"],
-                ["Inquiries", "/client-preview/inquiries", "inquiries"],
+                ["Inquiries", "/account/inquiries", "inquiries"],
                 ["Account", "/account", "account-active"],
               ]
           ).map(([label, target, icon]) => (
@@ -805,15 +795,27 @@ export function MediaHelpScreen({
         }
       >
         {dialog === "menu" ? (
-          <ol className="journey-directory">
-            {screens.map((s, i) => (
-              <li key={s.slug}>
-                <Link href={path(s.slug)} onClick={() => setDialog(null)}>
-                  {String(i + 1).padStart(2, "0")} · {s.blocks[1].text}
-                </Link>
-              </li>
+          <nav className="account-sections" aria-label="Useful links">
+            {(workspace
+              ? [
+                  ["Staff overview", "/staff/overview"],
+                  ["Properties", "/staff/properties"],
+                  ["Review property", "/review/staff-review"],
+                  ["Verification", "/verification/checks"],
+                ]
+              : [
+                  ["Help centre", "/resources/help"],
+                  ["Property verification", "/resources/verification"],
+                  ["Fees", "/resources/fees"],
+                  ["My account", "/account"],
+                  ["Explore properties", "/properties"],
+                ]
+            ).map(([label, href]) => (
+              <Link key={href} href={href} onClick={() => setDialog(null)}>
+                {label}
+              </Link>
             ))}
-          </ol>
+          </nav>
         ) : (
           <div className="space-y-4">
             <p>
@@ -821,7 +823,7 @@ export function MediaHelpScreen({
                 ? "Choose a video to watch the walkthrough."
                 : `${operation} is currently unavailable. Nothing was submitted or changed.`}
             </p>
-            <Link className="staff-public-link" href="/media-help-preview/help">
+            <Link className="staff-public-link" href="/resources/help">
               Get help
             </Link>
             {workflow && <p>Your changes have not been saved.</p>}

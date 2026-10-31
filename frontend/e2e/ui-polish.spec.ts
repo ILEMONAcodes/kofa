@@ -13,16 +13,16 @@ test("product screens have customer-facing copy without design annotations", asy
     "/properties/3-bedroom-flat-wuse-2",
     "/register",
     "/landlord",
-    "/client-preview/inquiries",
-    "/staff-preview/overview",
-    "/administration-preview/administration",
-    "/media-help-preview/help",
-    "/verification-preview/checks",
-    "/review-feedback-preview/staff-review",
+    "/account/inquiries",
+    "/staff/overview",
+    "/admin/administration",
+    "/resources/help",
+    "/verification/checks",
+    "/review/staff-review",
     "/responsive-preview/media",
     "/admin",
-    "/administration-preview/fee-rules-saved",
-    "/administration-preview/settings-recorded",
+    "/admin/fee-rules-saved",
+    "/admin/settings-recorded",
   ]) {
     await page.goto(route);
     await expect(page.locator(".mobile-launch")).toBeHidden();
@@ -41,7 +41,7 @@ test("primary browse and record actions use brown with light text while secondar
   });
   await expect(explore).toHaveCSS("background-color", "rgb(100, 59, 41)");
   await expect(explore).toHaveCSS("color", "rgb(255, 255, 255)");
-  await page.goto("/client-preview/inquiries");
+  await page.goto("/account/inquiries");
   const open = page
     .getByRole("button", { name: "Open record →", exact: true })
     .first();
@@ -66,35 +66,32 @@ test("primary browse and record actions use brown with light text while secondar
     });
   }
 });
-test("unavailable registration still reports failure without pretending to save an account", async ({
+test("temporary registration does not send or persist credentials", async ({
   page,
 }) => {
   const posts: string[] = [];
-  page.on("request", (request) => {
-    if (request.method() === "POST") posts.push(request.url());
+  page.on("request", (r) => {
+    if (r.method() === "POST") posts.push(r.url());
   });
-  await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/register");
-  await page.getByLabel("Full name", { exact: true }).fill("Test Person");
-  await page.getByLabel("Email", { exact: true }).fill("person@example.com");
-  await page.getByLabel("Phone number", { exact: true }).fill("+2348012345678");
-  await page.getByLabel("Password", { exact: true }).fill("TestPassword123");
-  await page
-    .getByLabel("Confirm password", { exact: true })
-    .fill("TestPassword123");
-  await page.locator("input[type=checkbox]").check();
+  await page.getByLabel("Email", { exact: true }).fill("example@example.com");
+  await page.getByLabel("Password", { exact: true }).fill("test12");
+  await page.getByLabel("Confirm password", { exact: true }).fill("test12");
   await page
     .getByRole("button", { name: "Create account", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText(
-    "Your details have not been sent or saved",
-  );
-  expect(await page.getByRole("dialog").innerText()).not.toMatch(forbidden);
-  await expect(page).toHaveURL(/\/register$/);
-  await expect(
-    page
-      .getByRole("dialog")
-      .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
+  await expect(page).toHaveURL(/account\/overview/);
   expect(posts).toEqual([]);
+  expect(
+    await page.evaluate(() =>
+      JSON.stringify({ ...sessionStorage, ...localStorage }),
+    ),
+  ).not.toMatch(/test12|example@example.com/);
+});
+
+test.beforeEach(async ({ page }, testInfo) => {
+  if (!testInfo.title.includes("registration"))
+    await page.addInitScript(() =>
+      sessionStorage.setItem("kofa-local-access-v1", "admin"),
+    );
 });

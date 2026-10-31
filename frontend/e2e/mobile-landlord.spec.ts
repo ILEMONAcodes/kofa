@@ -265,7 +265,7 @@ test("review uses explicit consent and unavailable service rather than a fake re
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
+  ).toHaveAttribute("href", "/resources/help");
   await page.goto("/landlord?step=receipt&preview=1");
   await expect(
     page.getByText("The doorway to your home", { exact: true }),

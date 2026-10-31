@@ -1,13 +1,8 @@
-import { notFound } from "next/navigation";
-import { MediaHelpScreen } from "@/components/features/media-help/screen";
-import { verificationScreens } from "@/components/features/verification/model";
-export const metadata = {
-  title: "Verification and transactions preview | Kof’a",
-  robots: { index: false, follow: false },
-};
+import { redirect, notFound } from "next/navigation";
+import { verificationScreens as screens } from "@/components/features/verification/model";
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return verificationScreens.map(({ slug }) => ({ screen: slug }));
+  return screens.map(({ slug }) => ({ screen: slug }));
 }
 export default async function Page({
   params,
@@ -15,6 +10,6 @@ export default async function Page({
   params: Promise<{ screen: string }>;
 }) {
   const { screen } = await params;
-  if (!verificationScreens.some((s) => s.slug === screen)) notFound();
-  return <MediaHelpScreen key={screen} slug={screen} section="verification" />;
+  if (!screens.some((item) => item.slug === screen)) notFound();
+  redirect(`/verification/${screen}`);
 }

@@ -34,7 +34,9 @@ export function MobilePropertyCard({
       </Link>
       <div className="home-card-copy">
         <h3 className="text-home-card">
-          <Link href={href}>{property.title}</Link>
+          <Link className="property-card-link" href={href}>
+            {property.title}
+          </Link>
         </h3>
         <p className="text-home-card">{listingPrice(property.price)}</p>
         <p className="text-sm">

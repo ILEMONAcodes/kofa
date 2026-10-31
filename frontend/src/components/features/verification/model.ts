@@ -5,8 +5,7 @@ export const verificationScreens: {
   id: string;
   blocks: MediaBlock[];
 }[] = source;
-export const verificationPath = (slug: string) =>
-  `/verification-preview/${slug}`;
+export const verificationPath = (slug: string) => `/verification/${slug}`;
 export const isVerificationWorkspace = (slug: string) =>
   !["agreement", "completed"].includes(slug);
 export const verificationOptions: Record<string, string[]> = {
@@ -34,19 +33,19 @@ export function verificationDestination(
   slug: string,
   label: string,
 ): string | null {
-  if (label === "Back") return "/client-preview/transactions";
+  if (label === "Back") return "/account/transactions";
   const links: Record<string, string> = {
-    "Back to property": "/staff-preview/property",
+    "Back to property": "/staff/property",
     "Edit checks": "checks",
     "Back to verification": "checks",
     "Review publication": "publish",
     "Keep unpublished": "publication-ready",
     "View public listing": "/properties/3-bedroom-flat-wuse-2",
-    Properties: "/staff-preview/properties",
-    "Ask the team": "/client-preview/general-inquiry",
-    "Fee guidance": "/media-help-preview/fees",
-    "My transactions": "/client-preview/transactions",
-    "Raise a concern": "/client-preview/complaint-form",
+    Properties: "/staff/properties",
+    "Ask the team": "/account/general-inquiry",
+    "Fee guidance": "/resources/fees",
+    "My transactions": "/account/transactions",
+    "Raise a concern": "/account/complaint-form",
   };
   return links[label] ?? null;
 }

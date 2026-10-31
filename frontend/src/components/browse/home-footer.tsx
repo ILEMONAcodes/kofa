@@ -25,21 +25,22 @@ export function HomeFooter({
           <div className="home-footer-column">
             <Link href="/properties">Find a property</Link>
             <Link href="/list-your-property">List your property</Link>
-            <Link href="/contact">Speak to our team</Link>
+            <Link href="/resources/help">Speak to our team</Link>
           </div>
         </nav>
         <nav aria-label="Trust and information">
           <h2 className="text-home-caption text-accent">GOOD TO KNOW</h2>
           <div className="home-footer-column">
             <p>
-              <Link href="/verification">Verification</Link> ·{" "}
-              <Link href="/fees">Fees</Link> ·{" "}
-              <Link href="/privacy">Privacy</Link>
+              <Link href="/resources/verification">Verification</Link> ·{" "}
+              <Link href="/resources/fees">Fees</Link> ·{" "}
+              <Link href="/resources/privacy">Privacy</Link>
             </p>
             <p>
-              <Link href="/policies/terms">Terms</Link> ·{" "}
-              <Link href="/report">Report a listing</Link>
+              <Link href="/resources/terms">Terms</Link> ·{" "}
+              <Link href="/resources/report">Report a listing</Link>
             </p>
+            <Link href="/staff/login">Staff sign in</Link>
           </div>
         </nav>
       </div>
@@ -50,13 +51,13 @@ export function HomeFooter({
       <p className="text-home-caption">Find a place to call your own.</p>
       {showHelpActions && (
         <nav className="home-footer-actions" aria-label="Help and contact">
-          <HomeLink href="/contact" variant="accent">
+          <HomeLink href="/resources/help" variant="accent">
             Speak to our team
           </HomeLink>
-          <HomeLink href="/policies/terms" variant="secondary">
+          <HomeLink href="/resources/terms" variant="secondary">
             Help &amp; policies
           </HomeLink>
-          <HomeLink href="/contact?topic=assistant" variant="secondary">
+          <HomeLink href="/resources/assistant" variant="secondary">
             AI support
           </HomeLink>
         </nav>

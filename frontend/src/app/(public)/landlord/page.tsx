@@ -1,3 +1,4 @@
+import { BrandLoading } from "@/components/common/brand-loading";
 import { Suspense } from "react";
 import { SubmissionFlow } from "@/components/features/submission/flow";
 export const metadata = {
@@ -6,7 +7,7 @@ export const metadata = {
 };
 export default function Landlord() {
   return (
-    <Suspense fallback={<p className="p-5">Loading listing form…</p>}>
+    <Suspense fallback={<BrandLoading />}>
       <SubmissionFlow />
     </Suspense>
   );

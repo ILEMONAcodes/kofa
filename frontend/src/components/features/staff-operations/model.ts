@@ -25,7 +25,7 @@ export type StaffBlock = {
 };
 export type StaffScreen = { slug: string; id: string; blocks: StaffBlock[] };
 export const staffScreens: StaffScreen[] = source;
-export const staffPath = (slug: string) => `/staff-preview/${slug}`;
+export const staffPath = (slug: string) => `/staff/${slug}`;
 
 // Preview destinations describe design examples, not allowed API transitions.
 const links: Record<string, string> = {
@@ -80,11 +80,10 @@ export function previewDestination(
   label: string,
   context: string,
 ): string | null {
-  if (label === "Create transaction")
-    return "/administration-preview/create-transaction";
-  if (label === "View reports") return "/administration-preview/reports";
+  if (label === "Create transaction") return "/admin/create-transaction";
+  if (label === "View reports") return "/admin/reports";
   if (label === "View details →" && context === "Review concerns")
-    return "/administration-preview/complaints";
+    return "/admin/complaints";
   if (label === "Open record →") {
     if (slug === "properties" || slug === "landlord") return "property";
     if (slug === "landlords") return "landlord";
@@ -94,7 +93,7 @@ export function previewDestination(
       return context === "Inspection"
         ? "inspection"
         : context === "Transaction"
-          ? "/administration-preview/transaction"
+          ? "/admin/transaction"
           : "inquiry";
     return "inquiry";
   }
