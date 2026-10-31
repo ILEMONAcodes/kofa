@@ -43,3 +43,23 @@
     width: 64px;
   }
 }
+.review-feedback-preview .review-approval-method .field-control {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  white-space: normal;
+}
+.review-feedback-preview
+  .review-approval-method
+  .field-control
+  > span:first-child {
+  min-width: 0;
+}
+.review-feedback-preview
+  .review-approval-method
+  .field-control
+  > span:last-child {
+  flex-shrink: 0;
+}

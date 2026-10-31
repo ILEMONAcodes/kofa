@@ -1,0 +1,1513 @@
+[
+  {
+    "slug": "checks",
+    "id": "91:15003",
+    "blocks": [
+      {
+        "id": "91:15052",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "91:15053",
+        "name": "",
+        "type": "text",
+        "text": "Record the checks you completed.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15054",
+        "name": "",
+        "type": "text",
+        "text": "SUB-000123 · Staff verification",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "91:15055",
+        "name": "Identity",
+        "type": "field",
+        "label": "Identity",
+        "value": "Passed ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "91:15062",
+        "name": "Ownership / authorisation",
+        "type": "field",
+        "label": "Ownership / authorisation",
+        "value": "Passed ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "91:15069",
+        "name": "Location",
+        "type": "field",
+        "label": "Location",
+        "value": "Passed ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "91:15076",
+        "name": "Advertised price",
+        "type": "field",
+        "label": "Advertised price",
+        "value": "Passed ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "91:15083",
+        "name": "Features",
+        "type": "field",
+        "label": "Features",
+        "value": "Passed ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "91:15090",
+        "name": "Availability",
+        "type": "field",
+        "label": "Availability",
+        "value": "Passed ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "91:15097",
+        "name": "Method",
+        "type": "field",
+        "label": "Method",
+        "value": "Desk review and physical inspection ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:checks:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Evidence references",
+        "value": "Ownership proof file · Inspection visit APT-000123",
+        "error": null
+      },
+      {
+        "id": "ui:checks:2",
+        "name": "",
+        "type": "textarea",
+        "label": "Scope summary",
+        "value": "Identity, ownership documents, location, price, features and availability checked.",
+        "error": null
+      },
+      {
+        "id": "91:15112",
+        "name": "Verification limits",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "91:15113",
+            "name": "",
+            "type": "text",
+            "text": "Verification limits",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "91:15114",
+            "name": "",
+            "type": "text",
+            "text": "Record only the checks performed. Verification is not a legal-title or ownership guarantee.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "91:15115",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15116",
+            "name": "Save verification",
+            "type": "action",
+            "text": "Save verification",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "91:15123",
+            "name": "Back to property",
+            "type": "action",
+            "text": "Back to property",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "checks-saved",
+    "id": "91:15175",
+    "blocks": [
+      {
+        "id": "91:15220",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "91:15221",
+        "name": "",
+        "type": "text",
+        "text": "Checks saved. Complete the review.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15222",
+        "name": "",
+        "type": "text",
+        "text": "All six checks passed in this sample.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "91:15223",
+        "name": "Review before completing",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "91:15224",
+            "name": "",
+            "type": "text",
+            "text": "Review before completing",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "91:15225",
+            "name": "",
+            "type": "text",
+            "text": "Identity, ownership evidence, location, price, features and availability have recorded results, method and evidence references.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "91:15226",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15227",
+            "name": "Complete verification",
+            "type": "action",
+            "text": "Complete verification",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "91:15234",
+            "name": "Edit checks",
+            "type": "action",
+            "text": "Edit checks",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "owner-approval",
+    "id": "91:15312",
+    "blocks": [
+      {
+        "id": "91:15357",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "91:15358",
+        "name": "",
+        "type": "text",
+        "text": "Record the owner’s approval.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15359",
+        "name": "",
+        "type": "text",
+        "text": "Current advertised price and description must be approved.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "91:15360",
+        "name": "",
+        "type": "text",
+        "text": "Current advertisement",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15361",
+        "name": "",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "ui:owner-approval:1",
+            "name": "",
+            "type": "text",
+            "text": "₦3,500,000 / year · One year upfront",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          },
+          {
+            "id": "ui:owner-approval:2",
+            "name": "",
+            "type": "text",
+            "text": "Bright three-bedroom apartment in Wuse 2.",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "167:20603",
+        "name": "Preference selector / Approval method",
+        "type": "field",
+        "label": "Approval method",
+        "value": "Phone ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "91:15369",
+        "name": "Approved at (WAT)",
+        "type": "field",
+        "label": "Approved at (WAT)",
+        "value": "26 Oct 2026 · 09:30",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "ui:owner-approval:3",
+        "name": "",
+        "type": "textarea",
+        "label": "Evidence / approval note",
+        "value": "Owner confirmed the advertised price and description. Reference the supporting record.",
+        "error": null
+      },
+      {
+        "id": "91:15380",
+        "name": "Approval validity",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "91:15381",
+            "name": "",
+            "type": "text",
+            "text": "Approval validity",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "91:15382",
+            "name": "",
+            "type": "text",
+            "text": "Changing the price or description invalidates this approval. Record a fresh approval before publication.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "91:15383",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15384",
+            "name": "Record current approval",
+            "type": "action",
+            "text": "Record current approval",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "91:15391",
+            "name": "Back to verification",
+            "type": "action",
+            "text": "Back to verification",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "publication-ready",
+    "id": "91:15452",
+    "blocks": [
+      {
+        "id": "91:15497",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "91:15498",
+        "name": "",
+        "type": "text",
+        "text": "Ready for the next doorway.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15499",
+        "name": "",
+        "type": "text",
+        "text": "Verification passed · Current landlord approval recorded",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "91:15500",
+        "name": "Summary metrics",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15501",
+            "name": "Verification",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "91:15502",
+                "name": "",
+                "type": "text",
+                "text": "Passed",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "91:15503",
+                "name": "",
+                "type": "text",
+                "text": "Verification",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "91:15504",
+            "name": "Owner approval",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "91:15505",
+                "name": "",
+                "type": "text",
+                "text": "Current",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "91:15506",
+                "name": "",
+                "type": "text",
+                "text": "Owner approval",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "91:15507",
+            "name": "Listing status",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "91:15508",
+                "name": "",
+                "type": "text",
+                "text": "Approved",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "91:15509",
+                "name": "",
+                "type": "text",
+                "text": "Listing status",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "91:15510",
+        "name": "",
+        "type": "text",
+        "text": "Publication checklist",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15511",
+        "name": "",
+        "type": "text",
+        "text": "Required photos and private evidence ready. Public listing contains no landlord contact, exact address or private documents.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15512",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15513",
+            "name": "Review publication",
+            "type": "action",
+            "text": "Review publication",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "91:15520",
+            "name": "Back to property",
+            "type": "action",
+            "text": "Back to property",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "publish",
+    "id": "91:15573",
+    "blocks": [
+      {
+        "id": "91:15618",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "91:15619",
+        "name": "",
+        "type": "text",
+        "text": "Publish this property?",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15620",
+        "name": "",
+        "type": "text",
+        "text": "The verified listing will become publicly visible.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "91:15621",
+        "name": "Illustrative property photo",
+        "type": "image",
+        "src": "/assets/home-living-room.jpg",
+        "height": 220.0,
+        "radius": 24.0
+      },
+      {
+        "id": "91:15622",
+        "name": "Guards checked again",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "91:15623",
+            "name": "",
+            "type": "text",
+            "text": "Guards checked again",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "91:15624",
+            "name": "",
+            "type": "text",
+            "text": "The application rechecks verification, current owner approval and permissions at publication. Private evidence and contacts remain restricted.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "91:15625",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15626",
+            "name": "Publish listing",
+            "type": "action",
+            "text": "Publish listing",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "91:15633",
+            "name": "Keep unpublished",
+            "type": "action",
+            "text": "Keep unpublished",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "published",
+    "id": "91:15682",
+    "blocks": [
+      {
+        "id": "91:15727",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "91:15728",
+        "name": "",
+        "type": "text",
+        "text": "A new doorway is open.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15729",
+        "name": "",
+        "type": "text",
+        "text": "Property published · Recorded in status history",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "91:15730",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15731",
+            "name": "View public listing",
+            "type": "action",
+            "text": "View public listing",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "91:15738",
+            "name": "Properties",
+            "type": "action",
+            "text": "Properties",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "agreement",
+    "id": "91:15843",
+    "blocks": [
+      {
+        "id": "91:15888",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "91:15889",
+        "name": "",
+        "type": "text",
+        "text": "Your agreement, clearly recorded.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15890",
+        "name": "",
+        "type": "text",
+        "text": "TXN-000123 · Active · Illustrative disclosed quote",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "91:15891",
+        "name": "",
+        "type": "text",
+        "text": "Your agreed terms",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15892",
+        "name": "",
+        "type": "text",
+        "text": "Annual rent: ₦3,500,000 · One year upfront",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "ink"
+      },
+      {
+        "id": "91:15893",
+        "name": "Client service fee",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "91:15894",
+            "name": "",
+            "type": "text",
+            "text": "Client service fee",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "91:15895",
+            "name": "",
+            "type": "text",
+            "text": "Amount: ₦70,000",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "91:15896",
+            "name": "",
+            "type": "text",
+            "text": "Conditions: Illustrative 2% of annual rent",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "91:15897",
+        "name": "Inspection fee",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "91:15898",
+            "name": "",
+            "type": "text",
+            "text": "Inspection fee",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "91:15899",
+            "name": "",
+            "type": "text",
+            "text": "Amount: ₦0",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "91:15900",
+            "name": "",
+            "type": "text",
+            "text": "Conditions: Disabled in this example",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "91:15901",
+        "name": "Understand before agreement",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "91:15902",
+            "name": "",
+            "type": "text",
+            "text": "Understand before agreement",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "91:15903",
+            "name": "",
+            "type": "text",
+            "text": "Final fee scope and refund/credit conditions are supplied with your quote. Ask the team if any condition is unclear.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "91:15904",
+        "name": "Terms agreed",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15905",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "91:15906",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "91:15907",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "91:15908",
+                "name": "",
+                "type": "text",
+                "text": "Terms agreed",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "91:15909",
+                "name": "",
+                "type": "text",
+                "text": "26 Oct · Annual rent ₦3,500,000",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "91:15910",
+        "name": "Your fee disclosed",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15911",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "91:15912",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "91:15913",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "91:15914",
+                "name": "",
+                "type": "text",
+                "text": "Your fee disclosed",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "91:15915",
+                "name": "",
+                "type": "text",
+                "text": "26 Oct · Quote version recorded",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "91:15916",
+        "name": "Payment record",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15917",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "91:15918",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "91:15919",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "91:15920",
+                "name": "",
+                "type": "text",
+                "text": "Payment record",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "91:15921",
+                "name": "",
+                "type": "text",
+                "text": "No client payment recorded.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "91:15922",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:15923",
+            "name": "Ask the team",
+            "type": "action",
+            "text": "Ask the team",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "91:15930",
+            "name": "Fee guidance",
+            "type": "action",
+            "text": "Fee guidance",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "completed",
+    "id": "91:16014",
+    "blocks": [
+      {
+        "id": "91:16059",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "91:16060",
+        "name": "",
+        "type": "text",
+        "text": "A chapter completed.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "91:16061",
+        "name": "",
+        "type": "text",
+        "text": "TXN-000120 · Completed",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "91:16062",
+        "name": "Terms agreed",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:16063",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "91:16064",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "91:16065",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "91:16066",
+                "name": "",
+                "type": "text",
+                "text": "Terms agreed",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "91:16067",
+                "name": "",
+                "type": "text",
+                "text": "Annual rent and fee conditions recorded.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "91:16068",
+        "name": "Payment recorded",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:16069",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "91:16070",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "91:16071",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "91:16072",
+                "name": "",
+                "type": "text",
+                "text": "Payment recorded",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "91:16073",
+                "name": "",
+                "type": "text",
+                "text": "Company-channel receipt recorded by authorised staff.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "91:16074",
+        "name": "Transaction completed",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:16075",
+            "name": "Timeline marker",
+            "type": "group",
+            "gap": 0.0,
+            "padding": 8.0,
+            "radius": 9999.0,
+            "row": false,
+            "border": false,
+            "tone": "tint",
+            "children": [
+              {
+                "id": "91:16076",
+                "name": "",
+                "type": "text",
+                "text": "•",
+                "size": 16.0,
+                "line": 24.0,
+                "weight": 400,
+                "tone": "primary"
+              }
+            ]
+          },
+          {
+            "id": "91:16077",
+            "name": "Event",
+            "type": "group",
+            "gap": 4.0,
+            "padding": 0.0,
+            "radius": 0,
+            "row": false,
+            "border": false,
+            "tone": "none",
+            "children": [
+              {
+                "id": "91:16078",
+                "name": "",
+                "type": "text",
+                "text": "Transaction completed",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "91:16079",
+                "name": "",
+                "type": "text",
+                "text": "20 Oct 2026 · History retained.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "91:16080",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "91:16081",
+            "name": "My transactions",
+            "type": "action",
+            "text": "My transactions",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "91:16088",
+            "name": "Raise a concern",
+            "type": "action",
+            "text": "Raise a concern",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  }
+]

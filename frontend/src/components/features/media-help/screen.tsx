@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
+import { PopoverSelect } from "@/components/common/popover-select";
 import { Dropdown } from "@/components/common/dropdown";
 import { Modal } from "@/components/common/modal";
 import { useMediaSession } from "./session";
@@ -17,6 +18,22 @@ import {
   policySlugs,
   type MediaBlock,
 } from "./model";
+import {
+  verificationScreens,
+  verificationPath,
+  verificationOptions,
+  verificationDestination,
+  verificationOutcome,
+  isVerificationWorkspace,
+} from "@/components/features/verification/model";
+import {
+  reviewScreens,
+  reviewPath,
+  reviewOptions,
+  reviewDestination,
+  reviewOutcome,
+  approvalPriceError,
+} from "@/components/features/review-feedback/model";
 const tones: Record<string, string> = {
   primary: "rgb(var(--primary))",
   muted: "rgb(var(--muted))",
@@ -27,20 +44,50 @@ const tones: Record<string, string> = {
   dark: "rgb(var(--primary-hover))",
   border: "rgb(var(--border))",
 };
-export function MediaHelpScreen({ slug }: { slug: string }) {
-  const screen = mediaScreens.find((s) => s.slug === slug)!;
+export function MediaHelpScreen({
+  slug,
+  section = "media-help",
+}: {
+  slug: string;
+  section?: "media-help" | "verification" | "review-feedback";
+}) {
+  const verification = section === "verification";
+  const references = section === "review-feedback";
+  const workflow = verification || references;
+  const screens = references
+    ? reviewScreens
+    : verification
+      ? verificationScreens
+      : mediaScreens;
+  const path = references
+    ? reviewPath
+    : verification
+      ? verificationPath
+      : mediaPath;
+  const directoryLabel = references
+    ? "View all 6 review and feedback screens"
+    : verification
+      ? "View all 8 verification and transaction screens"
+      : "View all 39 media and help screens";
+  const workspace = references
+    ? slug !== "feedback"
+    : verification
+      ? isVerificationWorkspace(slug)
+      : slug === "conflict";
+  const screen = screens.find((s) => s.slug === slug)!;
   const router = useRouter();
   const form = useRef<HTMLFormElement>(null);
   const session = useMediaSession();
   const [values, setValues] = useState<Record<string, string>>({});
   const [dialog, setDialog] = useState<"menu" | "service" | null>(null);
   const [operation, setOperation] = useState("");
+  const [validationMessage, setValidationMessage] = useState("");
   const [playing, setPlaying] = useState(false);
   const photos = session.media.filter((m) => m.kind === "photo");
   const video = session.media.find((m) => m.kind === "video");
   const isPolicy = policySlugs.includes(slug);
   const go = (target: string) =>
-    router.push(target.startsWith("/") ? target : mediaPath(target));
+    router.push(target.startsWith("/") ? target : path(target));
   const update = (id: string, value: string) => {
     setValues((v) => ({ ...v, [id]: value }));
     if (id === "82:2544" || id === "82:3438") session.setCaption(value);
@@ -115,16 +162,26 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
       go("media");
       return;
     }
-    const next = destination(slug, label, context);
+    const next = references
+      ? reviewDestination(slug, label)
+      : verification
+        ? verificationDestination(slug, label)
+        : destination(slug, label, context);
     if (next) {
       go(next);
       return;
     }
     if (
-      ["Submit report", "Send question"].includes(label) &&
+      (workflow || ["Submit report", "Send question"].includes(label)) &&
       !form.current?.reportValidity()
     )
       return;
+    if (references && slug === "landlord-approval") {
+      const field = screen.blocks.find((b) => b.label === "Approved price")!;
+      const issue = approvalPriceError(get(field));
+      setValidationMessage(issue ?? "");
+      if (issue) return;
+    }
     if (label === "Secondary action") {
       go("help");
       return;
@@ -133,6 +190,32 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
     setDialog("service");
   }
   function render(b: MediaBlock, context = ""): ReactNode {
+    if (b.type === "consent")
+      return (
+        <label
+          key={b.id}
+          className="listing-consent text-sm leading-5"
+          style={{ minHeight: 40 }}
+          htmlFor={b.id}
+        >
+          <span>
+            <input
+              id={b.id}
+              type="checkbox"
+              required
+              checked={values[b.id] === "true"}
+              onChange={(event) => update(b.id, String(event.target.checked))}
+            />
+            <Image
+              src="/assets/listing-check.svg"
+              width={20}
+              height={20}
+              alt=""
+            />
+          </span>
+          <span>{b.label}</span>
+        </label>
+      );
     if (b.type === "text") {
       const style: CSSProperties = {
         fontSize: b.size,
@@ -200,7 +283,10 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
     if (b.type === "field" || b.type === "textarea") {
       const label = b.label!;
       const placeholder =
-        /^(Your |Ask |20–|Enter )/.test(b.value ?? "") && !b.error;
+        (/^(Your |Ask |20–|Enter )/.test(b.value ?? "") ||
+          (references &&
+            /^(Describe how|Record the checks)/.test(b.value ?? ""))) &&
+        !b.error;
       const value = values[b.id] ?? (placeholder ? "" : get(b));
       const error = b.error
         ? label === "Phone"
@@ -221,7 +307,9 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
               onChange={(e) => update(b.id, e.target.value)}
               minLength={slug === "report" ? 20 : undefined}
               maxLength={slug === "report" ? 2000 : 1000}
-              required={slug === "report" || label === "Your question"}
+              required={
+                workflow || slug === "report" || label === "Your question"
+              }
             />
           </div>
         );
@@ -229,15 +317,42 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
         <div key={b.id} className="staff-field">
           {b.select ? (
             <>
-              <Dropdown
-                id={b.id}
-                label={label}
-                value={get(b)}
-                options={Array.from(
-                  new Set([get(b), ...(fieldOptions[label] ?? []), "Other"]),
-                ).map((v) => ({ value: v, label: v }))}
-                onChange={(e) => update(b.id, e.target.value)}
-              />
+              {references && label === "Approval method" ? (
+                <div className="review-approval-method">
+                  <PopoverSelect
+                    label={label}
+                    title="Approval method"
+                    description="Choose how the sample approval was recorded."
+                    value={get(b)}
+                    options={Array.from(
+                      new Set([
+                        get(b),
+                        ...(reviewOptions[label] ?? []),
+                        "Other",
+                      ]),
+                    ).map((value) => ({ value, label: value }))}
+                    onChange={(value) => update(b.id, value)}
+                  />
+                </div>
+              ) : (
+                <Dropdown
+                  id={b.id}
+                  label={label}
+                  value={get(b)}
+                  options={Array.from(
+                    new Set([
+                      get(b),
+                      ...((references
+                        ? reviewOptions[label]
+                        : verification
+                          ? verificationOptions[label]
+                          : fieldOptions[label]) ?? []),
+                      "Other",
+                    ]),
+                  ).map((v) => ({ value: v, label: v }))}
+                  onChange={(e) => update(b.id, e.target.value)}
+                />
+              )}
               {get(b) === "Other" && (
                 <Input
                   label={`Specify ${label.toLowerCase()}`}
@@ -251,19 +366,32 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
             <Input
               id={b.id}
               label={label}
-              value={value}
+              value={
+                references && label === "Approved at"
+                  ? (values[b.id] ?? "2026-10-26T10:30")
+                  : verification && label === "Approved at (WAT)"
+                    ? (values[b.id] ?? "2026-10-26T09:30")
+                    : value
+              }
               placeholder={placeholder ? b.value : undefined}
               type={
-                label.includes("Email")
-                  ? "email"
-                  : label === "Display order"
-                    ? "number"
-                    : label.includes("Phone")
-                      ? "tel"
-                      : "text"
+                (references && label === "Approved at") ||
+                (verification && label === "Approved at (WAT)")
+                  ? "datetime-local"
+                  : label.includes("Email")
+                    ? "email"
+                    : label === "Display order"
+                      ? "number"
+                      : label.includes("Phone")
+                        ? "tel"
+                        : "text"
               }
               min={label === "Display order" ? 1 : undefined}
               max={label === "Display order" ? photos.length : undefined}
+              required={workflow}
+              inputMode={
+                references && label === "Approved price" ? "decimal" : undefined
+              }
               disabled={b.disabled}
               error={fieldError}
               className={
@@ -321,7 +449,7 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
             ? "note"
             : undefined
         }
-        className={`staff-group ${b.name === "Photo previews" ? "staff-photo-row" : ""}`}
+        className={`staff-group ${b.name === "Photo previews" ? "staff-photo-row" : b.name === "Timeline marker" ? "staff-timeline-marker" : ""}`}
         style={style}
       >
         {b.children?.map((c) => render(c, b.name || context))}
@@ -340,12 +468,15 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
   return (
     <main
       id="main-content"
-      className="journey-screen staff-preview media-help-preview"
+      className={`journey-screen staff-preview media-help-preview${references ? " review-feedback-preview" : ""}`}
     >
       <header className="journey-header">
         <p>Design preview · sample content</p>
         <div>
-          <Link href="/" aria-label="Kof’a home">
+          <Link
+            href={workspace ? "/staff-preview/overview" : "/"}
+            aria-label={workspace ? "Kof’a staff overview" : "Kof’a home"}
+          >
             <Image
               src="/assets/client-logo.svg"
               width={101}
@@ -356,14 +487,15 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
           </Link>
           <Button
             variant="subtle"
-            onClick={() =>
-              slug === "conflict" ? setDialog("menu") : action("Back")
-            }
+            onClick={() => (workspace ? setDialog("menu") : action("Back"))}
           >
-            {slug === "conflict" ? "Menu" : "Back"}
+            {workspace ? "Menu" : "Back"}
           </Button>
-          {slug !== "assistant" && slug !== "conflict" && (
-            <Button variant="secondary" onClick={() => go("help")}>
+          {slug !== "assistant" && !workspace && !references && (
+            <Button
+              variant="secondary"
+              onClick={() => go(verification ? mediaPath("help") : "help")}
+            >
               Help
             </Button>
           )}
@@ -376,6 +508,16 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
           onSubmit={(e) => e.preventDefault()}
         >
           {screen.blocks.map((b) => render(b))}
+          {validationMessage && (
+            <p role="alert" className="text-danger">
+              {validationMessage}
+            </p>
+          )}
+          {!workflow && slug === "help" && (
+            <Link className="staff-public-link" href={reviewPath("feedback")}>
+              Recovery feedback examples
+            </Link>
+          )}
           {session.notice && <p role="status">{session.notice}</p>}
           {slug === "media" && (
             <p className="text-sm text-muted">
@@ -385,11 +527,12 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
             </p>
           )}
           <Button variant="secondary" onClick={() => setDialog("menu")}>
-            View all 39 media and help screens
+            {directoryLabel}
           </Button>
           <p className="text-sm text-muted">
-            Design examples. Uploads, reports and assistant services are not
-            connected. Selected files stay on this device.
+            {workflow
+              ? "Fictional verification and transaction examples. Permissions, approval, publication and financial services are not connected. No real record changes are made."
+              : "Design examples. Uploads, reports and assistant services are not connected. Selected files stay on this device."}
           </p>
         </form>
       </div>
@@ -411,7 +554,7 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
         </div>
       ) : (
         <nav aria-label="Mobile navigation" className="journey-nav">
-          {(slug === "conflict"
+          {(workspace
             ? [
                 ["Overview", "/staff-preview/overview", "home"],
                 ["Properties", "/staff-preview/properties", "search"],
@@ -434,7 +577,7 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
               {label}
             </Link>
           ))}
-          {slug === "conflict" && (
+          {workspace && (
             <button type="button" onClick={() => setDialog("menu")}>
               <Image
                 src="/assets/mobile-account-active.svg"
@@ -452,15 +595,19 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
         onClose={() => setDialog(null)}
         title={
           dialog === "menu"
-            ? "Media, help and states · design screens"
+            ? references
+              ? "Review and feedback · design screens"
+              : verification
+                ? "Verification and transactions · design screens"
+                : "Media, help and states · design screens"
             : "Service not connected"
         }
       >
         {dialog === "menu" ? (
           <ol className="journey-directory">
-            {mediaScreens.map((s, i) => (
+            {screens.map((s, i) => (
               <li key={s.slug}>
-                <Link href={mediaPath(s.slug)} onClick={() => setDialog(null)}>
+                <Link href={path(s.slug)} onClick={() => setDialog(null)}>
                   {String(i + 1).padStart(2, "0")} · {s.blocks[1].text}
                 </Link>
               </li>
@@ -473,22 +620,49 @@ export function MediaHelpScreen({ slug }: { slug: string }) {
                 ? "The source contains a poster only, with no playable video. Choose a local video to preview playback."
                 : `${operation} is not connected. No request was sent and no record was changed.`}
             </p>
-            {outcome(operation) && (
+            {(references
+              ? reviewOutcome(operation)
+              : verification
+                ? verificationOutcome(operation)
+                : outcome(operation)) && (
               <Link
                 className="staff-public-link"
-                href={mediaPath(outcome(operation)!)}
+                href={path(
+                  (references
+                    ? reviewOutcome(operation)
+                    : verification
+                      ? verificationOutcome(operation)
+                      : outcome(operation))!,
+                )}
               >
                 Preview example outcome
               </Link>
+            )}
+            {workflow && (
+              <p>
+                Example outcomes show the supplied sample only, not the values
+                entered here. Live checks and permissions must be validated by
+                the server.
+              </p>
             )}
             <Button
               variant="secondary"
               onClick={() => {
                 setDialog(null);
-                go("media");
+                go(
+                  references
+                    ? "staff-review"
+                    : verification
+                      ? "checks"
+                      : "media",
+                );
               }}
             >
-              Back to media
+              {references
+                ? "Back to staff review"
+                : verification
+                  ? "Back to checks"
+                  : "Back to media"}
             </Button>
           </div>
         )}
