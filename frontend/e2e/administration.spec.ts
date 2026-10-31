@@ -79,8 +79,8 @@ test("staff reports and administration menu are connected", async ({
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Your team, together.",
   );
-  await expect(page.getByRole("heading", {name:"staff@kofa.test", exact:true})).toBeVisible();
-  await expect(page.getByRole("button", {name:"Add team member", exact:true})).toHaveCount(0);
+  await expect(page.getByRole("heading", {name:"Add a team member", exact:true})).toBeVisible();
+  await expect(page.getByRole("button", {name:"Add team member", exact:true})).toBeVisible();
 });
 test("transaction fields validate without posting or calculating fees", async ({
   page,

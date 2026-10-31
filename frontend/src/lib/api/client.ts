@@ -1,5 +1,10 @@
 import { ApiError } from "./error";
 import type { ApiEnvelope, ApiErrorDetail } from "@/types/api";
+let refreshInFlight: Promise<void> | null = null;
+export function refreshSession(): Promise<void> {
+  if (!refreshInFlight) refreshInFlight = apiRequest("/auth/refresh", {method:"POST"}).then(()=>{}).finally(()=>{refreshInFlight=null;});
+  return refreshInFlight;
+}
 type Options = Omit<RequestInit, "body" | "signal"> & {
   body?: unknown;
   signal?: AbortSignal;
@@ -161,8 +166,7 @@ export async function apiRequest<T>(
       path === "/auth/refresh"
     )
       throw error;
-    const refresh = await perform("/auth/refresh", { method: "POST" });
-    if (!refresh.response.ok) await decode(refresh);
+    await refreshSession();
     return decode(await perform(target, init, body)); // one retry only; navigation remains a UI responsibility
   }
 }

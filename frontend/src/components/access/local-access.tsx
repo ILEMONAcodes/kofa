@@ -4,6 +4,7 @@ import {
   useContext,
   useEffect,
   useState,
+  useRef,
   type ReactNode,
 } from "react";
 import Link from "next/link";
@@ -11,14 +12,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { BrandLoading } from "@/components/common/brand-loading";
 import { Button, buttonStyles } from "@/components/common/button";
 
-import { reviewAccessRequest } from "@/lib/api/review-access";
+import {accountSession,signIn,registerAccount,signOut} from "@/lib/auth/client";
+import type {AccountUser, Registration} from "@/types/auth";
 import { reviewHome } from "@/lib/review-routing";
-import { isReviewAccessEnabled } from "@/lib/review-access";
+
 
 export type LocalRole = "client" | "staff" | "admin";
-export const localAccessEnabled = isReviewAccessEnabled(
-  process.env.NEXT_PUBLIC_LOCAL_ACCESS,
-);
 const KEY = "kofa-local-access-v1";
 export function validLocalRole(value: unknown): value is LocalRole {
   return value === "client" || value === "staff" || value === "admin";
@@ -35,19 +34,23 @@ export function canOpenLocalArea(
 }
 const Access = createContext<{
   role: LocalRole | null;
+  user: AccountUser | null;
   ready: boolean;
   leaving: boolean;
-  enter: (email:string,password:string,intent:"login"|"register") => Promise<LocalRole>;
+  enter: (email:string,password:string,intent:"login"|"register",registration?:Registration) => Promise<LocalRole>;
   leave: () => Promise<void>;
 }>({
   role: null,
+  user: null,
   ready: false,
   leaving: false,
   enter: async () => {throw new Error("Access provider required.");},
   leave: async () => {},
 });
 export function LocalAccessProvider({ children }: { children: ReactNode }) {
-  const [role, setRole] = useState<LocalRole | null>(null);
+  const [user,setUser] = useState<AccountUser|null>(null);
+  const role=user?.role ?? null;
+  const revision=useRef(0);
   const [ready, setReady] = useState(false);
   const [leaving, setLeaving] = useState(false);
   const pathname = usePathname();
@@ -59,20 +62,22 @@ export function LocalAccessProvider({ children }: { children: ReactNode }) {
     let live=true;
     // Retire the editable browser role marker. Only the server cookie assigns a role.
     try { sessionStorage.removeItem(KEY); sessionStorage.removeItem("kofa-local-staff-v1"); } catch {}
-    reviewAccessRequest("GET").then(next=>{if(live)setRole(next);}).catch(()=>{}).finally(()=>{if(live)setReady(true);});
+    const version=revision.current;
+    accountSession().then(next=>{if(live && revision.current===version)setUser(next);}).catch(()=>{}).finally(()=>{if(live)setReady(true);});
     return ()=>{live=false;};
   }, []);
-  async function enter(email:string,password:string,intent:"login"|"register") {
-    const next=await reviewAccessRequest("POST",{email,password,intent});
-    if(!next) throw new Error("Unable to sign in.");
-    setLeaving(false);setRole(next);return next;
+  async function enter(email:string,password:string,intent:"login"|"register",registration?:Registration) {
+    revision.current++;
+    if(intent==="register" && !registration) throw new Error("Complete your registration details.");
+    const next=intent==="register" ? await registerAccount(registration!) : await signIn(email,password);
+    setLeaving(false);setUser(next);return next.role;
   }
   async function leave() {
-    await reviewAccessRequest("DELETE");
-    setLeaving(true);setRole(null);
+    revision.current++;
+    await signOut();setLeaving(true);setUser(null);
   }
   return (
-    <Access.Provider value={{ role, ready, leaving, enter, leave }}>
+    <Access.Provider value={{ role, user, ready, leaving, enter, leave }}>
       {children}
     </Access.Provider>
   );
@@ -89,7 +94,7 @@ export function LocalGate({
   const pathname = usePathname();
   const router = useRouter();
   useEffect(() => {
-    if (ready && localAccessEnabled && !role && !leaving)
+    if (ready && !role && !leaving)
       router.replace(
         `/login?returnTo=${encodeURIComponent(pathname + window.location.search)}`,
       );
@@ -98,16 +103,6 @@ export function LocalGate({
     return (
       <main id="main-content">
         <BrandLoading />
-      </main>
-    );
-  if (!localAccessEnabled)
-    return (
-      <main id="main-content" className="page-container">
-        <h1 className="text-2xl">Sign-in is being connected.</h1>
-        <p className="my-5">Account services are currently unavailable.</p>
-        <Link className={buttonStyles()} href="/properties">
-          Explore properties
-        </Link>
       </main>
     );
   if (!role)
@@ -131,18 +126,18 @@ export function AccessStatus() {
   const { role, leave } = useLocalAccess();
   const [busy,setBusy]=useState(false);
   const [notice,setNotice]=useState("");
-  if (!role || !localAccessEnabled) return null;
+  if (!role) return null;
   return (
-    <aside className="local-access-bar" aria-label="Review access">
+    <aside className="local-access-bar" aria-label="Account access">
       <span>
-        Team review ·{" "}
+        Signed in ·{" "}
         {role === "admin"
           ? "Administrator"
           : role === "staff"
             ? "Staff"
             : "Your account"}
       </span>
-      <span role={notice ? "alert" : undefined}>{notice || "Sample records · no live changes"}</span>
+      <span role={notice ? "alert" : undefined}>{notice || ""}</span>
       <Button
         variant="subtle"
         loading={busy}

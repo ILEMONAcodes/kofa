@@ -75,19 +75,22 @@ test("temporary registration only sends credentials to the same-origin review se
     if (r.method() === "POST") posts.push(r.url());
   });
   await page.goto("/register");
-  await page.getByLabel("Email", { exact: true }).fill("example@example.com");
-  await page.getByLabel("Password", { exact: true }).fill("test12");
-  await page.getByLabel("Confirm password", { exact: true }).fill("test12");
+  await page.getByLabel("Full name",{exact:true}).fill("Example Client");
+  await page.getByLabel("Phone number",{exact:true}).fill("+2348012345678");
+  await page.getByLabel("I agree to the Terms and Privacy Policy.",{exact:true}).check();
+  await page.getByLabel("Email", { exact: true }).fill("ui-polish-client@example.com");
+  await page.getByLabel("Password", { exact: true }).fill("Goodpass8!");
+  await page.getByLabel("Confirm password", { exact: true }).fill("Goodpass8!");
   await page
     .getByRole("button", { name: "Create account", exact: true })
     .click();
   await expect(page).toHaveURL(/account\/overview/);
-  expect(posts).toEqual(["http://127.0.0.1:3100/api/review-auth"]);
+  expect(posts).toEqual(["http://127.0.0.1:3100/api/v1/auth/register"]);
   expect(
     await page.evaluate(() =>
       JSON.stringify({ ...sessionStorage, ...localStorage }),
     ),
-  ).not.toMatch(/test12|example@example.com/);
+  ).not.toMatch(/Goodpass8!|example@example.com/);
 });
 
 test.beforeEach(async ({ page }, testInfo) => {

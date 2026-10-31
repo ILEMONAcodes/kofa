@@ -281,3 +281,7 @@ Use Input's shared `prefix` adornment for SearchBudget instead of a symbol posit
 ### Unified review sign-in (2026-10-31)
 
 Public navigation has one sign-in entry and no staff/admin link or role selector. The server assigns account roles and `/account` opens the assigned workspace. Admin team review lists privately configured accounts; real invitations follow backend integration. See `docs/UNIFIED_REVIEW_SIGN_IN.md` for host setup. Original brown/cream theme remains unchanged.
+
+### Database-backed sign-in (2026-10-31)
+
+Supersedes the review setup above. Keep the shared login, original brown/cream palette and existing mobile app shell. Password creation/change/sign-in fields use a minimum of 8 characters, maximum 128, matching contract v0.3.0. Name/phone and explicit policy-version consent are required at registration. Backend validation appears inline; loading disables submissions; reset/verification follow actual single-use links. Admin Users now creates and activates/deactivates real database accounts. No public role selector or staff/admin entrance link is added. Private configuration belongs in `backend/.env`; only server-side `API_ORIGIN` is needed by Next.js.

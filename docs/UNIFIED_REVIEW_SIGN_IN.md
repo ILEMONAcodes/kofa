@@ -1,3 +1,5 @@
+> Superseded by database-backed authentication. Do not configure review accounts or the review secret. Use [BACKEND_AUTHENTICATION.md](BACKEND_AUTHENTICATION.md) and [backend/README.md](../backend/README.md); private database URL slots are in `backend/.env`. The old endpoint has been removed. Historical review setup below is retained for context only.
+
 # Unified sign-in and assigned accounts
 
 Task: FE-3.6 — Unified sign-in and private workspace access

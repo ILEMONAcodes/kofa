@@ -1,4 +1,4 @@
-import { testAccounts, reviewLogin } from "./review-helpers";
+import { testAccount, reviewLogin } from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -14,7 +14,7 @@ async function signIn(
   role = "staff",
 ) {
   await page.goto(staff ? "/staff/login" : "/login");
-  const account = staff ? testAccounts.find(a=>a.role===role)! : {email:"example@example.com",password:"test12"};
+  const account = await testAccount(page,staff ? role as "staff"|"admin" : "client");
   await page.getByLabel("Email", { exact: true }).fill(account.email);
   await page.getByLabel("Password", { exact: true }).fill(account.password);
   await page.getByRole("button", { name: "Log in", exact: true }).click();
@@ -51,24 +51,25 @@ test("whole cards navigate from photos and preserve search context on desktop an
     await expect(page).toHaveURL(/\/properties\/[^/?]+$/);
   }
 });
-test("six-character client review preserves selected property without browser credential storage", async ({
+test("eight-character database sign-in preserves selected property without browser credential storage", async ({
   page,
 }) => {
   const posts: string[] = [];
   page.on("request", (req) => {
     if (req.method() === "POST") posts.push(req.url());
   });
+  const account=await testAccount(page,"client");
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/properties/3-bedroom-flat-wuse-2");
   await page
     .getByRole("link", { name: "Express interest", exact: true })
     .click();
   await expect(page).toHaveURL(/\/login\?/);
-  await page.getByLabel("Email", { exact: true }).fill("example@example.com");
+  await page.getByLabel("Email", { exact: true }).fill(account.email);
   await page.getByLabel("Password", { exact: true }).fill("short");
   await page.getByRole("button", { name: "Log in", exact: true }).click();
   await expect(page).toHaveURL(/\/login\?/);
-  await page.getByLabel("Password", { exact: true }).fill("test12");
+  await page.getByLabel("Password", { exact: true }).fill(account.password);
   await page.getByRole("button", { name: "Log in", exact: true }).click();
   await expect(page).toHaveURL(
     /\/account\/inquiry\?property=3-bedroom-flat-wuse-2/,
@@ -78,7 +79,7 @@ test("six-character client review preserves selected property without browser cr
   ).toBeVisible();
   await page.reload();
   await expect(page.getByLabel("Request type", { exact: true })).toBeVisible();
-  expect(posts).toEqual(["http://127.0.0.1:3100/api/review-auth"]);
+  expect(posts).toEqual(["http://127.0.0.1:3100/api/v1/auth/login"]);
   const stored = await page.evaluate(() => ({
     ...sessionStorage,
     ...localStorage,
@@ -94,8 +95,8 @@ test("public navigation has no staff entrance and admin sees configured team acc
  await page.goto("/");
  await expect(page.getByRole("link",{name:"Staff sign in",exact:true})).toHaveCount(0);
  await signIn(page,true,"admin"); await expect(page).toHaveURL(/admin\/administration$/);
- await page.goto("/admin/users"); await expect(page.getByRole("heading",{name:"staff@kofa.test",exact:true})).toBeVisible();
- await expect(page.getByRole("button",{name:"Add team member"})).toHaveCount(0);
+ await page.goto("/admin/users"); await expect(page.getByRole("heading",{name:"Your team, together.",exact:true})).toBeVisible();
+ await expect(page.getByRole("button",{name:"Add team member"})).toBeVisible();
  await page.getByRole("link",{name:"Open staff operations"}).click(); await expect(page).toHaveURL(/staff\/overview$/);
 });
 test("staff cannot open administrator tools and clients cannot open the workspace", async ({
@@ -108,6 +109,7 @@ test("staff cannot open administrator tools and clients cannot open the workspac
     page.getByRole("heading", { name: "This doorway leads elsewhere." }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Sign out", exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
   await signIn(page);
   await expect(page).toHaveURL(/\/account\/overview$/);
   await page.goto("/staff/overview");
@@ -185,13 +187,14 @@ test("mobile entrance holds for three seconds and loading uses the logo orbit", 
 test("a signed-out saved inquiry link preserves its property through login", async ({
   page,
 }) => {
+  const account=await testAccount(page,"client");
   await page.goto("/account/inquiry?property=2-bedroom-flat-jabi");
   await expect(page).toHaveURL(/\/login\?/);
   expect(new URL(page.url()).searchParams.get("returnTo")).toBe(
     "/account/inquiry?property=2-bedroom-flat-jabi",
   );
-  await page.getByLabel("Email", { exact: true }).fill("example@example.com");
-  await page.getByLabel("Password", { exact: true }).fill("test12");
+  await page.getByLabel("Email", { exact: true }).fill(account.email);
+  await page.getByLabel("Password", { exact: true }).fill(account.password);
   await page.getByRole("button", { name: "Log in", exact: true }).click();
   await expect(
     page.getByRole("heading", { name: "2-bedroom flat, Jabi", exact: true }),

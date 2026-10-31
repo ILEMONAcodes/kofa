@@ -1,20 +1,31 @@
-import type { Page } from "@playwright/test";
-// Fake test fixtures, injected into the local Playwright server only.
-export const testSecret = "kofa-e2e-only-signing-secret-at-least-32-characters";
-export const testAccounts = [
- {email:"admin@kofa.test",password:"E2e-admin-only-392!",role:"admin"},
- {email:"staff@kofa.test",password:"E2e-staff-only-483!",role:"staff"},
-];
-// Local Next trusts this header; production hosts must sanitize it. Each fixture
-// represents a distinct reviewer rather than sharing one rate bucket for 98 tests.
-const fixtureIPs = new WeakMap<Page,string>();
-let fixtureCounter = 0;
-export async function reviewLogin(page:Page, role:"client"|"staff"|"admin"="client") {
- const session=await page.request.get("/api/review-auth");
- if(session.ok() && (await session.json()).data?.role===role) return;
- const account=testAccounts.find(a=>a.role===role) ?? {email:"client@example.com",password:"test12"};
- let ip=fixtureIPs.get(page);
- if(!ip) {ip=`198.18.${Number(process.env.TEST_WORKER_INDEX ?? 0) % 250}.${++fixtureCounter % 250 + 1}`;fixtureIPs.set(page,ip);}
- const response=await page.request.post("/api/review-auth",{headers:{Origin:"http://127.0.0.1:3100","x-forwarded-for":ip},data:{...account,role:undefined,intent:"login"}});
- if(!response.ok()) throw new Error(`Review fixture sign-in failed: ${response.status()}`);
+import type {Page} from "@playwright/test";
+import {execFileSync} from "node:child_process";
+import {resolve} from "node:path";
+type Role="client"|"staff"|"admin";
+type Fixture={email:string;password:string;role:Role};
+const identities=new WeakMap<Page,{ip:string;roles:Partial<Record<Role,Fixture>>}>();
+let count=0;
+export async function testAccount(page:Page,role:Role):Promise<Fixture> {
+ let state=identities.get(page);
+ if(!state) {
+  const worker=Number(process.env.TEST_WORKER_INDEX ?? 0)%240;
+  state={ip:`198.18.${worker}.${++count%240+1}`,roles:{}};identities.set(page,state);
+  await page.setExtraHTTPHeaders({"x-forwarded-for":state.ip});
+ }
+ let account=state.roles[role];
+ if(!account) {
+  account={email:`kofa-e2e-${state.ip.replaceAll(".","-")}-${role}@example.com`,password:"Browserpass8!",role};
+  execFileSync(resolve("../backend/.venv/bin/python"),["-m","tests.seed_e2e",account.email,role],{cwd:resolve("../backend"),stdio:"pipe"});
+  state.roles[role]=account;
+ }
+ return account;
+}
+export async function reviewLogin(page:Page,role:Role="client") {
+ const account=await testAccount(page,role);
+ const response=await page.request.get("/api/v1/auth/me");
+ if(response.ok() && (await response.json()).data?.role===role) return;
+ await page.request.get("/api/v1/auth/csrf");
+ const csrf=(await page.context().cookies()).find(c=>c.name==="csrf_token")!.value;
+ const login=await page.request.post("/api/v1/auth/login",{headers:{Origin:"http://127.0.0.1:3100","X-CSRF-Token":csrf,"x-forwarded-for":identities.get(page)!.ip},data:{email:account.email,password:account.password}});
+ if(!login.ok()) throw new Error(`Database fixture sign-in failed: ${login.status()}`);
 }

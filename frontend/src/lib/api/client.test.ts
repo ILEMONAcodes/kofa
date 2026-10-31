@@ -166,3 +166,17 @@ it("does not refresh for other 401 codes", async () => {
   });
   expect(fetcher).toHaveBeenCalledTimes(1);
 });
+
+it("coalesces simultaneous expiry responses into one refresh", async () => {
+  let fresh=false;
+  const fetcher=vi.fn().mockImplementation(async (url:string)=>{
+    if(url==="/api/v1/auth/refresh") {
+      await new Promise(resolve=>setTimeout(resolve,5));fresh=true;
+      return json({data:{role:"client"}});
+    }
+    return fresh ? json({data:{ok:true}}) : json({error:{code:"TOKEN_EXPIRED",message:"Expired"}},401);
+  });
+  vi.stubGlobal("fetch",fetcher);
+  await Promise.all([apiRequest("/auth/me"),apiRequest("/health")]);
+  expect(fetcher.mock.calls.filter(([url])=>url==="/api/v1/auth/refresh")).toHaveLength(1);
+});

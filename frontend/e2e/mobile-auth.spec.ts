@@ -71,9 +71,12 @@ test("registration validates confirmation and only calls the same-origin review 
     if (r.method() === "POST") posts.push(r.url());
   });
   await page.goto("/register");
-  await page.getByLabel("Email", { exact: true }).fill("sample@example.com");
-  await page.getByLabel("Password", { exact: true }).fill("test12");
-  await page.getByLabel("Confirm password", { exact: true }).fill("test13");
+  await page.getByLabel("Full name",{exact:true}).fill("Example Client");
+  await page.getByLabel("Phone number",{exact:true}).fill("+2348012345678");
+  await page.getByLabel("I agree to the Terms and Privacy Policy.",{exact:true}).check();
+  await page.getByLabel("Email", { exact: true }).fill("mobile-auth-client@example.com");
+  await page.getByLabel("Password", { exact: true }).fill("Goodpass8!");
+  await page.getByLabel("Confirm password", { exact: true }).fill("Mismatch8!");
   await page
     .getByRole("button", { name: "Create account", exact: true })
     .click();
@@ -82,12 +85,12 @@ test("registration validates confirmation and only calls the same-origin review 
       .getByLabel("Confirm password", { exact: true })
       .evaluate((el: HTMLInputElement) => el.validationMessage),
   ).toBe("Passwords must match.");
-  await page.getByLabel("Confirm password", { exact: true }).fill("test12");
+  await page.getByLabel("Confirm password", { exact: true }).fill("Goodpass8!");
   await page
     .getByRole("button", { name: "Create account", exact: true })
     .click();
   await expect(page).toHaveURL(/account\/overview/);
-  expect(posts).toEqual(["http://127.0.0.1:3100/api/review-auth"]);
+  expect(posts).toEqual(["http://127.0.0.1:3100/api/v1/auth/register"]);
 });
 test("login and recovery preserve safe return paths and account stays signed out", async ({
   page,
@@ -99,11 +102,11 @@ test("login and recovery preserve safe return paths and account stays signed out
   await expect(page).toHaveURL(
     /forgot-password\?returnTo=%2Fproperties%3Fcity%3DAbuja/,
   );
-  await page.getByLabel("Email", { exact: true }).fill("sample@example.com");
+  await page.getByLabel("Email", { exact: true }).fill("mobile-auth-client@example.com");
   await page
     .getByRole("button", { name: "Send reset link", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("Unable to continue");
+  await expect(page).toHaveURL(/reset-link-sent/);
   await page.goto("/account");
   await expect(page).toHaveURL(/login\?returnTo=/);
   await expect(page.getByText("Ada Obi", { exact: true })).toHaveCount(0);

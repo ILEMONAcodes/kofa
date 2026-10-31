@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.2.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
+**Contract version:** `0.3.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -27,6 +27,7 @@ Neither developer may change this file alone. See §1.
 - `PATCH` is partial update. Editable resources carry `version` (integer); the client sends it back, and a mismatch returns `409 CONFLICT`.
 
 ### 2.2 Authentication
+- Bootstrap anonymous forms with `GET /auth/csrf` → `200 { data: { csrf_token } }` and the signed readable cookie. It requires no session. Login/register/reset still require the cookie/header pair and an exact configured `Origin`; there is no CSRF exemption for sign-in.
 - Cookie sessions (ADR-003): `access_token` (httpOnly, `Secure`, `SameSite=Lax`, 15 min), `refresh_token` (httpOnly, path `/api/v1/auth`, 14 days), `csrf_token` (readable cookie).
 - Unsafe methods require header `X-CSRF-Token: <csrf_token cookie value>`; otherwise `403 CSRF_FAILED`.
 - Missing/invalid session → `401 UNAUTHENTICATED`; expired access token → `401 TOKEN_EXPIRED` (client refreshes once).
@@ -101,7 +102,7 @@ Out-of-range pages return an empty `data` with correct `meta` (not an error).
 - The server is authoritative; the frontend mirrors rules for UX.
 - Strings are trimmed; empty strings on optional fields are treated as `null`.
 - Enumerations are validated against the lists in §4. Limits are stated per field below and surfaced in `details`.
-- Password: 10–128 characters, not in a common-password list.
+- Password: 8–128 characters, not in a common-password list.
 - Rate-limited public endpoints may also require a CAPTCHA token header `X-Captcha-Token` (decision pending in BE-4.4; absence is allowed while disabled).
 
 ### 2.8 Idempotency and concurrency
@@ -212,6 +213,10 @@ User object (`UserOut`):
 | POST | `/auth/email-verification/request` | session | — | `202` | Should (FR-AUTH-04) |
 | POST | `/auth/email-verification/confirm` | none | `{ token }` | `204` | Should |
 
+`GET /policies/current` → `{ data: { approved: boolean, policies: [{ type: "terms"|"privacy", version, url }] } }`. Registration accepts exactly the returned versions. Draft policy versions are usable for internal development; production registration is disabled until policies are approved. No final legal text is supplied by this endpoint.
+
+`/auth/password-reset/confirm` also consumes an admin-created single-use invitation link (same ≤1-hour lifetime) to set the invited account's password. Tokens are hashed in the identity token table; the private email outbox contains only the delivery link. Verification tokens have purpose `verification` and cannot reset passwords. Logout is idempotent for absent/expired sessions but always CSRF-protected, revokes the refresh family when identifiable, and clears all three cookies. Deactivation and password reset revoke existing sessions. Every protected request uses the current database role/activity, not a role supplied by the browser or a stale JWT claim.
+
 Admin user management (role `admin`):
 
 | Method | Path | Request | Success |
@@ -219,6 +224,8 @@ Admin user management (role `admin`):
 | GET | `/admin/users` | filters `role`, `is_active`, `q`; sort `created_at`,`full_name`; paginated | `200` list of `UserOut` + `is_active` |
 | POST | `/admin/users` | `{ full_name, email, phone?, role: "staff"\|"admin", temporary_password? }` | `201` (sends set-password email when no password) |
 | PATCH | `/admin/users/{id}` | `{ full_name?, phone?, role?, is_active?, version }` | `200` (an admin cannot demote or deactivate themselves) |
+
+Admin list/create/update responses use `UserOut` plus `is_active` and optimistic `version`. Temporary passwords follow the same 8–128/common-password rules; when omitted, an invitation is queued through the email abstraction. No live email is sent in development/outbox mode. Administrators cannot demote/deactivate themselves, and at least one active administrator must remain.
 
 ### 4.3 Taxonomy (public, cacheable)
 `GET /taxonomy` → `200`
@@ -496,9 +503,10 @@ Rules: the `call` option is **present in every handoff**; `report_listing` appea
 
 | Endpoint group | A | C | S | Ad |
 |---|---|---|---|---|
-| `/health`, `/taxonomy`, `GET /properties*`, `/policies/current` | ✓ | ✓ | ✓ | ✓ |
+| `/health`, `/auth/csrf`, `/taxonomy`, `GET /properties*`, `/policies/current` | ✓ | ✓ | ✓ | ✓ |
 | `/auth/register`, `/auth/login`, password reset | ✓ | ✓ | ✓ | ✓ |
-| `/auth/me`, `/auth/logout`, `/auth/refresh` | — | ✓ | ✓ | ✓ |
+| `/auth/me`, `/auth/refresh` | — | ✓ | ✓ | ✓ |
+| `/auth/logout` (idempotent clear, CSRF required) | ✓ | ✓ | ✓ | ✓ |
 | `/landlord-submissions*` | ✓ (token) | ✓ (token) | ✓ | ✓ |
 | `/admin/properties*`, `/admin/landlords*` | — | — | ✓ | ✓ (`reopen` admin only) |
 | `/admin/users*` | — | — | — | ✓ |
@@ -554,13 +562,13 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 
 | Endpoint | Status |
 |---|---|
-| GET /health | Draft |
-| POST /auth/register, POST /auth/login, POST /auth/refresh, POST /auth/logout, GET /auth/me | Draft |
-| POST /auth/password-reset/request, POST /auth/password-reset/confirm | Draft |
-| POST /auth/email-verification/request, POST /auth/email-verification/confirm | Draft |
-| GET/POST /admin/users, PATCH /admin/users/{id} | Draft |
+| GET /health | Implemented (local PostgreSQL verification) |
+| GET /auth/csrf, POST /auth/register, POST /auth/login, POST /auth/refresh, POST /auth/logout, GET /auth/me | Integrated (real FastAPI/PostgreSQL browser tests; PR review pending) |
+| POST /auth/password-reset/request, POST /auth/password-reset/confirm | Integrated (private outbox; SMTP configurable) |
+| POST /auth/email-verification/request, POST /auth/email-verification/confirm | Integrated (private outbox; SMTP configurable) |
+| GET/POST /admin/users, PATCH /admin/users/{id} | Integrated for list/create/activation; role updates API-tested |
 | GET /taxonomy | Draft |
-| GET /policies/current | Draft |
+| GET /policies/current | Integrated metadata (no final legal content) |
 | POST /landlord-submissions, POST /landlord-submissions/{id}/files, DELETE /landlord-submissions/{id}/files/{file_id}, POST /landlord-submissions/{id}/submit | Draft |
 | GET /properties, GET /properties/{slug} | Draft |
 | GET /admin/properties, GET /admin/properties/{id}, PATCH /admin/properties/{id}, POST …/assign, POST …/transitions, PUT …/verification, POST …/verification/complete, POST …/landlord-approval, PATCH …/availability, POST/PATCH/DELETE …/media | Draft |
@@ -609,4 +617,5 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.3.0 | 2026-10-31 | User-directed authentication integration: password minimum 8 (formerly 10), CSRF bootstrap, identity lifecycle and admin version clarification (CR-AUTH-001) | Developer 2 session; user override, frontend review pending |
 | 0.2.0 | 2026-10-24 | Team review: currency/formatting conventions §2.10; unknown error codes and non-envelope failures §2.4; code 503; complaint minimum fields, rate limits, privacy and investigation workflow §4.8; AI assistant, public config, knowledge base, settings §4.9; new enums, rate limits, matrix rows | pending (J-1.3) |

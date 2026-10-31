@@ -150,6 +150,9 @@ flowchart TD
 
 ### Phase 3 — Authentication and role permissions
 
+2026-10-31 user-directed implementation: J-3.7 includes only necessary identity foundations and BE-3.1–3.4, with explicit permission to connect existing frontend screens. Password minimum is now **8 characters** per user override, recorded in contract v0.3.0. Neon supplies PostgreSQL; retain ADR-003 FastAPI application auth. See `docs/BACKEND_AUTHENTICATION.md` for acceptance evidence and remaining deployment/SMTP/legal setup. This does not complete unrelated property/finance/OpenAPI/CI modules.
+
+
 **Goal:** Client registration/login, staff accounts, RBAC and the UI to use them.  
 **Exit criteria:** Auth E2E passes against the real backend; client blocked from admin routes; no auth mocks remain.  
 **Parallelism:** Backend tasks BE-3.1→3.3 run in parallel with FE-3.5 (mock-backed). J-4.1 (contract only) may run in parallel with this phase.
