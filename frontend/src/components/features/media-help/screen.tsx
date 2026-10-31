@@ -34,6 +34,14 @@ import {
   reviewOutcome,
   approvalPriceError,
 } from "@/components/features/review-feedback/model";
+import { parseMoneyInput } from "@/lib/formatters/money";
+import { SearchBudget } from "@/components/browse/search-budget";
+import {
+  responsiveScreens,
+  responsivePath,
+  responsiveOptions,
+  responsiveDestination,
+} from "../responsive-reference/model";
 const tones: Record<string, string> = {
   primary: "rgb(var(--primary))",
   muted: "rgb(var(--muted))",
@@ -49,37 +57,48 @@ export function MediaHelpScreen({
   section = "media-help",
 }: {
   slug: string;
-  section?: "media-help" | "verification" | "review-feedback";
+  section?: "media-help" | "verification" | "review-feedback" | "responsive";
 }) {
+  const responsive = section === "responsive";
   const verification = section === "verification";
   const references = section === "review-feedback";
-  const workflow = verification || references;
-  const screens = references
-    ? reviewScreens
-    : verification
-      ? verificationScreens
-      : mediaScreens;
-  const path = references
-    ? reviewPath
-    : verification
-      ? verificationPath
-      : mediaPath;
-  const directoryLabel = references
-    ? "View all 6 review and feedback screens"
-    : verification
-      ? "View all 8 verification and transaction screens"
-      : "View all 39 media and help screens";
-  const workspace = references
-    ? slug !== "feedback"
-    : verification
-      ? isVerificationWorkspace(slug)
-      : slug === "conflict";
+  const workflow = verification || references || responsive;
+  const screens = responsive
+    ? responsiveScreens
+    : references
+      ? reviewScreens
+      : verification
+        ? verificationScreens
+        : mediaScreens;
+  const path = responsive
+    ? responsivePath
+    : references
+      ? reviewPath
+      : verification
+        ? verificationPath
+        : mediaPath;
+  const directoryLabel = responsive
+    ? "View all 7 responsive reference screens"
+    : references
+      ? "View all 6 review and feedback screens"
+      : verification
+        ? "View all 8 verification and transaction screens"
+        : "View all 39 media and help screens";
+  const workspace = responsive
+    ? ["overview", "properties", "investigation"].includes(slug)
+    : references
+      ? slug !== "feedback"
+      : verification
+        ? isVerificationWorkspace(slug)
+        : slug === "conflict";
   const screen = screens.find((s) => s.slug === slug)!;
   const router = useRouter();
   const form = useRef<HTMLFormElement>(null);
   const session = useMediaSession();
   const [values, setValues] = useState<Record<string, string>>({});
-  const [dialog, setDialog] = useState<"menu" | "service" | null>(null);
+  const [dialog, setDialog] = useState<"menu" | "service" | "photo" | null>(
+    null,
+  );
   const [operation, setOperation] = useState("");
   const [validationMessage, setValidationMessage] = useState("");
   const [playing, setPlaying] = useState(false);
@@ -88,10 +107,28 @@ export function MediaHelpScreen({
   const isPolicy = policySlugs.includes(slug);
   const go = (target: string) =>
     router.push(target.startsWith("/") ? target : path(target));
+  const flatten = (blocks: MediaBlock[]): MediaBlock[] =>
+    blocks.flatMap((b) => [b, ...flatten(b.children ?? [])]);
+  const fields = flatten(screen.blocks);
+  const photoIds =
+    fields
+      .find((b) => b.name === "Photo previews")
+      ?.children?.filter((b) => b.type === "image")
+      .map((b) => b.id) ?? [];
   const update = (id: string, value: string) => {
     setValues((v) => ({ ...v, [id]: value }));
-    if (id === "82:2544" || id === "82:3438") session.setCaption(value);
-    if (id === "82:2551") {
+    if (
+      id === "82:2544" ||
+      id === "82:3438" ||
+      (responsive &&
+        fields.find((b) => b.id === id)?.label ===
+          "Selected photo caption (optional)")
+    )
+      session.setCaption(value);
+    if (
+      id === "82:2551" ||
+      (responsive && fields.find((b) => b.id === id)?.label === "Display order")
+    ) {
       const position = Number(value) - 1;
       if (
         Number.isInteger(position) &&
@@ -110,7 +147,12 @@ export function MediaHelpScreen({
         );
       }
     }
-    if (id === "82:2558" && value !== "Other") {
+    if (
+      (id === "82:2558" ||
+        (responsive &&
+          fields.find((b) => b.id === id)?.label === "Cover photo")) &&
+      value !== "Other"
+    ) {
       const index = ["Living room", "Exterior", "Bedroom"].indexOf(value);
       if (index >= 0 && photos[index]) {
         const selected = photos[index];
@@ -124,11 +166,69 @@ export function MediaHelpScreen({
   };
   const get = (b: MediaBlock) =>
     values[b.id] ??
-    (b.id === "82:2544" || b.id === "82:3438"
+    (b.id === "82:2544" ||
+    b.id === "82:3438" ||
+    (responsive && b.label === "Selected photo caption (optional)")
       ? session.caption
       : (b.value ?? "")
     ).replace(/\s*▾$/, "");
   function action(label: string, context = "") {
+    if (
+      responsive &&
+      ["Preview selected photo", "Remove selected photo"].includes(label)
+    ) {
+      setOperation(label);
+      setDialog("photo");
+      return;
+    }
+    if (
+      responsive &&
+      label === "Open record →" &&
+      !["INQ-000123", "3-bedroom flat · Wuse 2"].includes(context)
+    ) {
+      setOperation(
+        "This reference record has no separate supplied detail screen",
+      );
+      setDialog("service");
+      return;
+    }
+    if (
+      responsive &&
+      [
+        "Send inquiry",
+        "Send message",
+        "Save working record",
+        "Review resolution",
+      ].includes(label) &&
+      !form.current?.reportValidity()
+    )
+      return;
+    if (responsive && label === "Send inquiry") {
+      try {
+        const budgets = fields
+          .filter((b) => b.type === "budget")
+          .map((b) => parseMoneyInput(get(b).replace(/^₦\s*/, "")));
+        if (budgets.some((v) => v === null) || budgets[0]! > budgets[1]!) {
+          setValidationMessage(
+            "Enter valid budgets with the minimum no higher than the maximum.",
+          );
+          return;
+        }
+      } catch {
+        setValidationMessage(
+          "Enter valid budget amounts with up to two decimal places.",
+        );
+        return;
+      }
+      setValidationMessage("");
+    }
+    if (responsive && label === "Refresh messages") {
+      session.setNotice(
+        "Sample messages refreshed locally. Messaging service is not connected.",
+      );
+      return;
+    }
+
     if (/^(Choose|Add evidence)/.test(label)) {
       session.openManager(slug === "report" ? "report" : "listing");
       return;
@@ -162,11 +262,13 @@ export function MediaHelpScreen({
       go("media");
       return;
     }
-    const next = references
-      ? reviewDestination(slug, label)
-      : verification
-        ? verificationDestination(slug, label)
-        : destination(slug, label, context);
+    const next = responsive
+      ? responsiveDestination(slug, label, context)
+      : references
+        ? reviewDestination(slug, label)
+        : verification
+          ? verificationDestination(slug, label)
+          : destination(slug, label, context);
     if (next) {
       go(next);
       return;
@@ -190,6 +292,49 @@ export function MediaHelpScreen({
     setDialog("service");
   }
   function render(b: MediaBlock, context = ""): ReactNode {
+    if (b.type === "budget")
+      return (
+        <SearchBudget
+          key={b.id}
+          label={b.label!}
+          value={get(b).replace(/^₦\s*/, "")}
+          onChange={(v) => update(b.id, v)}
+        />
+      );
+
+    if (
+      responsive &&
+      b.type === "group" &&
+      (slug === "properties" || slug === "inquiries") &&
+      b.children?.some((c) => c.type === "action" && c.text === "Open record →")
+    ) {
+      const text = flatten([b])
+        .map((c) => c.text ?? "")
+        .join(" ")
+        .toLowerCase();
+      const active = fields.filter(
+        (c) =>
+          ["Search", "Status", "Area", "Assignee", "Filter status"].includes(
+            c.label ?? "",
+          ) && values[c.id] !== undefined,
+      );
+      if (
+        active.some((c) => {
+          const v = values[c.id].toLowerCase();
+          return (
+            v &&
+            ![
+              "all areas",
+              "all inquiries",
+              "all assignees",
+              "my queue",
+            ].includes(v) &&
+            !v.split(" / ").some((option) => text.includes(option))
+          );
+        })
+      )
+        return null;
+    }
     if (b.type === "consent")
       return (
         <label
@@ -257,7 +402,13 @@ export function MediaHelpScreen({
         />
       );
     if (b.type === "image") {
-      const index = b.id === "82:2529" ? 1 : b.id === "82:2530" ? 2 : 0;
+      const index = responsive
+        ? Math.max(0, photoIds.indexOf(b.id))
+        : b.id === "82:2529"
+          ? 1
+          : b.id === "82:2530"
+            ? 2
+            : 0;
       const changed = slug === "media" && context === "Photo previews";
       if (changed && !photos[index]) return null;
       return (
@@ -283,7 +434,9 @@ export function MediaHelpScreen({
     if (b.type === "field" || b.type === "textarea") {
       const label = b.label!;
       const placeholder =
-        (/^(Your |Ask |20–|Enter )/.test(b.value ?? "") ||
+        (/^(Your |Ask |20–|Enter |Reference,|Summarise |List the evidence|A generic update)/.test(
+          b.value ?? "",
+        ) ||
           (references &&
             /^(Describe how|Record the checks)/.test(b.value ?? ""))) &&
         !b.error;
@@ -308,7 +461,9 @@ export function MediaHelpScreen({
               minLength={slug === "report" ? 20 : undefined}
               maxLength={slug === "report" ? 2000 : 1000}
               required={
-                workflow || slug === "report" || label === "Your question"
+                (workflow && !/optional/i.test(label)) ||
+                slug === "report" ||
+                label === "Your question"
               }
             />
           </div>
@@ -337,16 +492,19 @@ export function MediaHelpScreen({
               ) : (
                 <Dropdown
                   id={b.id}
+                  chevronAsset={b.chevron ?? undefined}
                   label={label}
                   value={get(b)}
                   options={Array.from(
                     new Set([
                       get(b),
-                      ...((references
-                        ? reviewOptions[label]
-                        : verification
-                          ? verificationOptions[label]
-                          : fieldOptions[label]) ?? []),
+                      ...((responsive
+                        ? responsiveOptions[label]
+                        : references
+                          ? reviewOptions[label]
+                          : verification
+                            ? verificationOptions[label]
+                            : fieldOptions[label]) ?? []),
                       "Other",
                     ]),
                   ).map((v) => ({ value: v, label: v }))}
@@ -367,28 +525,32 @@ export function MediaHelpScreen({
               id={b.id}
               label={label}
               value={
-                references && label === "Approved at"
-                  ? (values[b.id] ?? "2026-10-26T10:30")
-                  : verification && label === "Approved at (WAT)"
-                    ? (values[b.id] ?? "2026-10-26T09:30")
-                    : value
+                responsive && label === "Preferred move-in date"
+                  ? (values[b.id] ?? "2026-12-01")
+                  : references && label === "Approved at"
+                    ? (values[b.id] ?? "2026-10-26T10:30")
+                    : verification && label === "Approved at (WAT)"
+                      ? (values[b.id] ?? "2026-10-26T09:30")
+                      : value
               }
               placeholder={placeholder ? b.value : undefined}
               type={
-                (references && label === "Approved at") ||
-                (verification && label === "Approved at (WAT)")
-                  ? "datetime-local"
-                  : label.includes("Email")
-                    ? "email"
-                    : label === "Display order"
-                      ? "number"
-                      : label.includes("Phone")
-                        ? "tel"
-                        : "text"
+                responsive && label === "Preferred move-in date"
+                  ? "date"
+                  : (references && label === "Approved at") ||
+                      (verification && label === "Approved at (WAT)")
+                    ? "datetime-local"
+                    : label.includes("Email")
+                      ? "email"
+                      : label === "Display order"
+                        ? "number"
+                        : label.includes("Phone")
+                          ? "tel"
+                          : "text"
               }
               min={label === "Display order" ? 1 : undefined}
               max={label === "Display order" ? photos.length : undefined}
-              required={workflow}
+              required={workflow && !/optional|Search/i.test(label)}
               inputMode={
                 references && label === "Approved price" ? "decimal" : undefined
               }
@@ -468,8 +630,46 @@ export function MediaHelpScreen({
   return (
     <main
       id="main-content"
-      className={`journey-screen staff-preview media-help-preview${references ? " review-feedback-preview" : ""}`}
+      className={`journey-screen staff-preview media-help-preview${references ? " review-feedback-preview" : ""}${responsive ? " responsive-reference-preview" : ""}`}
     >
+      <Modal
+        open={dialog === "photo"}
+        onClose={() => setDialog(null)}
+        title={operation}
+      >
+        {photos[0] ? (
+          <>
+            <Image
+              src={photos[0].url!}
+              width={288}
+              height={220}
+              unoptimized={photos[0].url?.startsWith("blob:")}
+              alt={session.caption || "Selected local photo"}
+            />
+            <p>{session.caption}</p>
+            <Button
+              onClick={() => {
+                if (operation === "Remove selected photo")
+                  session.setMedia(
+                    session.media.filter((m) => m.id !== photos[0].id),
+                  );
+                session.setNotice(
+                  operation === "Remove selected photo"
+                    ? "Selected photo removed locally."
+                    : "Cover photo retained locally.",
+                );
+                setDialog(null);
+              }}
+            >
+              {operation === "Remove selected photo"
+                ? "Remove photo"
+                : "Use as cover"}
+            </Button>
+          </>
+        ) : (
+          <p>No photos selected. Choose property photos first.</p>
+        )}
+      </Modal>
       <header className="journey-header">
         <p>Design preview · sample content</p>
         <div>
@@ -491,7 +691,7 @@ export function MediaHelpScreen({
           >
             {workspace ? "Menu" : "Back"}
           </Button>
-          {slug !== "assistant" && !workspace && !references && (
+          {slug !== "assistant" && !workspace && !references && !responsive && (
             <Button
               variant="secondary"
               onClick={() => go(verification ? mediaPath("help") : "help")}
@@ -518,6 +718,21 @@ export function MediaHelpScreen({
               Recovery feedback examples
             </Link>
           )}
+          {!workflow && slug === "help" && (
+            <Link href={responsivePath("inquiry")}>
+              360 px responsive references
+            </Link>
+          )}
+          {responsive &&
+            ["properties", "inquiries"].includes(slug) &&
+            Object.keys(values).length > 0 && (
+              <div role="status">
+                Filters apply to the supplied sample records only.{" "}
+                <Button variant="secondary" onClick={() => setValues({})}>
+                  Clear filters
+                </Button>
+              </div>
+            )}
           {session.notice && <p role="status">{session.notice}</p>}
           {slug === "media" && (
             <p className="text-sm text-muted">
@@ -536,7 +751,7 @@ export function MediaHelpScreen({
           </p>
         </form>
       </div>
-      {slug === "media" ? (
+      {slug === "media" && !responsive ? (
         <div className="media-listing-actions">
           <Button
             className="w-full"
@@ -591,15 +806,17 @@ export function MediaHelpScreen({
         </nav>
       )}
       <Modal
-        open={dialog !== null}
+        open={dialog === "menu" || dialog === "service"}
         onClose={() => setDialog(null)}
         title={
           dialog === "menu"
-            ? references
-              ? "Review and feedback · design screens"
-              : verification
-                ? "Verification and transactions · design screens"
-                : "Media, help and states · design screens"
+            ? responsive
+              ? "360 px responsive references · design screens"
+              : references
+                ? "Review and feedback · design screens"
+                : verification
+                  ? "Verification and transactions · design screens"
+                  : "Media, help and states · design screens"
             : "Service not connected"
         }
       >
@@ -620,24 +837,50 @@ export function MediaHelpScreen({
                 ? "The source contains a poster only, with no playable video. Choose a local video to preview playback."
                 : `${operation} is not connected. No request was sent and no record was changed.`}
             </p>
-            {(references
-              ? reviewOutcome(operation)
-              : verification
-                ? verificationOutcome(operation)
-                : outcome(operation)) && (
-              <Link
-                className="staff-public-link"
-                href={path(
-                  (references
-                    ? reviewOutcome(operation)
-                    : verification
-                      ? verificationOutcome(operation)
-                      : outcome(operation))!,
-                )}
-              >
-                Preview example outcome
-              </Link>
-            )}
+            {responsive &&
+              (
+                {
+                  "Send inquiry": "/client-preview/inquiry-received",
+                  "Send message": "/client-preview/message-sent",
+                  "Review resolution":
+                    "/administration-preview/resolve-complaint",
+                } as Record<string, string>
+              )[operation] && (
+                <Link
+                  className="staff-public-link"
+                  href={
+                    (
+                      {
+                        "Send inquiry": "/client-preview/inquiry-received",
+                        "Send message": "/client-preview/message-sent",
+                        "Review resolution":
+                          "/administration-preview/resolve-complaint",
+                      } as Record<string, string>
+                    )[operation]
+                  }
+                >
+                  Preview example outcome
+                </Link>
+              )}
+            {!responsive &&
+              (references
+                ? reviewOutcome(operation)
+                : verification
+                  ? verificationOutcome(operation)
+                  : outcome(operation)) && (
+                <Link
+                  className="staff-public-link"
+                  href={path(
+                    (references
+                      ? reviewOutcome(operation)
+                      : verification
+                        ? verificationOutcome(operation)
+                        : outcome(operation))!,
+                  )}
+                >
+                  Preview example outcome
+                </Link>
+              )}
             {workflow && (
               <p>
                 Example outcomes show the supplied sample only, not the values
@@ -649,6 +892,7 @@ export function MediaHelpScreen({
               variant="secondary"
               onClick={() => {
                 setDialog(null);
+                if (responsive) return;
                 go(
                   references
                     ? "staff-review"
@@ -658,11 +902,13 @@ export function MediaHelpScreen({
                 );
               }}
             >
-              {references
-                ? "Back to staff review"
-                : verification
-                  ? "Back to checks"
-                  : "Back to media"}
+              {responsive
+                ? "Keep editing"
+                : references
+                  ? "Back to staff review"
+                  : verification
+                    ? "Back to checks"
+                    : "Back to media"}
             </Button>
           </div>
         )}

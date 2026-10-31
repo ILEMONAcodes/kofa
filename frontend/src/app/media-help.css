@@ -63,3 +63,21 @@
   > span:last-child {
   flex-shrink: 0;
 }
+
+.responsive-reference-preview .journey-header > div {
+  gap: 16px;
+}
+.responsive-reference-preview .journey-header > div > button:first-of-type,
+.responsive-reference-preview .journey-header > div > button:last-of-type {
+  width: 120px;
+  flex: none;
+}
+
+.responsive-reference-preview .search-money-input {
+  padding-left: 28px;
+}
+.responsive-reference-preview .home-field-label {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
