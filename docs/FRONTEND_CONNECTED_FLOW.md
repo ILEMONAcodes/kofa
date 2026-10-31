@@ -1,3 +1,5 @@
+> Access setup superseded by [UNIFIED_REVIEW_SIGN_IN.md](UNIFIED_REVIEW_SIGN_IN.md): server-issued roles, no public staff links or role picker, private host configuration required. Historical results below describe the earlier browser-only flow.
+
 # Connected frontend journey
 
 Task: FE-3.6 — Connected navigation and temporary local access

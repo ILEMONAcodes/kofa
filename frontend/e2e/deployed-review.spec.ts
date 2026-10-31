@@ -1,3 +1,4 @@
+import {reviewLogin} from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 test.beforeEach(async ({ page }) => {
@@ -5,54 +6,11 @@ test.beforeEach(async ({ page }) => {
     sessionStorage.setItem("kofa-launch-seen", "1"),
   );
 });
-test("a hosted-equivalent build signs in and exposes staff/admin inside the PWA", async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  const posts: string[] = [];
-  page.on("request", (r) => {
-    if (r.method() === "POST") posts.push(r.url());
-  });
-  await page.goto("/");
-  await page.getByRole("button", { name: "Help", exact: true }).click();
-  await page
-    .getByRole("dialog")
-    .getByRole("link", { name: "Staff & admin", exact: true })
-    .click();
-  await expect(page).toHaveURL(/staff\/login$/);
-  await page.getByLabel("Workspace role").selectOption("admin");
-  await page.getByLabel("Email", { exact: true }).fill("team@example.com");
-  await page.getByLabel("Password", { exact: true }).fill("test12");
-  await page.getByRole("button", { name: "Log in", exact: true }).click();
-  await expect(page).toHaveURL(/admin\/administration$/);
-  await page.goto("/admin/users");
-  await expect(
-    page.getByRole("button", { name: "Add team member", exact: true }),
-  ).toBeVisible();
-  await page.getByRole("button", { name: "Sign out", exact: true }).click();
-  await page.goto("/login");
-  await expect(
-    page.getByRole("link", { name: "Staff & admin", exact: true }),
-  ).toHaveAttribute("href", "/staff/login");
-  await page.getByLabel("Email", { exact: true }).fill("client@example.com");
-  await page.getByLabel("Password", { exact: true }).fill("test12");
-  await page.getByRole("button", { name: "Log in", exact: true }).click();
-  await expect(page).toHaveURL(/account\/overview$/);
-  await page.getByRole("button", { name: "Help", exact: true }).click();
-  await expect(
-    page
-      .getByRole("dialog")
-      .getByRole("link", { name: "Staff & admin", exact: true }),
-  ).toHaveAttribute("href", "/staff/login");
-  expect(posts).toEqual([]);
-});
 test("naira prefixes clear all budget text and stay centered after validation", async ({
   page,
 }) => {
   test.setTimeout(120000);
-  await page.addInitScript(() =>
-    sessionStorage.setItem("kofa-local-access-v1", "admin"),
-  );
+
   for (const width of [360, 390, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of [
@@ -60,6 +18,7 @@ test("naira prefixes clear all budget text and stay centered after validation", 
       "/staff/qualification",
       "/responsive-preview/inquiry",
     ]) {
+      await reviewLogin(page,route.startsWith("/staff") ? "staff" : "client");
       await page.goto(route);
       const fields = page.locator(".search-budget .input-prefix-control");
       expect(await fields.count()).toBeGreaterThan(0);

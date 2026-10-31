@@ -217,3 +217,7 @@ Branching: trunk-based with short-lived feature branches and PRs into `main`; se
 | NFR-03 | SSR public pages, slugs, metadata, sitemap (FE-7.6) |
 | NFR-05 | Section 12 |
 | NFR-07/08 | Backup policy in BE-7.5, structured logs |
+
+### Temporary deployed review authentication (2026-10-31)
+
+Before the FastAPI identity module, the authorized team-review build uses a separate Next.js Node route `/api/review-auth` and private `REVIEW_SESSION_SECRET` / `REVIEW_ACCOUNTS_JSON` host variables. This is not `/api/v1/auth`. All private pages verify signed HttpOnly session cookies on the server; registration cannot choose privileged roles. Real invitations, password management and production role persistence remain backend work. Disable review mode and rotate the review secret on migration. Configuration and limitations: `docs/UNIFIED_REVIEW_SIGN_IN.md`.

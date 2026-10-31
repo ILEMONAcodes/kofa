@@ -1,3 +1,4 @@
+import { testAccounts, reviewLogin } from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
@@ -13,9 +14,9 @@ async function signIn(
   role = "staff",
 ) {
   await page.goto(staff ? "/staff/login" : "/login");
-  if (staff) await page.getByLabel("Workspace role").selectOption(role);
-  await page.getByLabel("Email", { exact: true }).fill("example@example.com");
-  await page.getByLabel("Password", { exact: true }).fill("test12");
+  const account = staff ? testAccounts.find(a=>a.role===role)! : {email:"example@example.com",password:"test12"};
+  await page.getByLabel("Email", { exact: true }).fill(account.email);
+  await page.getByLabel("Password", { exact: true }).fill(account.password);
   await page.getByRole("button", { name: "Log in", exact: true }).click();
 }
 test("whole cards navigate from photos and preserve search context on desktop and mobile", async ({
@@ -50,7 +51,7 @@ test("whole cards navigate from photos and preserve search context on desktop an
     await expect(page).toHaveURL(/\/properties\/[^/?]+$/);
   }
 });
-test("six-character local access preserves selected property and sends no credentials", async ({
+test("six-character client review preserves selected property without browser credential storage", async ({
   page,
 }) => {
   const posts: string[] = [];
@@ -77,7 +78,7 @@ test("six-character local access preserves selected property and sends no creden
   ).toBeVisible();
   await page.reload();
   await expect(page.getByLabel("Request type", { exact: true })).toBeVisible();
-  expect(posts).toEqual([]);
+  expect(posts).toEqual(["http://127.0.0.1:3100/api/review-auth"]);
   const stored = await page.evaluate(() => ({
     ...sessionStorage,
     ...localStorage,
@@ -89,35 +90,13 @@ test("six-character local access preserves selected property and sends no creden
   await page.goto("/account/inquiries");
   await expect(page).toHaveURL(/\/login\?/);
 });
-test("staff entrance is discoverable and administrators can add local team members", async ({
-  page,
-}) => {
-  await page.goto("/");
-  await expect(
-    page.getByRole("link", { name: "Staff sign in", exact: true }).first(),
-  ).toHaveAttribute("href", "/staff/login");
-  await signIn(page, true, "admin");
-  await expect(page).toHaveURL(/\/admin\/administration$/);
-  await page.goto("/admin/users");
-  await page.getByLabel("Example team member label").fill("Property team 2");
-  await page
-    .getByRole("button", { name: "Add team member", exact: true })
-    .click();
-  await expect(
-    page.getByRole("heading", { name: "Property team 2", exact: true }),
-  ).toBeVisible();
-  await page.reload();
-  await expect(
-    page.getByRole("heading", { name: "Property team 2", exact: true }),
-  ).toBeVisible();
-  await page
-    .getByRole("button", { name: "Deactivate Property team 2", exact: true })
-    .click();
-  await expect(
-    page.getByRole("button", { name: "Activate Property team 2", exact: true }),
-  ).toBeVisible();
-  await page.getByRole("link", { name: "Open staff operations" }).click();
-  await expect(page).toHaveURL(/\/staff\/overview$/);
+test("public navigation has no staff entrance and admin sees configured team accounts", async ({page})=>{
+ await page.goto("/");
+ await expect(page.getByRole("link",{name:"Staff sign in",exact:true})).toHaveCount(0);
+ await signIn(page,true,"admin"); await expect(page).toHaveURL(/admin\/administration$/);
+ await page.goto("/admin/users"); await expect(page.getByRole("heading",{name:"staff@kofa.test",exact:true})).toBeVisible();
+ await expect(page.getByRole("button",{name:"Add team member"})).toHaveCount(0);
+ await page.getByRole("link",{name:"Open staff operations"}).click(); await expect(page).toHaveURL(/staff\/overview$/);
 });
 test("staff cannot open administrator tools and clients cannot open the workspace", async ({
   page,
@@ -126,14 +105,14 @@ test("staff cannot open administrator tools and clients cannot open the workspac
   await expect(page).toHaveURL(/\/staff\/overview$/);
   await page.goto("/admin/users");
   await expect(
-    page.getByRole("heading", { name: "This area needs a different role." }),
+    page.getByRole("heading", { name: "This doorway leads elsewhere." }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Sign out", exact: true }).click();
   await signIn(page);
   await expect(page).toHaveURL(/\/account\/overview$/);
   await page.goto("/staff/overview");
   await expect(
-    page.getByRole("heading", { name: "This area needs a different role." }),
+    page.getByRole("heading", { name: "This doorway leads elsewhere." }),
   ).toBeVisible();
 });
 test("account, staff login and team management fit supported widths and have accessible controls", async ({
@@ -144,6 +123,7 @@ test("account, staff login and team management fit supported widths and have acc
   for (const width of [360, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     for (const route of ["/account/overview", "/staff/login", "/admin/users"]) {
+      await reviewLogin(page, route.startsWith("/account") ? "client" : "admin");
       await page.goto(route);
       await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
       expect(
@@ -222,6 +202,6 @@ test("a signed-out saved inquiry link preserves its property through login", asy
   await page.goto("/staff-preview/overview");
   await expect(page).toHaveURL(/\/staff\/overview$/);
   await expect(
-    page.getByRole("heading", { name: "This area needs a different role." }),
+    page.getByRole("heading", { name: "This doorway leads elsewhere." }),
   ).toBeVisible();
 });

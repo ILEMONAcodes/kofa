@@ -1,3 +1,4 @@
+import { reviewLogin } from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync } from "node:fs";
@@ -25,7 +26,7 @@ test("all eight verification source screens retain content, assets and geometry"
   test.setTimeout(90000);
   await page.setViewportSize({ width: 390, height: 844 });
   for (const s of screens) {
-    await page.goto(`/verification/${s.slug}`);
+    await roleNavigate(page, `/verification/${s.slug}`);
     await expect(page.locator(".mobile-launch")).toBeHidden();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       s.blocks[1].text!,
@@ -75,7 +76,7 @@ test("checks support Other validation and explicit fictional outcomes without mu
   page.on("request", (r) => {
     if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) mutations++;
   });
-  await page.goto("/verification/checks");
+  await roleNavigate(page, "/verification/checks");
   await page.getByLabel("Identity", { exact: true }).selectOption("Other");
   await page
     .getByRole("button", { name: "Save verification", exact: true })
@@ -95,7 +96,7 @@ test("checks support Other validation and explicit fictional outcomes without mu
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
   ).toHaveAttribute("href", "/resources/help");
-  await page.goto("/verification/checks-saved");
+  await roleNavigate(page, "/verification/checks-saved");
   await expect(page).toHaveURL(/checks-saved$/);
   await page
     .getByRole("button", { name: "Complete verification", exact: true })
@@ -108,7 +109,7 @@ test("checks support Other validation and explicit fictional outcomes without mu
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
   ).toHaveAttribute("href", "/resources/help");
-  await page.goto("/verification/owner-approval");
+  await roleNavigate(page, "/verification/owner-approval");
   await expect(page).toHaveURL(/owner-approval$/);
   expect(mutations).toBe(0);
 });
@@ -119,7 +120,7 @@ test("owner approval validates notes/date and publication remains disconnected",
   page.on("request", (r) => {
     if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) mutations++;
   });
-  await page.goto("/verification/owner-approval");
+  await roleNavigate(page, "/verification/owner-approval");
   await expect(page.getByLabel("Approved at (WAT)")).toHaveValue(
     "2026-10-26T09:30",
   );
@@ -143,7 +144,7 @@ test("owner approval validates notes/date and publication remains disconnected",
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
   ).toHaveAttribute("href", "/resources/help");
-  await page.goto("/verification/publication-ready");
+  await roleNavigate(page, "/verification/publication-ready");
   await expect(page).toHaveURL(/publication-ready$/);
   await page.getByRole("button", { name: "Review publication" }).click();
   await page
@@ -155,7 +156,7 @@ test("owner approval validates notes/date and publication remains disconnected",
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
   ).toHaveAttribute("href", "/resources/help");
-  await page.goto("/verification/published");
+  await roleNavigate(page, "/verification/published");
   await expect(page).toHaveURL(/published$/);
   expect(mutations).toBe(0);
   await page.getByRole("button", { name: "View public listing" }).click();
@@ -164,11 +165,11 @@ test("owner approval validates notes/date and publication remains disconnected",
 test("client fees, timelines and entry links are connected", async ({
   page,
 }) => {
-  await page.goto("/staff/property");
+  await roleNavigate(page, "/staff/property");
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
   await page.getByRole("link", { name: "Verification & publication" }).click();
   await expect(page).toHaveURL(/verification\/checks$/);
-  await page.goto("/account/transaction-detail");
+  await roleNavigate(page, "/account/transaction-detail");
   await page
     .getByRole("link", { name: "Agreement and completion timeline" })
     .click();
@@ -183,7 +184,7 @@ test("client fees, timelines and entry links are connected", async ({
   ).toBeVisible();
   await page.getByRole("button", { name: "Fee guidance" }).click();
   await expect(page).toHaveURL(/resources\/fees$/);
-  await page.goto("/verification/completed");
+  await roleNavigate(page, "/verification/completed");
   await expect(
     page.getByText("20 Oct 2026 · History retained.", { exact: true }),
   ).toBeVisible();
@@ -199,7 +200,7 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
   for (const width of [360, 768, 1280])
     for (const slug of ["checks", "agreement", "completed"]) {
       await page.setViewportSize({ width, height: 844 });
-      await page.goto(`/verification/${slug}`);
+      await roleNavigate(page, `/verification/${slug}`);
       expect(
         await page
           .locator(".journey-body")
@@ -213,7 +214,7 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
     "agreement",
     "completed",
   ]) {
-    await page.goto(`/verification/${slug}`);
+    await roleNavigate(page, `/verification/${slug}`);
     const violations = (
       await new AxeBuilder({ page }).analyze()
     ).violations.filter((v) =>
@@ -221,7 +222,7 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
     );
     expect(violations).toEqual([]);
   }
-  await page.goto("/verification/checks");
+  await roleNavigate(page, "/verification/checks");
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
   await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(0);
   await expect(
@@ -239,7 +240,7 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
       .getByRole("navigation", { name: "Mobile navigation" })
       .getByRole("link", { name: "Overview" }),
   ).toHaveAttribute("href", "/staff/overview");
-  await page.goto("/verification/agreement");
+  await roleNavigate(page, "/verification/agreement");
   await expect(
     page.getByRole("button", { name: "Help", exact: true }),
   ).toBeVisible();
@@ -253,14 +254,20 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
 test("client verification summary Help opens the shared help centre", async ({
   page,
 }) => {
-  await page.goto("/verification/agreement");
+  await roleNavigate(page, "/verification/agreement");
   await page.getByRole("button", { name: "Help", exact: true }).click();
   await expect(page).toHaveURL(/resources\/help$/);
 });
 
 test.beforeEach(async ({ page }) => {
+  await reviewLogin(page,"admin");
   await page.addInitScript(() => {
-    sessionStorage.setItem("kofa-local-access-v1", "admin");
     sessionStorage.setItem("kofa-launch-seen", "1");
   });
 });
+
+async function roleNavigate(page: import("@playwright/test").Page, path:string) {
+ const client=/^\/(account|review\/feedback|verification\/(agreement|completed)|responsive-preview\/(inquiry|inquiries|conversation))($|[/?])/.test(path);
+ await reviewLogin(page,client ? "client" : "admin");
+ await page.goto(path);
+}

@@ -63,7 +63,7 @@ test("all nine source screens have correct geometry, assets and accessibility", 
     await page.screenshot({ path: `test-results/auth-${screen}-390.png` });
   }
 });
-test("registration validates confirmation without sending credentials", async ({
+test("registration validates confirmation and only calls the same-origin review endpoint", async ({
   page,
 }) => {
   const posts: string[] = [];
@@ -87,7 +87,7 @@ test("registration validates confirmation without sending credentials", async ({
     .getByRole("button", { name: "Create account", exact: true })
     .click();
   await expect(page).toHaveURL(/account\/overview/);
-  expect(posts).toEqual([]);
+  expect(posts).toEqual(["http://127.0.0.1:3100/api/review-auth"]);
 });
 test("login and recovery preserve safe return paths and account stays signed out", async ({
   page,

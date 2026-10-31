@@ -11,6 +11,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { BrandLoading } from "@/components/common/brand-loading";
 import { Button, buttonStyles } from "@/components/common/button";
 
+import { reviewAccessRequest } from "@/lib/api/review-access";
+import { reviewHome } from "@/lib/review-routing";
 import { isReviewAccessEnabled } from "@/lib/review-access";
 
 export type LocalRole = "client" | "staff" | "admin";
@@ -35,14 +37,14 @@ const Access = createContext<{
   role: LocalRole | null;
   ready: boolean;
   leaving: boolean;
-  enter: (role: LocalRole) => void;
-  leave: () => void;
+  enter: (email:string,password:string,intent:"login"|"register") => Promise<LocalRole>;
+  leave: () => Promise<void>;
 }>({
   role: null,
   ready: false,
   leaving: false,
-  enter: () => {},
-  leave: () => {},
+  enter: async () => {throw new Error("Access provider required.");},
+  leave: async () => {},
 });
 export function LocalAccessProvider({ children }: { children: ReactNode }) {
   const [role, setRole] = useState<LocalRole | null>(null);
@@ -54,37 +56,20 @@ export function LocalAccessProvider({ children }: { children: ReactNode }) {
     return () => cancelAnimationFrame(frame);
   }, [pathname]);
   useEffect(() => {
-    let value: string | null = null;
-    try {
-      value = sessionStorage.getItem(KEY);
-    } catch {
-      /* Memory-only fallback. */
-    }
-    const frame = requestAnimationFrame(() => {
-      if (localAccessEnabled && validLocalRole(value)) setRole(value);
-      setReady(true);
-    });
-    return () => cancelAnimationFrame(frame);
+    let live=true;
+    // Retire the editable browser role marker. Only the server cookie assigns a role.
+    try { sessionStorage.removeItem(KEY); sessionStorage.removeItem("kofa-local-staff-v1"); } catch {}
+    reviewAccessRequest("GET").then(next=>{if(live)setRole(next);}).catch(()=>{}).finally(()=>{if(live)setReady(true);});
+    return ()=>{live=false;};
   }, []);
-  function enter(next: LocalRole) {
-    if (!localAccessEnabled) return;
-    setLeaving(false);
-    setRole(next);
-    try {
-      sessionStorage.setItem(KEY, next);
-    } catch {
-      /* Memory-only access. */
-    }
+  async function enter(email:string,password:string,intent:"login"|"register") {
+    const next=await reviewAccessRequest("POST",{email,password,intent});
+    if(!next) throw new Error("Unable to sign in.");
+    setLeaving(false);setRole(next);return next;
   }
-  function leave() {
-    setLeaving(true);
-    setRole(null);
-    try {
-      sessionStorage.removeItem(KEY);
-      sessionStorage.removeItem("kofa-local-staff-v1");
-    } catch {
-      /* No storage. */
-    }
+  async function leave() {
+    await reviewAccessRequest("DELETE");
+    setLeaving(true);setRole(null);
   }
   return (
     <Access.Provider value={{ role, ready, leaving, enter, leave }}>
@@ -106,7 +91,7 @@ export function LocalGate({
   useEffect(() => {
     if (ready && localAccessEnabled && !role && !leaving)
       router.replace(
-        `${area === "client" ? "/login" : "/staff/login"}?returnTo=${encodeURIComponent(pathname + window.location.search)}`,
+        `/login?returnTo=${encodeURIComponent(pathname + window.location.search)}`,
       );
   }, [ready, role, router, pathname, area, leaving]);
   if (!ready)
@@ -135,8 +120,8 @@ export function LocalGate({
     return (
       <main id="main-content" className="page-container">
         <h1 className="text-2xl">This area needs a different role.</h1>
-        <Link href="/account" className={buttonStyles("primary", "mt-5")}>
-          Back to my account
+        <Link href={role ? reviewHome(role) : "/login"} className={buttonStyles("primary", "mt-5")}>
+          Back to my workspace
         </Link>
       </main>
     );
@@ -144,7 +129,8 @@ export function LocalGate({
 }
 export function AccessStatus() {
   const { role, leave } = useLocalAccess();
-  const router = useRouter();
+  const [busy,setBusy]=useState(false);
+  const [notice,setNotice]=useState("");
   if (!role || !localAccessEnabled) return null;
   return (
     <aside className="local-access-bar" aria-label="Review access">
@@ -156,12 +142,14 @@ export function AccessStatus() {
             ? "Staff"
             : "Your account"}
       </span>
-      <span>Sample records · no live changes</span>
+      <span role={notice ? "alert" : undefined}>{notice || "Sample records · no live changes"}</span>
       <Button
         variant="subtle"
-        onClick={() => {
-          leave();
-          router.push("/");
+        loading={busy}
+        onClick={async () => {
+          setBusy(true);
+          try {await leave();window.location.replace("/");}
+          catch {setNotice("Unable to sign out. Try again.");setBusy(false);}
         }}
       >
         Sign out

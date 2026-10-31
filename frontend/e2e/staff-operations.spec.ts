@@ -1,3 +1,4 @@
+import { reviewLogin } from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync, existsSync } from "node:fs";
@@ -240,8 +241,8 @@ test("source header and exported location chevrons retain their geometry", async
 });
 
 test.beforeEach(async ({ page }) => {
+  await reviewLogin(page,"admin");
   await page.addInitScript(() => {
-    sessionStorage.setItem("kofa-local-access-v1", "admin");
     sessionStorage.setItem("kofa-launch-seen", "1");
   });
 });

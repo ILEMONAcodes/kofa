@@ -1,18 +1,17 @@
 "use client";
-import { WorkspaceEntry } from "@/components/access/workspace-entry";
 /* eslint-disable @next/next/no-img-element -- Exact exported SVG assets at intrinsic size. */
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
 import {
   localAccessEnabled,
   useLocalAccess,
-  type LocalRole,
 } from "@/components/access/local-access";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { Button, buttonStyles } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { Modal } from "@/components/common/modal";
+import { reviewDestination } from "@/lib/review-routing";
 import { authScreens, safeReturnPath, type AuthScreen } from "./screens";
 
 export function AuthScreenView({
@@ -28,7 +27,8 @@ export function AuthScreenView({
   const params = useSearchParams();
   const router = useRouter();
   const access = useLocalAccess();
-  const [localRole, setLocalRole] = useState<LocalRole>("staff");
+  const [error,setError]=useState("");
+  const [busy,setBusy]=useState(false);
   const returnTo = safeReturnPath(params.get("returnTo"));
   const [notice, setNotice] = useState(false);
   const [policies, setPolicies] = useState(false);
@@ -47,7 +47,7 @@ export function AuthScreenView({
       {text}
     </Link>
   );
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     const form = event.currentTarget;
     const password = form.elements.namedItem(
@@ -61,19 +61,15 @@ export function AuthScreenView({
     );
     if (!form.reportValidity()) return;
     if (local && (screen === "login" || screen === "register")) {
-      const role = staff ? localRole : "client";
-      access.enter(role);
-      form.reset();
-      const requested = params.get("returnTo");
-      router.push(
-        requested
-          ? safeReturnPath(requested)
-          : staff
-            ? role === "admin"
-              ? "/admin/administration"
-              : "/staff/overview"
-            : "/account/overview",
-      );
+      setError("");setBusy(true);
+      const email=(form.elements.namedItem("email") as HTMLInputElement).value;
+      try {
+        const role=await access.enter(email,password!.value,screen as "login"|"register");
+        form.reset();
+        router.replace(reviewDestination(role,params.get("returnTo")));
+        router.refresh();
+      } catch(issue) {setError(issue instanceof Error ? issue.message : "Unable to sign in. Please try again.");}
+      finally {setBusy(false);}
       return;
     }
     // No backend authentication or credential persistence.
@@ -167,33 +163,17 @@ export function AuthScreenView({
           className="auth-form"
           onSubmit={submit}
         >
-          <h1>{staff ? "Your workspace starts here." : data.title}</h1>
+          <h1>{data.title}</h1>
+          {error && <p role="alert" className="text-danger">{error}</p>}
           {local && (
             <div className="auth-callout">
               <p>Team review access</p>
               <p>
-                Use an example email and any password of at least 6 characters.
-                Credentials are not saved or sent. Sample records only.
+                Client review uses an example email and a password of at least 6 characters. Team members sign in with their privately supplied review credentials. Sample records only.
               </p>
             </div>
           )}
-          {staff && local && (
-            <label className="block">
-              Workspace role
-              <select
-                className="field-control mt-2"
-                value={localRole}
-                onChange={(e) => setLocalRole(e.target.value as LocalRole)}
-              >
-                <option value="staff">Staff</option>
-                <option value="admin">Administrator · manages staff</option>
-              </select>
-            </label>
-          )}
           <p className="auth-description">{data.description}</p>
-          {!staff && !preview && ["login", "register"].includes(screen) && (
-            <WorkspaceEntry />
-          )}
           {screen === "register" &&
             field("full_name", "Full name", "Your full name", "text", "name")}
           {["login", "register", "forgot-password"].includes(screen) &&
@@ -351,7 +331,7 @@ export function AuthScreenView({
       {!account && (
         <div className="auth-actions">
           {formScreen ? (
-            <Button type="submit" form={`auth-${screen}`}>
+            <Button type="submit" loading={busy} form={`auth-${screen}`}>
               {data.action}
             </Button>
           ) : screen === "verify-email" ? (

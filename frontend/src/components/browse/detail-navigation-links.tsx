@@ -1,4 +1,5 @@
 "use client";
+import { reviewHome } from "@/lib/review-routing";
 import Link from "next/link";
 import { useLocalAccess } from "@/components/access/local-access";
 import { useSearchParams } from "next/navigation";
@@ -33,14 +34,16 @@ export function DetailInterestLink({ slug }: { slug: string }) {
   return (
     <HomeLink
       href={
-        role
+        role && role !== "client"
+          ? reviewHome(role)
+          : role
           ? `/account/inquiry?${new URLSearchParams({ property: slug, returnTo: current })}`
           : `/login?${new URLSearchParams({ returnTo: `/account/inquiry?${new URLSearchParams({ property: slug, returnTo: current })}` })}`
       }
       variant="primary"
       className="w-full"
     >
-      Express interest
+      {role && role !== "client" ? "Open my workspace" : "Express interest"}
     </HomeLink>
   );
 }

@@ -1,3 +1,4 @@
+import { reviewLogin } from "./review-helpers";
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 const forbidden =
@@ -66,7 +67,7 @@ test("primary browse and record actions use brown with light text while secondar
     });
   }
 });
-test("temporary registration does not send or persist credentials", async ({
+test("temporary registration only sends credentials to the same-origin review service and does not persist them", async ({
   page,
 }) => {
   const posts: string[] = [];
@@ -81,7 +82,7 @@ test("temporary registration does not send or persist credentials", async ({
     .getByRole("button", { name: "Create account", exact: true })
     .click();
   await expect(page).toHaveURL(/account\/overview/);
-  expect(posts).toEqual([]);
+  expect(posts).toEqual(["http://127.0.0.1:3100/api/review-auth"]);
   expect(
     await page.evaluate(() =>
       JSON.stringify({ ...sessionStorage, ...localStorage }),
@@ -90,8 +91,5 @@ test("temporary registration does not send or persist credentials", async ({
 });
 
 test.beforeEach(async ({ page }, testInfo) => {
-  if (!testInfo.title.includes("registration"))
-    await page.addInitScript(() =>
-      sessionStorage.setItem("kofa-local-access-v1", "admin"),
-    );
+  if (!testInfo.title.includes("registration")) await reviewLogin(page,"client");
 });

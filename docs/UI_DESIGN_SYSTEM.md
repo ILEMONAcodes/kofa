@@ -277,3 +277,7 @@ Product routes are `/account/*`, `/staff/*`, `/admin/*` and `/resources/*`; prod
 Keep Staff & admin reachable from the PWA's Help dialog and the client login/register form; use the role's workspace directly when already signed in. Show Team review for the temporary frontend session. Missing access configuration now enables the backend-free review build on hosted URLs; explicit false disables it before real authentication/data integration.
 
 Use Input's shared `prefix` adornment for SearchBudget instead of a symbol positioned against label height. Prefixes align vertically to the actual control, with 40px start padding and a 16px inset; validation/hint text lives outside that control wrapper. This applies across client inquiry, staff, responsive references, desktop search and mobile filters. Original tokens, borders and fonts remain.
+
+### Unified review sign-in (2026-10-31)
+
+Public navigation has one sign-in entry and no staff/admin link or role selector. The server assigns account roles and `/account` opens the assigned workspace. Admin team review lists privately configured accounts; real invitations follow backend integration. See `docs/UNIFIED_REVIEW_SIGN_IN.md` for host setup. Original brown/cream theme remains unchanged.

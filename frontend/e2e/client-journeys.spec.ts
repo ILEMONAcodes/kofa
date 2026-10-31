@@ -1,3 +1,4 @@
+import { reviewLogin } from "./review-helpers";
 import AxeBuilder from "@axe-core/playwright";
 import { test, expect } from "@playwright/test";
 import { readFileSync } from "node:fs";
@@ -96,8 +97,8 @@ test("records open the matching client detail screen", async ({ page }) => {
 });
 
 test.beforeEach(async ({ page }) => {
+  await reviewLogin(page,"client");
   await page.addInitScript(() => {
-    sessionStorage.setItem("kofa-local-access-v1", "admin");
     sessionStorage.setItem("kofa-launch-seen", "1");
   });
 });
