@@ -36,7 +36,10 @@ export function HomeTrust() {
             legal title.
           </p>
         </aside>
-        <HomeLink href="/verification" className="home-verification-cta">
+        <HomeLink
+          href="/resources/verification"
+          className="home-verification-cta"
+        >
           Understand verification ↗
         </HomeLink>
       </div>

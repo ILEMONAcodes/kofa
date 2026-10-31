@@ -1,3 +1,7 @@
+import {
+  LocalAccessProvider,
+  AccessStatus,
+} from "@/components/access/local-access";
 import { MobileAppChrome } from "@/components/mobile/app-shell";
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
@@ -67,8 +71,11 @@ export default function RootLayout({
             </p>
           </main>
         </noscript>
-        <div id="app-content">{children}</div>
-        <MobileAppChrome />
+        <LocalAccessProvider>
+          <AccessStatus />
+          <div id="app-content">{children}</div>
+          <MobileAppChrome />
+        </LocalAccessProvider>
       </body>
     </html>
   );

@@ -1,3 +1,4 @@
+import { BrandLoading } from "@/components/common/brand-loading";
 import { Suspense } from "react";
 import { notFound } from "next/navigation";
 import { AuthScreenView } from "@/components/features/auth/auth-screen";
@@ -21,7 +22,7 @@ export default async function Page({
   const { screen } = await params;
   if (!Object.hasOwn(authScreens, screen)) notFound();
   return (
-    <Suspense fallback={<p className="p-5">Loading…</p>}>
+    <Suspense fallback={<BrandLoading />}>
       <AuthScreenView screen={screen as AuthScreen} preview />
     </Suspense>
   );

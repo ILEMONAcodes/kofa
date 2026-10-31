@@ -11,7 +11,7 @@ export type MediaBlock = Omit<StaffBlock, "children"> & {
 export const mediaScreens = source as (Omit<StaffScreen, "blocks"> & {
   blocks: MediaBlock[];
 })[];
-export const mediaPath = (slug: string) => `/media-help-preview/${slug}`;
+export const mediaPath = (slug: string) => `/resources/${slug}`;
 export const policySlugs = [
   "terms",
   "privacy",
@@ -83,7 +83,7 @@ export function destination(
     "See retry state": "upload-failed",
     "Unsupported-file example": "unsupported-file",
     "Skip video": "media",
-    "Express interest": "/client-preview/inquiry",
+    "Express interest": "/account/inquiry",
     Photos: "gallery",
     "Next photo": "gallery-photo",
     "Previous photo": "gallery",
@@ -94,7 +94,7 @@ export function destination(
     "Back to features": "/landlord?step=features&preview=1",
     "How reporting works": "reporting",
     "Continue report": "report",
-    "Continue complaint": "/client-preview/complaint-form",
+    "Continue complaint": "/account/complaint-form",
     "How do property checks work?": "assistant-answer",
     "Speak to a person": "handoff",
     "Contact a person": "handoff",
@@ -103,10 +103,10 @@ export function destination(
     "Help centre": "help",
     "Ask the assistant": "assistant",
     "Source: How property checks work": "verification",
-    "Message the team": "/client-preview/general-inquiry",
-    "Message our team": "/client-preview/general-inquiry",
-    "Speak to our team": "/client-preview/general-inquiry",
-    "Speak to the team": "/client-preview/general-inquiry",
+    "Message the team": "/account/general-inquiry",
+    "Message our team": "/account/general-inquiry",
+    "Speak to our team": "/account/general-inquiry",
+    "Speak to the team": "/account/general-inquiry",
     "Back to browsing": "/properties",
     "Back to homes": "/",
     "Browse homes": "/properties",
@@ -122,8 +122,8 @@ export function destination(
     "Log in": "/login",
     "Back to login": "/login",
     "Return to listing form": "/landlord?step=property",
-    "Reload property record": "/staff-preview/property",
-    "Workspace overview": "/staff-preview/overview",
+    "Reload property record": "/staff/property",
+    "Workspace overview": "/staff/overview",
   };
   return links[label] ?? null;
 }

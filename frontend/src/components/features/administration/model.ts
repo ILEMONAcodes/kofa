@@ -6,8 +6,7 @@ import type {
 import { parseMoneyInput } from "@/lib/formatters/money";
 
 export const administrationScreens: StaffScreen[] = source;
-export const administrationPath = (slug: string) =>
-  `/administration-preview/${slug}`;
+export const administrationPath = (slug: string) => `/admin/${slug}`;
 export const administrationLists = [
   "transactions",
   "complaints",
@@ -83,12 +82,12 @@ const links: Record<string, string> = {
   "Support settings": "support-settings",
   "Edit settings": "support-settings",
   "Review settings change": "review-support-settings",
-  Overview: "/staff-preview/overview",
-  Properties: "/staff-preview/properties",
-  Inquiries: "/staff-preview/inquiries",
-  Inspections: "/staff-preview/inspections",
-  Landlords: "/staff-preview/landlords",
-  Clients: "/staff-preview/clients",
+  Overview: "/staff/overview",
+  Properties: "/staff/properties",
+  Inquiries: "/staff/inquiries",
+  Inspections: "/staff/inspections",
+  Landlords: "/staff/landlords",
+  Clients: "/staff/clients",
 };
 const parents: Record<string, string> = {
   "create-transaction": "transactions",

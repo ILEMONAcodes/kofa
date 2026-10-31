@@ -24,8 +24,14 @@ for (let start = 0; start < screens.length; start += 10) {
     test.setTimeout(90000);
     await page.setViewportSize({ width: 390, height: 844 });
     for (const s of screens.slice(start, start + 10)) {
-      await page.goto(`/media-help-preview/${s.slug}`);
+      await page.goto(`/resources/${s.slug}`);
       await expect(page.locator(".mobile-launch")).toBeHidden();
+      if (s.slug === "loading") {
+        await expect(
+          page.getByRole("status", { name: "Loading Kof’a", exact: true }),
+        ).toBeVisible();
+        continue;
+      }
       await expect(page.getByRole("heading", { level: 1 })).toHaveText(
         s.blocks[1].text!,
       );
@@ -84,7 +90,7 @@ test("report Other validation and separate fictional result send no mutations", 
   page.on("request", (r) => {
     if (["POST", "PATCH", "DELETE", "PUT"].includes(r.method())) mutations++;
   });
-  await page.goto("/media-help-preview/report");
+  await page.goto("/resources/report");
   await page.getByLabel("Reason", { exact: true }).selectOption("Other");
   await expect(page.getByLabel("Specify reason")).toBeVisible();
   await page
@@ -107,32 +113,38 @@ test("report Other validation and separate fictional result send no mutations", 
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/media-help-preview/report-received");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/resources/report-received");
   await expect(page).toHaveURL(/report-received$/);
   expect(mutations).toBe(0);
 });
-test("gallery, help policies and numbered directory are connected", async ({
+test("gallery, help policies and useful product links are connected", async ({
   page,
 }) => {
-  await page.goto("/media-help-preview/gallery");
+  await page.goto("/resources/gallery");
   await page.getByRole("button", { name: "Next photo", exact: true }).click();
   await expect(page).toHaveURL(/gallery-photo$/);
   await page
     .getByRole("button", { name: "Previous photo", exact: true })
     .click();
   await expect(page).toHaveURL(/gallery$/);
-  await page.goto("/media-help-preview/help");
+  await page.goto("/resources/help");
   await page.getByRole("button", { name: "View details →" }).nth(4).click();
   await expect(page).toHaveURL(/privacy$/);
   await expect(page.getByRole("note")).toContainText("Draft");
   await page.getByRole("button", { name: "Help and resources" }).click();
-  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(39);
+  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(0);
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("navigation", { name: "Useful links" })
+      .getByRole("link"),
+  ).toHaveCount(5);
 });
 test("local file constraints, removal and session persistence", async ({
   page,
 }) => {
-  await page.goto("/media-help-preview/media");
+  await page.goto("/resources/media");
   await page
     .getByRole("button", { name: "Choose property photos", exact: true })
     .click();
@@ -181,7 +193,7 @@ test("responsive geometry, disabled support call and accessibility", async ({
   test.setTimeout(90000);
   for (const width of [360, 768, 1280]) {
     await page.setViewportSize({ width, height: 844 });
-    await page.goto("/media-help-preview/media");
+    await page.goto("/resources/media");
     expect(
       await page
         .locator(".journey-body")
@@ -195,19 +207,19 @@ test("responsive geometry, disabled support call and accessibility", async ({
     "accessibility",
     "media",
   ]) {
-    await page.goto(`/media-help-preview/${slug}`);
+    await page.goto(`/resources/${slug}`);
     await expect(page.locator(".mobile-launch")).toBeHidden();
     const issues = (await new AxeBuilder({ page }).analyze()).violations.filter(
       (v) => ["serious", "critical"].includes(v.impact ?? ""),
     );
     expect(issues).toEqual([]);
   }
-  await page.goto("/media-help-preview/assistant");
+  await page.goto("/resources/assistant");
   await expect(
     page.getByRole("button", { name: "Phone support unavailable" }),
   ).toBeDisabled();
   expect(await page.locator('a[href^="tel:"]').count()).toBe(0);
-  await page.goto("/media-help-preview/accessibility");
+  await page.goto("/resources/accessibility");
   await expect(page.getByLabel("Email · Disabled example")).toBeDisabled();
   await expect(page.getByLabel("Email · Error example")).toHaveAttribute(
     "aria-invalid",
@@ -219,7 +231,7 @@ test("source-specific workspace navigation and persistent listing actions", asyn
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/media-help-preview/conflict");
+  await page.goto("/resources/conflict");
   await expect(
     page.getByRole("button", { name: "Help", exact: true }),
   ).toHaveCount(0);
@@ -227,7 +239,7 @@ test("source-specific workspace navigation and persistent listing actions", asyn
     page
       .getByRole("navigation", { name: "Mobile navigation" })
       .getByRole("link", { name: "Overview" }),
-  ).toHaveAttribute("href", "/staff-preview/overview");
+  ).toHaveAttribute("href", "/staff/overview");
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
   await expect(page.getByRole("dialog")).toBeVisible();
   await page.keyboard.press("Escape");
@@ -235,7 +247,7 @@ test("source-specific workspace navigation and persistent listing actions", asyn
   await expect(
     page.getByRole("button", { name: "Menu", exact: true }).first(),
   ).toBeFocused();
-  await page.goto("/media-help-preview/media");
+  await page.goto("/resources/media");
   const actions = page.locator(".media-listing-actions");
   expect((await actions.boundingBox())!.height).toBe(154);
   await expect(actions).toHaveCSS("background-color", "rgb(255, 255, 255)");
@@ -246,7 +258,7 @@ test("source-specific workspace navigation and persistent listing actions", asyn
 test("private report evidence enforces its separate three-file cap", async ({
   page,
 }) => {
-  await page.goto("/media-help-preview/report");
+  await page.goto("/resources/report");
   await page.getByRole("button", { name: "Add evidence", exact: true }).click();
   const modal = page.getByRole("dialog", { name: "Private report evidence" });
   await expect(modal).toBeVisible();
@@ -266,17 +278,16 @@ test("private report evidence enforces its separate three-file cap", async ({
   await expect(modal.getByText(/Private · Selected locally/)).toHaveCount(3);
   await modal.getByRole("button", { name: "Remove evidence 1" }).click();
   await expect(modal.getByText(/Private · Selected locally/)).toHaveCount(2);
-  await modal
-    .getByRole("link", { name: "Preview evidence attached state" })
-    .click();
-  await expect(page).toHaveURL(/report-evidence$/);
+  await expect(modal.getByRole("link", { name: /Preview.*state/ })).toHaveCount(
+    0,
+  );
 });
 
 test("empty-state edit filters opens the existing mobile filter sheet", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/media-help-preview/empty");
+  await page.goto("/resources/empty");
   await page.getByRole("button", { name: "Edit filters", exact: true }).click();
   await expect(
     page.getByRole("dialog", { name: "Make it your search" }),

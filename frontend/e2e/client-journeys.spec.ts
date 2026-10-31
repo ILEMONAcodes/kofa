@@ -8,7 +8,7 @@ test("all client designs fit mobile width", async ({ page }) => {
   test.setTimeout(90_000);
   await page.setViewportSize({ width: 390, height: 844 });
   for (const screen of screens) {
-    await page.goto(`/client-preview/${screen.slug}`);
+    await page.goto(`/account/${screen.slug}`);
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       screen.blocks[1].text!,
     );
@@ -25,7 +25,7 @@ test("all client designs fit mobile width", async ({ page }) => {
 });
 test("inquiry dropdown and explicit preview outcome", async ({ page }) => {
   await page.setViewportSize({ width: 360, height: 740 });
-  await page.goto("/client-preview/inquiry");
+  await page.goto("/account/inquiry");
   await page.getByLabel("Request type", { exact: true }).selectOption("Other");
   await page.getByLabel("Specify request type").fill("Discuss viewing");
   await page
@@ -37,8 +37,8 @@ test("inquiry dropdown and explicit preview outcome", async ({ page }) => {
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/client-preview/inquiry-received");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/account/inquiry-received");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Your inquiry is with us.",
   );
@@ -48,7 +48,7 @@ test("client forms have no serious accessibility violations", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto("/client-preview/complaint-form");
+  await page.goto("/account/complaint-form");
   await page.waitForTimeout(1200);
   const results = await new AxeBuilder({ page })
     .include(".journey-screen")
@@ -63,7 +63,7 @@ test("client forms have no serious accessibility violations", async ({
 test("evidence limits reject extra files without uploading", async ({
   page,
 }) => {
-  await page.goto("/client-preview/complaint-form");
+  await page.goto("/account/complaint-form");
   await page.locator("input[type=file]").setInputFiles(
     Array.from({ length: 4 }, (_, i) => ({
       name: `evidence-${i}.pdf`,
@@ -86,11 +86,18 @@ test("records open the matching client detail screen", async ({ page }) => {
     ["complaints", "complaint-detail"],
     ["notifications", "notification-detail"],
   ]) {
-    await page.goto(`/client-preview/${list}`);
+    await page.goto(`/account/${list}`);
     await page
       .getByRole("button", { name: "Open record →", exact: true })
       .first()
       .click();
-    await expect(page).toHaveURL(new RegExp(`/client-preview/${detail}$`));
+    await expect(page).toHaveURL(new RegExp(`/account/${detail}$`));
   }
+});
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem("kofa-local-access-v1", "admin");
+    sessionStorage.setItem("kofa-launch-seen", "1");
+  });
 });

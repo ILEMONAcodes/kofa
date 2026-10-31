@@ -41,7 +41,7 @@ export function MobileHeader({ back }: { back?: string }) {
           Find answers about properties, inspections and your next steps.
         </p>
         <Link
-          href="/media-help-preview/help"
+          href="/resources/help"
           onClick={() => setHelp(false)}
           className="mt-4 inline-flex min-h-12 items-center text-primary underline"
         >
@@ -71,10 +71,10 @@ export function MobileAppChrome() {
     const reduced = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const fade = window.setTimeout(() => setLeaving(true), reduced ? 80 : 900);
+    const fade = window.setTimeout(() => setLeaving(true), 3000);
     const done = window.setTimeout(
       () => setVisible(false),
-      reduced ? 100 : 1250,
+      reduced ? 3000 : 3350,
     );
     return () => {
       cancelAnimationFrame(frame);
@@ -102,7 +102,7 @@ export function MobileAppChrome() {
         : "mobile-search",
     },
     {
-      href: "/login?returnTo=%2Finquiries",
+      href: "/account/inquiries",
       label: "Inquiries",
       icon: "mobile-inquiries",
     },

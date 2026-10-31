@@ -1,13 +1,8 @@
-import { notFound } from "next/navigation";
-import { StaffScreen } from "@/components/features/staff-operations/staff-screen";
-import { administrationScreens } from "@/components/features/administration/model";
-export const metadata = {
-  title: "Administration | Kof’a",
-  robots: { index: false, follow: false },
-};
+import { redirect, notFound } from "next/navigation";
+import { administrationScreens as screens } from "@/components/features/administration/model";
 export const dynamicParams = false;
 export function generateStaticParams() {
-  return administrationScreens.map(({ slug }) => ({ screen: slug }));
+  return screens.map(({ slug }) => ({ screen: slug }));
 }
 export default async function Page({
   params,
@@ -15,6 +10,6 @@ export default async function Page({
   params: Promise<{ screen: string }>;
 }) {
   const { screen } = await params;
-  if (!administrationScreens.some(({ slug }) => slug === screen)) notFound();
-  return <StaffScreen key={screen} slug={screen} administration />;
+  if (!screens.some((item) => item.slug === screen)) notFound();
+  redirect(`/admin/${screen}`);
 }

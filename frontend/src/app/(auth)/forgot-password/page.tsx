@@ -1,3 +1,4 @@
+import { BrandLoading } from "@/components/common/brand-loading";
 import { Suspense } from "react";
 import { AuthScreenView } from "@/components/features/auth/auth-screen";
 export const metadata = {
@@ -6,7 +7,7 @@ export const metadata = {
 };
 export default function Page() {
   return (
-    <Suspense fallback={<p className="p-5">Loading…</p>}>
+    <Suspense fallback={<BrandLoading />}>
       <AuthScreenView screen="forgot-password" />
     </Suspense>
   );

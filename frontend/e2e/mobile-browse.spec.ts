@@ -34,7 +34,7 @@ test("mobile launch appears once and manifest carries brand metadata", async ({
   );
   await expect(page.locator(".mobile-launch img")).toHaveCSS("opacity", "1");
   await page.screenshot({ path: "test-results/mobile-launch.png" });
-  await page.clock.runFor(1300);
+  await page.clock.runFor(3400);
   await settle(page);
   await page.clock.resume();
   await page

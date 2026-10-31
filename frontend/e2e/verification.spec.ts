@@ -25,7 +25,7 @@ test("all eight verification source screens retain content, assets and geometry"
   test.setTimeout(90000);
   await page.setViewportSize({ width: 390, height: 844 });
   for (const s of screens) {
-    await page.goto(`/verification-preview/${s.slug}`);
+    await page.goto(`/verification/${s.slug}`);
     await expect(page.locator(".mobile-launch")).toBeHidden();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       s.blocks[1].text!,
@@ -51,7 +51,7 @@ test("all eight verification source screens retain content, assets and geometry"
     const brand = (await page.locator(".staff-brand").boundingBox())!;
     expect(brand.width).toBeCloseTo(101.15, 1);
     expect(brand.height).toBeCloseTo(32.7833, 1);
-    expect(brand.y).toBeCloseTo(57.166, 1);
+    expect(brand.y).toBeCloseTo(121.166, 1);
     const icons = page.locator(".journey-nav img");
     await expect(icons).toHaveCount(4);
     for (const icon of await icons.all()) {
@@ -75,7 +75,7 @@ test("checks support Other validation and explicit fictional outcomes without mu
   page.on("request", (r) => {
     if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) mutations++;
   });
-  await page.goto("/verification-preview/checks");
+  await page.goto("/verification/checks");
   await page.getByLabel("Identity", { exact: true }).selectOption("Other");
   await page
     .getByRole("button", { name: "Save verification", exact: true })
@@ -94,8 +94,8 @@ test("checks support Other validation and explicit fictional outcomes without mu
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/verification-preview/checks-saved");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/verification/checks-saved");
   await expect(page).toHaveURL(/checks-saved$/);
   await page
     .getByRole("button", { name: "Complete verification", exact: true })
@@ -107,8 +107,8 @@ test("checks support Other validation and explicit fictional outcomes without mu
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/verification-preview/owner-approval");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/verification/owner-approval");
   await expect(page).toHaveURL(/owner-approval$/);
   expect(mutations).toBe(0);
 });
@@ -119,7 +119,7 @@ test("owner approval validates notes/date and publication remains disconnected",
   page.on("request", (r) => {
     if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) mutations++;
   });
-  await page.goto("/verification-preview/owner-approval");
+  await page.goto("/verification/owner-approval");
   await expect(page.getByLabel("Approved at (WAT)")).toHaveValue(
     "2026-10-26T09:30",
   );
@@ -142,8 +142,8 @@ test("owner approval validates notes/date and publication remains disconnected",
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/verification-preview/publication-ready");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/verification/publication-ready");
   await expect(page).toHaveURL(/publication-ready$/);
   await page.getByRole("button", { name: "Review publication" }).click();
   await page
@@ -154,8 +154,8 @@ test("owner approval validates notes/date and publication remains disconnected",
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/verification-preview/published");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/verification/published");
   await expect(page).toHaveURL(/published$/);
   expect(mutations).toBe(0);
   await page.getByRole("button", { name: "View public listing" }).click();
@@ -164,15 +164,15 @@ test("owner approval validates notes/date and publication remains disconnected",
 test("client fees, timelines and entry links are connected", async ({
   page,
 }) => {
-  await page.goto("/staff-preview/property");
+  await page.goto("/staff/property");
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
   await page.getByRole("link", { name: "Verification & publication" }).click();
-  await expect(page).toHaveURL(/verification-preview\/checks$/);
-  await page.goto("/client-preview/transaction-detail");
+  await expect(page).toHaveURL(/verification\/checks$/);
+  await page.goto("/account/transaction-detail");
   await page
     .getByRole("link", { name: "Agreement and completion timeline" })
     .click();
-  await expect(page).toHaveURL(/verification-preview\/agreement$/);
+  await expect(page).toHaveURL(/verification\/agreement$/);
   await expect(
     page.getByText("Amount: ₦70,000", { exact: true }),
   ).toBeVisible();
@@ -182,15 +182,15 @@ test("client fees, timelines and entry links are connected", async ({
     }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Fee guidance" }).click();
-  await expect(page).toHaveURL(/media-help-preview\/fees$/);
-  await page.goto("/verification-preview/completed");
+  await expect(page).toHaveURL(/resources\/fees$/);
+  await page.goto("/verification/completed");
   await expect(
     page.getByText("20 Oct 2026 · History retained.", { exact: true }),
   ).toBeVisible();
   await page
     .getByRole("button", { name: "My transactions", exact: true })
     .click();
-  await expect(page).toHaveURL(/client-preview\/transactions$/);
+  await expect(page).toHaveURL(/account\/transactions$/);
 });
 test("responsive navigation, menus, keyboard and accessibility", async ({
   page,
@@ -199,7 +199,7 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
   for (const width of [360, 768, 1280])
     for (const slug of ["checks", "agreement", "completed"]) {
       await page.setViewportSize({ width, height: 844 });
-      await page.goto(`/verification-preview/${slug}`);
+      await page.goto(`/verification/${slug}`);
       expect(
         await page
           .locator(".journey-body")
@@ -213,7 +213,7 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
     "agreement",
     "completed",
   ]) {
-    await page.goto(`/verification-preview/${slug}`);
+    await page.goto(`/verification/${slug}`);
     const violations = (
       await new AxeBuilder({ page }).analyze()
     ).violations.filter((v) =>
@@ -221,9 +221,15 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
     );
     expect(violations).toEqual([]);
   }
-  await page.goto("/verification-preview/checks");
+  await page.goto("/verification/checks");
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
-  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(8);
+  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(0);
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("navigation", { name: "Useful links" })
+      .getByRole("link"),
+  ).toHaveCount(4);
   await page.keyboard.press("Escape");
   await expect(
     page.getByRole("button", { name: "Menu", exact: true }).first(),
@@ -232,8 +238,8 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
     page
       .getByRole("navigation", { name: "Mobile navigation" })
       .getByRole("link", { name: "Overview" }),
-  ).toHaveAttribute("href", "/staff-preview/overview");
-  await page.goto("/verification-preview/agreement");
+  ).toHaveAttribute("href", "/staff/overview");
+  await page.goto("/verification/agreement");
   await expect(
     page.getByRole("button", { name: "Help", exact: true }),
   ).toBeVisible();
@@ -247,7 +253,14 @@ test("responsive navigation, menus, keyboard and accessibility", async ({
 test("client verification summary Help opens the shared help centre", async ({
   page,
 }) => {
-  await page.goto("/verification-preview/agreement");
+  await page.goto("/verification/agreement");
   await page.getByRole("button", { name: "Help", exact: true }).click();
-  await expect(page).toHaveURL(/media-help-preview\/help$/);
+  await expect(page).toHaveURL(/resources\/help$/);
+});
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem("kofa-local-access-v1", "admin");
+    sessionStorage.setItem("kofa-launch-seen", "1");
+  });
 });

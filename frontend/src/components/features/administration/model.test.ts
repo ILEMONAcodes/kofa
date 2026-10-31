@@ -28,13 +28,13 @@ describe("administration preview navigation", () => {
     ).toBe("assistant-conversations");
     expect(
       administrationDestination("workspace-menu", "Properties", "Actions"),
-    ).toBe("/staff-preview/properties");
+    ).toBe("/staff/properties");
     expect(previewDestination("overview", "View reports", "Actions")).toBe(
-      "/administration-preview/reports",
+      "/admin/reports",
     );
     expect(
       previewDestination("outcome-recorded", "Create transaction", "Actions"),
-    ).toBe("/administration-preview/create-transaction");
+    ).toBe("/admin/create-transaction");
   });
   it("keeps actual posting/publication separate from example outcomes", () => {
     expect(
@@ -74,7 +74,7 @@ describe("administration preview navigation", () => {
             block.text!,
             context,
           );
-          if (target?.startsWith("/staff-preview/"))
+          if (target?.startsWith("/staff/"))
             expect(staffSlugs.has(target.split("/").at(-1)!)).toBe(true);
           else if (target) expect(adminSlugs.has(target)).toBe(true);
           const outcome = administrationOutcome(screen.slug, block.text!);

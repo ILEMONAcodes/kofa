@@ -61,7 +61,7 @@ describe("media and help presentation", () => {
     expect(outcome("Submit report")).toBe("report-received");
     expect(destination("help", "View details →", "Privacy")).toBe("privacy");
     expect(destination("report-evidence", "Continue complaint")).toBe(
-      "/client-preview/complaint-form",
+      "/account/complaint-form",
     );
   });
 });

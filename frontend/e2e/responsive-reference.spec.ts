@@ -130,6 +130,15 @@ test("media preview and removal keep a single local dialog and persistent metada
     .click();
   await page.getByRole("button", { name: "Remove photo", exact: true }).click();
   await expect(page.getByRole("dialog")).toHaveCount(0);
-  await expect(page.getByRole("status")).toContainText("removed locally");
+  await expect(page.locator(".journey-body").getByRole("status")).toContainText(
+    "removed locally",
+  );
   await expect(page.locator(".media-listing-actions")).toHaveCount(0);
+});
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem("kofa-local-access-v1", "admin");
+    sessionStorage.setItem("kofa-launch-seen", "1");
+  });
 });

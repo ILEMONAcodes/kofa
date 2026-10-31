@@ -116,7 +116,7 @@
       visibility 0.35s;
   }
   .mobile-launch {
-    animation: mobile-launch-fallback 1.25s forwards;
+    animation: mobile-launch-fallback 3.35s forwards;
   }
   .mobile-launch img {
     animation: mobile-logo-arrive 0.65s ease both;
@@ -509,7 +509,7 @@
 
 @keyframes mobile-launch-fallback {
   0%,
-  70% {
+  90% {
     opacity: 1;
     visibility: visible;
   }
@@ -521,7 +521,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .mobile-launch {
-    animation-duration: 0.1s;
+    animation-duration: 3s;
   }
 }
 @media (min-width: 768px) {

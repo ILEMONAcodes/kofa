@@ -2,6 +2,12 @@
 /* eslint-disable @next/next/no-img-element -- Exact exported SVG assets at intrinsic size. */
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import {
+  localAccessEnabled,
+  useLocalAccess,
+  type LocalRole,
+} from "@/components/access/local-access";
+import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import { Button, buttonStyles } from "@/components/common/button";
 import { Input } from "@/components/common/input";
@@ -11,14 +17,19 @@ import { authScreens, safeReturnPath, type AuthScreen } from "./screens";
 export function AuthScreenView({
   screen,
   preview = false,
+  staff = false,
 }: {
   screen: AuthScreen;
   preview?: boolean;
+  staff?: boolean;
 }) {
+  const local = localAccessEnabled && !preview;
   const params = useSearchParams();
+  const router = useRouter();
+  const access = useLocalAccess();
+  const [localRole, setLocalRole] = useState<LocalRole>("staff");
   const returnTo = safeReturnPath(params.get("returnTo"));
   const [notice, setNotice] = useState(false);
-  const [gallery, setGallery] = useState(false);
   const [policies, setPolicies] = useState(false);
   const data = authScreens[screen];
   const account = screen === "account";
@@ -48,7 +59,24 @@ export function AuthScreenView({
       password?.value !== confirmation.value ? "Passwords must match." : "",
     );
     if (!form.reportValidity()) return;
-    // Presentation only: never persist, log or transmit credentials; never create a fake session.
+    if (local && (screen === "login" || screen === "register")) {
+      const role = staff ? localRole : "client";
+      access.enter(role);
+      form.reset();
+      const requested = params.get("returnTo");
+      router.push(
+        requested
+          ? safeReturnPath(requested)
+          : staff
+            ? role === "admin"
+              ? "/admin/administration"
+              : "/staff/overview"
+            : "/account/overview",
+      );
+      return;
+    }
+    // No backend authentication or credential persistence.
+
     form.reset();
     setNotice(true);
   }
@@ -66,18 +94,22 @@ export function AuthScreenView({
       placeholder={placeholder}
       type={type}
       autoComplete={autoComplete}
-      required
+      required={!(local && ["phone", "full_name"].includes(name))}
       minLength={
         name === "full_name"
-          ? 2
-          : type === "password" && screen !== "login"
-            ? 10
+          ? local
+            ? undefined
+            : 2
+          : type === "password" && (local || screen !== "login")
+            ? local
+              ? 6
+              : 10
             : undefined
       }
       maxLength={
         name === "full_name" ? 150 : type === "password" ? 128 : undefined
       }
-      pattern={name === "phone" ? "\\+[1-9][0-9]{6,14}" : undefined}
+      pattern={name === "phone" && !local ? "\\+[1-9][0-9]{6,14}" : undefined}
       title={
         name === "phone"
           ? "Use international format, for example +2348012345678"
@@ -86,7 +118,7 @@ export function AuthScreenView({
       onInput={(event) => {
         const input = event.currentTarget;
         input.setCustomValidity(
-          name === "full_name" && input.value.trim().length < 2
+          !local && name === "full_name" && input.value.trim().length < 2
             ? "Enter at least two characters for your name."
             : "",
         );
@@ -134,7 +166,29 @@ export function AuthScreenView({
           className="auth-form"
           onSubmit={submit}
         >
-          <h1>{data.title}</h1>
+          <h1>{staff ? "Your workspace starts here." : data.title}</h1>
+          {local && (
+            <div className="auth-callout">
+              <p>Temporary local access</p>
+              <p>
+                Use an example email and any password of at least 6 characters.
+                Credentials are not saved or sent. Sample records only.
+              </p>
+            </div>
+          )}
+          {staff && local && (
+            <label className="block">
+              Workspace role
+              <select
+                className="field-control mt-2"
+                value={localRole}
+                onChange={(e) => setLocalRole(e.target.value as LocalRole)}
+              >
+                <option value="staff">Staff</option>
+                <option value="admin">Administrator · manages staff</option>
+              </select>
+            </label>
+          )}
           <p className="auth-description">{data.description}</p>
           {screen === "register" &&
             field("full_name", "Full name", "Your full name", "text", "name")}
@@ -170,7 +224,7 @@ export function AuthScreenView({
                 Sign in with your email and password.
               </p>
               {link("forgot-password", "Forgot password?")}
-              {link("register", "Create an account")}
+              {!staff && link("register", "Create an account")}
             </>
           )}
           {screen === "register" && (
@@ -183,10 +237,12 @@ export function AuthScreenView({
                   id="auth-consent"
                   name="consent"
                   type="checkbox"
-                  required
+                  required={!local}
                 />
                 <label htmlFor="auth-consent">
-                  I agree to the Terms and Privacy Policy.
+                  {local
+                    ? "I understand this uses sample records only."
+                    : "I agree to the Terms and Privacy Policy."}
                 </label>
               </div>
               <button
@@ -273,7 +329,7 @@ export function AuthScreenView({
             </>
           )}
           <p className="auth-small">Your account details stay private.</p>
-          {["login", "register"].includes(screen) && (
+          {!staff && ["login", "register"].includes(screen) && (
             <Link className={buttonStyles("primary")} href="/landlord">
               Want to list a property? Start here
             </Link>
@@ -281,20 +337,11 @@ export function AuthScreenView({
           {account && (
             <Link
               className={buttonStyles("primary")}
-              href={preview ? "/client-preview/overview" : href("register")}
+              href={preview ? "/account/overview" : href("register")}
             >
               {preview ? "Open full account" : "Create an account"}
             </Link>
           )}
-          <div className="auth-preview-note">
-            <button
-              type="button"
-              className="auth-text-link"
-              onClick={() => setGallery(true)}
-            >
-              Account options
-            </button>
-          </div>
         </form>
       </div>
       {!account && (
@@ -329,28 +376,11 @@ export function AuthScreenView({
         </p>
         <Link
           className={buttonStyles("secondary", "mt-5")}
-          href="/media-help-preview/help"
+          href="/resources/help"
           onClick={() => setNotice(false)}
         >
           Get help
         </Link>
-      </Modal>
-      <Modal
-        open={gallery}
-        onClose={() => setGallery(false)}
-        title="Account options"
-      >
-        <nav aria-label="Account options" className="auth-preview-links">
-          {Object.entries(authScreens).map(([key, item], index) => (
-            <Link
-              key={key}
-              href={`/auth-preview/${key}?returnTo=${encodeURIComponent(returnTo)}`}
-              onClick={() => setGallery(false)}
-            >
-              {String(index + 1).padStart(2, "0")} — {item.title}
-            </Link>
-          ))}
-        </nav>
       </Modal>
       <Modal
         open={policies}
@@ -359,8 +389,7 @@ export function AuthScreenView({
       >
         <p>
           Approved Terms and Privacy Policy versions will be shown here before
-          registration becomes available. No legal acceptance is recorded in
-          this preview.
+          registration becomes available. No legal acceptance is recorded here.
         </p>
       </Modal>
     </div>

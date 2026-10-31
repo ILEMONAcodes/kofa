@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import { useLocalAccess } from "@/components/access/local-access";
 import { useSearchParams } from "next/navigation";
 import { HomeLink } from "./home-link";
 import {
@@ -22,6 +23,7 @@ export function DetailBreadcrumb({ neighbourhood }: { neighbourhood: string }) {
   );
 }
 export function DetailInterestLink({ slug }: { slug: string }) {
+  const { role } = useLocalAccess();
   const params = useSearchParams();
   const back = safePropertiesReturn(params.get("returnTo") ?? undefined);
   const current = propertyDetailHref(
@@ -30,7 +32,11 @@ export function DetailInterestLink({ slug }: { slug: string }) {
   );
   return (
     <HomeLink
-      href={`/login?${new URLSearchParams({ returnTo: current })}`}
+      href={
+        role
+          ? `/account/inquiry?${new URLSearchParams({ property: slug, returnTo: current })}`
+          : `/login?${new URLSearchParams({ returnTo: `/account/inquiry?${new URLSearchParams({ property: slug, returnTo: current })}` })}`
+      }
       variant="primary"
       className="w-full"
     >

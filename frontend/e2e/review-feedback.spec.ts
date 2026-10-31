@@ -25,7 +25,7 @@ test("all six source screens preserve content, exact assets and navigation", asy
   test.setTimeout(90000);
   await page.setViewportSize({ width: 390, height: 844 });
   for (const screen of screens) {
-    await page.goto(`/review-feedback-preview/${screen.slug}`);
+    await page.goto(`/review/${screen.slug}`);
     await expect(page.locator(".mobile-launch")).toBeHidden();
     await expect(page.getByRole("heading", { level: 1 })).toHaveText(
       screen.blocks[1].text!,
@@ -85,7 +85,7 @@ test("review checks and sample outcomes remain separate from real operations", a
   page.on("request", (r) => {
     if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) mutations++;
   });
-  await page.goto("/review-feedback-preview/staff-review");
+  await page.goto("/review/staff-review");
   await expect(page.getByLabel("Features", { exact: true })).toHaveValue(
     "Pending",
   );
@@ -110,8 +110,8 @@ test("review checks and sample outcomes remain separate from real operations", a
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/review-feedback-preview/verification-passed");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/review/verification-passed");
   await expect(page).toHaveURL(/verification-passed$/);
   await expect(page.getByLabel("Features", { exact: true })).toHaveValue(
     "Pass",
@@ -129,7 +129,7 @@ test("landlord approval validates price, Other and description checkbox before e
   page.on("request", (r) => {
     if (["POST", "PUT", "PATCH", "DELETE"].includes(r.method())) mutations++;
   });
-  await page.goto("/review-feedback-preview/landlord-approval");
+  await page.goto("/review/landlord-approval");
   await expect(page.getByLabel("Approved at", { exact: true })).toHaveValue(
     "2026-10-26T10:30",
   );
@@ -169,8 +169,8 @@ test("landlord approval validates price, Other and description checkbox before e
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/review-feedback-preview/publication-review");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/review/publication-review");
   await expect(page).toHaveURL(/publication-review$/);
   await page
     .getByRole("button", { name: "Publish property", exact: true })
@@ -180,8 +180,8 @@ test("landlord approval validates price, Other and description checkbox before e
     page
       .getByRole("dialog")
       .getByRole("link", { name: "Get help", exact: true }),
-  ).toHaveAttribute("href", "/media-help-preview/help");
-  await page.goto("/review-feedback-preview/published");
+  ).toHaveAttribute("href", "/resources/help");
+  await page.goto("/review/published");
   await expect(page).toHaveURL(/\/published$/);
   expect(mutations).toBe(0);
   await page.getByRole("button", { name: "View public listing" }).click();
@@ -192,37 +192,38 @@ test("recovery, documents and existing workspace entries are linked", async ({
 }) => {
   for (const [label, target] of [
     ["Clear filters", "/properties"],
-    ["Try again", "/media-help-preview/loading"],
+    ["Try again", "/resources/loading"],
     ["Browse properties", "/properties"],
     ["Try logging in again", "/login"],
     ["Request verification link", "/auth-preview/verify-email"],
     ["Request a new reset link", "/forgot-password"],
   ]) {
-    await page.goto("/review-feedback-preview/feedback");
+    await page.goto("/review/feedback");
     await page.getByRole("button", { name: label, exact: true }).click();
     await expect(page).toHaveURL(new RegExp(`${target}$`));
   }
-  await page.goto("/review-feedback-preview/staff-review");
+  await page.goto("/review/staff-review");
   await page.getByRole("button", { name: "Open ownership proof" }).click();
-  await expect(page).toHaveURL(/staff-preview\/document$/);
-  await page.goto("/staff-preview/property");
+  await expect(page).toHaveURL(/staff\/document$/);
+  await page.goto("/staff/property");
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
-  await page
-    .getByRole("link", { name: "Review & recovery references" })
-    .click();
-  await expect(page).toHaveURL(/review-feedback-preview\/staff-review$/);
-  await page.goto("/media-help-preview/help");
-  await page.getByRole("link", { name: "Recovery feedback examples" }).click();
-  await expect(page).toHaveURL(/review-feedback-preview\/feedback$/);
+  await page.getByRole("link", { name: "Review property submission" }).click();
+  await expect(page).toHaveURL(/review\/staff-review$/);
+  await page.goto("/resources/help");
+  await expect(
+    page.getByRole("link", { name: /Recovery feedback|360 px responsive/ }),
+  ).toHaveCount(0);
+  await page.goto("/review/feedback");
+  await expect(page).toHaveURL(/review\/feedback$/);
 });
-test("responsive source references are accessible and their six-screen menu restores focus", async ({
+test("responsive source references are accessible and their product menu restores focus", async ({
   page,
 }) => {
   test.setTimeout(90000);
   for (const width of [360, 768, 1280])
     for (const slug of ["staff-review", "landlord-approval", "feedback"]) {
       await page.setViewportSize({ width, height: 844 });
-      await page.goto(`/review-feedback-preview/${slug}`);
+      await page.goto(`/review/${slug}`);
       expect(
         await page
           .locator(".journey-body")
@@ -235,17 +236,30 @@ test("responsive source references are accessible and their six-screen menu rest
     "publication-review",
     "feedback",
   ]) {
-    await page.goto(`/review-feedback-preview/${slug}`);
+    await page.goto(`/review/${slug}`);
     const issues = (await new AxeBuilder({ page }).analyze()).violations.filter(
       (v) => ["serious", "critical"].includes(v.impact ?? ""),
     );
     expect(issues).toEqual([]);
   }
-  await page.goto("/review-feedback-preview/staff-review");
+  await page.goto("/review/staff-review");
   await page.getByRole("button", { name: "Menu", exact: true }).first().click();
-  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(6);
+  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(0);
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("navigation", { name: "Useful links" })
+      .getByRole("link"),
+  ).toHaveCount(4);
   await page.keyboard.press("Escape");
   await expect(
     page.getByRole("button", { name: "Menu", exact: true }).first(),
   ).toBeFocused();
+});
+
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.setItem("kofa-local-access-v1", "admin");
+    sessionStorage.setItem("kofa-launch-seen", "1");
+  });
 });

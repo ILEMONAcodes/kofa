@@ -1,3 +1,4 @@
+import { AccountEntry } from "@/components/access/account-entry";
 /* eslint-disable @next/next/no-img-element -- Keep Figma SVG exports at their exact fractional intrinsic dimensions. */
 import Image from "next/image";
 import Link from "next/link";
@@ -44,10 +45,8 @@ export function Hero() {
         >
           List a property ↗
         </HomeLink>
-        <HomeLink href="/login" className="home-nav-login">
-          Log in
-        </HomeLink>
-        <HomeLink href="/contact?topic=assistant" className="home-nav-ask">
+        <AccountEntry />
+        <HomeLink href="/resources/assistant" className="home-nav-ask">
           Ask Kof’a
         </HomeLink>
       </header>
