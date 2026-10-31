@@ -96,7 +96,7 @@ test("wizard preserves details, edits, Other preferences and browser history wit
     .getByRole("button", { name: "Continue to property", exact: true })
     .click();
   await expect(page).toHaveURL(/\/landlord$/);
-  await page.getByLabel("Full name", { exact: true }).fill("Sample owner");
+  await page.getByLabel("Full name", { exact: true }).fill("Property owner");
   await page.getByLabel("Phone number", { exact: true }).fill("+2348012345678");
   await page
     .getByLabel("Relationship to property", { exact: true })
@@ -147,6 +147,7 @@ test("wizard preserves details, edits, Other preferences and browser history wit
     "at least 5 property photos",
   );
   await page.getByRole("button", { name: "Back", exact: true }).click();
+  await expect(page).toHaveURL(/step=features/);
   await page.goBack();
   await expect(page).toHaveURL(/step=uploads/);
   await page.goBack();
@@ -179,13 +180,13 @@ test("media can be selected, reordered, removed and retained between review and 
     .getByRole("button", { name: "Manage photo 1, cover", exact: true })
     .click();
   await page
-    .getByRole("button", { name: "Move Sample photo 1 later", exact: true })
+    .getByRole("button", { name: "Move Photo 1 later", exact: true })
     .click();
   await expect(
     page.locator(".listing-media-manager > div").first(),
-  ).toContainText("Sample photo 2 · Cover");
+  ).toContainText("Photo 2 · Cover");
   await page
-    .getByRole("button", { name: "Remove Sample photo 5", exact: true })
+    .getByRole("button", { name: "Remove Photo 5", exact: true })
     .click();
   await page.getByRole("button", { name: "Close", exact: true }).click();
   await page
@@ -203,7 +204,7 @@ test("media can be selected, reordered, removed and retained between review and 
       buffer: Buffer.from("sample preview"),
     });
   await expect(
-    page.getByText(/sample-walkthrough.webm · Sample only/),
+    page.getByText(/sample-walkthrough.webm · Property video/),
   ).toBeVisible();
   await page
     .getByRole("button", { name: "Review my listing", exact: true })
@@ -258,11 +259,16 @@ test("review uses explicit consent and unavailable service rather than a fake re
     .getByRole("button", { name: "Submit for review", exact: true })
     .click();
   await expect(page.getByRole("dialog")).toContainText(
-    "No files or contact details have been sent",
+    "Your files and contact details have not been sent",
   );
-  await page.getByRole("link", { name: "Preview the sample receipt" }).click();
   await expect(
-    page.getByText("Design preview · sample content", { exact: true }),
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/landlord?step=receipt&preview=1");
+  await expect(
+    page.getByText("The doorway to your home", { exact: true }),
   ).toBeVisible();
   await page
     .getByRole("button", { name: "How verification works", exact: true })

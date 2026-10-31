@@ -11,7 +11,7 @@ export function Hero() {
     >
       <Image
         src="/assets/home-architecture.jpg"
-        alt="Illustrative contemporary home surrounded by trees at dusk"
+        alt="contemporary home surrounded by trees at dusk"
         fill
         priority
         unoptimized

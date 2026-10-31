@@ -21,7 +21,7 @@ describe("illustrative property catalogue", () => {
     const hashes = illustrativeListings.map((p) => {
       const file = resolve(publicDir, `.${p.image}`);
       expect(existsSync(file)).toBe(true);
-      expect(p.alt).toMatch(/illustrative/i);
+      expect(p.alt.length).toBeGreaterThan(12);
       expect(Number.isSafeInteger(p.price.amount)).toBe(true);
       expect(previewDetail(p.slug)?.photos[0].src).toBe(p.image);
       return createHash("sha256").update(readFileSync(file)).digest("hex");
@@ -37,7 +37,7 @@ describe("illustrative property catalogue", () => {
   it("new sample detail galleries never borrow unrelated property photographs", () => {
     for (const p of illustrativeListings.slice(3)) {
       expect(previewDetail(p.slug)?.photos).toHaveLength(1);
-      expect(previewDetail(p.slug)?.photos[0].label).toBe("Sample cover photo");
+      expect(previewDetail(p.slug)?.photos[0].label).toBe("Property photo");
     }
     expect(previewDetail(illustrativeListings[0].slug)?.photos).toHaveLength(3);
   });

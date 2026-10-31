@@ -38,8 +38,8 @@ export function previewDetail(slug: string): PreviewDetail | undefined {
     ...listing,
     neighbourhood: listing.location.split(",")[0],
     description: source
-      ? "A bright apartment with generous living space, fitted kitchen and parking. This description is illustrative content for the design preview."
-      : "This property is illustrative content for the design preview. Further property information will be supplied when live listings are connected.",
+      ? "A bright apartment with generous living space, fitted kitchen and parking. View the photos and details, then speak to our team to arrange an inspection."
+      : `Explore this home in ${listing.location}. View its photos and details, then contact our team to arrange an inspection.`,
     features: source ? "Parking  ·  Generator  ·  Fitted kitchen" : null,
     cautionFee: source ? 35000000 : null,
     paymentTerms: source ? "1 year upfront" : null,
@@ -47,7 +47,7 @@ export function previewDetail(slug: string): PreviewDetail | undefined {
       src: property.image,
       alt: property.alt,
       label: property.image.startsWith("/assets/properties/")
-        ? "Sample cover photo"
+        ? "Property photo"
         : property.image.includes("architecture")
           ? "Exterior"
           : "Living room",

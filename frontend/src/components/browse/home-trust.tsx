@@ -10,7 +10,7 @@ export function HomeTrust() {
       <div className="home-trust-photo">
         <Image
           src="/assets/home-living-room.jpg"
-          alt="Illustrative living room with natural light and warm wood finishes"
+          alt="living room with natural light and warm wood finishes"
           fill
           sizes="560px"
           unoptimized

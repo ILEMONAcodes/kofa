@@ -38,8 +38,7 @@ export function MobileHeader({ back }: { back?: string }) {
         title="A little guidance, when you need it."
       >
         <p className="text-muted">
-          Help and the assistant are available as design previews. No messages
-          are sent.
+          Find answers about properties, inspections and your next steps.
         </p>
         <Link
           href="/media-help-preview/help"

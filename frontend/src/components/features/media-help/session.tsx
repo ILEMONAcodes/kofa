@@ -42,12 +42,13 @@ export function MediaSession({ children }: { children: ReactNode }) {
       <Modal
         open={manager === "listing"}
         onClose={() => setManager(null)}
-        title="Manage local media"
+        title="Manage photos and documents"
       >
         <div className="media-local-manager">
           <p>
-            Nothing is uploaded. Use sample files; private evidence is never
-            displayed in the public gallery.
+            Manage your photos, video and documents. Private evidence stays
+            separate from the public gallery. Files remain on this device until
+            uploaded.
           </p>
           <MediaPicker media={media} onChange={setMedia} preview={false} />
         </div>

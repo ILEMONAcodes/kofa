@@ -45,7 +45,7 @@ export function SearchResults({
           </span>
         </div>
         <p className="text-sm text-muted">
-          {illustrativeListings.length} illustrative results
+          {illustrativeListings.length} properties
         </p>
         {(expanded ? mobileProperties : mobileProperties.slice(0, 6)).map(
           (property, index) => (
@@ -54,15 +54,15 @@ export function SearchResults({
         )}
         <p className="text-sm text-muted">
           Showing {expanded ? mobileProperties.length : 6} of{" "}
-          {mobileProperties.length} sample results
+          {mobileProperties.length} properties
         </p>
         {!expanded && (
-          <Button variant="secondary" onClick={() => setExpanded(true)}>
+          <Button onClick={() => setExpanded(true)}>
             Load more properties
           </Button>
         )}
         <p className="text-home-caption text-muted">
-          Design preview · Stock photos
+          Find a place to call your own.
         </p>
       </div>
       <div className="search-property-grid desktop-only">

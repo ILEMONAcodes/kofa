@@ -52,7 +52,7 @@ it("keeps inspection and landlord records in their own journeys", () => {
   expect(previewDestination("inspections", "Open record →", "APT-000123")).toBe(
     "inspection",
   );
-  expect(previewDestination("landlords", "Open record →", "Sample owner")).toBe(
+  expect(previewDestination("landlords", "Open record →", "Property owner")).toBe(
     "landlord",
   );
   expect(previewDestination("client", "Open record →", "Inspection")).toBe(

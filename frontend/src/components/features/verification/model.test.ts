@@ -54,7 +54,7 @@ describe("verification presentation", () => {
       .map((b) => b.text ?? "")
       .join("\n");
     expect(text).toContain("Amount: ₦70,000");
-    expect(text).toContain("Conditions: Illustrative 2% of annual rent");
+    expect(text).toContain("Conditions: 2% of annual rent");
     expect(text).toContain("No client payment recorded.");
   });
 });

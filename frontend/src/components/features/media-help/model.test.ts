@@ -34,6 +34,7 @@ describe("media and help presentation", () => {
         if (b.type === "action")
           expect(
             Boolean(
+              b.disabled ||
               destination(slug, b.text!, context) ||
               outcome(b.text!) ||
               local.test(b.text!),

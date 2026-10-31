@@ -47,15 +47,18 @@ export function HomeFooter({
       <p className="text-home-footer-wordmark" aria-hidden="true">
         KOF’A
       </p>
-      <p className="text-home-caption">
-        Design preview · Fictional property data and illustrative stock
-        photography.
-      </p>
+      <p className="text-home-caption">Find a place to call your own.</p>
       {showHelpActions && (
         <nav className="home-footer-actions" aria-label="Help and contact">
-          <HomeLink href="/contact">Speak to our team</HomeLink>
-          <HomeLink href="/policies/terms">Help &amp; policies</HomeLink>
-          <HomeLink href="/contact?topic=assistant">AI support</HomeLink>
+          <HomeLink href="/contact" variant="accent">
+            Speak to our team
+          </HomeLink>
+          <HomeLink href="/policies/terms" variant="secondary">
+            Help &amp; policies
+          </HomeLink>
+          <HomeLink href="/contact?topic=assistant" variant="secondary">
+            AI support
+          </HomeLink>
         </nav>
       )}
     </footer>

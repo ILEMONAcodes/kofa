@@ -22,7 +22,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 3,
     furnishing: "unfurnished",
     image: "/assets/home-living-room.jpg",
-    alt: "Illustrative bright living room with a sofa and wood accent wall",
+    alt: "bright living room with a sofa and wood accent wall",
     location: "Wuse 2, Abuja",
   },
   {
@@ -35,7 +35,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 4,
     furnishing: "unfurnished",
     image: "/assets/home-architecture.jpg",
-    alt: "Illustrative contemporary home at dusk",
+    alt: "contemporary home at dusk",
     location: "Gwarinpa, Abuja",
   },
   {
@@ -48,7 +48,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 2,
     furnishing: "furnished",
     image: "/assets/home-jabi.jpg",
-    alt: "Illustrative furnished open-plan living room",
+    alt: "furnished open-plan living room",
     location: "Jabi, Abuja",
   },
   {
@@ -65,7 +65,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 1,
     furnishing: "furnished",
     image: "/assets/properties/studio-maitama.webp",
-    alt: "Illustrative open-plan kitchen and living area",
+    alt: "open-plan kitchen and living area",
     location: "Maitama, Abuja",
   },
   {
@@ -82,7 +82,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 1,
     furnishing: "semi_furnished",
     image: "/assets/properties/apartment-asokoro.webp",
-    alt: "Illustrative bright home with a kitchen and living area",
+    alt: "bright home with a kitchen and living area",
     location: "Asokoro, Abuja",
   },
   {
@@ -99,7 +99,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 3,
     furnishing: "unfurnished",
     image: "/assets/properties/bungalow-lugbe.webp",
-    alt: "Illustrative warm living area with natural wood furniture",
+    alt: "warm living area with natural wood furniture",
     location: "Lugbe, Abuja",
   },
   {
@@ -116,7 +116,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 4,
     furnishing: "semi_furnished",
     image: "/assets/properties/terrace-life-camp.webp",
-    alt: "Illustrative contemporary living room with natural wood accents",
+    alt: "contemporary living room with natural wood accents",
     location: "Life Camp, Abuja",
   },
   {
@@ -133,7 +133,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 5,
     furnishing: "unfurnished",
     image: "/assets/properties/house-katampe.webp",
-    alt: "Illustrative spacious living room with built-in wooden shelves",
+    alt: "spacious living room with built-in wooden shelves",
     location: "Katampe, Abuja",
   },
   {
@@ -150,7 +150,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 1,
     furnishing: "furnished",
     image: "/assets/properties/room-garki.webp",
-    alt: "Illustrative bedroom with a desk and city view",
+    alt: "bedroom with a desk and city view",
     location: "Garki, Abuja",
   },
   {
@@ -167,7 +167,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 2,
     furnishing: "furnished",
     image: "/assets/properties/terrace-apo.webp",
-    alt: "Illustrative open living space viewed from above",
+    alt: "open living space viewed from above",
     location: "Apo, Abuja",
   },
   {
@@ -184,7 +184,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 4,
     furnishing: "unfurnished",
     image: "/assets/properties/bungalow-kubwa.webp",
-    alt: "Illustrative single-storey grey house with a covered entry",
+    alt: "single-storey grey house with a covered entry",
     location: "Kubwa, Abuja",
   },
   {
@@ -201,7 +201,7 @@ export const illustrativeListings: readonly HomeListing[] = [
     bathrooms: 6,
     furnishing: "semi_furnished",
     image: "/assets/properties/duplex-guzape.webp",
-    alt: "Illustrative modern white house exterior with garage doors",
+    alt: "modern white house exterior with garage doors",
     location: "Guzape, Abuja",
   },
 ];

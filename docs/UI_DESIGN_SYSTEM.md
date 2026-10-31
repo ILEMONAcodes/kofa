@@ -48,6 +48,8 @@ Selected pairs calculated on 2026-10-26: white/brown 9.55:1; white/hover 13.76:1
 
 **Visual flow:** Large architecture photography → search → image-led property cards → process/trust → closing action → dark brown footer. Keep factual verification and full price/period information. Use gradients behind photo-overlay copy; do not invent testimonials.
 
+**Action hierarchy and product copy:** Use the original brown primary button with inverse text for key browse, record and progression actions. Keep Back, Cancel, Clear and other secondary controls quieter. Keep mock/design-reference labels and implementation notes in repository handoffs; user-facing failures must still clearly state when nothing was submitted or saved, and must not link failed operations to success states.
+
 **Photo-card captions:** Explicitly use the inverse text token over the original image gradient, including inside light mobile sections. Show full titles, prices with the correct rent period or one-time sale amount, facts and location; do not hide them with truncation. At tablet widths, reduce columns to keep captions readable.
 
 **Mobile app pattern:** Current Figma examples are 390 × 844 viewports with 20 px content gutters. Home/Explore/Inquiries/Account navigation stays outside a separate scrolling content viewport. Property detail adds a persistent price/interest bar. Horizontal discovery cards and a scrollable filter sheet support one-handed use. Inquiries/Account are gated by sign-in; the designs introduce no native-app requirement, favourites or new backend feature.

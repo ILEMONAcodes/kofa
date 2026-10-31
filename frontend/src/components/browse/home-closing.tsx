@@ -9,7 +9,7 @@ export function HomeClosing() {
     >
       <Image
         src="/assets/home-architecture.jpg"
-        alt="Illustrative contemporary architecture in a tree-lined setting"
+        alt="contemporary architecture in a tree-lined setting"
         fill
         sizes="1376px"
         unoptimized

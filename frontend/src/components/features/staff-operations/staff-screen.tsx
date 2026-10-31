@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState, type CSSProperties } from "react";
+import { actionButtonVariant } from "@/lib/action-presentation";
 import { Button } from "@/components/common/button";
 import { Dropdown } from "@/components/common/dropdown";
 import { Input } from "@/components/common/input";
@@ -11,7 +12,6 @@ import { Modal } from "@/components/common/modal";
 import { SearchBudget } from "@/components/browse/search-budget";
 import { parseMoneyInput } from "@/lib/formatters/money";
 import {
-  exampleOutcome,
   visibleRecordText,
   mediaError,
   previewDestination,
@@ -26,7 +26,6 @@ import {
   administrationFields,
   administrationLists,
   administrationOptions,
-  administrationOutcome,
   administrationPath,
   administrationScreens,
   administrationSections,
@@ -63,8 +62,8 @@ export function StaffScreen({
         "calendar",
       ];
   const directoryLabel = administration
-    ? "View all 50 administration screens"
-    : "View all 37 staff screens";
+    ? "Administration tools"
+    : "Workspace tools";
   const listSlugs = administration
     ? administrationLists
     : ["properties", "landlords", "inquiries", "clients", "inspections"];
@@ -100,7 +99,7 @@ export function StaffScreen({
     }
     if (label === "Refresh messages") {
       setNotice(
-        "Sample conversation refreshed. Live messaging is not connected.",
+        "Messaging is currently unavailable. Your conversation has not changed.",
       );
       return;
     }
@@ -357,10 +356,10 @@ export function StaffScreen({
           style={{ height: block.height, borderRadius: block.radius }}
           alt={
             block.src?.includes("architecture")
-              ? "Exterior of the sample property"
+              ? "Property exterior"
               : block.src?.includes("jabi")
-                ? "Interior of the sample Jabi property"
-                : "Living room of the sample property"
+                ? "Jabi property interior"
+                : "Living room"
           }
         />
       );
@@ -386,13 +385,7 @@ export function StaffScreen({
       return (
         <Button
           key={block.id}
-          variant={
-            block.variant === "neutral"
-              ? "secondary"
-              : block.variant === "subtle"
-                ? "subtle"
-                : "primary"
-          }
+          variant={actionButtonVariant(block.text ?? "", block.variant)}
           className="w-full"
           onClick={() => action(block, context)}
         >
@@ -420,16 +413,13 @@ export function StaffScreen({
       </div>
     );
   }
-  const outcome = administration
-    ? administrationOutcome(slug, operation)
-    : exampleOutcome(slug, operation);
   const empty =
     listSlugs.includes(slug) &&
     !screen.blocks.some((block) => isListRecord(block) && matches(block));
   return (
     <main id="main-content" className="journey-screen staff-preview">
       <header className="journey-header">
-        <p>Design preview · fictional staff records</p>
+        <p>Kof’a workspace</p>
         <div>
           <Link href={staffPath("overview")} aria-label="Kof’a staff overview">
             <Image
@@ -454,8 +444,8 @@ export function StaffScreen({
           {screen.blocks.map((block) => render(block))}
           {empty && (
             <p role="status">
-              No sample records match these filters. Clear the filters to see
-              the examples.
+              No records match these filters. Clear the filters to see the
+              examples.
             </p>
           )}
           {slug === "media" && (
@@ -496,11 +486,6 @@ export function StaffScreen({
           <Button variant="secondary" onClick={() => setDialog("menu")}>
             {directoryLabel}
           </Button>
-          <p className="text-sm text-muted">
-            Fictional design examples. Staff sign-in, permissions and
-            operational services are not connected. No real private records are
-            included.
-          </p>
         </form>
       </div>
       <nav aria-label="Staff mobile navigation" className="journey-nav">
@@ -583,9 +568,9 @@ export function StaffScreen({
         title={
           dialog === "menu"
             ? administration
-              ? "Administration · design screens"
-              : "Staff workspace · design screens"
-            : "Service not connected"
+              ? "Administration"
+              : "Staff workspace"
+            : "Action unavailable"
         }
       >
         {dialog === "menu" ? (
@@ -629,14 +614,12 @@ export function StaffScreen({
           <>
             <p className="mb-4">
               {operation === "Play walkthrough"
-                ? "The design provides a poster image, but no playable walkthrough file. No video is being played."
-                : "No request was sent, document accessed or record changed. This is a fictional design preview; live staff services are not connected."}
+                ? "A video walkthrough is not available for this property."
+                : "This action is currently unavailable. Nothing was submitted or changed."}
             </p>
-            {outcome && (
-              <Link className="staff-public-link" href={path(outcome)}>
-                Preview example outcome
-              </Link>
-            )}
+            <Link className="staff-public-link" href="/media-help-preview/help">
+              Get help
+            </Link>
           </>
         )}
       </Modal>

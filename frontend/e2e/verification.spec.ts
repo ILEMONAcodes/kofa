@@ -81,24 +81,34 @@ test("checks support Other validation and explicit fictional outcomes without mu
     .getByRole("button", { name: "Save verification", exact: true })
     .click();
   await expect(
-    page.getByRole("dialog", { name: "Service not connected" }),
+    page.getByRole("dialog", { name: "Action unavailable" }),
   ).not.toBeVisible();
   await page.getByLabel("Specify identity").fill("Sample additional check");
   await page
     .getByRole("button", { name: "Save verification", exact: true })
     .click();
   await expect(page.getByRole("dialog")).toContainText(
-    "not the values entered here",
+    "Your changes have not been saved",
   );
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/verification-preview/checks-saved");
   await expect(page).toHaveURL(/checks-saved$/);
   await page
     .getByRole("button", { name: "Complete verification", exact: true })
     .click();
   await expect(
-    page.getByRole("dialog", { name: "Service not connected" }),
+    page.getByRole("dialog", { name: "Action unavailable" }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/verification-preview/owner-approval");
   await expect(page).toHaveURL(/owner-approval$/);
   expect(mutations).toBe(0);
 });
@@ -122,20 +132,30 @@ test("owner approval validates notes/date and publication remains disconnected",
   await page.getByLabel("Evidence / approval note").fill("");
   await page.getByRole("button", { name: "Record current approval" }).click();
   await expect(
-    page.getByRole("dialog", { name: "Service not connected" }),
+    page.getByRole("dialog", { name: "Action unavailable" }),
   ).not.toBeVisible();
   await page
     .getByLabel("Evidence / approval note")
     .fill("Fictional owner confirmed the current example advertisement.");
   await page.getByRole("button", { name: "Record current approval" }).click();
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/verification-preview/publication-ready");
   await expect(page).toHaveURL(/publication-ready$/);
   await page.getByRole("button", { name: "Review publication" }).click();
   await page
     .getByRole("button", { name: "Publish listing", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/verification-preview/published");
   await expect(page).toHaveURL(/published$/);
   expect(mutations).toBe(0);
   await page.getByRole("button", { name: "View public listing" }).click();
@@ -157,7 +177,7 @@ test("client fees, timelines and entry links are connected", async ({
     page.getByText("Amount: ₦70,000", { exact: true }),
   ).toBeVisible();
   await expect(
-    page.getByText("Conditions: Illustrative 2% of annual rent", {
+    page.getByText("Conditions: 2% of annual rent", {
       exact: true,
     }),
   ).toBeVisible();

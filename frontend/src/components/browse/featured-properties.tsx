@@ -73,7 +73,7 @@ export function FeaturedProperties() {
         ))}
       </div>
       <p className="text-home-caption text-muted">
-        Illustrative listings · Stock photos do not depict the named properties.
+        Find your next home in Abuja.
       </p>
     </section>
   );

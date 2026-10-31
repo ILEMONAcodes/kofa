@@ -97,16 +97,21 @@ test("review checks and sample outcomes remain separate from real operations", a
     .getByRole("button", { name: "Save verification", exact: true })
     .click();
   await expect(
-    page.getByRole("dialog", { name: "Service not connected" }),
+    page.getByRole("dialog", { name: "Action unavailable" }),
   ).not.toBeVisible();
   await page.getByLabel("Specify features").fill("Additional sample feature");
   await page
     .getByRole("button", { name: "Save verification", exact: true })
     .click();
   await expect(page.getByRole("dialog")).toContainText(
-    "not the values entered here",
+    "Your changes have not been saved",
   );
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/review-feedback-preview/verification-passed");
   await expect(page).toHaveURL(/verification-passed$/);
   await expect(page.getByLabel("Features", { exact: true })).toHaveValue(
     "Pass",
@@ -146,7 +151,7 @@ test("landlord approval validates price, Other and description checkbox before e
     .fill("A fictional approval note references the current advertisement.");
   await page.getByRole("button", { name: "Save approval record" }).click();
   await expect(
-    page.getByRole("dialog", { name: "Service not connected" }),
+    page.getByRole("dialog", { name: "Action unavailable" }),
   ).not.toBeVisible();
   await page
     .getByRole("checkbox", {
@@ -160,13 +165,23 @@ test("landlord approval validates price, Other and description checkbox before e
   );
   await page.getByLabel("Approved price", { exact: true }).fill("₦3,500,000");
   await page.getByRole("button", { name: "Save approval record" }).click();
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/review-feedback-preview/publication-review");
   await expect(page).toHaveURL(/publication-review$/);
   await page
     .getByRole("button", { name: "Publish property", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/review-feedback-preview/published");
   await expect(page).toHaveURL(/\/published$/);
   expect(mutations).toBe(0);
   await page.getByRole("button", { name: "View public listing" }).click();

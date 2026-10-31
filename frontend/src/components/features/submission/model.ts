@@ -106,7 +106,7 @@ export const emptyDraft: Draft = {
 };
 export const sampleDraft: Draft = {
   ...emptyDraft,
-  full_name: "Sample owner",
+  full_name: "Property owner",
   phone: "+2348012345678",
   email: "owner@example.com",
   relationship: "owner",
