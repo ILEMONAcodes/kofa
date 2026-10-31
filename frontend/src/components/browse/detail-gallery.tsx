@@ -72,7 +72,7 @@ export function DetailGallery({
           </>
         ) : (
           <p role="status" className="detail-notice">
-            No video walkthrough is supplied for this design preview.
+            A video walkthrough is not available for this property.
           </p>
         )}
         <Button variant="secondary" onClick={onClose}>

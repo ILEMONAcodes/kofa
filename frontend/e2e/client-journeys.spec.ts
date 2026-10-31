@@ -32,8 +32,13 @@ test("inquiry dropdown and explicit preview outcome", async ({ page }) => {
     .getByLabel("Tell us what you need")
     .fill("Please arrange a viewing next week.");
   await page.getByRole("button", { name: "Send inquiry", exact: true }).click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/client-preview/inquiry-received");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Your inquiry is with us.",
   );
@@ -59,15 +64,13 @@ test("evidence limits reject extra files without uploading", async ({
   page,
 }) => {
   await page.goto("/client-preview/complaint-form");
-  await page
-    .locator("input[type=file]")
-    .setInputFiles(
-      Array.from({ length: 4 }, (_, i) => ({
-        name: `evidence-${i}.pdf`,
-        mimeType: "application/pdf",
-        buffer: Buffer.from("%PDF-1.4 sample"),
-      })),
-    );
+  await page.locator("input[type=file]").setInputFiles(
+    Array.from({ length: 4 }, (_, i) => ({
+      name: `evidence-${i}.pdf`,
+      mimeType: "application/pdf",
+      buffer: Buffer.from("%PDF-1.4 sample"),
+    })),
+  );
   await expect(
     page.getByRole("alert").filter({ hasText: "Choose up to three" }),
   ).toBeVisible();

@@ -45,7 +45,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
           {
             id: "sample-proof",
             kind: "document",
-            name: "Sample-ownership-proof.pdf",
+            name: "ownership-proof.pdf",
             sample: true,
           },
         ]
@@ -265,11 +265,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
     >
       <div className="auth-scroll" ref={scroll}>
         <header className="auth-header">
-          <span className="listing-preview-tag">
-            {preview
-              ? "Design preview · sample content"
-              : "Local preview · nothing is submitted"}
-          </span>
+          <span className="listing-preview-tag">The doorway to your home</span>
           <Link href="/properties" aria-label="Back to properties">
             <img src="/assets/mobile-back.svg" width="22" height="22" alt="" />
           </Link>
@@ -476,7 +472,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
               {callout(
                 "Your contact · private",
                 preview
-                  ? "Sample owner · Phone and optional email are only visible to staff."
+                  ? "Property owner · Phone and optional email are only visible to staff."
                   : `${draft.full_name || "Name not provided"} · Phone and optional email are only visible to staff.`,
               )}
               {edit("contact", "Edit your contact")}
@@ -542,7 +538,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
                 className="auth-text-link"
                 onClick={() => setPolicies(true)}
               >
-                Policy content is pending legal review in this design preview.
+                Policy details are being finalised.
               </button>
               <div className="auth-callout listing-review-video">
                 <p>Optional walkthrough video</p>
@@ -556,10 +552,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
               <span className="listing-status">
                 Submitted · Awaiting review
               </span>
-              {callout(
-                "Your reference",
-                "SUB-2026-000123 · Illustrative reference",
-              )}
+              {callout("Your reference", "SUB-2026-000123")}
               <p className="auth-description">
                 Keep this reference. Our team will contact you using the details
                 you provided. We will ask you to approve the advertised price
@@ -615,17 +608,12 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
             </p>
           )}
           <div className="auth-preview-note">
-            <p>
-              {preview
-                ? "Illustrative design only. No submission or upload has taken place."
-                : "Use sample details/files. Your progress stays in memory and resets on reload. Nothing is uploaded or submitted."}
-            </p>
             <button
               className="auth-text-link"
               type="button"
               onClick={() => setGallery(true)}
             >
-              Preview all listing screens
+              Listing steps
             </button>
           </div>
         </form>
@@ -662,26 +650,26 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
       <Modal
         open={service}
         onClose={() => setService(false)}
-        title="Listing submissions are being connected."
+        title="Unable to submit your listing"
       >
         <p>
-          No files or contact details have been sent. This preview cannot
-          submit, verify or publish a property.
+          Listing submissions are currently unavailable. Your files and contact
+          details have not been sent.
         </p>
         <Link
-          href={path("receipt", true)}
+          href="/media-help-preview/help"
           onClick={() => setService(false)}
           className={buttonStyles("secondary", "mt-5")}
         >
-          Preview the sample receipt
+          Get help
         </Link>
       </Modal>
       <Modal
         open={gallery}
         onClose={() => setGallery(false)}
-        title="Listing design previews"
+        title="Listing steps"
       >
-        <nav className="auth-preview-links" aria-label="Listing previews">
+        <nav className="auth-preview-links" aria-label="Listing steps">
           {steps.map((key, i) => (
             <Link
               key={key}

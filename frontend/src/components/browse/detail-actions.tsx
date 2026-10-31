@@ -52,7 +52,7 @@ export function DetailActions({
           Report this listing
         </Button>
         <p className="text-home-caption text-muted">
-          Design preview · Stock photography
+          Explore the photos and property details.
         </p>
       </div>
       <div className="mobile-only">
@@ -64,7 +64,7 @@ export function DetailActions({
         </Link>
       </div>
       <div className="detail-support-actions" data-node-id="88:14848">
-        <Button variant="secondary" onClick={() => setView("gallery")}>
+        <Button variant="primary" onClick={() => setView("gallery")}>
           Photos &amp; video
         </Button>
         <Button variant="secondary" onClick={() => setView("report")}>
@@ -112,8 +112,7 @@ export function DetailActions({
             />
           )}
           <p role="status" className="detail-notice">
-            Report submission is not connected in this design preview. Nothing
-            entered here is sent or saved.
+            Reporting is currently unavailable. Your report has not been sent.
           </p>
           <Button disabled>Submit report</Button>
           <Button variant="secondary" onClick={close}>
@@ -129,13 +128,12 @@ export function DetailActions({
         <div className="detail-dialog-content">
           <p>Kof’a AI assistant</p>
           <p className="detail-notice">
-            The assistant is not connected in this design preview. No questions
-            are sent to an AI service.
+            The assistant is currently unavailable. Please try again later.
           </p>
-          <Button disabled>Call team · Number not set</Button>
+          <Button disabled>Phone support unavailable</Button>
           <p className="text-sm text-muted">
-            Company phone number to be configured. Support hours to be
-            confirmed.
+            Phone support is currently unavailable. Visit Help for other support
+            options.
           </p>
           <Button
             variant="secondary"

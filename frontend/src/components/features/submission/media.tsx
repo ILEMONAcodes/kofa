@@ -20,7 +20,7 @@ export const sampleMedia: LocalMedia[] = [
 ].map((file, i) => ({
   id: `sample-${i}`,
   kind: "photo",
-  name: `Sample photo ${i + 1}`,
+  name: `Photo ${i + 1}`,
   url: `/assets/${file}`,
   sample: true,
 }));
@@ -185,7 +185,7 @@ export function MediaPicker({
         <p>
           {preview
             ? "If a file fails to upload, try again or remove it before continuing. At least 5 photos and 1 evidence document must be ready before you submit."
-            : "These files are selected locally and have not been uploaded. Use sample files while the upload service is being connected."}
+            : "Your files stay on this device until they are uploaded."}
         </p>
       </div>
       <section
@@ -202,7 +202,8 @@ export function MediaPicker({
         {videoItem && (
           <>
             <p className="auth-small">
-              {videoItem.name} · {preview ? "Sample only" : "Selected locally"}
+              {videoItem.name} ·{" "}
+              {preview ? "Property video" : "Selected locally"}
             </p>
             {videoItem.url && (
               <video
@@ -243,7 +244,8 @@ export function MediaPicker({
         title="Manage photos, video & evidence"
       >
         <p className="auth-small">
-          The first photo is the cover. Nothing is uploaded from this preview.
+          The first photo is your cover image. Drag photos to change their
+          order.
         </p>
         <div className="listing-media-manager">
           {media.map((item) => (
@@ -258,7 +260,7 @@ export function MediaPicker({
                 {item.kind === "document"
                   ? "Private evidence"
                   : "Property media"}{" "}
-                · {item.sample ? "Illustrative sample" : "Selected locally"}
+                · {item.sample ? "Property photo" : "Selected locally"}
               </p>
               <div>
                 {item.kind === "photo" && (

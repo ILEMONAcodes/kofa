@@ -134,7 +134,7 @@ test("gallery, reason dropdown and interest actions work without fake submission
     .getByRole("button", { name: "Video walkthrough", exact: true })
     .click();
   await expect(dialog.getByRole("status")).toContainText(
-    "No video walkthrough",
+    "A video walkthrough is not available",
   );
   await page.keyboard.press("Escape");
   await expect(dialog).not.toBeVisible();

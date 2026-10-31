@@ -112,9 +112,7 @@ export function AuthScreenView({
       <div className="auth-scroll">
         <header className="auth-header">
           {preview && (
-            <span className="auth-design-label">
-              Design preview · sample content
-            </span>
+            <span className="auth-design-label">The doorway to your home</span>
           )}
           <Link href={returnTo} aria-label="Back to properties">
             <img src="/assets/mobile-back.svg" width="22" height="22" alt="" />
@@ -130,7 +128,12 @@ export function AuthScreenView({
           <span className="mobile-brand-spacer" />
           <span className="mobile-city">Abuja</span>
         </header>
-        <form key={screen} id={`auth-${screen}`} className="auth-form" onSubmit={submit}>
+        <form
+          key={screen}
+          id={`auth-${screen}`}
+          className="auth-form"
+          onSubmit={submit}
+        >
           <h1>{data.title}</h1>
           <p className="auth-description">{data.description}</p>
           {screen === "register" &&
@@ -202,7 +205,7 @@ export function AuthScreenView({
                 "Check your verification email",
                 preview
                   ? "We sent a verification link to ada@example.com. Check your inbox and spam folder."
-                  : "Email verification is not connected yet. No verification email has been sent from this preview.",
+                  : "Email verification is currently unavailable. No email has been sent.",
               )}
               <Button variant="subtle" onClick={() => setNotice(true)}>
                 Resend verification link
@@ -254,7 +257,7 @@ export function AuthScreenView({
                 "Keep it with Kof’a",
                 "Keep all conversations and payments on Kof’a. We will never ask you to pay into a personal account.",
               )}
-              <Link className={buttonStyles("subtle")} href="/landlord">
+              <Link className={buttonStyles("primary")} href="/landlord">
                 List a property
               </Link>
               {preview ? (
@@ -271,30 +274,25 @@ export function AuthScreenView({
           )}
           <p className="auth-small">Your account details stay private.</p>
           {["login", "register"].includes(screen) && (
-            <Link className={buttonStyles("subtle")} href="/landlord">
+            <Link className={buttonStyles("primary")} href="/landlord">
               Want to list a property? Start here
             </Link>
           )}
           {account && (
             <Link
-              className={buttonStyles("subtle")}
+              className={buttonStyles("primary")}
               href={preview ? "/client-preview/overview" : href("register")}
             >
               {preview ? "Open full account" : "Create an account"}
             </Link>
           )}
           <div className="auth-preview-note">
-            <p>
-              {preview
-                ? "Design preview — sample content only. No account, verification, email delivery or password update is performed."
-                : "Authentication is being connected. Please use sample details; nothing is sent or saved."}
-            </p>
             <button
               type="button"
               className="auth-text-link"
               onClick={() => setGallery(true)}
             >
-              Preview all authentication screens
+              Account options
             </button>
           </div>
         </form>
@@ -323,29 +321,26 @@ export function AuthScreenView({
       <Modal
         open={notice}
         onClose={() => setNotice(false)}
-        title="Authentication is being connected."
+        title="Unable to continue"
       >
         <p>
-          No credentials were sent or saved. This action will be available when
-          the authentication service is connected.
+          Account services are currently unavailable. Your details have not been
+          sent or saved. Please try again later.
         </p>
         <Link
           className={buttonStyles("secondary", "mt-5")}
-          href={`/auth-preview/${screen === "register" ? "verify-email" : screen === "forgot-password" ? "reset-link-sent" : screen === "reset-password" ? "password-updated" : screen === "verify-email" ? "verified" : "account"}?returnTo=${encodeURIComponent(returnTo)}`}
+          href="/media-help-preview/help"
           onClick={() => setNotice(false)}
         >
-          Preview the next design
+          Get help
         </Link>
       </Modal>
       <Modal
         open={gallery}
         onClose={() => setGallery(false)}
-        title="Authentication design previews"
+        title="Account options"
       >
-        <nav
-          aria-label="Authentication previews"
-          className="auth-preview-links"
-        >
+        <nav aria-label="Account options" className="auth-preview-links">
           {Object.entries(authScreens).map(([key, item], index) => (
             <Link
               key={key}

@@ -101,7 +101,7 @@ test("queue filters and message refresh stay local; investigation requires findi
   await expect(page.locator('[data-source-node="94:16203"]')).toBeVisible();
   await page.goto("/responsive-preview/conversation");
   await page.getByRole("button", { name: "Refresh messages" }).click();
-  await expect(page.getByRole("status")).toContainText("locally");
+  await expect(page.getByRole("status")).toContainText("currently unavailable");
   await page.goto("/responsive-preview/investigation");
   await page.getByRole("button", { name: "Save working record" }).click();
   await expect(page.getByLabel("Findings", { exact: true })).toBeFocused();

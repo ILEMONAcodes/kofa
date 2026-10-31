@@ -6,7 +6,7 @@ import {
   type AuthScreen,
 } from "@/components/features/auth/screens";
 export const metadata = {
-  title: "Kof’a — authentication design preview",
+  title: "Kof’a — authentication",
   robots: { index: false, follow: false },
 };
 export const dynamicParams = false;

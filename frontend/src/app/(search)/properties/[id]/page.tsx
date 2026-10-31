@@ -20,7 +20,7 @@ import {
   furnishingLabel,
 } from "@/lib/property-presentation";
 import { formatMoney } from "@/lib/formatters/money";
-// This design preview uses the twelve known sample slugs. Real publication gating belongs to the public API.
+// This uses the twelve known sample slugs. Real publication gating belongs to the public API.
 export const dynamicParams = false;
 export function generateStaticParams() {
   return illustrativeListings.map((property) => ({ id: property.slug }));
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: property?.title ?? "Property not found",
     description: property
-      ? `${property.title} · ${property.location}. Fictional property design preview.`
+      ? `${property.title} · ${property.location}. Property details and photos.`
       : undefined,
     robots: { index: false, follow: false },
   };
@@ -110,7 +110,7 @@ export default async function PropertyDetail({ params }: Props) {
               <h2>A home with room to breathe.</h2>
               <p className="text-muted">
                 {property.slug === "3-bedroom-flat-wuse-2"
-                  ? "Bright living spaces, a fitted kitchen and parking. Illustrative content for the design preview."
+                  ? "Bright living spaces, a fitted kitchen and parking."
                   : property.description}
               </p>
               <p>
@@ -128,7 +128,7 @@ export default async function PropertyDetail({ params }: Props) {
             <h3 className="text-home-card desktop-only">Features</h3>
             <p className="text-muted desktop-only">
               {property.features ??
-                "Feature details are not supplied for this sample listing."}
+                "Contact our team for more information about this property’s features."}
             </p>
             <section id="verification" className="detail-verification">
               <div className="desktop-verification">
@@ -239,7 +239,7 @@ export default async function PropertyDetail({ params }: Props) {
           <p>{formatMoney(property.price.amount)}</p>
           <span>
             {pricePeriodLabel(property.price)} ·{" "}
-            {property.paymentTerms ?? "Sample listing"}
+            {property.paymentTerms ?? "Contact our team for details"}
           </span>
         </div>
         <Suspense

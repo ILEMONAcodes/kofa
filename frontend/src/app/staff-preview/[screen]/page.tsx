@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { StaffScreen } from "@/components/features/staff-operations/staff-screen";
 import { staffScreens } from "@/components/features/staff-operations/model";
 export const metadata = {
-  title: "Staff operations design preview | Kof’a",
+  title: "Staff operations | Kof’a",
   robots: { index: false, follow: false },
 };
 export const dynamicParams = false;

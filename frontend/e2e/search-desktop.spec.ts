@@ -140,7 +140,7 @@ test("filters support Other, multi-selection, money validation, URL reload and c
   expect(url.searchParams.get("q")).toBe("near a park");
   expect(url.searchParams.has("area")).toBe(false);
   await expect(page.getByRole("status")).toContainText(
-    "twelve cards demonstrate the design",
+    "Filtered search is currently unavailable",
   );
   await page.reload();
   await expect(

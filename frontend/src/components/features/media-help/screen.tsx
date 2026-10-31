@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { actionButtonVariant } from "@/lib/action-presentation";
 import { Button } from "@/components/common/button";
 import { Input } from "@/components/common/input";
 import { PopoverSelect } from "@/components/common/popover-select";
@@ -14,7 +15,6 @@ import {
   fieldOptions,
   mediaPath,
   mediaScreens,
-  outcome,
   policySlugs,
   type MediaBlock,
 } from "./model";
@@ -23,7 +23,6 @@ import {
   verificationPath,
   verificationOptions,
   verificationDestination,
-  verificationOutcome,
   isVerificationWorkspace,
 } from "@/components/features/verification/model";
 import {
@@ -31,7 +30,6 @@ import {
   reviewPath,
   reviewOptions,
   reviewDestination,
-  reviewOutcome,
   approvalPriceError,
 } from "@/components/features/review-feedback/model";
 import { parseMoneyInput } from "@/lib/formatters/money";
@@ -78,12 +76,12 @@ export function MediaHelpScreen({
         ? verificationPath
         : mediaPath;
   const directoryLabel = responsive
-    ? "View all 7 responsive reference screens"
+    ? "More options"
     : references
-      ? "View all 6 review and feedback screens"
+      ? "Review and account tools"
       : verification
-        ? "View all 8 verification and transaction screens"
-        : "View all 39 media and help screens";
+        ? "Verification and transactions"
+        : "Help and resources";
   const workspace = responsive
     ? ["overview", "properties", "investigation"].includes(slug)
     : references
@@ -186,9 +184,7 @@ export function MediaHelpScreen({
       label === "Open record →" &&
       !["INQ-000123", "3-bedroom flat · Wuse 2"].includes(context)
     ) {
-      setOperation(
-        "This reference record has no separate supplied detail screen",
-      );
+      setOperation("Record details are currently unavailable");
       setDialog("service");
       return;
     }
@@ -224,7 +220,7 @@ export function MediaHelpScreen({
     }
     if (responsive && label === "Refresh messages") {
       session.setNotice(
-        "Sample messages refreshed locally. Messaging service is not connected.",
+        "Messaging is currently unavailable. Your conversation has not changed.",
       );
       return;
     }
@@ -245,14 +241,14 @@ export function MediaHelpScreen({
     if (label === "Use as cover") {
       session.setCaption(values["82:3438"] ?? session.caption);
       session.setNotice(
-        "Sample cover and caption saved locally. No listing was updated.",
+        "Cover and caption updated on this device. Your listing has not been saved.",
       );
       go("media");
       return;
     }
     if (label === "Remove and return") {
       session.setMedia(session.media.filter((m) => m.id !== photos[0]?.id));
-      session.setNotice("First sample photo removed locally.");
+      session.setNotice("Photo removed from your selection.");
       go("media");
       return;
     }
@@ -423,10 +419,10 @@ export function MediaHelpScreen({
           style={{ height: b.height, borderRadius: b.radius }}
           alt={
             b.src?.includes("architecture")
-              ? "Sample property exterior"
+              ? "Property exterior"
               : b.src?.includes("jabi")
-                ? "Sample Jabi property interior"
-                : "Sample living room"
+                ? "Jabi property interior"
+                : "Living room"
           }
         />
       );
@@ -477,7 +473,7 @@ export function MediaHelpScreen({
                   <PopoverSelect
                     label={label}
                     title="Approval method"
-                    description="Choose how the sample approval was recorded."
+                    description="Choose how approval was recorded."
                     value={get(b)}
                     options={Array.from(
                       new Set([
@@ -573,13 +569,7 @@ export function MediaHelpScreen({
           key={b.id}
           disabled={b.disabled}
           className="w-full"
-          variant={
-            b.variant === "neutral"
-              ? "secondary"
-              : b.variant === "subtle"
-                ? "subtle"
-                : "primary"
-          }
+          variant={actionButtonVariant(b.text ?? "", b.variant)}
           onClick={() => action(b.text!, context)}
         >
           {b.text}
@@ -671,7 +661,7 @@ export function MediaHelpScreen({
         )}
       </Modal>
       <header className="journey-header">
-        <p>Design preview · sample content</p>
+        <p>The doorway to your home</p>
         <div>
           <Link
             href={workspace ? "/staff-preview/overview" : "/"}
@@ -727,7 +717,7 @@ export function MediaHelpScreen({
             ["properties", "inquiries"].includes(slug) &&
             Object.keys(values).length > 0 && (
               <div role="status">
-                Filters apply to the supplied sample records only.{" "}
+                Filters updated.{" "}
                 <Button variant="secondary" onClick={() => setValues({})}>
                   Clear filters
                 </Button>
@@ -736,19 +726,13 @@ export function MediaHelpScreen({
           {session.notice && <p role="status">{session.notice}</p>}
           {slug === "media" && (
             <p className="text-sm text-muted">
-              {photos.length} sample or local photos selected. Source file rows
-              above are illustrative; local selection and metadata can be
-              managed below.
+              {photos.length} photos selected. Manage your photos, captions and
+              cover image below.
             </p>
           )}
           <Button variant="secondary" onClick={() => setDialog("menu")}>
             {directoryLabel}
           </Button>
-          <p className="text-sm text-muted">
-            {workflow
-              ? "Fictional verification and transaction examples. Permissions, approval, publication and financial services are not connected. No real record changes are made."
-              : "Design examples. Uploads, reports and assistant services are not connected. Selected files stay on this device."}
-          </p>
         </form>
       </div>
       {slug === "media" && !responsive ? (
@@ -811,13 +795,13 @@ export function MediaHelpScreen({
         title={
           dialog === "menu"
             ? responsive
-              ? "360 px responsive references · design screens"
+              ? "More options"
               : references
-                ? "Review and feedback · design screens"
+                ? "Review and account tools"
                 : verification
-                  ? "Verification and transactions · design screens"
-                  : "Media, help and states · design screens"
-            : "Service not connected"
+                  ? "Verification and transactions"
+                  : "Help and resources"
+            : "Action unavailable"
         }
       >
         {dialog === "menu" ? (
@@ -834,60 +818,13 @@ export function MediaHelpScreen({
           <div className="space-y-4">
             <p>
               {operation === "Play walkthrough"
-                ? "The source contains a poster only, with no playable video. Choose a local video to preview playback."
-                : `${operation} is not connected. No request was sent and no record was changed.`}
+                ? "Choose a video to watch the walkthrough."
+                : `${operation} is currently unavailable. Nothing was submitted or changed.`}
             </p>
-            {responsive &&
-              (
-                {
-                  "Send inquiry": "/client-preview/inquiry-received",
-                  "Send message": "/client-preview/message-sent",
-                  "Review resolution":
-                    "/administration-preview/resolve-complaint",
-                } as Record<string, string>
-              )[operation] && (
-                <Link
-                  className="staff-public-link"
-                  href={
-                    (
-                      {
-                        "Send inquiry": "/client-preview/inquiry-received",
-                        "Send message": "/client-preview/message-sent",
-                        "Review resolution":
-                          "/administration-preview/resolve-complaint",
-                      } as Record<string, string>
-                    )[operation]
-                  }
-                >
-                  Preview example outcome
-                </Link>
-              )}
-            {!responsive &&
-              (references
-                ? reviewOutcome(operation)
-                : verification
-                  ? verificationOutcome(operation)
-                  : outcome(operation)) && (
-                <Link
-                  className="staff-public-link"
-                  href={path(
-                    (references
-                      ? reviewOutcome(operation)
-                      : verification
-                        ? verificationOutcome(operation)
-                        : outcome(operation))!,
-                  )}
-                >
-                  Preview example outcome
-                </Link>
-              )}
-            {workflow && (
-              <p>
-                Example outcomes show the supplied sample only, not the values
-                entered here. Live checks and permissions must be validated by
-                the server.
-              </p>
-            )}
+            <Link className="staff-public-link" href="/media-help-preview/help">
+              Get help
+            </Link>
+            {workflow && <p>Your changes have not been saved.</p>}
             <Button
               variant="secondary"
               onClick={() => {

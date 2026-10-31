@@ -3,7 +3,7 @@ import { buttonStyles, type ButtonVariant } from "@/components/common/button";
 export function HomeLink({
   href,
   children,
-  variant = "secondary",
+  variant = "primary",
   className,
 }: {
   href: string;

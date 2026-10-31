@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { MediaHelpScreen } from "@/components/features/media-help/screen";
 import { responsiveScreens } from "@/components/features/responsive-reference/model";
 export const metadata = {
-  title: "360 px responsive design preview | Kof’a",
+  title: "Your next step | Kof’a",
   robots: { index: false, follow: false },
 };
 export const dynamicParams = false;

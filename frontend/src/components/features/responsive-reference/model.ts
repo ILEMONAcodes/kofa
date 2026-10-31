@@ -11,7 +11,7 @@ export const responsiveOptions: Record<string, string[]> = {
   "Filter status": ["All inquiries", "Awaiting team reply", "In progress"],
   Status: ["Submitted / In review", "Submitted", "In review", "Published"],
   Area: ["All areas", "Wuse 2", "Jabi", "Gwarinpa"],
-  Assignee: ["My queue", "All assignees", "Sample verifier", "Unassigned"],
+  Assignee: ["My queue", "All assignees", "Verification team", "Unassigned"],
   Outcome: ["Inconclusive", "Substantiated", "Unsubstantiated"],
   Actions: ["No action", "Request correction", "Escalate for review"],
   "Cover photo": ["Living room", "Exterior", "Bedroom"],

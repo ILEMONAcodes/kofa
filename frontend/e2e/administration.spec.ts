@@ -101,8 +101,13 @@ test("transaction fields validate without posting or calculating fees", async ({
   await page
     .getByRole("button", { name: "Create transaction", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/administration-preview/transaction");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Transaction TXN-000123.",
   );
@@ -139,7 +144,7 @@ test("complaint review and resolution remain explicit examples", async ({
     page.getByText("Generic reporter update", { exact: true }),
   ).toBeVisible();
   await page.getByRole("button", { name: "Resolve case", exact: true }).click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
 });
 test("invitations and settings do not send email or change configuration", async ({
   page,
@@ -160,7 +165,7 @@ test("invitations and settings do not send email or change configuration", async
   await page
     .getByRole("button", { name: "Create staff account", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
   await page.goto("/administration-preview/support-settings");
   await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);
   await page
@@ -170,7 +175,7 @@ test("invitations and settings do not send email or change configuration", async
   await page
     .getByRole("button", { name: "Save settings", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
   expect(unsafe).toEqual([]);
 });
 test("ledger posting and article publishing have no service mutations", async ({
@@ -187,7 +192,9 @@ test("ledger posting and article publishing have no service mutations", async ({
   ]) {
     await page.goto(`/administration-preview/${slug}`);
     await page.getByRole("button", { name: label, exact: true }).click();
-    await expect(page.getByRole("dialog")).toContainText("No request was sent");
+    await expect(page.getByRole("dialog")).toContainText(
+      "Nothing was submitted",
+    );
   }
   expect(unsafe).toEqual([]);
 });

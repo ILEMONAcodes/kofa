@@ -105,11 +105,16 @@ test("registration validates confirmation and consent without sending credential
     .getByRole("button", { name: "Create account", exact: true })
     .click();
   await expect(page.getByRole("dialog")).toContainText(
-    "No credentials were sent or saved",
+    "Your details have not been sent or saved",
   );
   expect(posts).toEqual([]);
   await expect(page.getByLabel("Password", { exact: true })).toHaveValue("");
-  await page.getByRole("link", { name: "Preview the next design" }).click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/auth-preview/verify-email");
   await expect(page).toHaveURL(/auth-preview\/verify-email/);
   await page.getByRole("button", { name: "I’ve verified my email" }).click();
   await expect(page.getByRole("dialog")).toBeVisible();
@@ -128,9 +133,7 @@ test("login and recovery preserve safe return paths and account stays signed out
   await page
     .getByRole("button", { name: "Send reset link", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText(
-    "Authentication is being connected",
-  );
+  await expect(page.getByRole("dialog")).toContainText("Unable to continue");
   await page.goto("/account");
   await expect(page.getByText("Not signed in", { exact: true })).toBeVisible();
   await expect(page.getByText("Ada Obi", { exact: true })).toHaveCount(0);

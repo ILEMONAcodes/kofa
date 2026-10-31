@@ -10,7 +10,10 @@ type Block = {
 };
 const screens: { slug: string; blocks: Block[] }[] = JSON.parse(
   readFileSync(
-    new URL("../src/components/features/media-help/screens.json", import.meta.url),
+    new URL(
+      "../src/components/features/media-help/screens.json",
+      import.meta.url,
+    ),
     "utf8",
   ),
 );
@@ -88,7 +91,7 @@ test("report Other validation and separate fictional result send no mutations", 
     .getByRole("button", { name: "Submit report", exact: true })
     .click();
   await expect(
-    page.getByRole("dialog", { name: "Service not connected" }),
+    page.getByRole("dialog", { name: "Action unavailable" }),
   ).not.toBeVisible();
   await page.getByLabel("Specify reason").fill("The photos do not match");
   await page
@@ -98,9 +101,14 @@ test("report Other validation and separate fictional result send no mutations", 
     .getByRole("button", { name: "Submit report", exact: true })
     .click();
   await expect(
-    page.getByRole("dialog", { name: "Service not connected" }),
+    page.getByRole("dialog", { name: "Action unavailable" }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/media-help-preview/report-received");
   await expect(page).toHaveURL(/report-received$/);
   expect(mutations).toBe(0);
 });
@@ -118,9 +126,7 @@ test("gallery, help policies and numbered directory are connected", async ({
   await page.getByRole("button", { name: "View details →" }).nth(4).click();
   await expect(page).toHaveURL(/privacy$/);
   await expect(page.getByRole("note")).toContainText("Draft");
-  await page
-    .getByRole("button", { name: "View all 39 media and help screens" })
-    .click();
+  await page.getByRole("button", { name: "Help and resources" }).click();
   await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(39);
 });
 test("local file constraints, removal and session persistence", async ({
@@ -131,7 +137,7 @@ test("local file constraints, removal and session persistence", async ({
     .getByRole("button", { name: "Choose property photos", exact: true })
     .click();
   const modal = page.getByRole("dialog", {
-    name: "Manage local media",
+    name: "Manage photos and documents",
     exact: true,
   });
   await expect(modal).toBeVisible();
@@ -198,7 +204,7 @@ test("responsive geometry, disabled support call and accessibility", async ({
   }
   await page.goto("/media-help-preview/assistant");
   await expect(
-    page.getByRole("button", { name: "Call team · Number not set" }),
+    page.getByRole("button", { name: "Phone support unavailable" }),
   ).toBeDisabled();
   expect(await page.locator('a[href^="tel:"]').count()).toBe(0);
   await page.goto("/media-help-preview/accessibility");

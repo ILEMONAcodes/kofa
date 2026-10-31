@@ -142,8 +142,7 @@ export function DesktopSearch({ query }: { query: string }) {
           {initial.city === "Abuja" ? "Abuja" : "your preferred location"}.
         </h1>
         <p className="text-muted">
-          6 sample results · {initial.listing_type === "sale" ? "Buy" : "Rent"}{" "}
-          ·{" "}
+          12 properties · {initial.listing_type === "sale" ? "Buy" : "Rent"} ·{" "}
           {searchOptions.availability.find(
             (o) => o[0] === initial.availability,
           )?.[1] ?? "Available"}
@@ -229,17 +228,16 @@ export function DesktopSearch({ query }: { query: string }) {
         <section
           className="search-results"
           data-node-id="15:281"
-          aria-label="Sample property results"
+          aria-label="Property results"
         >
           <div className="search-result-controls" data-node-id="15:282">
-            <p className="font-medium">12 sample properties</p>
+            <p className="font-medium">12 properties</p>
             {choice("sort")}
           </div>
           {query && (
             <p role="status" className="search-preview-note text-sm text-muted">
-              Your preferences are saved in this URL. These twelve cards
-              demonstrate the design; live filtered results will appear when
-              property search is connected.
+              Filtered search is currently unavailable. You can still browse all
+              12 properties.
             </p>
           )}
           <SearchResults sort={initial.sort} query={query} />

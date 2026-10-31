@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { parseMoneyInput } from "@/lib/formatters/money";
 import { useState } from "react";
+import { actionButtonVariant } from "@/lib/action-presentation";
 import { Button } from "@/components/common/button";
 import { Modal } from "@/components/common/modal";
 import { SearchBudget } from "@/components/browse/search-budget";
@@ -30,16 +31,6 @@ type Block = {
 };
 export const clientScreens = data;
 const path = (slug: string) => `/client-preview/${slug}`;
-const outcomes: Record<string, string> = {
-  inquiry: "inquiry-received",
-  "general-inquiry": "inquiry-received",
-  conversation: "message-sent",
-  "inspection-review": "inspection-confirmed",
-  reschedule: "reschedule-requested",
-  "cancel-visit": "visit-cancelled",
-  "complaint-form": "complaint-received",
-  overview: "signed-out",
-};
 const options: Record<string, string[]> = {
   "Request type": ["Express interest", "Request inspection"],
   "Filter status": ["All inquiries", "Awaiting team reply", "In progress"],
@@ -133,7 +124,7 @@ export function ClientJourney({ slug }: { slug: string }) {
     setError("");
     if (/refresh/i.test(label)) {
       setNotice(
-        "Sample content refreshed. Live message refresh is not connected.",
+        "Messaging is currently unavailable. Your conversation has not changed.",
       );
       return;
     }
@@ -267,7 +258,7 @@ export function ClientJourney({ slug }: { slug: string }) {
           width={350}
           height={220}
           src="/assets/home-living-room.jpg"
-          alt="Living room in the sample Wuse 2 property"
+          alt="Living room in Wuse 2"
           className="journey-photo"
         />
       );
@@ -344,13 +335,7 @@ export function ClientJourney({ slug }: { slug: string }) {
         <Button
           key={block.id}
           className="w-full"
-          variant={
-            block.variant === "subtle"
-              ? "subtle"
-              : block.variant === "neutral"
-                ? "secondary"
-                : "primary"
-          }
+          variant={actionButtonVariant(block.text ?? "", block.variant)}
           onClick={() => action(text, context)}
         >
           {text}
@@ -386,7 +371,7 @@ export function ClientJourney({ slug }: { slug: string }) {
   return (
     <main id="main-content" className="journey-screen">
       <header className="journey-header">
-        <p>Design preview · sample content</p>
+        <p>The doorway to your home</p>
         <div>
           <Link href={path("overview")} aria-label="Kof’a account overview">
             <Image
@@ -424,12 +409,8 @@ export function ClientJourney({ slug }: { slug: string }) {
           <p role="alert">{error}</p>
           <p role="status">{notice}</p>
           <Button variant="secondary" onClick={() => setDialog("screens")}>
-            View all 23 design screens
+            Account options
           </Button>
-          <p className="text-sm text-muted">
-            Fictional records for design review. Account access and service
-            actions require backend integration.
-          </p>
         </form>
       </div>
       <nav aria-label="Mobile navigation" className="journey-nav">
@@ -455,10 +436,10 @@ export function ClientJourney({ slug }: { slug: string }) {
         onClose={() => setDialog(null)}
         title={
           dialog === "screens"
-            ? "Client journey screens"
+            ? "Your account"
             : dialog === "help"
               ? "Help with your next step"
-              : "Service not connected"
+              : "Action unavailable"
         }
       >
         {dialog === "screens" ? (
@@ -475,15 +456,12 @@ export function ClientJourney({ slug }: { slug: string }) {
           <>
             <p>
               {dialog === "help"
-                ? "This is a design preview. Live team support and approved service guidance will be available after integration."
-                : "No request was sent or record changed. This preview does not submit personal information or upload files."}
+                ? "Support is currently unavailable. Please try again later."
+                : "This action is currently unavailable. Nothing was submitted or changed."}
             </p>
             {dialog === "service" && (
-              <Link
-                className="journey-link"
-                href={path(outcomes[slug] ?? "notification-detail")}
-              >
-                Preview example outcome
+              <Link className="journey-link" href="/media-help-preview/help">
+                Get help
               </Link>
             )}
           </>

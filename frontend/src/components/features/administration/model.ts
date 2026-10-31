@@ -186,7 +186,7 @@ export const administrationOptions: Record<string, string[]> = {
   ],
   "Source inquiry / inspection": ["INQ-000123 / APT-000123", "INQ-000124"],
   "Transaction type": ["Rent", "Sale"],
-  Landlord: ["Sample owner", "Sample manager"],
+  Landlord: ["Property owner", "Property manager"],
   "Event type": ["Offer made", "Terms proposed", "Terms agreed", "Note"],
   "Disclosure method": ["In-platform message", "Email", "Phone"],
   "Ledger type": [
@@ -212,8 +212,8 @@ export const administrationOptions: Record<string, string[]> = {
   Assignee: [
     "My queue",
     "All assignees",
-    "Sample case coordinator",
-    "Sample admin",
+    "Case coordinator",
+    "Administrator",
     "Unassigned",
   ],
   Reason: [
@@ -252,7 +252,7 @@ export const administrationOptions: Record<string, string[]> = {
   Role: ["All roles", "Staff", "Admin", "Client"],
   "User status": ["Active", "Inactive", "All users"],
   "Date range": ["This month", "This week", "Today", "All dates"],
-  Actor: ["All actors", "Sample coordinator", "Sample admin"],
+  Actor: ["All actors", "Property coordinator", "Administrator"],
   "Audit action": [
     "All actions",
     "Availability confirmed",

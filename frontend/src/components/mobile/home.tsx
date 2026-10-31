@@ -43,7 +43,7 @@ export function MobileHome() {
         <div className="mobile-discovery-hero">
           <Image
             src="/assets/home-architecture.jpg"
-            alt="Illustrative contemporary home at dusk"
+            alt="contemporary home at dusk"
             fill
             priority
             unoptimized
@@ -79,7 +79,7 @@ export function MobileHome() {
           </p>
         </aside>
         <p className="text-home-caption text-muted">
-          Sample properties and stock imagery.
+          Find the space for your next chapter.
         </p>
         <aside className="mobile-notice">
           <h3>Have a property to list?</h3>

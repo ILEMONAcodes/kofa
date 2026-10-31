@@ -102,8 +102,13 @@ test("staff menu, records, filters and Other stay connected", async ({
   await page
     .getByRole("button", { name: "Save listing changes", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
-  await page.getByRole("link", { name: "Preview example outcome" }).click();
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
+  await expect(
+    page
+      .getByRole("dialog")
+      .getByRole("link", { name: "Get help", exact: true }),
+  ).toHaveAttribute("href", "/media-help-preview/help");
+  await page.goto("/staff-preview/changes-saved");
   await expect(page.getByRole("heading", { level: 1 })).toHaveText(
     "Changes saved.",
   );
@@ -118,7 +123,7 @@ test("private notes and reply are distinct and never sent by the preview", async
   await page
     .getByRole("button", { name: "Send client reply", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
   await page.getByRole("button", { name: "Close", exact: true }).click();
   await page
     .getByRole("button", {
@@ -164,7 +169,7 @@ test("media selection is local and rejects unsupported photo types", async ({
   await page
     .getByRole("button", { name: "Save media changes", exact: true })
     .click();
-  await expect(page.getByRole("dialog")).toContainText("No request was sent");
+  await expect(page.getByRole("dialog")).toContainText("Nothing was submitted");
 });
 test("staff preview fits short mobile and desktop review widths", async ({
   page,

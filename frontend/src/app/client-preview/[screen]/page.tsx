@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import { ClientJourney } from "@/components/features/client-journeys/client-journey";
 import clientScreens from "@/components/features/client-journeys/screens.json";
 export const metadata = {
-  title: "Client journey design preview | Kof’a",
+  title: "Client journey | Kof’a",
   robots: { index: false, follow: false },
 };
 export const dynamicParams = false;
