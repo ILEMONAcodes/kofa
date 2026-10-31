@@ -1,0 +1,1949 @@
+[
+  {
+    "slug": "inquiry",
+    "id": "94:15727",
+    "blocks": [
+      {
+        "id": "94:15776",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "94:15777",
+        "name": "",
+        "type": "text",
+        "text": "Let’s take the next step.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:15778",
+        "name": "",
+        "type": "text",
+        "text": "Express interest or request an inspection. A team member will follow up.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "167:20519",
+        "name": "Preference selector / Request type",
+        "type": "field",
+        "label": "Request type",
+        "value": "Request inspection ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "167:19936",
+        "name": "Grouped controls / Budget (₦)",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "167:20528",
+            "name": "Budget stepper / Minimum budget (₦)",
+            "type": "budget",
+            "label": "Minimum budget (₦)",
+            "value": "₦3,000,000",
+            "error": null,
+            "disabled": false,
+            "select": false,
+            "chevron": null
+          },
+          {
+            "id": "167:20547",
+            "name": "Budget stepper / Maximum budget (₦)",
+            "type": "budget",
+            "label": "Maximum budget (₦)",
+            "value": "₦4,000,000",
+            "error": null,
+            "disabled": false,
+            "select": false,
+            "chevron": null
+          }
+        ]
+      },
+      {
+        "id": "94:15793",
+        "name": "Preferred move-in date",
+        "type": "field",
+        "label": "Preferred move-in date",
+        "value": "01 December 2026",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "ui:inquiry:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Tell us what you need",
+        "value": "I would like to arrange a visit and ask about payment terms.",
+        "error": null
+      },
+      {
+        "id": "94:15804",
+        "name": "Managed by Kof’a",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:15805",
+            "name": "",
+            "type": "text",
+            "text": "Managed by Kof’a",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:15806",
+            "name": "",
+            "type": "text",
+            "text": "Your inquiry goes to our team. Landlord contact information stays private.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:15807",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:15808",
+            "name": "Send inquiry",
+            "type": "action",
+            "text": "Send inquiry",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "94:15819",
+            "name": "Back to property",
+            "type": "action",
+            "text": "Back to property",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "inquiries",
+    "id": "94:15830",
+    "blocks": [
+      {
+        "id": "94:15875",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "94:15876",
+        "name": "",
+        "type": "text",
+        "text": "Your conversations.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:15877",
+        "name": "",
+        "type": "text",
+        "text": "Keep every property question and next step together.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "94:15878",
+        "name": "Filter status",
+        "type": "field",
+        "label": "Filter status",
+        "value": "All inquiries ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "94:15885",
+        "name": "INQ-000123",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:15886",
+            "name": "",
+            "type": "text",
+            "text": "INQ-000123",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "94:15887",
+            "name": "",
+            "type": "text",
+            "text": "Property: 3-bedroom flat · Wuse 2",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:15888",
+            "name": "",
+            "type": "text",
+            "text": "Status: Awaiting team reply",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:15889",
+            "name": "",
+            "type": "text",
+            "text": "Updated: Today",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:15890",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "94:15897",
+        "name": "INQ-000122",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:15898",
+            "name": "",
+            "type": "text",
+            "text": "INQ-000122",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "94:15899",
+            "name": "",
+            "type": "text",
+            "text": "Property: General home search",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:15900",
+            "name": "",
+            "type": "text",
+            "text": "Status: In progress",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:15901",
+            "name": "",
+            "type": "text",
+            "text": "Updated: 25 Oct 2026",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:15902",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "94:15909",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:15910",
+            "name": "Start a general inquiry",
+            "type": "action",
+            "text": "Start a general inquiry",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "94:15917",
+            "name": "Explore properties",
+            "type": "action",
+            "text": "Explore properties",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "conversation",
+    "id": "94:15924",
+    "blocks": [
+      {
+        "id": "94:15969",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "94:15970",
+        "name": "",
+        "type": "text",
+        "text": "A conversation worth keeping.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:15971",
+        "name": "",
+        "type": "text",
+        "text": "INQ-2026-000123 · 3-bedroom flat, Wuse 2 · In progress",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "94:15972",
+        "name": "Keep your conversations here",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:15973",
+            "name": "",
+            "type": "text",
+            "text": "Keep your conversations here",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:15974",
+            "name": "",
+            "type": "text",
+            "text": "Use Kof’a messaging. Never pay into a personal account or move the conversation off-platform.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:15975",
+        "name": "Ada · 09:20",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:15976",
+            "name": "",
+            "type": "text",
+            "text": "Ada · 09:20",
+            "size": 12.0,
+            "line": 16.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:15977",
+            "name": "",
+            "type": "text",
+            "text": "Could I inspect this home next week?",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "94:15978",
+        "name": "Kof’a team · 09:35",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:15979",
+            "name": "",
+            "type": "text",
+            "text": "Kof’a team · 09:35",
+            "size": 12.0,
+            "line": 16.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:15980",
+            "name": "",
+            "type": "text",
+            "text": "We can help arrange a visit. Please share a preferred day and time.",
+            "size": 16.0,
+            "line": 24.0,
+            "weight": 400,
+            "tone": "ink"
+          }
+        ]
+      },
+      {
+        "id": "94:15981",
+        "name": "",
+        "type": "text",
+        "text": "Messages refresh periodically. Last updated 09:41 WAT.",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "94:15982",
+        "name": "Refresh messages",
+        "type": "group",
+        "gap": 0,
+        "padding": 0,
+        "radius": 9999.0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "I94:15982;13:140",
+            "name": "SDS / Button",
+            "type": "action",
+            "text": "Refresh messages",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "ui:conversation:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Your message",
+        "value": "Tuesday morning would work for me.",
+        "error": null
+      },
+      {
+        "id": "94:15993",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:15994",
+            "name": "Send message",
+            "type": "action",
+            "text": "Send message",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "94:16001",
+            "name": "View inspection",
+            "type": "action",
+            "text": "View inspection",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "overview",
+    "id": "94:16008",
+    "blocks": [
+      {
+        "id": "94:16053",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "94:16054",
+        "name": "",
+        "type": "text",
+        "text": "A clear view of today.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:16055",
+        "name": "",
+        "type": "text",
+        "text": "Operations overview · Sample data · 26 October 2026",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "94:16056",
+        "name": "Summary metrics",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:16057",
+            "name": "Awaiting review",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "94:16058",
+                "name": "",
+                "type": "text",
+                "text": "12",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "94:16059",
+                "name": "",
+                "type": "text",
+                "text": "Awaiting review",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "94:16060",
+            "name": "Open inquiries",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "94:16061",
+                "name": "",
+                "type": "text",
+                "text": "28",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "94:16062",
+                "name": "",
+                "type": "text",
+                "text": "Open inquiries",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "94:16063",
+            "name": "Upcoming inspections",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "94:16064",
+                "name": "",
+                "type": "text",
+                "text": "06",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "94:16065",
+                "name": "",
+                "type": "text",
+                "text": "Upcoming inspections",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          },
+          {
+            "id": "94:16066",
+            "name": "Cases needing attention",
+            "type": "group",
+            "gap": 8.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "94:16067",
+                "name": "",
+                "type": "text",
+                "text": "03",
+                "size": 30.0,
+                "line": 38.0,
+                "weight": 500,
+                "tone": "primary"
+              },
+              {
+                "id": "94:16068",
+                "name": "",
+                "type": "text",
+                "text": "Cases needing attention",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "94:16069",
+        "name": "Record cards",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:16070",
+            "name": "Review submissions",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "94:16071",
+                "name": "",
+                "type": "text",
+                "text": "Review submissions",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "94:16072",
+                "name": "",
+                "type": "text",
+                "text": "Verify the next property in your queue.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "94:16073",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          },
+          {
+            "id": "94:16080",
+            "name": "Follow up inquiries",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "94:16081",
+                "name": "",
+                "type": "text",
+                "text": "Follow up inquiries",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "94:16082",
+                "name": "",
+                "type": "text",
+                "text": "Keep client conversations moving.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "94:16083",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          },
+          {
+            "id": "94:16090",
+            "name": "Review concerns",
+            "type": "group",
+            "gap": 12.0,
+            "padding": 20.0,
+            "radius": 12.0,
+            "row": false,
+            "border": true,
+            "tone": "surface",
+            "children": [
+              {
+                "id": "94:16091",
+                "name": "",
+                "type": "text",
+                "text": "Review concerns",
+                "size": 20.0,
+                "line": 28.0,
+                "weight": 500,
+                "tone": "ink"
+              },
+              {
+                "id": "94:16092",
+                "name": "",
+                "type": "text",
+                "text": "Investigate before taking action.",
+                "size": 14.0,
+                "line": 20.0,
+                "weight": 400,
+                "tone": "muted"
+              },
+              {
+                "id": "94:16093",
+                "name": "View details →",
+                "type": "action",
+                "text": "View details →",
+                "variant": "subtle",
+                "disabled": false
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "94:16100",
+        "name": "Inspection · 10:00 WAT",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:16101",
+            "name": "",
+            "type": "text",
+            "text": "Inspection · 10:00 WAT",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "94:16102",
+            "name": "",
+            "type": "text",
+            "text": "Reference: APT-000123",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16103",
+            "name": "",
+            "type": "text",
+            "text": "Next action: Awaiting client confirmation",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16104",
+        "name": "Property review",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:16105",
+            "name": "",
+            "type": "text",
+            "text": "Property review",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "94:16106",
+            "name": "",
+            "type": "text",
+            "text": "Reference: SUB-000123",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16107",
+            "name": "",
+            "type": "text",
+            "text": "Next action: Complete verification",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16108",
+        "name": "Precautionary hold",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:16109",
+            "name": "",
+            "type": "text",
+            "text": "Precautionary hold",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "94:16110",
+            "name": "",
+            "type": "text",
+            "text": "Reference: CMP-000125",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16111",
+            "name": "",
+            "type": "text",
+            "text": "Next action: Review within 2 business days",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16112",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:16113",
+            "name": "View reports",
+            "type": "action",
+            "text": "View reports",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "94:16120",
+            "name": "Open inspection calendar",
+            "type": "action",
+            "text": "Open inspection calendar",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "properties",
+    "id": "94:16127",
+    "blocks": [
+      {
+        "id": "94:16172",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "94:16173",
+        "name": "",
+        "type": "text",
+        "text": "Properties, ready for care.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:16174",
+        "name": "",
+        "type": "text",
+        "text": "Review, verify and manage every submission.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "94:16175",
+        "name": "Search",
+        "type": "field",
+        "label": "Search",
+        "value": "Reference, title or area",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "94:16182",
+        "name": "Status",
+        "type": "field",
+        "label": "Status",
+        "value": "Submitted / In review ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "167:20507",
+        "name": "Preference selector / Area",
+        "type": "field",
+        "label": "Area",
+        "value": "All areas",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": "/assets/search-chevron.svg"
+      },
+      {
+        "id": "94:16196",
+        "name": "Assignee",
+        "type": "field",
+        "label": "Assignee",
+        "value": "My queue ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "94:16203",
+        "name": "3-bedroom flat · Wuse 2",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:16204",
+            "name": "",
+            "type": "text",
+            "text": "3-bedroom flat · Wuse 2",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "94:16205",
+            "name": "",
+            "type": "text",
+            "text": "Reference: SUB-000123",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16206",
+            "name": "",
+            "type": "text",
+            "text": "Status: In review",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16207",
+            "name": "",
+            "type": "text",
+            "text": "Assignee: Sample verifier",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16208",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "94:16215",
+        "name": "2-bedroom flat · Jabi",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:16216",
+            "name": "",
+            "type": "text",
+            "text": "2-bedroom flat · Jabi",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "94:16217",
+            "name": "",
+            "type": "text",
+            "text": "Reference: SUB-000124",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16218",
+            "name": "",
+            "type": "text",
+            "text": "Status: Submitted",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16219",
+            "name": "",
+            "type": "text",
+            "text": "Assignee: Unassigned",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16220",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "94:16227",
+        "name": "4-bedroom duplex · Gwarinpa",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": true,
+        "tone": "surface",
+        "children": [
+          {
+            "id": "94:16228",
+            "name": "",
+            "type": "text",
+            "text": "4-bedroom duplex · Gwarinpa",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "ink"
+          },
+          {
+            "id": "94:16229",
+            "name": "",
+            "type": "text",
+            "text": "Reference: SUB-000125",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16230",
+            "name": "",
+            "type": "text",
+            "text": "Status: Published · availability stale",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16231",
+            "name": "",
+            "type": "text",
+            "text": "Assignee: Sample verifier",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          },
+          {
+            "id": "94:16232",
+            "name": "Open record →",
+            "type": "action",
+            "text": "Open record →",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "94:16239",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:16240",
+            "name": "Review submission",
+            "type": "action",
+            "text": "Review submission",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "94:16247",
+            "name": "Review stale availability",
+            "type": "action",
+            "text": "Review stale availability",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "media",
+    "id": "94:16254",
+    "blocks": [
+      {
+        "id": "94:16299",
+        "name": "",
+        "type": "text",
+        "text": "YOUR NEXT CHAPTER",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "94:16300",
+        "name": "",
+        "type": "text",
+        "text": "Show the space. Tell its story.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:16301",
+        "name": "",
+        "type": "text",
+        "text": "Listing step 5 of 6 · Photos, optional video and private evidence",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "94:16302",
+        "name": "",
+        "type": "text",
+        "text": "Property photos · Required",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:16303",
+        "name": "",
+        "type": "text",
+        "text": "5–20 photos · JPEG / PNG / WebP · 10 MB each",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "94:16304",
+        "name": "Photo previews",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": true,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:16305",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-living-room.jpg",
+            "height": 110.0,
+            "radius": 24.0
+          },
+          {
+            "id": "94:16306",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-architecture.jpg",
+            "height": 110.0,
+            "radius": 24.0
+          },
+          {
+            "id": "94:16307",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-jabi.jpg",
+            "height": 110.0,
+            "radius": 24.0
+          }
+        ]
+      },
+      {
+        "id": "94:16308",
+        "name": "living-room.webp",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:16309",
+            "name": "",
+            "type": "text",
+            "text": "living-room.webp",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:16310",
+            "name": "",
+            "type": "text",
+            "text": "Ready · Photo 1 · Cover",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16311",
+        "name": "bedroom.jpg",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:16312",
+            "name": "",
+            "type": "text",
+            "text": "bedroom.jpg",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:16313",
+            "name": "",
+            "type": "text",
+            "text": "Ready · Photo 2",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16314",
+        "name": "Choose property photos",
+        "type": "action",
+        "text": "Choose property photos",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "94:16321",
+        "name": "Selected photo caption (optional)",
+        "type": "field",
+        "label": "Selected photo caption (optional)",
+        "value": "Living room",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "94:16328",
+        "name": "Display order",
+        "type": "field",
+        "label": "Display order",
+        "value": "1",
+        "error": null,
+        "disabled": false,
+        "select": false,
+        "chevron": null
+      },
+      {
+        "id": "94:16335",
+        "name": "Cover photo",
+        "type": "field",
+        "label": "Cover photo",
+        "value": "Living room ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "94:16342",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:16343",
+            "name": "Preview selected photo",
+            "type": "action",
+            "text": "Preview selected photo",
+            "variant": "neutral",
+            "disabled": false
+          },
+          {
+            "id": "94:16350",
+            "name": "Remove selected photo",
+            "type": "action",
+            "text": "Remove selected photo",
+            "variant": "subtle",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "94:16357",
+        "name": "",
+        "type": "text",
+        "text": "Walkthrough video · Optional",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:16358",
+        "name": "",
+        "type": "text",
+        "text": "One MP4 or WebM · Maximum 100 MB · No automatic transcoding",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "94:16359",
+        "name": "walkthrough.mp4",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:16360",
+            "name": "",
+            "type": "text",
+            "text": "walkthrough.mp4",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:16361",
+            "name": "",
+            "type": "text",
+            "text": "Ready · 42 MB",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16362",
+        "name": "Choose or replace video",
+        "type": "action",
+        "text": "Choose or replace video",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "94:16369",
+        "name": "Video player",
+        "type": "group",
+        "gap": 16.0,
+        "padding": 16.0,
+        "radius": 24.0,
+        "row": false,
+        "border": false,
+        "tone": "dark",
+        "children": [
+          {
+            "id": "94:16370",
+            "name": "Illustrative property photo",
+            "type": "image",
+            "src": "/assets/home-architecture.jpg",
+            "height": 180.0,
+            "radius": 24.0
+          },
+          {
+            "id": "94:16371",
+            "name": "",
+            "type": "text",
+            "text": "▶  Property walkthrough",
+            "size": 20.0,
+            "line": 28.0,
+            "weight": 500,
+            "tone": "inverse"
+          },
+          {
+            "id": "94:16372",
+            "name": "",
+            "type": "text",
+            "text": "00:00 / 01:24    ━━━━━━━━━    Volume  ·  Captions  ·  Full screen",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "inverse"
+          },
+          {
+            "id": "94:16373",
+            "name": "Play walkthrough",
+            "type": "action",
+            "text": "Play walkthrough",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "94:16380",
+        "name": "",
+        "type": "text",
+        "text": "Tap to play. Video does not autoplay. Illustrative poster; video file not attached.",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "muted"
+      },
+      {
+        "id": "94:16381",
+        "name": "",
+        "type": "text",
+        "text": "Ownership / authorisation evidence · Private",
+        "size": 24.0,
+        "line": 32.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:16382",
+        "name": "",
+        "type": "text",
+        "text": "At least 1 evidence document · Maximum 10 · PDF / JPEG / PNG · 10 MB each",
+        "size": 14.0,
+        "line": 20.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "94:16383",
+        "name": "sample-ownership-proof.pdf",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:16384",
+            "name": "",
+            "type": "text",
+            "text": "sample-ownership-proof.pdf",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:16385",
+            "name": "",
+            "type": "text",
+            "text": "Ready · Private to authorised staff",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16386",
+        "name": "Add evidence",
+        "type": "action",
+        "text": "Add evidence",
+        "variant": "neutral",
+        "disabled": false
+      },
+      {
+        "id": "94:16393",
+        "name": "Keep the distinction clear",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:16394",
+            "name": "",
+            "type": "text",
+            "text": "Keep the distinction clear",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:16395",
+            "name": "",
+            "type": "text",
+            "text": "Property photos and optional video may be published after approval. Ownership and identity documents remain private.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16396",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:16397",
+            "name": "Review my listing",
+            "type": "action",
+            "text": "Review my listing",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "94:16404",
+            "name": "Back to features",
+            "type": "action",
+            "text": "Back to features",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "slug": "investigation",
+    "id": "94:16411",
+    "blocks": [
+      {
+        "id": "94:16456",
+        "name": "",
+        "type": "text",
+        "text": "KOFA WORKSPACE",
+        "size": 12.0,
+        "line": 16.0,
+        "weight": 500,
+        "tone": "primary"
+      },
+      {
+        "id": "94:16457",
+        "name": "",
+        "type": "text",
+        "text": "Build a supported conclusion.",
+        "size": 30.0,
+        "line": 38.0,
+        "weight": 500,
+        "tone": "ink"
+      },
+      {
+        "id": "94:16458",
+        "name": "",
+        "type": "text",
+        "text": "Findings, evidence, outcome and actions are required before resolution.",
+        "size": 16.0,
+        "line": 24.0,
+        "weight": 400,
+        "tone": "muted"
+      },
+      {
+        "id": "ui:investigation:1",
+        "name": "",
+        "type": "textarea",
+        "label": "Findings",
+        "value": "Summarise what the investigation established.",
+        "error": null
+      },
+      {
+        "id": "ui:investigation:2",
+        "name": "",
+        "type": "textarea",
+        "label": "Evidence reviewed",
+        "value": "List the evidence references and checks completed.",
+        "error": null
+      },
+      {
+        "id": "94:16467",
+        "name": "Outcome",
+        "type": "field",
+        "label": "Outcome",
+        "value": "Inconclusive ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "94:16474",
+        "name": "Actions",
+        "type": "field",
+        "label": "Actions",
+        "value": "No action ▾",
+        "error": null,
+        "disabled": false,
+        "select": true,
+        "chevron": null
+      },
+      {
+        "id": "ui:investigation:3",
+        "name": "",
+        "type": "textarea",
+        "label": "Public note (optional)",
+        "value": "A generic update that does not expose private findings or reporter details.",
+        "error": null
+      },
+      {
+        "id": "94:16485",
+        "name": "Permission safeguards",
+        "type": "group",
+        "gap": 8.0,
+        "padding": 16.0,
+        "radius": 12.0,
+        "row": false,
+        "border": false,
+        "tone": "tint",
+        "children": [
+          {
+            "id": "94:16486",
+            "name": "",
+            "type": "text",
+            "text": "Permission safeguards",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 500,
+            "tone": "primary"
+          },
+          {
+            "id": "94:16487",
+            "name": "",
+            "type": "text",
+            "text": "Permanent listing rejection or landlord blocking is admin-only and requires a substantiated or partially substantiated outcome.",
+            "size": 14.0,
+            "line": 20.0,
+            "weight": 400,
+            "tone": "muted"
+          }
+        ]
+      },
+      {
+        "id": "94:16488",
+        "name": "Actions",
+        "type": "group",
+        "gap": 12.0,
+        "padding": 0.0,
+        "radius": 0,
+        "row": false,
+        "border": false,
+        "tone": "none",
+        "children": [
+          {
+            "id": "94:16489",
+            "name": "Save working record",
+            "type": "action",
+            "text": "Save working record",
+            "variant": "primary",
+            "disabled": false
+          },
+          {
+            "id": "94:16496",
+            "name": "Review resolution",
+            "type": "action",
+            "text": "Review resolution",
+            "variant": "neutral",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  }
+]
