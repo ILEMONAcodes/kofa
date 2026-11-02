@@ -1,0 +1,5 @@
+# FE-3.6 — personalized welcome
+
+Task brief: use authenticated AccountUser.full_name for a first-name welcome in the access bar and account overview, preserving layout, roles and sign-out. Owner: Developer 2 under existing frontend authorization. Branch: joint/FE-3.6-personalized-welcome. Dependencies: integrated /auth/me user contract v0.3.0. No contract/schema changes. Files: local-access.tsx, client-journey.tsx, progress and backend checklist. Acceptance: actual user first name displayed, whitespace normalized, existing title fallback when unavailable, no hardcoded Solomon or profile picture. Tests: TypeScript and targeted lint; small reversible presentation change needs no new test suite. Backend inventory reviewed against API files and PROGRESS task rows. No new backend module implemented.
+
+Validation: frontend typecheck passed; targeted ESLint passed; git diff --check passed. Reviewer diff confirms real user name, existing role/sign-out behavior preserved. No browser visual check. Not pushed/deployed.

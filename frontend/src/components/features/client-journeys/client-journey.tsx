@@ -220,7 +220,9 @@ export function ClientJourney({ slug }: { slug: string }) {
       };
       return block.id === screen.blocks[1].id ? (
         <h1 key={block.id} style={style}>
-          {block.text}
+          {slug === "overview" && access.user?.full_name.trim()
+            ? `Welcome, ${access.user.full_name.trim().split(/\s+/)[0]}.`
+            : block.text}
         </h1>
       ) : (
         <p key={block.id} style={style}>

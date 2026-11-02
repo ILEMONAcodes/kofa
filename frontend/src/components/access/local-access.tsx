@@ -123,14 +123,14 @@ export function LocalGate({
   return <>{children}</>;
 }
 export function AccessStatus() {
-  const { role, leave } = useLocalAccess();
+  const { role, user, leave } = useLocalAccess();
   const [busy,setBusy]=useState(false);
   const [notice,setNotice]=useState("");
   if (!role) return null;
   return (
     <aside className="local-access-bar" aria-label="Account access">
       <span>
-        Signed in ·{" "}
+        {user?.full_name.trim() ? `Welcome, ${user.full_name.trim().split(/\s+/)[0]}` : "Welcome"} ·{" "}
         {role === "admin"
           ? "Administrator"
           : role === "staff"
