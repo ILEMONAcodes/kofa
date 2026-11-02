@@ -199,3 +199,7 @@ Owner explicitly requests enabling client registration using the supplied provis
 ### 2026-11-02 — BE-4.2 property foundations
 
 Working assumptions: draft property schema/contract, ADR-001 landlord contact records, OQ-02 Abuja taxonomy, OQ-13 default media limits. Metadata and local-only migration tests precede uploads; candidate Abuja neighbourhood seeds remain editable. No remote migrations or paid storage provisioned.
+
+### 2026-11-02 — BE-4.3 private media service
+
+Assumes OQ-13 media defaults and ARCHITECTURE §10 local/S3 drivers. All uploads remain private pending publication. Storage disabled by default; no provider or credentials selected. Resource guards: 25MP static images, 15-second file-only ffprobe, five-minute document read grants; draft upload capabilities expire after 24 hours. No HTTP endpoint behavior is introduced here; BE-4.4 integrates capabilities/rate limits/body bounds.
