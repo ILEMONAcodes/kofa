@@ -72,3 +72,9 @@ After the migration, `python -m app.cli seed-taxonomy` inserts initial Abuja are
 ## Upload storage service (BE-4.3)
 
 Uploads are not exposed over HTTP until the landlord-submission task. Storage defaults to disabled. For development set STORAGE_DRIVER=local and choose a private STORAGE_LOCAL_ROOT outside frontend/public. For production use STORAGE_DRIVER=s3 and fill the S3_* placeholders in private hosting settings, with a private bucket. No storage account is provisioned by this code. See [upload service and validation](../docs/PROPERTY_UPLOADS.md). The Dockerfile installs ffmpeg for ffprobe; local video validation requires ffprobe on PATH.
+
+## Landlord contact submissions (BE-4.4)
+
+The four contract endpoints are available under /api/v1/landlord-submissions after the migration. No landlord account is required. Bootstrap /api/v1/auth/csrf first; send Origin and the CSRF cookie/header for all mutations. Draft creation returns a 24-hour X-Upload-Token scoped to the property; keep it private and attach it to uploads/removal/submit. Five photos plus ownership proof or authorisation letter are required before submission. All completed records enter submitted and receive a stable reference. See [setup, limits and handoff](../docs/LANDLORD_SUBMISSIONS.md).
+
+Set real private S3 configuration before deployed file operations. Schedule `python -m app.cli cleanup-files` to retry queued object deletions. CAPTCHA_REQUIRED is false by default; a verifier adapter must be configured before enabling. No production storage, CAPTCHA provider or cleanup scheduler was configured by this task.
