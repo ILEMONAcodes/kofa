@@ -19,9 +19,9 @@ Media additions reuse the validated private upload service and shared bounded mu
 ## Integration boundary
 
 - No schema/model additions or migrations in this task; apply existing BE-4.2/4.4 migrations before deployment. No Neon operations performed.
-- The frontend staff workspace remains a separate integration task. No UI files were changed. Real private S3 credentials/configuration are still needed for deployed uploads/assets.
+- Follow-up FE-4.14 connects the protected staff property/landlord workspace; see [live integration](LIVE_STAFF_INTEGRATION.md). Real private S3 credentials/configuration are still needed for deployed uploads/assets.
 - GET detail/list asset URLs are signed on demand; expiration requires refreshing the detail/list response. Local URLs work through the same-origin frontend API rewrite and require staff cookies.
-- Read-only staff assignee name/ID references are included where already assigned. Admin account management provides the existing roster; a dedicated staff-facing assignment picker endpoint may be added in frontend integration if needed.
+- Follow-up API v0.6.0 adds staff-only `/admin/property-options` with active areas, amenities and staff/admin references for valid dropdown choices.
 - Next: BE-4.6 verification recording, landlord approval and guarded approve/publish/unpublish transitions. Staff email invitations remain pending mail-provider/worker setup as requested.
 
 ## Validation investigation

@@ -480,3 +480,18 @@ def local_download(db, storage, actor_id, property_id, file_id, token, thumbnail
     )
     db.commit()
     return path, "image/webp" if thumbnail else item.mime_type
+
+
+def property_options(db, actor_id):
+    current_staff(db, actor_id)
+    areas, amenities, staff = repo.options(db)
+    return schema.PropertyOptions(
+        areas=[
+            schema.AreaOption(
+                id=a.id, slug=a.slug, state=a.state, city=a.city, neighbourhood=a.neighbourhood
+            )
+            for a in areas
+        ],
+        amenities=[schema.AmenityOut(code=a.code, label=a.label) for a in amenities],
+        staff=[schema.StaffRef(id=user.id, full_name=user.full_name) for user in staff],
+    )

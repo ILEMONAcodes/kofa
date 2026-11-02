@@ -306,3 +306,21 @@ class LandlordDetail(LandlordOut):
 
 class LandlordEnvelope(BaseModel):
     data: LandlordDetail
+
+
+class AreaOption(BaseModel):
+    id: UUID
+    slug: str
+    state: str
+    city: str
+    neighbourhood: str
+
+
+class PropertyOptions(BaseModel):
+    areas: list[AreaOption]
+    amenities: list[AmenityOut]
+    staff: list[StaffRef]
+
+
+class OptionsEnvelope(BaseModel):
+    data: PropertyOptions

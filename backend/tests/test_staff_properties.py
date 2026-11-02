@@ -725,3 +725,30 @@ def test_stale_filter_exact_fourteen_day_boundary_and_never_confirmed(
     assert client.get("/api/v1/admin/properties?stale_availability=false").json()["data"][0][
         "id"
     ] == str(prop.id)
+
+
+@pytest.mark.parametrize("role", [None, "client", "staff", "admin"])
+def test_property_options_are_private_active_reference_data(client, db, record, role):
+    from app.models.property import Amenity
+
+    user = login(client, db, role)
+    db.add_all(
+        [
+            Amenity(code="active-test", label="Active amenity", category="utilities"),
+            Amenity(
+                code="inactive-test", label="Hidden amenity", category="utilities", is_active=False
+            ),
+        ]
+    )
+    db.commit()
+    response = client.get("/api/v1/admin/property-options")
+    if role not in {"staff", "admin"}:
+        assert response.status_code == (401 if role is None else 403)
+        return
+    assert response.status_code == 200
+    data = response.json()["data"]
+    assert data["areas"]
+    assert data["amenities"] == [{"code": "active-test", "label": "Active amenity"}]
+    assert data["staff"] == [{"id": str(user.id), "full_name": user.full_name}]
+    assert "email" not in response.text and "password_hash" not in response.text
+    assert client.get("/api/v1/admin/property-options?unknown=yes").status_code == 422

@@ -260,3 +260,8 @@ def landlord(id: UUID, request: Request, actor=Depends(STAFF), db=Depends(get_db
             db, request.app.state.settings, actor.id, id, request.app.state.storage
         )
     }
+
+
+@router.get("/property-options", response_model=schema.OptionsEnvelope)
+def property_options(actor=Depends(STAFF), db=Depends(get_db)):
+    return {"data": service.property_options(db, actor.id)}

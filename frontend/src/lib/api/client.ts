@@ -2,7 +2,12 @@ import { ApiError } from "./error";
 import type { ApiEnvelope, ApiErrorDetail } from "@/types/api";
 let refreshInFlight: Promise<void> | null = null;
 export function refreshSession(): Promise<void> {
-  if (!refreshInFlight) refreshInFlight = apiRequest("/auth/refresh", {method:"POST"}).then(()=>{}).finally(()=>{refreshInFlight=null;});
+  if (!refreshInFlight)
+    refreshInFlight = apiRequest("/auth/refresh", { method: "POST" })
+      .then(() => {})
+      .finally(() => {
+        refreshInFlight = null;
+      });
   return refreshInFlight;
 }
 type Options = Omit<RequestInit, "body" | "signal"> & {
@@ -59,7 +64,11 @@ export async function apiRequest<T>(
   ): Promise<{ response: Response; payload: unknown; invalidJson: boolean }> {
     const headers = new Headers(request.headers);
     headers.set("Accept", "application/json");
-    if (payload !== undefined) headers.set("Content-Type", "application/json");
+    const multipart =
+      typeof FormData !== "undefined" && payload instanceof FormData;
+    if (multipart) headers.delete("Content-Type");
+    else if (payload !== undefined)
+      headers.set("Content-Type", "application/json");
     const method = request.method?.toUpperCase() ?? "GET";
     if (!["GET", "HEAD", "OPTIONS"].includes(method)) {
       const token = csrf();
@@ -79,7 +88,11 @@ export async function apiRequest<T>(
         ...request,
         headers,
         credentials: "same-origin",
-        body: payload === undefined ? undefined : JSON.stringify(payload),
+        body: multipart
+          ? (payload as FormData)
+          : payload === undefined
+            ? undefined
+            : JSON.stringify(payload),
         signal: controller.signal,
       });
       if (response.status === 204)

@@ -234,3 +234,26 @@ def media_by_id(db, media_id):
 
 def landlord_by_id(db, landlord_id):
     return db.get(Landlord, landlord_id)
+
+
+def options(db):
+    areas = list(
+        db.scalars(
+            select(Area).where(Area.is_active.is_(True)).order_by(Area.city, Area.neighbourhood)
+        )
+    )
+    amenities = list(
+        db.scalars(
+            select(Amenity)
+            .where(Amenity.is_active.is_(True))
+            .order_by(Amenity.sort_order, Amenity.code)
+        )
+    )
+    staff = list(
+        db.scalars(
+            select(User)
+            .where(User.is_active.is_(True), User.role.in_(["staff", "admin"]))
+            .order_by(User.full_name, User.id)
+        )
+    )
+    return areas, amenities, staff
