@@ -83,6 +83,7 @@ class Landlord(Identified, Updated, Base):
 class Property(Identified, Updated, Base):
     __tablename__ = "properties"
     __table_args__ = (
+        UniqueConstraint("submission_reference", name="uq_property_submission_reference"),
         CheckConstraint("listing_type IN ('rent','sale')", name="ck_property_listing_type"),
         CheckConstraint(
             "property_type IN ('apartment','house','duplex','bungalow','terrace','studio','room')",
@@ -131,6 +132,7 @@ class Property(Identified, Updated, Base):
             postgresql_ops={"search_text": "gin_trgm_ops"},
         ),
     )
+    submission_reference: Mapped[str | None] = mapped_column(String(40))
     slug: Mapped[str] = mapped_column(String(160), unique=True)
     landlord_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("landlords.id"), index=True)
     area_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("areas.id"), index=True)
@@ -314,3 +316,11 @@ class PropertyStatusHistory(Identified, Created, Base):
     to_status: Mapped[str] = mapped_column(String(20))
     actor_user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
     reason: Mapped[str | None] = mapped_column(Text)
+
+
+class StorageDeletion(Identified, Created, Base):
+    """Durable private deletion outbox; never serialize storage keys publicly."""
+
+    __tablename__ = "storage_deletions"
+    storage_key: Mapped[str] = mapped_column(Text, unique=True)
+    attempts: Mapped[int] = mapped_column(Integer, server_default="0")

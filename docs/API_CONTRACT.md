@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.3.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
+**Contract version:** `0.4.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -276,7 +276,17 @@ Limits (OQ-13 defaults): photos JPEG/PNG/WebP ≤ 10 MB each (max 20); video MP4
 
 **Submit:** `POST /landlord-submissions/{id}/submit` (same token) → `200 { data: { id, status: "submitted", reference: "SUB-2026-000123" } }`. Fails `422` unless ≥ 5 photos and ≥ 1 evidence document.
 
-The landlord receives the `reference` only. Landlord PII is stored privately (BR-03).
+The landlord receives only the minimal receipt above. Landlord PII is stored privately (BR-03).
+
+**BE-4.4 implementation / CR-LANDLORD-001:** all four §4.4 endpoints are Implemented. Anonymous callers still bootstrap `/auth/csrf` and send the signed cookie/header plus the exact configured Origin on mutations. `X-Upload-Token` is property-scoped, expires after 24 hours, and authorizes file mutations/submit only, never read access. Upload, removal and submit attempts share the 60/hour/token mutation budget. No query parameters are accepted. Unknown JSON/form fields and duplicate multipart field names are rejected. One file plus kind and optional caption (≤200 characters) per multipart request; content is inspected, not trusted by MIME label.
+
+Draft JSON is bounded to 64 KiB before parsing; multipart reception to 100 MiB plus 64 KiB overhead, with per-file limits enforced by the media service. Oversize returns 413. Multipart structural errors (including too many parts) return 400. No file data, storage keys, landlord contact, internal review flags or exact address appear in receipts/errors. All receipts are no-store.
+
+Phone is normalized from Nigerian local form to E.164. `email` is optional. Active area and amenity values are required; duplicate amenity codes are rejected (max 50). Amounts must be integer kobo (not bool/float/string), fitting signed bigint; extra charge amounts are nonnegative NGN. Sale requires `one_time`; rent requires `month`/`year`. Address 5–500 characters, hint ≤160, payment terms ≤1000, landlord conditions ≤2000, charge label 1–100. Evidence means `ownership_proof` or `authorization_letter`; ID/other files alone do not prove ownership or authority.
+
+Completed submissions **always enter `submitted`**, per owner decision 2026-11-02. Matching a blocked contact adds only a private staff-review note/audit flag, without auto-rejecting or auto-moving to `in_review`. The reference is persisted and unique. Retrying submit with a valid token returns the original submitted receipt without adding history or moving the workflow backward. File changes after submission are rejected with 409. Removing a cover photo picks another remaining photo as cover.
+
+The CAPTCHA hook is disabled by default. When enabled it requires the server-configured verifier and `X-Captcha-Token`; missing/invalid challenge returns 403, missing/unavailable verifier 503. A provider adapter must be configured before enabling. Private object deletions are queued transactionally and retried by `cleanup-files`; 204 confirms removal from the submission, while unreachable storage may be purged asynchronously.
 
 ### 4.5 Public properties
 Only properties with status `published` are returned (BR-01). The public schema contains **no** landlord data, exact address, coordinates beyond approximate, documents, or internal fields.
@@ -569,7 +579,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | GET/POST /admin/users, PATCH /admin/users/{id} | Integrated for list/create/activation; role updates API-tested |
 | GET /taxonomy | Draft |
 | GET /policies/current | Integrated metadata (no final legal content) |
-| POST /landlord-submissions, POST /landlord-submissions/{id}/files, DELETE /landlord-submissions/{id}/files/{file_id}, POST /landlord-submissions/{id}/submit | Draft |
+| POST /landlord-submissions, POST /landlord-submissions/{id}/files, DELETE /landlord-submissions/{id}/files/{file_id}, POST /landlord-submissions/{id}/submit | Implemented (BE-4.4) |
 | GET /properties, GET /properties/{slug} | Draft |
 | GET /admin/properties, GET /admin/properties/{id}, PATCH /admin/properties/{id}, POST …/assign, POST …/transitions, PUT …/verification, POST …/verification/complete, POST …/landlord-approval, PATCH …/availability, POST/PATCH/DELETE …/media | Draft |
 | GET /admin/landlords, GET /admin/landlords/{id} | Draft |
@@ -617,5 +627,6 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.4.0 | 2026-11-02 | CR-LANDLORD-001: implement landlord draft/upload/removal/submit; clarify scoped tokens, consent, input/body limits, ownership evidence, stable receipts/deletion retries; owner selects submitted for every completed submission | Developer 2 implementation; owner status override; frontend review pending |
 | 0.3.0 | 2026-10-31 | User-directed authentication integration: password minimum 8 (formerly 10), CSRF bootstrap, identity lifecycle and admin version clarification (CR-AUTH-001) | Developer 2 session; user override, frontend review pending |
 | 0.2.0 | 2026-10-24 | Team review: currency/formatting conventions §2.10; unknown error codes and non-envelope failures §2.4; code 503; complaint minimum fields, rate limits, privacy and investigation workflow §4.8; AI assistant, public config, knowledge base, settings §4.9; new enums, rate limits, matrix rows | pending (J-1.3) |

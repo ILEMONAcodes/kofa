@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
-from app.api.v1 import admin_users, auth
+from app.api.v1 import admin_users, auth, landlord_submissions
 from app.core.body_limit import AuthBodyLimit
 from app.core.config import Settings, get_settings
 from app.core.database import make_engine, session_factory
@@ -33,6 +33,8 @@ def create_app(settings: Settings | None = None, engine=None):
         lifespan=lifespan,
         docs_url=None if settings.app_env == "production" else "/docs",
     )
+    app.state.storage = None
+    app.state.captcha_verifier = None
     app.state.settings = settings
     app.state.engine = engine
     app.state.session_factory = session_factory(engine)
@@ -57,8 +59,11 @@ def create_app(settings: Settings | None = None, engine=None):
         try:
             if request.method not in {"GET", "HEAD", "OPTIONS"}:
                 check_csrf(request, settings)
-                if request.url.path.startswith(("/api/v1/auth/", "/api/v1/admin/users")):
-                    await request.body()  # Bounded by AuthBodyLimit before buffering.
+                if (
+                    request.url.path.startswith(("/api/v1/auth/", "/api/v1/admin/users"))
+                    or request.url.path == "/api/v1/landlord-submissions"
+                ):
+                    await request.body()  # Bounded while receiving, before JSON parsing.
             response = await call_next(request)
         except AppError as error:
             response = error_response(
@@ -73,12 +78,19 @@ def create_app(settings: Settings | None = None, engine=None):
             )
         except Exception:
             # Never log request bodies, email addresses, DB URLs, passwords or tokens.
-            logger.error("request_failed request_id=%s", request.state.request_id)
+            if not getattr(request.state, "body_limit_exceeded", False):
+                logger.error("request_failed request_id=%s", request.state.request_id)
             response = error_response(
                 request, 500, "INTERNAL_ERROR", "Something went wrong. Please try again."
             )
+        # ASGI receive exceptions can arrive wrapped by Starlette task groups.
+        # The receiver-owned flag preserves the intended status without buffering files.
+        if getattr(request.state, "body_limit_exceeded", False):
+            response = error_response(request, 413, "PAYLOAD_TOO_LARGE", "Request is too large.")
         response.headers["X-Request-ID"] = request.state.request_id
-        if request.url.path.startswith(("/api/v1/auth", "/api/v1/admin")):
+        if request.url.path.startswith(
+            ("/api/v1/auth", "/api/v1/admin", "/api/v1/landlord-submissions")
+        ):
             response.headers["Cache-Control"] = "no-store"
         return response
 
@@ -121,4 +133,5 @@ def create_app(settings: Settings | None = None, engine=None):
     app.add_middleware(AuthBodyLimit)
     app.include_router(auth.router)
     app.include_router(admin_users.router)
+    app.include_router(landlord_submissions.router)
     return app

@@ -203,3 +203,7 @@ Working assumptions: draft property schema/contract, ADR-001 landlord contact re
 ### 2026-11-02 — BE-4.3 private media service
 
 Assumes OQ-13 media defaults and ARCHITECTURE §10 local/S3 drivers. All uploads remain private pending publication. Storage disabled by default; no provider or credentials selected. Resource guards: 25MP static images, 15-second file-only ffprobe, five-minute document read grants; draft upload capabilities expire after 24 hours. No HTTP endpoint behavior is introduced here; BE-4.4 integrates capabilities/rate limits/body bounds.
+
+### 2026-11-02 — BE-4.4 owner resolves blocked-contact status
+
+Owner explicitly selects “Keep every submission as submitted.” All completed landlord submissions enter submitted, including normalized phone/email matches against blocked landlord records. Matches get private contact notes and an audit flag for staff review; no public block warning, automatic rejection, or automatic in_review transition. This overrides the earlier DATABASE_SCHEMA landlords.blocked_reason routing note.

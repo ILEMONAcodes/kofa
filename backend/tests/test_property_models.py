@@ -8,6 +8,7 @@ import pytest
 from alembic.autogenerate import compare_metadata
 from alembic.config import Config
 from alembic.migration import MigrationContext
+from alembic.script import ScriptDirectory
 from sqlalchemy import func, inspect, select, text
 from sqlalchemy.exc import DBAPIError, IntegrityError
 
@@ -323,7 +324,10 @@ def test_downgrade_refuses_to_discard_landlord_consents(engine, db):
             )
             == 1
         )
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "be42_properties"
+        assert (
+            conn.scalar(text("SELECT version_num FROM alembic_version"))
+            == ScriptDirectory.from_config(migration_config()).get_current_head()
+        )
 
 
 def test_model_metadata_matches_migrated_schema(engine):

@@ -1,4 +1,4 @@
-"""Bound auth JSON while receiving it, before buffering or parsing."""
+"""Bound sensitive JSON and multipart bodies while receiving, before parsing."""
 
 from starlette.types import ASGIApp, Receive, Scope, Send
 
@@ -11,7 +11,13 @@ class AuthBodyLimit:
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send):
         path = scope.get("path", "")
-        if scope["type"] != "http" or not path.startswith(("/api/v1/auth/", "/api/v1/admin/users")):
+        if scope["type"] != "http":
+            return await self.app(scope, receive, send)
+        if path.startswith(("/api/v1/auth/", "/api/v1/admin/users")):
+            limit = 16384
+        elif path.startswith("/api/v1/landlord-submissions"):
+            limit = 100 * 1024 * 1024 + 65536 if path.endswith("/files") else 65536
+        else:
             return await self.app(scope, receive, send)
         size = 0
 
@@ -20,7 +26,8 @@ class AuthBodyLimit:
             message = await receive()
             if message["type"] == "http.request":
                 size += len(message.get("body", b""))
-                if size > 16384:
+                if size > limit:
+                    scope.setdefault("state", {})["body_limit_exceeded"] = True
                     raise AppError(413, "PAYLOAD_TOO_LARGE", "Request is too large.")
             return message
 

@@ -1,5 +1,7 @@
 # BE-4.3 — private property uploads service
 
+**Update:** BE-4.4 now exposes the landlord draft/file/removal/submit APIs; see [current endpoint handoff](LANDLORD_SUBMISSIONS.md). The no-HTTP statements below describe the original BE-4.3 scope.
+
 Task brief: implement local/S3 storage and content validation for photos, optional video and private evidence documents, using BE-4.2 metadata. Owner: Developer 2. Branch: be/BE-4.3-property-uploads (stacked on property foundations).
 Documentation: API_CONTRACT §4.4, ARCHITECTURE §10, PRD OQ-13. Assumes existing OQ-13 limits, S3-compatible production storage; no provider chosen/provisioned.
 Files: storage/media services, repository, config/example, dependencies/container, tests/docs.

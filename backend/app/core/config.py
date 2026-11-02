@@ -32,6 +32,7 @@ class Settings(BaseSettings):
     s3_access_key_id: SecretStr = SecretStr("")
     s3_secret_access_key: SecretStr = SecretStr("")
     ffprobe_binary: str = "ffprobe"
+    captcha_required: bool = False
 
     @model_validator(mode="after")
     def secure_settings(self):

@@ -39,7 +39,9 @@ def seed_admin(db, email, password, name):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["seed-admin", "seed-taxonomy", "send-email"])
+    parser.add_argument(
+        "command", choices=["seed-admin", "seed-taxonomy", "send-email", "cleanup-files"]
+    )
     args = parser.parse_args()
     settings = get_settings()  # Loads backend/.env through Pydantic settings.
     engine = make_engine(settings.database_url.get_secret_value())
@@ -78,6 +80,11 @@ def main():
 
             seed_taxonomy(db)
             print("Property reference data seeded; existing records preserved.")
+        elif args.command == "cleanup-files":
+            from app.services.storage import build_storage
+            from app.services.submission import drain_deletions
+
+            print(f"Removed {drain_deletions(db, build_storage(settings))} queued files.")
         else:
             print(f"Processed {send_outbox(db, settings)} queued messages.")
     engine.dispose()

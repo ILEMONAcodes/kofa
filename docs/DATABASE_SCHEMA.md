@@ -1,6 +1,6 @@
 # Database Schema
 
-**Owner:** Developer 2 (Backend) · **Status:** Draft v0.4 (identity and property metadata implemented; property APIs remain draft) — finalised in BE-1.2, reviewed by Developer 1 for API fit · **Engine:** PostgreSQL 16 · **Migrations:** Alembic
+**Owner:** Developer 2 (Backend) · **Status:** Draft v0.5 (identity, property metadata and landlord submissions implemented) — finalised in BE-1.2, reviewed by Developer 1 for API fit · **Engine:** PostgreSQL 16 · **Migrations:** Alembic
 
 Changes to this file that affect API shapes must go through the contract change protocol (`docs/API_CONTRACT.md` §1).
 
@@ -104,7 +104,7 @@ Index: unique(email). Seed: admin from env via CLI (BE-3.1).
 | identity_verified_at | timestamptz | set by staff |
 | identity_verified_by | uuid FK users | |
 | blocked_at | timestamptz | set only by an admin after a substantiated complaint (FR-CMP-05) |
-| blocked_reason | text | staff-only; new submissions matching a blocked landlord's phone/email are routed to `in_review` with a warning flag, never auto-rejected |
+| blocked_reason | text | staff-only; completed submissions matching a blocked landlord's phone/email remain `submitted`, with a private staff-review note and audit flag, never auto-rejected (owner override 2026-11-02) |
 | notes | text | staff-only |
 | created_at, updated_at | | |
 
@@ -298,3 +298,11 @@ Property status history UPDATE/DELETE is blocked by a PostgreSQL trigger. Public
 Task downgrade preserves users and user consent but refuses to proceed if landlord consent exists, because the prior identity revision cannot represent it. pg_trgm extension remains installed on downgrade as shared infrastructure. No remote database migration has been run.
 
 Reference seeds: 16 amenities from §9; 12 candidate Abuja neighbourhoods (Wuse 2, Gwarinpa, Maitama, Asokoro, Jabi, Utako, Garki, Kubwa, Lugbe, Apo, Katampe, Life Camp). Slugs/IDs are stable, unknown centroids remain null; repeated seeds preserve custom labels and activation state.
+
+### BE-4.4 submission persistence (2026-11-02)
+
+Schema v0.5, revision `be44_submissions`: properties.submission_reference nullable varchar(40), unique; sequence landlord_submission_reference_seq produces stable SUB-year-counter receipts (sequence gaps are expected). Submission references survive retries and never disclose landlord identity.
+
+`storage_deletions` (P3): id uuid PK, storage_key text UNIQUE NOT NULL, attempts integer DEFAULT 0, created_at timestamptz DEFAULT now(). This private outbox commits with file-row removal, allowing private objects to be deleted/retried independently. Explicit cleanup-files command processes up to 20 queued entries with SKIP LOCKED; successful deletions remove the queue row. The schema downgrade refuses when references or pending deletion jobs exist, so rollback cannot silently discard operational records. No remote migration run.
+
+Blocked-contact matching normalizes incoming phone/email and stores a private review note on the new landlord record plus an audit flag. It does not mark the new landlord blocked or automatically change the submission status; every completed submission remains submitted, per owner override.
