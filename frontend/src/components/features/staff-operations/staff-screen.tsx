@@ -447,6 +447,7 @@ export function StaffScreen({
           className="journey-body"
           onSubmit={(event) => event.preventDefault()}
         >
+          {administration && <Link className="staff-menu-link" href="/staff/properties">Property workspace</Link>}
           {screen.blocks.map((block) => render(block))}
           {empty && (
             <p role="status">

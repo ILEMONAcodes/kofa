@@ -15,6 +15,7 @@ if (
 }
 const config: NextConfig = {
   poweredByHeader: false,
+  experimental: { proxyClientMaxBodySize: "101mb" },
   async rewrites() {
     return [
       {

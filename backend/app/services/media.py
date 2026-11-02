@@ -154,6 +154,8 @@ def add_file(
                 is_cover=kind == "photo" and photos == 0,
                 uploaded_by="staff" if actor is not None else "landlord_submission",
             )
+        if actor is not None:
+            prop.row_version += 1
         db.add(row)
         db.add(
             AuditLog(

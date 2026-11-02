@@ -2,6 +2,7 @@
 
 import os
 from pathlib import Path
+from tempfile import TemporaryDirectory
 
 import uvicorn
 from alembic.config import Config
@@ -10,8 +11,10 @@ from sqlalchemy.engine import make_url
 
 from alembic import command
 from app.core.config import Settings, get_settings
-from app.core.database import make_engine
+from app.core.database import make_engine, session_factory
 from app.main import create_app
+from app.seeds.taxonomy import seed_taxonomy
+from app.services.storage import LocalStorage
 
 TEST_URL = os.environ.get(
     "KOFA_E2E_DATABASE_URL", "postgresql://kofa_test@127.0.0.1:55432/kofa_auth_test_e2e"
@@ -51,14 +54,20 @@ def main():
                 "TRUNCATE users, auth_sessions, password_reset_tokens, policy_acceptances, audit_log, email_outbox, auth_rate_limits CASCADE"
             )
         )
-    uvicorn.run(
-        create_app(config, engine),
-        host="127.0.0.1",
-        port=8000,
-        access_log=False,
-        proxy_headers=True,
-        forwarded_allow_ips="127.0.0.1",
-    )
+    with session_factory(engine)() as db:
+        seed_taxonomy(db)
+        db.commit()
+    with TemporaryDirectory(prefix="kofa-browser-private-") as directory:
+        app = create_app(config, engine)
+        app.state.storage = LocalStorage(Path(directory), SECRET)
+        uvicorn.run(
+            app,
+            host="127.0.0.1",
+            port=8000,
+            access_log=False,
+            proxy_headers=True,
+            forwarded_allow_ips="127.0.0.1",
+        )
 
 
 if __name__ == "__main__":

@@ -20,27 +20,25 @@ describe("API transport", () => {
   it("preserves future codes and field errors", async () => {
     vi.stubGlobal(
       "fetch",
-      vi
-        .fn()
-        .mockResolvedValue(
-          json(
-            {
-              error: {
-                code: "FUTURE_CODE",
-                message: "Try another value",
-                request_id: "req-new",
-                details: [
-                  {
-                    field: "price.amount",
-                    code: "future",
-                    message: "Out of range",
-                  },
-                ],
-              },
+      vi.fn().mockResolvedValue(
+        json(
+          {
+            error: {
+              code: "FUTURE_CODE",
+              message: "Try another value",
+              request_id: "req-new",
+              details: [
+                {
+                  field: "price.amount",
+                  code: "future",
+                  message: "Out of range",
+                },
+              ],
             },
-            422,
-          ),
+          },
+          422,
         ),
+      ),
     );
     await expect(apiRequest("/properties")).rejects.toMatchObject({
       status: 422,
@@ -55,14 +53,12 @@ describe("API transport", () => {
   it("handles HTML proxy failures", async () => {
     vi.stubGlobal(
       "fetch",
-      vi
-        .fn()
-        .mockResolvedValue(
-          new Response("<html>Proxy error</html>", {
-            status: 502,
-            headers: { "X-Request-ID": "proxy-1" },
-          }),
-        ),
+      vi.fn().mockResolvedValue(
+        new Response("<html>Proxy error</html>", {
+          status: 502,
+          headers: { "X-Request-ID": "proxy-1" },
+        }),
+      ),
     );
     await expect(apiRequest("/health")).rejects.toMatchObject({
       status: 502,
@@ -168,15 +164,59 @@ it("does not refresh for other 401 codes", async () => {
 });
 
 it("coalesces simultaneous expiry responses into one refresh", async () => {
-  let fresh=false;
-  const fetcher=vi.fn().mockImplementation(async (url:string)=>{
-    if(url==="/api/v1/auth/refresh") {
-      await new Promise(resolve=>setTimeout(resolve,5));fresh=true;
-      return json({data:{role:"client"}});
+  let fresh = false;
+  const fetcher = vi.fn().mockImplementation(async (url: string) => {
+    if (url === "/api/v1/auth/refresh") {
+      await new Promise((resolve) => setTimeout(resolve, 5));
+      fresh = true;
+      return json({ data: { role: "client" } });
     }
-    return fresh ? json({data:{ok:true}}) : json({error:{code:"TOKEN_EXPIRED",message:"Expired"}},401);
+    return fresh
+      ? json({ data: { ok: true } })
+      : json({ error: { code: "TOKEN_EXPIRED", message: "Expired" } }, 401);
   });
-  vi.stubGlobal("fetch",fetcher);
-  await Promise.all([apiRequest("/auth/me"),apiRequest("/health")]);
-  expect(fetcher.mock.calls.filter(([url])=>url==="/api/v1/auth/refresh")).toHaveLength(1);
+  vi.stubGlobal("fetch", fetcher);
+  await Promise.all([apiRequest("/auth/me"), apiRequest("/health")]);
+  expect(
+    fetcher.mock.calls.filter(([url]) => url === "/api/v1/auth/refresh"),
+  ).toHaveLength(1);
+});
+
+describe("private multipart transport", () => {
+  it("leaves the multipart boundary to fetch and includes CSRF", async () => {
+    document.cookie = "csrf_token=upload-csrf; path=/";
+    const fetcher = vi
+      .fn()
+      .mockResolvedValue(json({ data: { file_id: "file" } }));
+    vi.stubGlobal("fetch", fetcher);
+    const body = new FormData();
+    body.set("kind", "photo");
+    body.set("file", new Blob(["image"]), "room.jpg");
+    await apiRequest("/admin/properties/id/media", {
+      method: "POST",
+      body,
+      headers: { "Content-Type": "application/json" },
+    });
+    const init = fetcher.mock.calls[0][1];
+    expect(init.body).toBe(body);
+    expect(init.headers.has("Content-Type")).toBe(false);
+    expect(init.headers.get("X-CSRF-Token")).toBe("upload-csrf");
+    document.cookie = "csrf_token=; Max-Age=0; path=/";
+  });
+  it("replays the same multipart file after a single session refresh", async () => {
+    const fetcher = vi
+      .fn()
+      .mockResolvedValueOnce(
+        json({ error: { code: "TOKEN_EXPIRED", message: "Expired" } }, 401),
+      )
+      .mockResolvedValueOnce(json({ data: {} }))
+      .mockResolvedValueOnce(json({ data: { file_id: "file" } }));
+    vi.stubGlobal("fetch", fetcher);
+    const body = new FormData();
+    body.set("file", new Blob(["image"]), "room.jpg");
+    await apiRequest("/admin/properties/id/media", { method: "POST", body });
+    expect(fetcher).toHaveBeenCalledTimes(3);
+    expect(fetcher.mock.calls[1][0]).toBe("/api/v1/auth/refresh");
+    expect(fetcher.mock.calls[2][1].body).toBe(body);
+  });
 });

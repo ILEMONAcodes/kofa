@@ -6,13 +6,11 @@ from uuid import UUID
 from fastapi import APIRouter, Depends, Header, Request, Response
 from sqlalchemy.orm import Session
 from starlette.concurrency import run_in_threadpool
-from starlette.datastructures import UploadFile
-from starlette.formparsers import MultiPartException
 
 from app.api.v1.auth import client_ip
 from app.core.database import get_db
-from app.core.errors import AppError, invalid
-from app.core.multipart import ClosingMultiPartParser
+from app.core.errors import invalid
+from app.core.multipart import single_upload
 from app.schemas.submission import (
     DraftEnvelope,
     SubmissionCreate,
@@ -97,26 +95,7 @@ async def upload(
         consume, db, settings, "landlord-upload-token", x_upload_token, 60, 3600
     )
     storage = storage_for(request)
-    parser = ClosingMultiPartParser(
-        request.headers, request.stream(), max_files=1, max_fields=2, max_part_size=2048
-    )
-    try:
-        form = await parser.parse()
-    except MultiPartException:
-        raise AppError(400, "BAD_REQUEST", "Upload form is invalid.") from None
-    try:
-        names = [key for key, _ in form.multi_items()]
-        if set(names) - {"file", "kind", "caption"} or len(names) != len(set(names)):
-            raise invalid("file", "Use one file, a kind and an optional caption.")
-        file = form.get("file")
-        kind = form.get("kind")
-        caption = form.get("caption")
-        if (
-            not isinstance(file, UploadFile)
-            or not isinstance(kind, str)
-            or (caption is not None and not isinstance(caption, str))
-        ):
-            raise invalid("file", "Choose a file and its kind.")
+    async with single_upload(request) as (file, kind, caption):
         row = await run_in_threadpool(
             media.add_file,
             db,
@@ -130,8 +109,6 @@ async def upload(
             upload_token=x_upload_token,
             caption=caption,
         )
-    finally:
-        await form.close()
     return {
         "data": {
             "file_id": row.id,

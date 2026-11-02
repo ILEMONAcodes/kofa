@@ -163,3 +163,88 @@
     border-inline: 1px solid #ded3c9;
   }
 }
+
+/* Connected staff records use the established workspace surfaces and controls. */
+.live-staff-panel,
+.live-staff-record {
+  background: rgb(var(--surface));
+  border: 1px solid rgb(var(--border));
+  border-radius: 16px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.live-staff-record {
+  flex-direction: row;
+  align-items: center;
+  text-decoration: none;
+}
+.live-staff-record > div {
+  flex: 1;
+  min-width: 0;
+}
+.live-staff-record img {
+  width: 88px;
+  height: 112px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+.live-staff-stack,
+.live-staff-grid,
+.live-staff-filters {
+  display: grid;
+  gap: 20px;
+  min-width: 0;
+}
+.live-staff-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+.staff-live h1 {
+  font-size: 28px;
+  line-height: 1.2;
+}
+.staff-live h2 {
+  font-size: 20px;
+  line-height: 1.35;
+}
+.staff-live .journey-photo {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 14px;
+}
+.staff-live input,
+.staff-live select,
+.staff-live textarea {
+  max-width: 100%;
+  min-width: 0;
+}
+.staff-live fieldset {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  border: 1px solid rgb(var(--border));
+  padding: 12px;
+  border-radius: 12px;
+}
+@media (min-width: 1024px) {
+  .journey-screen.staff-live {
+    max-width: 1120px;
+  }
+  .staff-live .journey-body {
+    padding: 32px;
+  }
+  .live-staff-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .live-staff-filters {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: end;
+  }
+}
