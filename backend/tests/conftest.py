@@ -59,7 +59,7 @@ def clean_database(engine):
     with engine.begin() as connection:
         connection.execute(
             text(
-                "TRUNCATE users, auth_sessions, password_reset_tokens, policy_acceptances, audit_log, email_outbox, auth_rate_limits CASCADE"
+                "TRUNCATE areas, amenities, landlords, properties, users, auth_sessions, password_reset_tokens, policy_acceptances, audit_log, email_outbox, auth_rate_limits CASCADE"
             )
         )
 
