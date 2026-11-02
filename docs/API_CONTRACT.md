@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.4.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
+**Contract version:** `0.5.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -350,6 +350,20 @@ Only properties with status `published` are returned (BR-01). The public schema 
 | DELETE | `/admin/properties/{id}/media/{media_id}` | | `204` |
 | GET | `/admin/landlords` / `/admin/landlords/{id}` | Directory of landlord records and their properties | `200` |
 
+**BE-4.5 implementation / CR-STAFF-PROPERTY-001:** queue/detail/property PATCH/assignment/availability/staff media and landlord directory are Implemented. Workflow transitions, verification writes/completion and landlord-approval recording remain Draft for BE-4.6. All implemented routes require the current active staff/admin database role; clients get 403 and anonymous requests 401. Unsafe requests retain Origin/CSRF checks.
+
+`AdminPropertySummary` adds status, landlord_id (no contact fields), assigned_staff `{id, full_name}` or null, submitted_at, updated_at, version and submission_reference to the PropertySummary fields. Detail includes the documented private contact/evidence/history fields; private schemas must never be reused by public browsing. Raw storage keys, auth/session data and password hashes are never serialized. Asset links expire within five minutes. Local-development media/document links are absolute protected URLs at `GET /admin/properties/{id}/files/{file_id}?token=…&thumbnail=false`; both the signature and a current staff/admin cookie session are required, and the signed key must match the referenced file/property. S3 uses native signed URLs (bearer grants until expiry). Local delivery returns attachment bytes, no-store and nosniff.
+
+Queue status is comma-separated; q searches title/description/neighbourhood as literal text (SQL wildcard characters escaped). Area is a slug, assigned_to and landlord_id are UUIDs. Sort accepts submitted_at/updated_at in either direction, comma-separated, default -submitted_at; ties use property ID. Pagination follows §2.5 (`total_items`). Unknown/repeated query names, unsupported/duplicate sort or status values and invalid bounds return 422. stale_availability=true means never confirmed or confirmed **more than 14 days** ago; false means confirmed at or after that cutoff.
+
+PATCH requires version and accepts the PropertyInput fields except availability_status, plus relationship and optional exact latitude/longitude. IDs/slug/status/landlord_id/assignment/verification are not writable here. Required values cannot be cleared; optional hint/coordinates/payment terms/landlord conditions may be cleared. Merged input is validated for rent/sale period consistency, active area and unique active amenities. A real price amount/currency/period or description change supersedes the current approval; unrelated/identical values do not. Verification history is not recomputed. Published/archived/rejected detail edits and file additions/removal require an explicit unpublish/reopen workflow first (409).
+
+Mutation responses are `200 {data:{id,status,version,approval_invalidated,assigned_staff_id,availability_status,last_availability_confirmed_at}}`, avoiding a post-commit dependency on storage link generation. Assignment accepts a current active staff/admin UUID or null to unassign. Availability confirmed_at defaults to now; supplied times must include a timezone and cannot be future. These routes support optional version (existing bodies omitted it) and always serialize via row locks; PATCH property's version is mandatory. Each accepted mutation increases the property version and writes audit.
+
+Media metadata supports alt (clearable), nonnegative position, is_cover and optional property version. Only photos may be covers; selecting a cover clears the previous cover atomically. Removing a cover selects another remaining photo; physical deletion uses the durable private deletion outbox. Metadata-only media edits on published properties are allowed; archived/rejected media require reopening. Staff uploads follow §4.4 limits, retain a 60/hour/current-user attempt budget and increment the property version. Staff JSON bodies are receive-bounded to 64 KiB and multipart to 100 MiB plus 64 KiB overhead. Upload receipts retain §4.4 shape; refresh detail to obtain the new aggregate version.
+
+Landlord directory supports q over name/phone/email and page/page_size; detail includes that landlord's property summaries. Private detail/document-link issuance and local downloads are audited. No final policy content or public property endpoint introduced by this task.
+
 **Listing transition table**
 
 | From | Action | To | Guard |
@@ -581,8 +595,10 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | GET /policies/current | Integrated metadata (no final legal content) |
 | POST /landlord-submissions, POST /landlord-submissions/{id}/files, DELETE /landlord-submissions/{id}/files/{file_id}, POST /landlord-submissions/{id}/submit | Implemented (BE-4.4) |
 | GET /properties, GET /properties/{slug} | Draft |
-| GET /admin/properties, GET /admin/properties/{id}, PATCH /admin/properties/{id}, POST …/assign, POST …/transitions, PUT …/verification, POST …/verification/complete, POST …/landlord-approval, PATCH …/availability, POST/PATCH/DELETE …/media | Draft |
-| GET /admin/landlords, GET /admin/landlords/{id} | Draft |
+| GET /admin/properties, GET /admin/properties/{id}, PATCH /admin/properties/{id}, POST …/assign, PATCH …/availability, POST/PATCH/DELETE …/media | Implemented (BE-4.5) |
+| GET /admin/properties/{id}/files/{file_id} (protected local-development delivery) | Implemented (BE-4.5) |
+| POST /admin/properties/{id}/transitions, PUT …/verification, POST …/verification/complete, POST …/landlord-approval | Draft (BE-4.6) |
+| GET /admin/landlords, GET /admin/landlords/{id} | Implemented (BE-4.5) |
 | POST /reports, POST /reports/{id}/files, POST/GET /complaints, GET /complaints/{id}, GET /admin/complaints, GET /admin/complaints/{id}, POST …/assign, POST …/transitions, PUT …/investigation | Draft (shapes proposed, §4.8) |
 | GET /public-config, POST /assistant/conversations, GET /assistant/conversations/{id}, POST …/messages, POST …/handoff/message-team, POST /assistant/messages/{id}/feedback | Draft (shapes proposed, §4.9) |
 | GET/POST/PATCH /admin/knowledge-articles, POST …/publish, POST …/unpublish, GET /admin/assistant/conversations, GET/PATCH …/{id}, GET/PUT /admin/settings | Draft (shapes proposed, §4.9) |
@@ -627,6 +643,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.5.0 | 2026-11-02 | CR-STAFF-PROPERTY-001: staff queue/detail/edit/assignment/media/availability, landlord directory, protected local file delivery; explicit private DTOs and version/approval semantics | Developer 2 implementation; frontend review pending |
 | 0.4.0 | 2026-11-02 | CR-LANDLORD-001: implement landlord draft/upload/removal/submit; clarify scoped tokens, consent, input/body limits, ownership evidence, stable receipts/deletion retries; owner selects submitted for every completed submission | Developer 2 implementation; owner status override; frontend review pending |
 | 0.3.0 | 2026-10-31 | User-directed authentication integration: password minimum 8 (formerly 10), CSRF bootstrap, identity lifecycle and admin version clarification (CR-AUTH-001) | Developer 2 session; user override, frontend review pending |
 | 0.2.0 | 2026-10-24 | Team review: currency/formatting conventions §2.10; unknown error codes and non-envelope failures §2.4; code 503; complaint minimum fields, rate limits, privacy and investigation workflow §4.8; AI assistant, public config, knowledge base, settings §4.9; new enums, rate limits, matrix rows | pending (J-1.3) |

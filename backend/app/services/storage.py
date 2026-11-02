@@ -83,7 +83,7 @@ class LocalStorage:
         )
         return ReadGrant(expires_at=expires, token=token)
 
-    def read_grant(self, token: str) -> bytes:
+    def verified_path(self, token: str) -> Path:
         try:
             value = jwt.decode(
                 token,
@@ -92,11 +92,17 @@ class LocalStorage:
                 audience="kofa-private-file",
                 options={"require": ["exp", "aud", "key"]},
             )
-            return self.path(value["key"]).read_bytes()
+            path = self.path(value["key"])
+            if not path.is_file():
+                raise FileNotFoundError
+            return path
         except (jwt.PyJWTError, OSError, ValueError, TypeError, KeyError) as exc:
             raise AppError(
                 404, "NOT_FOUND", "File is unavailable or the link has expired."
             ) from exc
+
+    def read_grant(self, token: str) -> bytes:
+        return self.verified_path(token).read_bytes()
 
 
 class S3Storage:

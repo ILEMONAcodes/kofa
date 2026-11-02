@@ -9,7 +9,12 @@ from app.models.property import Property, PropertyDocument, PropertyMedia
 
 
 def locked_property(db: Session, property_id: uuid.UUID) -> Property | None:
-    return db.scalar(select(Property).where(Property.id == property_id).with_for_update())
+    return db.scalar(
+        select(Property)
+        .where(Property.id == property_id)
+        .with_for_update()
+        .execution_options(populate_existing=True)
+    )
 
 
 def file_counts(db: Session, property_id: uuid.UUID) -> tuple[int, int, int]:

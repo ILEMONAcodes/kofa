@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
-from app.api.v1 import admin_users, auth, landlord_submissions
+from app.api.v1 import admin_properties, admin_users, auth, landlord_submissions
 from app.core.body_limit import AuthBodyLimit
 from app.core.config import Settings, get_settings
 from app.core.database import make_engine, session_factory
@@ -62,6 +62,10 @@ def create_app(settings: Settings | None = None, engine=None):
                 if (
                     request.url.path.startswith(("/api/v1/auth/", "/api/v1/admin/users"))
                     or request.url.path == "/api/v1/landlord-submissions"
+                    or (
+                        request.url.path.startswith("/api/v1/admin/properties")
+                        and not request.url.path.endswith("/media")
+                    )
                 ):
                     await request.body()  # Bounded while receiving, before JSON parsing.
             response = await call_next(request)
@@ -134,4 +138,5 @@ def create_app(settings: Settings | None = None, engine=None):
     app.include_router(auth.router)
     app.include_router(admin_users.router)
     app.include_router(landlord_submissions.router)
+    app.include_router(admin_properties.router)
     return app

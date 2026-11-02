@@ -78,3 +78,7 @@ Uploads are not exposed over HTTP until the landlord-submission task. Storage de
 The four contract endpoints are available under /api/v1/landlord-submissions after the migration. No landlord account is required. Bootstrap /api/v1/auth/csrf first; send Origin and the CSRF cookie/header for all mutations. Draft creation returns a 24-hour X-Upload-Token scoped to the property; keep it private and attach it to uploads/removal/submit. Five photos plus ownership proof or authorisation letter are required before submission. All completed records enter submitted and receive a stable reference. See [setup, limits and handoff](../docs/LANDLORD_SUBMISSIONS.md).
 
 Set real private S3 configuration before deployed file operations. Schedule `python -m app.cli cleanup-files` to retry queued object deletions. CAPTCHA_REQUIRED is false by default; a verifier adapter must be configured before enabling. No production storage, CAPTCHA provider or cleanup scheduler was configured by this task.
+
+## Staff property management (BE-4.5)
+
+Staff/admin sessions can use queue/detail/PATCH/assign/availability/media routes under /api/v1/admin/properties and the read-only /api/v1/admin/landlords directory. Read the [staff API handoff](../docs/STAFF_PROPERTY_API.md) for versioning, private links and deployment prerequisites. No new migration in this task. Verification and publish transitions are the next module; public browsing and frontend staff integration are not included yet.

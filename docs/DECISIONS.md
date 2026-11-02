@@ -207,3 +207,7 @@ Assumes OQ-13 media defaults and ARCHITECTURE §10 local/S3 drivers. All uploads
 ### 2026-11-02 — BE-4.4 owner resolves blocked-contact status
 
 Owner explicitly selects “Keep every submission as submitted.” All completed landlord submissions enter submitted, including normalized phone/email matches against blocked landlord records. Matches get private contact notes and an audit flag for staff review; no public block warning, automatic rejection, or automatic in_review transition. This overrides the earlier DATABASE_SCHEMA landlords.blocked_reason routing note.
+
+### 2026-11-02 — BE-4.5 staff property management
+
+Working assumptions: §4.6 staff shapes and OQ-13 storage rules. Keep the 14-day stale-availability default. Staff detail/media additions/removal on published/archived/rejected records require explicit unpublish/reopen first; availability and media presentation metadata can update live records. Property PATCH requires version; assignment/availability/media metadata accept optional version and row-lock serialized changes. Private local file delivery additionally requires an active staff/admin session, unlike native S3 bearer URLs. Verification/publish transitions remain BE-4.6. API v0.5.0 / CR-STAFF-PROPERTY-001 documents these choices; frontend review at PR time. Staff email delivery/invitations remain pending; not forgotten or implemented in this task.
