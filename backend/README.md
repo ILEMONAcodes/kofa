@@ -68,3 +68,7 @@ Property/inquiry/appointment/payment endpoints remain separate modules. Their ex
 The next migration adds property/media/document/verification metadata and landlord consent linkage. It does not expose upload or property APIs yet. Review and apply `alembic upgrade head` on the intended deployment only; tests must use an isolated local test database, never the application Neon URL. Back up before deployment migrations.
 
 After the migration, `python -m app.cli seed-taxonomy` inserts initial Abuja areas and amenity options, preserving existing records. It creates no users or sample properties. This command is explicit and does not run automatically. Rollback is blocked if landlord consents exist; never delete real consent records merely to bypass that guard.
+
+## Upload storage service (BE-4.3)
+
+Uploads are not exposed over HTTP until the landlord-submission task. Storage defaults to disabled. For development set STORAGE_DRIVER=local and choose a private STORAGE_LOCAL_ROOT outside frontend/public. For production use STORAGE_DRIVER=s3 and fill the S3_* placeholders in private hosting settings, with a private bucket. No storage account is provisioned by this code. See [upload service and validation](../docs/PROPERTY_UPLOADS.md). The Dockerfile installs ffmpeg for ffprobe; local video validation requires ffprobe on PATH.

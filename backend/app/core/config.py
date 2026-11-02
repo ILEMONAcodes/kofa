@@ -24,6 +24,14 @@ class Settings(BaseSettings):
     smtp_password: SecretStr = SecretStr("")
     smtp_from: str = ""
     smtp_starttls: bool = True
+    storage_driver: Literal["disabled", "local", "s3"] = "disabled"
+    storage_local_root: str = "/tmp/kofa-private-uploads"
+    s3_endpoint_url: str = ""
+    s3_region: str = "auto"
+    s3_bucket: str = ""
+    s3_access_key_id: SecretStr = SecretStr("")
+    s3_secret_access_key: SecretStr = SecretStr("")
+    ffprobe_binary: str = "ffprobe"
 
     @model_validator(mode="after")
     def secure_settings(self):
