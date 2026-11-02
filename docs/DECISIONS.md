@@ -195,3 +195,7 @@ Working assumption: OQ-18 remains draft-only. Use the owner’s supplied Terms a
 ### 2026-11-02 — Owner authorizes MVP client registration
 
 Owner explicitly requests enabling client registration using the supplied provisional policies before counsel review. Set private deployment configuration `POLICIES_APPROVED=true` to enable the existing registration path. This records owner authorization for MVP use, not legal review or counsel approval. Policy pages remain visibly draft and unresolved placeholders remain. Retain `draft-v1` consent versions until replaced. Render must receive the same environment setting; local edits do not update hosting.
+
+### 2026-11-02 — BE-4.2 property foundations
+
+Working assumptions: draft property schema/contract, ADR-001 landlord contact records, OQ-02 Abuja taxonomy, OQ-13 default media limits. Metadata and local-only migration tests precede uploads; candidate Abuja neighbourhood seeds remain editable. No remote migrations or paid storage provisioned.

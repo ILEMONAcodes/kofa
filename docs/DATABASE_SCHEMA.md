@@ -1,6 +1,6 @@
 # Database Schema
 
-**Owner:** Developer 2 (Backend) · **Status:** Draft v0.3 (identity implementation; other domains remain draft) — finalised in BE-1.2, reviewed by Developer 1 for API fit · **Engine:** PostgreSQL 16 · **Migrations:** Alembic
+**Owner:** Developer 2 (Backend) · **Status:** Draft v0.4 (identity and property metadata implemented; property APIs remain draft) — finalised in BE-1.2, reviewed by Developer 1 for API fit · **Engine:** PostgreSQL 16 · **Migrations:** Alembic
 
 Changes to this file that affect API shapes must go through the contract change protocol (`docs/API_CONTRACT.md` §1).
 
@@ -124,7 +124,7 @@ No unique constraint on phone/email — one person may appear twice until staff 
 | intended_use | varchar(20) NOT NULL DEFAULT 'residential' | CHECK currently only `residential` (OQ-10) |
 | relationship | varchar(30) NOT NULL | landlord relationship |
 | price_amount | bigint NOT NULL CHECK > 0 | kobo |
-| currency | char(3) NOT NULL DEFAULT 'NGN' | |
+| currency | varchar(3) NOT NULL DEFAULT 'NGN' | |
 | price_period | varchar(10) NOT NULL | `year`,`month`,`one_time`; CHECK `one_time` iff `sale` |
 | price_negotiable | boolean NOT NULL DEFAULT false | |
 | payment_terms | text | |
@@ -287,4 +287,14 @@ CHECKs: `status='resolved'` ⇒ `outcome`, `investigation_findings`, `evidence_r
 
 ### Identity implementation scope (2026-10-31)
 
-Alembic baseline implements users, sessions, purpose-scoped single-use tokens, user policy acceptances, private email outbox and database rate buckets. A separate BE-3.3 migration enforces audit append-only UPDATE/DELETE protection with a PostgreSQL trigger. Landlord policy acceptance linkage will be added with the landlord-domain migration once that table exists; current identity acceptance rows require user_id. PostgreSQL 16-compatible SQL is used; local validation runs on the installed PostgreSQL 18 server. No existing Neon schema is modified until the user supplies development connection strings and explicitly runs the documented migration command.
+Alembic baseline implements users, sessions, purpose-scoped single-use tokens, user policy acceptances, private email outbox and database rate buckets. A separate BE-3.3 migration enforces audit append-only UPDATE/DELETE protection with a PostgreSQL trigger. The baseline originally required user_id for all consent. BE-4.2 adds nullable landlord_id and enforces exactly one subject (user or landlord), preserving existing user consent records. PostgreSQL 16-compatible SQL is used; local validation runs on the installed PostgreSQL 18 server. No existing Neon schema is modified until the user supplies development connection strings and explicitly runs the documented migration command.
+
+### BE-4.2 property metadata implementation (2026-11-02)
+
+Schema v0.4 adds the eleven §4 tables and landlord consent linkage in `be42_properties`, following the existing documented shapes; no API contract change. Taxonomies carry created/updated timestamps. Currency is varchar(3) with NGN check. Additional database invariants: nonnegative media position, positive size/dimensions, photo-only cover, unique storage keys, at most one video (OQ-13), one current landlord approval, coordinate bounds, positive row version and array-valued extra charges. Extra-charge item validation and upload counts/size/content limits are enforced by subsequent services, not this migration.
+
+Property status history UPDATE/DELETE is blocked by a PostgreSQL trigger. Publication guard and cross-property evidence validation belong to workflow services (BE-4.6); metadata alone does not make a property verified/publishable. Deletion restrictions preserve private document/approval/history references.
+
+Task downgrade preserves users and user consent but refuses to proceed if landlord consent exists, because the prior identity revision cannot represent it. pg_trgm extension remains installed on downgrade as shared infrastructure. No remote database migration has been run.
+
+Reference seeds: 16 amenities from §9; 12 candidate Abuja neighbourhoods (Wuse 2, Gwarinpa, Maitama, Asokoro, Jabi, Utako, Garki, Kubwa, Lugbe, Apo, Katampe, Life Camp). Slugs/IDs are stable, unknown centroids remain null; repeated seeds preserve custom labels and activation state.

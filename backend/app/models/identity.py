@@ -75,9 +75,17 @@ class OneTimeToken(Base):
 
 class PolicyAcceptance(Base):
     __tablename__ = "policy_acceptances"
-    __table_args__ = (CheckConstraint("policy_type IN ('terms','privacy')", name="ck_policy_type"),)
+    __table_args__ = (
+        CheckConstraint("policy_type IN ('terms','privacy')", name="ck_policy_type"),
+        CheckConstraint(
+            "(user_id IS NOT NULL) <> (landlord_id IS NOT NULL)", name="ck_policy_subject"
+        ),
+    )
     id: Mapped[uuid.UUID] = mapped_column(UUID, primary_key=True, default=uuid.uuid4)
-    user_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[uuid.UUID | None] = mapped_column(ForeignKey("users.id"))
+    landlord_id: Mapped[uuid.UUID | None] = mapped_column(
+        ForeignKey("landlords.id", name="fk_policy_landlord"), index=True
+    )
     policy_type: Mapped[str] = mapped_column(String(10))
     version: Mapped[str] = mapped_column(String(20))
     accepted_at: Mapped[datetime] = mapped_column(

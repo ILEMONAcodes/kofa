@@ -39,7 +39,7 @@ def seed_admin(db, email, password, name):
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("command", choices=["seed-admin", "send-email"])
+    parser.add_argument("command", choices=["seed-admin", "seed-taxonomy", "send-email"])
     args = parser.parse_args()
     settings = get_settings()  # Loads backend/.env through Pydantic settings.
     engine = make_engine(settings.database_url.get_secret_value())
@@ -73,6 +73,11 @@ def main():
             print(
                 "Administrator created." if created else "Administrator already exists; unchanged."
             )
+        elif args.command == "seed-taxonomy":
+            from app.seeds.taxonomy import seed_taxonomy
+
+            seed_taxonomy(db)
+            print("Property reference data seeded; existing records preserved.")
         else:
             print(f"Processed {send_outbox(db, settings)} queued messages.")
     engine.dispose()

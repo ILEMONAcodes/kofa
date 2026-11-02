@@ -62,3 +62,9 @@ Tests use **dedicated local PostgreSQL**, never SQLite or Neon. Unit test URL us
 Local validation uses task-owned PostgreSQL on port 55432 (`kofa_auth_test_utf8` and `kofa_auth_test_e2e`). Other developers can create their own isolated local databases and set the test variables. Frontend Playwright starts this real backend test server and the production Next build; fixtures are seeded through guarded local test-only CLI code, never a public backdoor endpoint.
 
 Property/inquiry/appointment/payment endpoints remain separate modules. Their existing frontend screens still use illustrative records; completing authentication does not make those operations live.
+
+## Property foundations (BE-4.2)
+
+The next migration adds property/media/document/verification metadata and landlord consent linkage. It does not expose upload or property APIs yet. Review and apply `alembic upgrade head` on the intended deployment only; tests must use an isolated local test database, never the application Neon URL. Back up before deployment migrations.
+
+After the migration, `python -m app.cli seed-taxonomy` inserts initial Abuja areas and amenity options, preserving existing records. It creates no users or sample properties. This command is explicit and does not run automatically. Rollback is blocked if landlord consents exist; never delete real consent records merely to bypass that guard.
