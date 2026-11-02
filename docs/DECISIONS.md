@@ -187,3 +187,11 @@ The developer explicitly requests review sign-in privileges on the deployed link
 - 2026-10-31 — User explicitly replaces temporary review accounts with real FastAPI/PostgreSQL authentication, selects an existing Neon project, and requests ignored backend/.env placeholders to fill privately. Database roles still assign shared-login destinations. User subsequently overrides password minimum to **8 characters**, maximum remains 128; common-password checks retained. Contract v0.3.0 records this change. ADR-003 is the working architecture; no external legal text or real email sent by this task.
 
 2026-10-31 · backend · J-3.7 database authentication · Assumes ADR-003 and draft auth shapes, clarified by CR-AUTH-001 / contract v0.3.0. User selected existing Neon PostgreSQL, requested URL placeholders, then populated the private URLs and confirmed no prior records. User explicitly overrides password minimum to 8 characters. SMTP outbox remains non-sending until configured; draft policy metadata is internal-only and production registration remains gated on approved versions. Tests must force BOTH pooled and direct URLs to a guarded local database; never inherit a private Neon direct URL. · confirmed user changes; contract extension pending frontend review
+
+### 2026-11-02 — FE-6.26 owner-supplied policy drafts
+
+Working assumption: OQ-18 remains draft-only. Use the owner’s supplied Terms and Privacy text at the existing resource URLs as `draft-v1`, retaining unresolved placeholders and proposed business terms. Owner plans a replacement later; no legal approval inferred and no production registration gate changed.
+
+### 2026-11-02 — Owner authorizes MVP client registration
+
+Owner explicitly requests enabling client registration using the supplied provisional policies before counsel review. Set private deployment configuration `POLICIES_APPROVED=true` to enable the existing registration path. This records owner authorization for MVP use, not legal review or counsel approval. Policy pages remain visibly draft and unresolved placeholders remain. Retain `draft-v1` consent versions until replaced. Render must receive the same environment setting; local edits do not update hosting.
