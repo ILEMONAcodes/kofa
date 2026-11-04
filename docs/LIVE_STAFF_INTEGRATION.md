@@ -14,7 +14,7 @@ Queue filters and pagination run on the server. The private options endpoint sup
 
 ## Remaining boundaries
 
-This is the property-management portion of FE-4.14, not completion of J-4.15. Verification checklist writes, landlord approval, status transitions/publish guards remain BE-4.6 and must be connected with their frontend in that task. Public live browsing and landlord form integration remain pending. Other workspace domains keep their earlier presentation until their APIs are implemented. Staff invitation mail is still pending.
+This is the property-management portion of FE-4.14, not completion of J-4.15. The BE-4.6 follow-up now implements verification checklist writes, landlord approval and status transitions/publish guards together with their frontend; see [Property workflow](PROPERTY_WORKFLOW.md) for current validation. Public live browsing and landlord form integration remain pending. Other workspace domains keep their earlier presentation until their APIs are implemented. Staff invitation mail is still pending.
 
 Production needs existing property migrations, active reference seeds and private storage configured. Next's local proxy body cap is raised to 101 MB to accommodate the backend multipart limit; actual frontend-host/Render/storage upload limits and real video probing still need deployed verification. No claim that 100 MB videos work through the deployed host. No Neon migration, live file, user-data mutation or deployment performed.
 

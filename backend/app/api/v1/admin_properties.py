@@ -12,9 +12,11 @@ from app.core.errors import invalid
 from app.core.multipart import single_upload
 from app.core.permissions import require_roles
 from app.schemas import property_admin as schema
+from app.schemas import property_workflow as workflow_schema
 from app.schemas.submission import UploadEnvelope
 from app.services import media
 from app.services import property_admin as service
+from app.services import property_workflow as workflow
 from app.services.rate_limit import consume
 from app.services.storage import build_storage
 
@@ -265,3 +267,34 @@ def landlord(id: UUID, request: Request, actor=Depends(STAFF), db=Depends(get_db
 @router.get("/property-options", response_model=schema.OptionsEnvelope)
 def property_options(actor=Depends(STAFF), db=Depends(get_db)):
     return {"data": service.property_options(db, actor.id)}
+
+
+# State transitions and verification share the existing staff guard and body limits.
+@router.post("/properties/{id}/transitions", response_model=schema.MutationEnvelope)
+def transition(
+    id: UUID, data: workflow_schema.Transition, actor=Depends(STAFF), db=Depends(get_db)
+):
+    return {"data": workflow.transition(db, actor.id, id, data)}
+
+
+@router.put("/properties/{id}/verification", response_model=schema.MutationEnvelope)
+def save_verification(
+    id: UUID, data: workflow_schema.VerificationInput, actor=Depends(STAFF), db=Depends(get_db)
+):
+    return {"data": workflow.save_verification(db, actor.id, id, data)}
+
+
+@router.post("/properties/{id}/verification/complete", response_model=schema.MutationEnvelope)
+def complete_verification(
+    id: UUID, data: workflow_schema.Completion, actor=Depends(STAFF), db=Depends(get_db)
+):
+    return {"data": workflow.complete_verification(db, actor.id, id, data)}
+
+
+@router.post(
+    "/properties/{id}/landlord-approval", response_model=schema.MutationEnvelope, status_code=201
+)
+def landlord_approval(
+    id: UUID, data: workflow_schema.ApprovalInput, actor=Depends(STAFF), db=Depends(get_db)
+):
+    return {"data": workflow.approve_landlord(db, actor.id, id, data)}
