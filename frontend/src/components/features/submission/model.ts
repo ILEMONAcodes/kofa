@@ -169,7 +169,7 @@ export function stepProblem(
     (requireFields(["full_name", "phone", "relationship"]) ||
       d.full_name.trim().length < 2 ||
       d.full_name.trim().length > 150 ||
-      !/^\+[1-9]\d{6,14}$/.test(d.phone) ||
+      !/^(?:\+[1-9]\d{7,14}|0\d{10})$/.test(d.phone.replace(/[\s()\-]/g, "")) ||
       (d.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email)))
   )
     return "Enter your name, a phone in international format and relationship to the property. Check your optional email.";
