@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.7.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
+**Contract version:** `0.8.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -330,6 +330,12 @@ Only properties with status `published` are returned (BR-01). The public schema 
 | GET | `/properties` | Filters: `q` (title, description, neighbourhood), `listing_type`, `property_type` (multi), `state`, `city`, `area` (slug, multi), `price_min`, `price_max`, `bedrooms_min`, `bedrooms_max`, `bathrooms_min`, `furnishing` (multi), `amenities` (multi, **all** must match), `availability` (multi, default `available`). Sort: `published_at` (default `-published_at`), `price`, `verified_at`. Paginated `PropertySummary` |
 | GET | `/properties/{slug}` | `200 { data: PropertyDetail }`; `404` for non-published |
 
+**BE-4.7 / CR-PUBLIC-BROWSE-001 (v0.8.0, additive):** public taxonomy, search/detail and `GET /property-media/{media_id}?thumbnail=false` implemented. BR-01 is rechecked on every public read: published status, current passed verification with completion timestamp, and non-superseded description approval matching the current price/period with a non-future approval timestamp. Noneligible detail/media returns 404 even to staff; use admin endpoints for private review. Public schemas are independent of admin DTOs. Optional absent cover, thumbnail, alt, payment terms, approximate location and confirmation dates are null. Verification methods use desk_review/physical_inspection/both. Approximate coordinates round to two decimal places and declare radius_m=1000; raw coordinates are never returned.
+
+Search defaults page=1/page_size=20, availability=available, sort=-published_at. Empty optional text is ignored; unknown/repeated query keys, unknown/duplicate enum/area/amenity/sort values and inverted ranges return 422. Maximum q=150, state/city=100, multi area/amenity strings=2000, price bounds 0..9007199254740991 kobo, bedroom/bathroom bounds 0..20. q is case-insensitive literal substring over title/description and neighbourhood (SQL wildcards escaped). State/city compare case-insensitively, area uses active slugs; amenity filters require every requested active code. Sorts accept multiple contract fields with stable ID tie-breaks and nulls last. Out-of-range page returns empty data/correct meta. Taxonomy returns active areas/amenities only; no private staff references.
+
+Media URLs expose media IDs only, never evidence IDs or storage keys. The unauthenticated media route independently rechecks publication eligibility, accepts photos/videos only and returns 404 for document IDs or absent thumbnails. Local files are served inline with range support; S3 redirects use existing private grants capped at 60 seconds. Already-issued S3 bearer grants may remain usable until expiry after unpublication; no CDN or public bucket is provisioned. Search/detail/taxonomy/media responses are no-store, preventing stale public results after unpublication. The JSON response itself does not require storage availability. Private ownership documents never go through this route. Real Cloudflare R2/direct uploads and deployed-host verification remain separate pending work.
+
 ### 4.6 Staff property management (roles `staff`, `admin`)
 
 `AdminPropertyDetail` = `PropertyDetail` fields (computed from stored data, regardless of status) plus: `status`, `landlord` (`id`, `full_name`, `phone`, `email`, `relationship`), `address_line`, `latitude`, `longitude`, `landlord_conditions`, `documents[]` (`id`, `kind`, `signed_url`, `expires_at`, `review_note`), `verification_history[]`, `landlord_approval` (current or `null`), `status_history[]`, `assigned_staff`, `submitted_at`, `version`.
@@ -607,7 +613,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | GET /taxonomy | Draft |
 | GET /policies/current | Integrated metadata (no final legal content) |
 | POST /landlord-submissions, POST /landlord-submissions/{id}/files, DELETE /landlord-submissions/{id}/files/{file_id}, POST /landlord-submissions/{id}/submit | Implemented (BE-4.4) |
-| GET /properties, GET /properties/{slug} | Draft |
+| GET /properties, GET /properties/{slug}, GET /taxonomy, GET /property-media/{media_id} | Integrated locally (BE-4.7 + FE-4.11/12/13; PR/deployment pending) |
 | GET /admin/properties, GET /admin/properties/{id}, PATCH /admin/properties/{id}, POST …/assign, PATCH …/availability, POST/PATCH/DELETE …/media | Integrated (BE-4.5 / FE-4.14 local real-stack evidence) |
 | GET /admin/property-options | Integrated (FE-4.14) |
 | GET /admin/properties/{id}/files/{file_id} (protected local-development delivery) | Implemented (BE-4.5) |
@@ -657,6 +663,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.8.0 | 2026-11-04 | CR-PUBLIC-BROWSE-001: public taxonomy/search/detail, visibility-gated media, explicit query/null/privacy semantics; frontend connection | Backend + authorized frontend; review pending |
 | 0.7.0 | 2026-11-02 | CR-PROPERTY-WORKFLOW-001: implement verification/approval/transitions, explicit version semantics and private server-owned capabilities/blockers; connect staff workflow forms | Developer 2 authorized cross-area implementation; frontend review pending |
 | 0.6.0 | 2026-11-02 | CR-STAFF-PROPERTY-002: private active dropdown options; staff property/landlord frontend integration with multipart/CSRF, optimistic versions and real-stack coverage; workflow transitions remain Draft | Developer 2 authorized cross-area implementation; frontend review pending |
 | 0.5.0 | 2026-11-02 | CR-STAFF-PROPERTY-001: staff queue/detail/edit/assignment/media/availability, landlord directory, protected local file delivery; explicit private DTOs and version/approval semantics | Developer 2 implementation; frontend review pending |

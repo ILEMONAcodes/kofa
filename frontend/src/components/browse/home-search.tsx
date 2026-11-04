@@ -7,9 +7,9 @@ import { Button } from "@/components/common/button";
 import { formatMoney, parseMoneyInput } from "@/lib/formatters/money";
 import { homeSearchHref } from "@/lib/home-search";
 import type { ListingType } from "@/types/property";
-export function HomeSearch() {
+export function HomeSearch({ cities = ["Abuja"] }: { cities?: string[] }) {
   const router = useRouter();
-  const [city, setCity] = useState("Abuja");
+  const [city, setCity] = useState(cities[0] ?? "");
   const [other, setOther] = useState("");
   const [listingType, setListingType] = useState<ListingType>("rent");
   const [budget, setBudget] = useState("5,000,000");
@@ -61,7 +61,7 @@ export function HomeSearch() {
             value={city}
             onChange={setCity}
             options={[
-              { value: "Abuja", label: "Abuja" },
+              ...cities.map((city) => ({ value: city, label: city })),
               { value: "other", label: "Other" },
             ]}
           />

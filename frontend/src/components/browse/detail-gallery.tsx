@@ -6,11 +6,13 @@ import { Modal } from "@/components/common/modal";
 import type { DetailPhoto } from "./detail-content";
 export function DetailGallery({
   photos,
+  videos = [],
   open,
   onClose,
   initialIndex = 0,
 }: {
   photos: DetailPhoto[];
+  videos?: { url: string; alt: string | null }[];
   open: boolean;
   onClose: () => void;
   initialIndex?: number;
@@ -41,7 +43,7 @@ export function DetailGallery({
             Video walkthrough
           </Button>
         </div>
-        {mode === "photo" ? (
+        {mode === "photo" && photo ? (
           <>
             <div className="detail-expanded-photo">
               <Image
@@ -70,6 +72,21 @@ export function DetailGallery({
               </Button>
             </div>
           </>
+        ) : mode === "video" && videos.length ? (
+          <div>
+            {videos.map((v) => (
+              <video
+                key={v.url}
+                controls
+                preload="metadata"
+                className="w-full rounded-xl"
+                aria-label={v.alt ?? "Property walkthrough"}
+                src={v.url}
+              >
+                <track kind="captions" />
+              </video>
+            ))}
+          </div>
         ) : (
           <p role="status" className="detail-notice">
             A video walkthrough is not available for this property.
@@ -82,7 +99,13 @@ export function DetailGallery({
     </Modal>
   );
 }
-export function PropertyGallery({ photos }: { photos: DetailPhoto[] }) {
+export function PropertyGallery({
+  photos,
+  videos = [],
+}: {
+  photos: DetailPhoto[];
+  videos?: { url: string; alt: string | null }[];
+}) {
   const [selected, setSelected] = useState<number | null>(null);
   return (
     <>
@@ -90,7 +113,7 @@ export function PropertyGallery({ photos }: { photos: DetailPhoto[] }) {
         className={`detail-gallery${photos.length === 1 ? " detail-gallery-single" : ""}`}
         data-node-id="15:420"
       >
-        {photos.map((photo, index) => (
+        {photos.slice(0, 3).map((photo, index) => (
           <button
             key={photo.src}
             type="button"
@@ -124,6 +147,7 @@ export function PropertyGallery({ photos }: { photos: DetailPhoto[] }) {
         <DetailGallery
           key={selected}
           photos={photos}
+          videos={videos}
           initialIndex={selected}
           open
           onClose={() => setSelected(null)}

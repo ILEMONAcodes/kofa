@@ -4,10 +4,16 @@ import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { MobileHeader } from "./app-shell";
-import { illustrativeListings } from "@/components/browse/home-content";
+import type { HomeListing } from "@/components/browse/home-content";
 import { HomeLink } from "@/components/browse/home-link";
 import { MobilePropertyCard } from "./property-card";
-export function MobileHome() {
+export function MobileHome({
+  properties,
+  unavailable = false,
+}: {
+  properties: HomeListing[];
+  unavailable?: boolean;
+}) {
   const [mode, setMode] = useState("rent");
   const href = `/properties?listing_type=${mode}&city=Abuja`;
   return (
@@ -65,8 +71,15 @@ export function MobileHome() {
       <section className="mobile-home-properties">
         <h2>Places to make yours</h2>
         <p className="text-sm text-muted">Verified listings · Abuja</p>
+        {!properties.length && (
+          <p role="status">
+            {unavailable
+              ? "Properties are unavailable right now. Please try again."
+              : "New homes will appear here when available."}
+          </p>
+        )}
         <div className="mobile-card-carousel">
-          {illustrativeListings.map((property) => (
+          {properties.map((property) => (
             <MobilePropertyCard key={property.slug} property={property} />
           ))}
         </div>

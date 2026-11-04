@@ -14,6 +14,8 @@ import {
   type ChoiceKey,
 } from "@/lib/property-search";
 import { SearchBudget } from "./search-budget";
+import type { PublicPage, PublicResult } from "@/lib/api/public-server";
+import type { SearchChoices } from "@/lib/property-search";
 import { SearchResults } from "./search-results";
 const labels: Record<ChoiceKey, string> = {
   city: "Location",
@@ -26,18 +28,26 @@ const labels: Record<ChoiceKey, string> = {
   availability: "Availability",
   sort: "Sort by",
 };
-export function DesktopSearch({ query }: { query: string }) {
+export function DesktopSearch({
+  query,
+  result,
+  choices = searchOptions,
+}: {
+  query: string;
+  result: PublicResult<PublicPage>;
+  choices?: SearchChoices;
+}) {
   const router = useRouter();
   const [filtersOpen, setFiltersOpen] = useState(
     () => new URLSearchParams(query).get("filters") === "open",
   );
-  const initial = readPreferences(new URLSearchParams(query));
+  const initial = readPreferences(new URLSearchParams(query), choices);
   const [draft, setDraft] = useState(initial);
   const [other, setOther] = useState<Partial<Record<ChoiceKey, string>>>({});
   const [error, setError] = useState("");
   function apply(next = draft) {
     try {
-      const params = preferencesQuery(next, other);
+      const params = preferencesQuery(next, other, choices);
       setError("");
       setFiltersOpen(false);
       router.push(`/properties?${params}`, { scroll: false });
@@ -60,20 +70,32 @@ export function DesktopSearch({ query }: { query: string }) {
           label={labels[key]}
           title={key === "city" ? "City" : labels[key]}
           description={
-            key === "amenities"
+            [
+              "amenities",
+              "area",
+              "property_type",
+              "furnishing",
+              "availability",
+            ].includes(key)
               ? "Select all that apply"
-              : searchOptions[key].some((o) => o[0] === "other")
+              : choices[key].some((o) => o[0] === "other")
                 ? "Choose an option, or Other to specify."
                 : "Choose an available option."
           }
           value={draft[key]}
-          multiple={key === "amenities"}
+          multiple={[
+            "amenities",
+            "area",
+            "property_type",
+            "furnishing",
+            "availability",
+          ].includes(key)}
           chevronAsset={
             key === "city" || key === "area"
               ? "/assets/search-chevron.svg"
               : undefined
           }
-          options={searchOptions[key].map(([value, label]) => ({
+          options={choices[key].map(([value, label]) => ({
             value,
             label,
           }))}
@@ -114,7 +136,11 @@ export function DesktopSearch({ query }: { query: string }) {
             />
             <span>
               {initial.city || "Any location"} ·{" "}
-              {initial.listing_type === "sale" ? "Buy" : "Rent"}
+              {initial.listing_type === "sale"
+                ? "Buy"
+                : initial.listing_type === "rent"
+                  ? "Rent"
+                  : "Rent or buy"}
             </span>
           </button>
           <button
@@ -142,8 +168,14 @@ export function DesktopSearch({ query }: { query: string }) {
           {initial.city === "Abuja" ? "Abuja" : "your preferred location"}.
         </h1>
         <p className="text-muted">
-          12 properties · {initial.listing_type === "sale" ? "Buy" : "Rent"} ·{" "}
-          {searchOptions.availability.find(
+          {result.ok ? result.value.meta.total_items : "—"} properties ·{" "}
+          {initial.listing_type === "sale"
+            ? "Buy"
+            : initial.listing_type === "rent"
+              ? "Rent"
+              : "Rent or buy"}{" "}
+          ·{" "}
+          {choices.availability.find(
             (o) => o[0] === initial.availability,
           )?.[1] ?? "Available"}
         </p>
@@ -191,7 +223,7 @@ export function DesktopSearch({ query }: { query: string }) {
             {choice("furnishing")}
             {choice("amenities")}
             {choice("availability")}
-            {draft.q && (
+            {true && (
               <Input
                 label="Text-search preference"
                 value={draft.q}
@@ -231,16 +263,12 @@ export function DesktopSearch({ query }: { query: string }) {
           aria-label="Property results"
         >
           <div className="search-result-controls" data-node-id="15:282">
-            <p className="font-medium">12 properties</p>
+            <p className="font-medium">
+              {result.ok ? result.value.meta.total_items : "—"} properties
+            </p>
             {choice("sort")}
           </div>
-          {query && (
-            <p role="status" className="search-preview-note text-sm text-muted">
-              Filtered search is currently unavailable. You can still browse all
-              12 properties.
-            </p>
-          )}
-          <SearchResults sort={initial.sort} query={query} />
+          <SearchResults result={result} query={query} />
         </section>
       </div>
     </>

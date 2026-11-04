@@ -1,3 +1,4 @@
+import { verificationLabel, availabilityLabel } from "@/lib/public-property";
 import Image from "next/image";
 import Link from "next/link";
 import type { HomeListing } from "@/components/browse/home-content";
@@ -30,7 +31,7 @@ export function MobilePropertyCard({
       />
       <div className="home-card-gradient" />
       <Link className="home-verification-badge" href={`${href}#verification`}>
-        Verified on 20 Oct 2026
+        {verificationLabel(property.verified_at)}
       </Link>
       <div className="home-card-copy">
         <h3 className="text-home-card">
@@ -45,7 +46,7 @@ export function MobilePropertyCard({
         </p>
         <p className="text-sm">{property.location}</p>
         <Link className="text-home-caption" href={href}>
-          Available · View property ↗
+          {availabilityLabel(property.availability_status)} · View property ↗
         </Link>
       </div>
     </article>

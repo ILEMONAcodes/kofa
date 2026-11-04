@@ -12,6 +12,7 @@ export const searchOptions = {
     ["other", "Other"],
   ],
   listing_type: [
+    ["", "Rent or buy"],
     ["rent", "Rent"],
     ["sale", "Buy"],
   ],
@@ -66,6 +67,10 @@ export const searchOptions = {
   ],
 } as const;
 export type ChoiceKey = keyof typeof searchOptions;
+export type SearchChoices = Record<
+  ChoiceKey,
+  readonly (readonly [string, string])[]
+>;
 export interface SearchPreferences {
   city: string;
   area: string;
@@ -83,18 +88,21 @@ export interface SearchPreferences {
 export const defaultPreferences: SearchPreferences = {
   city: "Abuja",
   area: "",
-  listing_type: "rent",
-  property_type: "apartment",
+  listing_type: "",
+  property_type: "",
   bedrooms: "",
   furnishing: "",
   amenities: "",
   availability: "available",
   sort: "-published_at",
-  price_min: "1,000,000",
-  price_max: "6,000,000",
+  price_min: "",
+  price_max: "",
   q: "",
 };
-export function readPreferences(params: URLSearchParams): SearchPreferences {
+export function readPreferences(
+  params: URLSearchParams,
+  choices: SearchChoices = searchOptions,
+): SearchPreferences {
   const state = { ...defaultPreferences };
   // A homepage handoff supplies only its chosen constraints, not sidebar defaults.
   if (params.size) {
@@ -110,9 +118,7 @@ export function readPreferences(params: URLSearchParams): SearchPreferences {
       raw !== null &&
       raw
         .split(",")
-        .every((v) =>
-          searchOptions[key].some((o) => o[0] === v && v !== "other"),
-        )
+        .every((v) => choices[key].some((o) => o[0] === v && v !== "other"))
     )
       state[key] = raw;
   }
@@ -133,6 +139,7 @@ export function readPreferences(params: URLSearchParams): SearchPreferences {
 export function preferencesQuery(
   state: SearchPreferences,
   other: Partial<Record<ChoiceKey, string>> = {},
+  choices: SearchChoices = searchOptions,
 ): URLSearchParams {
   const params = new URLSearchParams();
   const terms = [state.q.trim()];
@@ -141,8 +148,7 @@ export function preferencesQuery(
     const values = state[key].split(",").filter(Boolean);
     const supported = values.filter(
       (value) =>
-        value !== "other" &&
-        searchOptions[key].some((option) => option[0] === value),
+        value !== "other" && choices[key].some((option) => option[0] === value),
     );
     if (supported.length) params.set(key, supported.join(","));
     if (values.includes("other")) {

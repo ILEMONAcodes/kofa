@@ -1,9 +1,16 @@
+import { verificationLabel, availabilityLabel } from "@/lib/public-property";
 import Image from "next/image";
 import Link from "next/link";
-import { illustrativeListings } from "./home-content";
+import type { HomeListing } from "./home-content";
 import { HomeLink } from "./home-link";
 import { listingPrice, furnishingLabel } from "@/lib/property-presentation";
-export function FeaturedProperties() {
+export function FeaturedProperties({
+  properties,
+  unavailable = false,
+}: {
+  properties: HomeListing[];
+  unavailable?: boolean;
+}) {
   return (
     <section
       className="home-featured"
@@ -27,8 +34,15 @@ export function FeaturedProperties() {
           </HomeLink>
         </div>
       </div>
+      {!properties.length && (
+        <p role="status">
+          {unavailable
+            ? "Properties are unavailable right now. Please try again."
+            : "New homes will appear here when available."}
+        </p>
+      )}
       <div className="home-property-grid">
-        {illustrativeListings.slice(0, 3).map((property, index) => (
+        {properties.slice(0, 3).map((property, index) => (
           <article
             key={property.slug}
             className="home-property-card"
@@ -48,7 +62,7 @@ export function FeaturedProperties() {
               href={`/properties/${property.slug}#verification`}
               className="home-verification-badge"
             >
-              Verified on 20 Oct 2026
+              {verificationLabel(property.verified_at)}
             </Link>
             <div className="home-card-copy">
               <h3 className="text-home-card">
@@ -69,7 +83,8 @@ export function FeaturedProperties() {
                 className="text-home-caption"
                 href={`/properties/${property.slug}`}
               >
-                Available · View property ↗
+                {availabilityLabel(property.availability_status)} · View
+                property ↗
               </Link>
             </div>
           </article>

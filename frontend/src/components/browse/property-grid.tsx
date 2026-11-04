@@ -25,17 +25,10 @@ export function PropertyGrid({
           <div className="relative aspect-[4/3]">
             <Image
               src={
-                property.cover_image.url.startsWith("/") &&
-                !property.cover_image.url.startsWith("//")
-                  ? property.cover_image.url
-                  : "/assets/property-placeholder.svg"
+                property.cover_image?.url ?? "/assets/property-placeholder.svg"
               }
-              alt={
-                property.cover_image.url.startsWith("/") &&
-                !property.cover_image.url.startsWith("//")
-                  ? property.cover_image.alt
-                  : "Property photo placeholder"
-              }
+              alt={property.cover_image?.alt ?? "Property photo"}
+              unoptimized
               fill
               sizes="(min-width: 1280px) 33vw, (min-width: 768px) 50vw, 100vw"
               className="object-cover"
