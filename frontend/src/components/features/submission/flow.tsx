@@ -9,6 +9,20 @@ import { Dropdown } from "@/components/common/dropdown";
 import { PopoverSelect } from "@/components/common/popover-select";
 import { Modal } from "@/components/common/modal";
 import { formatMoney, parseMoneyInput } from "@/lib/formatters/money";
+import { ApiError } from "@/lib/api/error";
+import {
+  submissionOptions,
+  createDraft,
+  uploadFile,
+  removeFile,
+  submitDraft,
+  type DraftReceipt,
+  type SubmissionReceipt,
+  type EvidenceKind,
+} from "./data";
+import { submissionPayload } from "./payload";
+import type { Taxonomy } from "@/types/filters";
+import type { CurrentPolicies } from "@/types/auth";
 import { MediaPicker, sampleMedia, type LocalMedia } from "./media";
 import {
   screens,
@@ -22,20 +36,87 @@ import {
 } from "./model";
 export function SubmissionFlow() {
   const params = useSearchParams();
-  const preview = params.get("preview") === "1";
+  const router = useRouter();
+  const [reset, setReset] = useState(0);
+  const preview = false;
   const requested = params.get("step");
   const step = steps.includes(requested as Step)
     ? (requested as Step)
     : "contact";
   return (
     <Wizard
-      key={preview ? "sample" : "new"}
+      key={reset}
+      onRestart={() => {
+        router.replace("/landlord");
+        setReset((v) => v + 1);
+      }}
       preview={preview}
-      step={step === "receipt" && !preview ? "review" : step}
+      step={step}
     />
   );
 }
-function Wizard({ preview, step }: { preview: boolean; step: Step }) {
+function Wizard({
+  preview,
+  step: requestedStep,
+  onRestart,
+}: {
+  preview: boolean;
+  step: Step;
+  onRestart: () => void;
+}) {
+  const [receipt, setReceipt] = useState<SubmissionReceipt | null>(null);
+  const step =
+    requestedStep === "receipt" && !receipt ? "contact" : requestedStep;
+  const [configuration, setConfiguration] = useState<{
+    taxonomy: Taxonomy;
+    policies: CurrentPolicies;
+  } | null>(null);
+  const [configurationError, setConfigurationError] = useState("");
+  const [busy, setBusy] = useState(false);
+  const inFlight = useRef(false);
+  const [progress, setProgress] = useState("");
+  const [savedDraft, setSavedDraft] = useState<DraftReceipt | null>(null);
+  const serverDraft = useRef<DraftReceipt | null>(null);
+  const savedPayload = useRef("");
+  const [evidenceKind, setEvidenceKind] =
+    useState<EvidenceKind>("ownership_proof");
+  const evidenceSnapshot = useRef<EvidenceKind>("ownership_proof");
+  const [uncertain, setUncertain] = useState(false);
+  async function loadOptions() {
+    setConfigurationError("");
+    try {
+      setConfiguration(await submissionOptions());
+    } catch {
+      setConfigurationError(
+        "Listing options could not be loaded. Try again before submitting.",
+      );
+    }
+  }
+  useEffect(() => {
+    let active = true;
+    submissionOptions()
+      .then((value) => {
+        if (active) setConfiguration(value);
+      })
+      .catch(() => {
+        if (active)
+          setConfigurationError(
+            "Listing options could not be loaded. Try again before submitting.",
+          );
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
+  const failureText = (issue: unknown) =>
+    issue instanceof ApiError
+      ? issue.status >= 500
+        ? `The listing service is unavailable. Keep this page open and try again.${issue.requestId ? ` Reference: ${issue.requestId}` : ""}`
+        : [issue.message, ...issue.details.map((d) => d.message)].join(" ")
+      : issue instanceof Error
+        ? issue.message
+        : "Unable to continue. Try again.";
+
   const router = useRouter();
   const [draft, setDraft] = useState<Draft>(preview ? sampleDraft : emptyDraft);
   const [media, setMedia] = useState<LocalMedia[]>(
@@ -52,7 +133,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
       : [],
   );
   const [error, setError] = useState("");
-  const [service, setService] = useState(false);
+
   const [policies, setPolicies] = useState(false);
   const [consent, setConsent] = useState({ owner: preview, policies: preview });
   const scroll = useRef<HTMLDivElement>(null);
@@ -71,12 +152,23 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
     previous.current = step;
   }, [step]);
   const set = (key: string, value: string) => {
+    if (busy || savedDraft) return;
     setDraft((d) => ({ ...d, [key]: value }));
     setError("");
   };
   const path = (next: Step, sample = preview) =>
     `/landlord?${sample ? "preview=1&" : ""}step=${next}`;
   const go = (next: Step) => {
+    if (inFlight.current) return;
+    if (
+      savedDraft &&
+      ["contact", "property", "pricing", "features"].includes(next)
+    ) {
+      setError(
+        "This draft has been saved. Finish its files and submission, or start a new listing to change its details.",
+      );
+      return;
+    }
     setError("");
     router.push(path(next), { scroll: false });
   };
@@ -108,9 +200,30 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
               ? "email"
               : undefined
       }
-      minLength={key === "full_name" ? 2 : key === "title" ? 5 : undefined}
-      maxLength={key === "full_name" ? 150 : key === "title" ? 120 : undefined}
-      pattern={key === "phone" ? "\\+[1-9][0-9]{6,14}" : undefined}
+      minLength={
+        key === "full_name"
+          ? 2
+          : key === "title"
+            ? 5
+            : key === "address"
+              ? 5
+              : undefined
+      }
+      maxLength={
+        key === "full_name"
+          ? 150
+          : key === "title"
+            ? 120
+            : key === "address"
+              ? 500
+              : key === "hint"
+                ? 160
+                : key === "email"
+                  ? 254
+                  : undefined
+      }
+      disabled={busy || !!savedDraft}
+      pattern={undefined}
       title={
         key === "phone"
           ? "Use international format, for example +2348012345678"
@@ -130,11 +243,17 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
       label:
         key === "period"
           ? `Per ${value}`
-          : value.charAt(0).toUpperCase() + value.slice(1).replaceAll("_", " "),
+          : ({
+              authorized_agent: "Authorised representative",
+              property_manager: "Property manager",
+            }[value] ??
+            value.charAt(0).toUpperCase() +
+              value.slice(1).replaceAll("_", " ")),
     }));
     return (
       <div key={key} className="listing-select-group">
         <Dropdown
+          disabled={busy || !!savedDraft}
           label={label}
           name={key}
           value={draft[key] ?? ""}
@@ -183,7 +302,11 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
     }
   };
   const edit = (target: Step, label: string) => (
-    <Button variant="subtle" onClick={() => go(target)}>
+    <Button
+      variant="subtle"
+      disabled={busy || (!!savedDraft && target !== "uploads")}
+      onClick={() => go(target)}
+    >
       {label}
     </Button>
   );
@@ -230,33 +353,165 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
       </div>
     );
   };
-  function submit(event: FormEvent<HTMLFormElement>) {
+  async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (inFlight.current) return;
     const issue = stepProblem(step, draft, photoCount, docCount);
     if (issue) {
       setError(issue);
       return;
     }
-    if (step === "review") {
-      for (const key of steps.slice(0, 5)) {
-        const missing = stepProblem(key, draft, photoCount, docCount);
-        if (missing) {
-          go(key);
-          setError(missing);
-          return;
-        }
-      }
-      if (!consent.owner || !consent.policies) {
-        setError(
-          "Confirm the listing information and policy checkbox before continuing.",
-        );
-        return;
-      }
-      setService(true);
+    if (step !== "review") {
+      go(steps[steps.indexOf(step) + 1]);
       return;
     }
-    go(steps[steps.indexOf(step) + 1]);
+    for (const key of steps.slice(0, 5)) {
+      const missing = stepProblem(key, draft, photoCount, docCount);
+      if (missing) {
+        go(key);
+        setError(missing);
+        return;
+      }
+    }
+    if (!consent.owner || !consent.policies) {
+      setError(
+        "Confirm the listing information and policy checkbox before continuing.",
+      );
+      return;
+    }
+    if (!configuration) {
+      setError(
+        "Load the current listing options and policy versions before submitting.",
+      );
+      return;
+    }
+    if (uncertain || media.some((m) => m.state === "uncertain")) {
+      setError(
+        "A previous request could not be confirmed. Keep this page open and contact Help before starting another listing.",
+      );
+      return;
+    }
+    let payload;
+    try {
+      payload = submissionPayload(
+        draft,
+        configuration.taxonomy,
+        configuration.policies,
+      );
+    } catch (issue) {
+      setError(failureText(issue));
+      return;
+    }
+    const fingerprint = JSON.stringify(payload);
+    if (serverDraft.current && savedPayload.current !== fingerprint) {
+      setError(
+        "The saved draft cannot be changed here. Start a new listing to change its details.",
+      );
+      return;
+    }
+    inFlight.current = true;
+    setBusy(true);
+    setError("");
+    try {
+      let remote = serverDraft.current;
+      if (!remote) {
+        setProgress("Saving your private draft…");
+        try {
+          remote = await createDraft(payload);
+        } catch (issue) {
+          if (
+            issue instanceof ApiError &&
+            (issue.status === 0 ||
+              issue.code === "UPSTREAM_ERROR" ||
+              issue.status === 500)
+          )
+            setUncertain(true);
+          throw issue;
+        }
+        serverDraft.current = remote;
+        setSavedDraft(remote);
+        savedPayload.current = fingerprint;
+        evidenceSnapshot.current = evidenceKind;
+      }
+      for (let i = 0; i < media.length; i++) {
+        const item = media[i];
+        if (item.serverId) continue;
+        if (!item.file)
+          throw new Error("Select the original file again before uploading.");
+        setProgress(`Uploading file ${i + 1} of ${media.length}…`);
+        setMedia((items) =>
+          items.map((m) =>
+            m.id === item.id ? { ...m, state: "uploading" } : m,
+          ),
+        );
+        try {
+          const uploaded = await uploadFile(
+            remote,
+            item.file,
+            item.kind === "document" ? evidenceSnapshot.current : item.kind,
+          );
+          setMedia((items) =>
+            items.map((m) =>
+              m.id === item.id
+                ? { ...m, serverId: uploaded.file_id, state: "uploaded" }
+                : m,
+            ),
+          );
+        } catch (issue) {
+          const unknown =
+            issue instanceof ApiError &&
+            (issue.status === 0 ||
+              issue.code === "UPSTREAM_ERROR" ||
+              issue.status === 500);
+          setMedia((items) =>
+            items.map((m) =>
+              m.id === item.id
+                ? { ...m, state: unknown ? "uncertain" : "error" }
+                : m,
+            ),
+          );
+          throw issue;
+        }
+      }
+      setProgress("Sending your listing for review…");
+      const confirmed = await submitDraft(remote);
+      setReceipt(confirmed);
+      setProgress("");
+      router.push(path("receipt"), { scroll: false });
+    } catch (issue) {
+      setError(failureText(issue));
+      setProgress(
+        serverDraft.current
+          ? "Your submission is not confirmed. Successfully uploaded files remain attached to this draft."
+          : "Your draft was not confirmed. Check the error before trying again.",
+      );
+    } finally {
+      inFlight.current = false;
+      setBusy(false);
+    }
   }
+  async function deleteMedia(item: LocalMedia) {
+    if (inFlight.current)
+      throw new Error("Wait for the current operation to finish.");
+    if (item.state === "uncertain")
+      throw new Error(
+        "This upload was not confirmed. Contact Help with your draft ID before restarting.",
+      );
+    inFlight.current = true;
+    setBusy(true);
+    try {
+      if (item.serverId && serverDraft.current)
+        await removeFile(serverDraft.current, item.serverId);
+      setMedia((items) => items.filter((m) => m.id !== item.id));
+      setError("");
+    } catch (issue) {
+      throw new Error(failureText(issue));
+    } finally {
+      inFlight.current = false;
+      setBusy(false);
+    }
+  }
+
   return (
     <div
       className={`auth-screen listing-screen listing-${step}`}
@@ -282,13 +537,68 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
         <form
           className="auth-form listing-form"
           id="listing-form"
-          onSubmit={submit}
+          onSubmit={(event) => void submit(event)}
         >
           <p className="listing-eyebrow">{data.eyebrow}</p>
           <h1 ref={heading} tabIndex={-1}>
             {data.title}
           </h1>
           <p className="auth-description">{data.description}</p>
+          {!receipt && (
+            <p className="auth-small">
+              Keep this page open until submission finishes. Refreshing clears
+              the form and selected files from this device.
+            </p>
+          )}
+          {!configuration && !configurationError && (
+            <p role="status">Loading listing options…</p>
+          )}
+          {configuration && !configuration.taxonomy.areas.length && (
+            <p role="alert">
+              No listing areas are available yet. Please contact our team before
+              submitting.
+            </p>
+          )}
+          {configurationError && (
+            <div role="alert">
+              <p>{configurationError}</p>
+              <Button variant="secondary" onClick={() => void loadOptions()}>
+                Retry listing options
+              </Button>
+            </div>
+          )}
+          {savedDraft && !receipt && (
+            <div className="auth-callout">
+              <p>Draft saved</p>
+              <p>
+                Your details are saved privately. Finish the files below and
+                submit. To change saved property or contact details, start a new
+                listing.
+              </p>
+              <p>Draft ID: {savedDraft.id}</p>
+              <Link
+                href="/landlord"
+                onClick={(e) => {
+                  e.preventDefault();
+                  if (!inFlight.current) onRestart();
+                }}
+              >
+                Start a new listing
+              </Link>
+            </div>
+          )}
+          {progress && <p role="status">{progress}</p>}
+          {busy && (
+            <progress
+              aria-label="Files confirmed uploaded"
+              max={Math.max(1, media.length)}
+              value={media.filter((m) => m.serverId).length}
+            />
+          )}
+
+          {(uncertain || media.some((m) => m.state === "uncertain")) && (
+            <Link href="/resources/help">Get help with this draft</Link>
+          )}
           {step === "contact" && (
             <>
               {field("full_name", "Full name", "Your full name")}
@@ -300,10 +610,12 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
                 true,
                 "email",
               )}
-              {select("relationship", "Relationship to property", [
-                "owner",
-                "authorised representative",
-              ])}
+              {select(
+                "relationship",
+                "Relationship to property",
+                ["owner", "authorized_agent", "developer", "property_manager"],
+                false,
+              )}
               {callout(
                 "Your contact details stay private",
                 "Visitors and clients speak with Kof’a. Your phone, email and evidence documents are not displayed publicly.",
@@ -323,19 +635,27 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
                 "room",
               ])}
               {select("intended_use", "Intended use", ["residential"], false)}
-              {select("state", "State", ["FCT"])}
-              {select("city", "City", ["Abuja"])}
-              {select("area", "Neighbourhood", [
-                "Wuse 2",
-                "Maitama",
-                "Asokoro",
-                "Gwarinpa",
-                "Jabi",
-                "Jahi",
-                "Garki",
-                "Katampe",
-                "Lugbe",
+              {select("state", "State", [
+                ...new Set(
+                  configuration?.taxonomy.areas.map((a) => a.state) ?? [],
+                ),
               ])}
+              {select("city", "City", [
+                ...new Set(
+                  configuration?.taxonomy.areas
+                    .filter((a) => a.state === draft.state)
+                    .map((a) => a.city) ?? [],
+                ),
+              ])}
+              {select(
+                "area",
+                "Neighbourhood",
+                configuration?.taxonomy.areas
+                  .filter(
+                    (a) => a.state === draft.state && a.city === draft.city,
+                  )
+                  .map((a) => a.neighbourhood) ?? [],
+              )}
               {field(
                 "address",
                 "Exact address (private)",
@@ -370,7 +690,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
                   name="conditions"
                   value={draft.conditions ?? ""}
                   onChange={(e) => set("conditions", e.target.value)}
-                  maxLength={5000}
+                  maxLength={2000}
                   className="field-control"
                   placeholder="Any conditions prospective residents should know"
                 />
@@ -436,17 +756,12 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
                 multiple
                 value={draft.amenities ?? ""}
                 options={[
-                  "Parking",
-                  "Generator",
-                  "Fitted kitchen",
-                  "Water supply",
-                  "Security",
-                  "Lift",
-                  "other",
-                ].map((value) => ({
-                  value,
-                  label: value === "other" ? "Other" : value,
-                }))}
+                  ...(configuration?.taxonomy.amenities.map((a) => ({
+                    value: a.code,
+                    label: a.label,
+                  })) ?? []),
+                  { value: "other", label: "Other" },
+                ]}
                 onChange={(value) => set("amenities", value)}
               />
               {draft.amenities?.split(",").includes("other") &&
@@ -458,7 +773,27 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
             </>
           )}
           <div className="listing-media-fields" hidden={step !== "uploads"}>
-            <MediaPicker media={media} onChange={setMedia} preview={preview} />
+            <Dropdown
+              label="Evidence type"
+              value={evidenceKind}
+              disabled={busy || !!savedDraft}
+              onChange={(e) => setEvidenceKind(e.target.value as EvidenceKind)}
+              options={[
+                { value: "ownership_proof", label: "Ownership proof" },
+                {
+                  value: "authorization_letter",
+                  label: "Authorisation letter",
+                },
+              ]}
+            />
+            <MediaPicker
+              media={media}
+              onChange={setMedia}
+              preview={false}
+              busy={busy}
+              lockedOrdering={!!savedDraft}
+              onRemove={deleteMedia}
+            />
           </div>
           {step === "review" && (
             <>
@@ -491,7 +826,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
               {edit("features", "Edit features")}
               {callout(
                 "Photos and evidence",
-                `${photoCount} property photos ${preview ? "ready" : "selected locally"} · ${docCount} private ownership document${docCount === 1 ? "" : "s"} ${preview ? "ready" : "selected locally"}`,
+                `${photoCount} property photos ${savedDraft ? "attached to draft or awaiting upload" : "selected locally"} · ${docCount} private ownership document${docCount === 1 ? "" : "s"} ${savedDraft ? "attached to draft or awaiting upload" : "selected locally"}`,
               )}
               {edit("uploads", "Edit photos and evidence")}
               {(
@@ -511,6 +846,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
                     <input
                       type="checkbox"
                       required
+                      disabled={busy || !!savedDraft}
                       checked={consent[key]}
                       onChange={(e) =>
                         setConsent((c) => ({ ...c, [key]: e.target.checked }))
@@ -531,7 +867,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
                 className="auth-text-link"
                 onClick={() => setPolicies(true)}
               >
-                Policy details are being finalised.
+                View Terms and Privacy Policy
               </button>
               <div className="auth-callout listing-review-video">
                 <p>Optional walkthrough video</p>
@@ -545,7 +881,7 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
               <span className="listing-status">
                 Submitted · Awaiting review
               </span>
-              {callout("Your reference", "SUB-2026-000123")}
+              {callout("Your reference", receipt?.reference ?? "")}
               <p className="auth-description">
                 Keep this reference. Our team will contact you using the details
                 you provided. We will ask you to approve the advertised price
@@ -610,7 +946,12 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
             {data.action}
           </Link>
         ) : (
-          <Button form="listing-form" type="submit">
+          <Button
+            form="listing-form"
+            type="submit"
+            loading={busy}
+            disabled={uncertain}
+          >
             {data.action}
           </Button>
         )}
@@ -619,7 +960,14 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
             Back to browsing
           </Link>
         ) : step === "receipt" ? (
-          <Link className={buttonStyles("subtle")} href="/landlord">
+          <Link
+            className={buttonStyles("subtle")}
+            href="/landlord"
+            onClick={(event) => {
+              event.preventDefault();
+              onRestart();
+            }}
+          >
             List another property
           </Link>
         ) : (
@@ -632,31 +980,27 @@ function Wizard({ preview, step }: { preview: boolean; step: Step }) {
         )}
       </div>
       <Modal
-        open={service}
-        onClose={() => setService(false)}
-        title="Unable to submit your listing"
-      >
-        <p>
-          Listing submissions are currently unavailable. Your files and contact
-          details have not been sent.
-        </p>
-        <Link
-          href="/resources/help"
-          onClick={() => setService(false)}
-          className={buttonStyles("secondary", "mt-5")}
-        >
-          Get help
-        </Link>
-      </Modal>
-      <Modal
         open={policies}
         onClose={() => setPolicies(false)}
-        title="Policies are being prepared."
+        title="Terms and Privacy Policy"
       >
         <p>
-          Approved policy versions will appear before real submissions become
-          available. No legal consent is recorded here.
+          Your submission records the policy versions you accept below. Your
+          contact details and evidence stay private.
         </p>
+        {configuration?.policies.policies.map((p) => (
+          <p key={p.type}>
+            <Link
+              href={
+                p.type === "terms" ? "/resources/terms" : "/resources/privacy"
+              }
+              target="_blank"
+              rel="noreferrer"
+            >
+              {p.type === "terms" ? "Terms" : "Privacy"} · {p.version}
+            </Link>
+          </p>
+        ))}
       </Modal>
     </div>
   );

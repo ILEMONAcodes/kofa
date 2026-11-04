@@ -612,7 +612,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | GET/POST /admin/users, PATCH /admin/users/{id} | Integrated for list/create/activation; role updates API-tested |
 | GET /taxonomy | Draft |
 | GET /policies/current | Integrated metadata (no final legal content) |
-| POST /landlord-submissions, POST /landlord-submissions/{id}/files, DELETE /landlord-submissions/{id}/files/{file_id}, POST /landlord-submissions/{id}/submit | Implemented (BE-4.4) |
+| POST /landlord-submissions, POST /landlord-submissions/{id}/files, DELETE /landlord-submissions/{id}/files/{file_id}, POST /landlord-submissions/{id}/submit | Integrated locally (BE-4.4 / FE-4.10; live draft, upload/removal and receipt journey) |
 | GET /properties, GET /properties/{slug}, GET /taxonomy, GET /property-media/{media_id} | Integrated locally (BE-4.7 + FE-4.11/12/13; PR/deployment pending) |
 | GET /admin/properties, GET /admin/properties/{id}, PATCH /admin/properties/{id}, POST …/assign, PATCH …/availability, POST/PATCH/DELETE …/media | Integrated (BE-4.5 / FE-4.14 local real-stack evidence) |
 | GET /admin/property-options | Integrated (FE-4.14) |

@@ -10,6 +10,9 @@ export interface LocalMedia {
   name: string;
   url?: string;
   sample?: boolean;
+  file?: File;
+  serverId?: string;
+  state?: "selected" | "uploading" | "uploaded" | "error" | "uncertain";
 }
 export const sampleMedia: LocalMedia[] = [
   "home-living-room.jpg",
@@ -28,10 +31,16 @@ export function MediaPicker({
   media,
   onChange,
   preview,
+  busy = false,
+  lockedOrdering = false,
+  onRemove,
 }: {
   media: LocalMedia[];
   onChange: (items: LocalMedia[]) => void;
   preview: boolean;
+  busy?: boolean;
+  lockedOrdering?: boolean;
+  onRemove?: (item: LocalMedia) => Promise<void>;
 }) {
   const errorRef = useRef<HTMLDivElement>(null);
   const [manage, setManage] = useState(false);
@@ -61,12 +70,21 @@ export function MediaPicker({
       urls.current.delete(item.url);
     }
   };
-  const remove = (id: string) => {
+  const remove = async (id: string) => {
     const item = media.find((m) => m.id === id);
-    if (item) release(item);
-    onChange(media.filter((m) => m.id !== id));
+    if (!item || busy) return;
+    try {
+      if (onRemove) await onRemove(item);
+      else onChange(media.filter((m) => m.id !== id));
+      release(item);
+    } catch (issue) {
+      setError(
+        issue instanceof Error ? issue.message : "Unable to remove this file.",
+      );
+    }
   };
   function select(kind: MediaKind, event: ChangeEvent<HTMLInputElement>) {
+    if (busy) return;
     const files = Array.from(event.target.files ?? []);
     let next = [...media];
     const errors: string[] = [];
@@ -78,13 +96,31 @@ export function MediaPicker({
         errors.push(`${file.name}: ${problem}`);
         continue;
       }
+      if (
+        kind === "video" &&
+        next.some(
+          (m) => m.kind === "video" && (m.serverId || m.state === "uncertain"),
+        )
+      ) {
+        errors.push(
+          "Remove the uploaded video before selecting its replacement.",
+        );
+        continue;
+      }
       if (kind === "video") {
         next.filter((m) => m.kind === "video").forEach(release);
         next = next.filter((m) => m.kind !== "video");
       }
       const url = kind === "document" ? undefined : URL.createObjectURL(file);
       if (url) urls.current.add(url);
-      next.push({ id: crypto.randomUUID(), kind, name: file.name, url });
+      next.push({
+        id: crypto.randomUUID(),
+        kind,
+        name: file.name,
+        url,
+        file,
+        state: "selected",
+      });
     }
     onChange(next);
     setError(errors.join(" "));
@@ -95,6 +131,7 @@ export function MediaPicker({
   const documentItems = media.filter((m) => m.kind === "document");
   const videoItem = media.find((m) => m.kind === "video");
   function move(id: string, direction: number) {
+    if (busy || lockedOrdering) return;
     const items = [...photoItems];
     const index = items.findIndex((m) => m.id === id);
     const target = index + direction;
@@ -107,6 +144,7 @@ export function MediaPicker({
       <input
         ref={photos}
         className="sr-only"
+        disabled={busy}
         type="file"
         accept="image/jpeg,image/png,image/webp"
         multiple
@@ -116,6 +154,7 @@ export function MediaPicker({
       <input
         ref={documents}
         className="sr-only"
+        disabled={busy}
         type="file"
         accept="application/pdf,image/jpeg,image/png"
         multiple
@@ -125,6 +164,7 @@ export function MediaPicker({
       <input
         ref={video}
         className="sr-only"
+        disabled={busy}
         type="file"
         accept="video/mp4,video/webm"
         aria-label="Select optional walkthrough video"
@@ -153,11 +193,16 @@ export function MediaPicker({
             <p className="auth-small">No photos selected yet.</p>
           )}
         </div>
-        <Button variant="secondary" onClick={() => picker("photo")}>
+        <Button
+          disabled={busy}
+          variant="secondary"
+          onClick={() => picker("photo")}
+        >
           {photoItems.length ? "Add more photos" : "Add property photos"}
         </Button>
         <p className="auth-small">
-          Photo 1 is the cover · Reorder or remove before submitting
+          Photo 1 is the cover · Reorder before uploading, or remove before
+          submitting
         </p>
       </section>
       <section
@@ -167,25 +212,27 @@ export function MediaPicker({
         <h2>Ownership or authorisation evidence</h2>
         <p>
           {documentItems.length
-            ? `${documentItems[0].name} · ${preview ? "Ready" : "Selected locally"}${documentItems.length > 1 ? ` (+${documentItems.length - 1})` : ""}`
+            ? `${documentItems[0].name} · ${documentItems[0]?.state === "uploaded" ? "Uploaded" : "Selected locally"}${documentItems.length > 1 ? ` (+${documentItems.length - 1})` : ""}`
             : "No evidence selected yet."}
         </p>
         <p className="auth-small">
           PDF, JPEG or PNG · up to 10 MB each · maximum 10 documents. Only
           authorised staff can view these documents.
         </p>
-        <Button variant="secondary" onClick={() => picker("document")}>
+        <Button
+          disabled={busy}
+          variant="secondary"
+          onClick={() => picker("document")}
+        >
           Add or replace evidence
         </Button>
       </section>
       <div className="auth-callout">
+        <p>Files are private before publication</p>
         <p>
-          {preview ? "Uploads can be retried" : "Files stay on this device"}
-        </p>
-        <p>
-          {preview
-            ? "If a file fails to upload, try again or remove it before continuing. At least 5 photos and 1 evidence document must be ready before you submit."
-            : "Your files stay on this device until they are uploaded."}
+          Selected files stay on this device until final review. Confirmed
+          uploads are stored privately. Keep this page open until your
+          submission is confirmed.
         </p>
       </div>
       <section
@@ -196,7 +243,11 @@ export function MediaPicker({
         <p className="auth-small">
           One MP4 or WebM · Maximum 100 MB. Video can be skipped.
         </p>
-        <Button variant="secondary" onClick={() => picker("video")}>
+        <Button
+          disabled={busy}
+          variant="secondary"
+          onClick={() => picker("video")}
+        >
           {videoItem ? "Replace property video" : "Add property video"}
         </Button>
         {videoItem && (
@@ -213,7 +264,11 @@ export function MediaPicker({
                 aria-label="Selected walkthrough preview"
               />
             )}
-            <Button variant="subtle" onClick={() => remove(videoItem.id)}>
+            <Button
+              variant="subtle"
+              disabled={busy}
+              onClick={() => void remove(videoItem.id)}
+            >
               Remove video
             </Button>
           </>
@@ -230,7 +285,11 @@ export function MediaPicker({
           role="alert"
         >
           <p>{error}</p>
-          <Button variant="secondary" onClick={() => picker(retryKind)}>
+          <Button
+            disabled={busy}
+            variant="secondary"
+            onClick={() => picker(retryKind)}
+          >
             Retry file selection
           </Button>
           <Button variant="subtle" onClick={() => setError("")}>
@@ -244,8 +303,8 @@ export function MediaPicker({
         title="Manage photos, video & evidence"
       >
         <p className="auth-small">
-          The first photo is your cover image. Drag photos to change their
-          order.
+          The first photo is your cover image. Use the arrow buttons to reorder
+          photos before uploading.
         </p>
         <div className="listing-media-manager">
           {media.map((item) => (
@@ -260,14 +319,27 @@ export function MediaPicker({
                 {item.kind === "document"
                   ? "Private evidence"
                   : "Property media"}{" "}
-                · {item.sample ? "Property photo" : "Selected locally"}
+                ·{" "}
+                {item.state === "uploaded"
+                  ? "Uploaded"
+                  : item.state === "uploading"
+                    ? "Uploading…"
+                    : item.state === "error"
+                      ? "Upload failed"
+                      : item.state === "uncertain"
+                        ? "Upload not confirmed"
+                        : item.sample
+                          ? "Property photo"
+                          : "Selected locally"}
               </p>
               <div>
                 {item.kind === "photo" && (
                   <>
                     <Button
                       variant="secondary"
-                      disabled={photoItems[0]?.id === item.id}
+                      disabled={
+                        busy || lockedOrdering || photoItems[0]?.id === item.id
+                      }
                       onClick={() => move(item.id, -1)}
                       aria-label={`Move ${item.name} earlier`}
                     >
@@ -275,7 +347,11 @@ export function MediaPicker({
                     </Button>
                     <Button
                       variant="secondary"
-                      disabled={photoItems.at(-1)?.id === item.id}
+                      disabled={
+                        busy ||
+                        lockedOrdering ||
+                        photoItems.at(-1)?.id === item.id
+                      }
                       onClick={() => move(item.id, 1)}
                       aria-label={`Move ${item.name} later`}
                     >
@@ -285,7 +361,8 @@ export function MediaPicker({
                 )}
                 <Button
                   variant="subtle"
-                  onClick={() => remove(item.id)}
+                  disabled={busy}
+                  onClick={() => void remove(item.id)}
                   aria-label={`Remove ${item.name}`}
                 >
                   Remove
