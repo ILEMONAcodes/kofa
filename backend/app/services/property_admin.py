@@ -204,8 +204,11 @@ def get_detail(db, settings, actor_id, property_id, storage=None):
                 if c.verification_id == current.id and c.result in {"pass", "na"}
             ],
         )
+    from app.services.property_workflow import capabilities
+
     detail = schema.AdminPropertyDetail(
         **base,
+        **capabilities(db, prop, actor.role),
         description=prop.description,
         intended_use=prop.intended_use,
         area_id=prop.area_id,

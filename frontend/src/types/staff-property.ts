@@ -72,6 +72,9 @@ export interface StaffDocument {
   review_note: string | null;
 }
 export interface StaffDetail extends StaffSummary {
+  allowed_actions: string[];
+  allowed_workflows: string[];
+  publication_blockers: string[];
   description: string;
   intended_use: string;
   area_id: string;
@@ -96,10 +99,16 @@ export interface StaffDetail extends StaffSummary {
   verification_history: {
     id: string;
     status: string;
+    is_current: boolean;
     method: string;
     scope_summary: string | null;
     verified_at: string | null;
-    checks: { code: string; result: string; note: string | null }[];
+    checks: {
+      code: string;
+      result: string;
+      note: string | null;
+      evidence_document_id: string | null;
+    }[];
   }[];
   landlord_approval: {
     id: string;

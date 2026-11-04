@@ -11,6 +11,7 @@ import { Dropdown } from "@/components/common/dropdown";
 import { Modal } from "@/components/common/modal";
 import { BrandLoading } from "@/components/common/brand-loading";
 import { useStaffResource, staffWrite } from "./data";
+import { WorkflowPanel } from "./workflow";
 import {
   words,
   staffLink,
@@ -427,9 +428,6 @@ function PropertyRecord({ record }: { record: StaffDetail }) {
               {record.landlord_approval
                 ? `Landlord approval recorded on ${formatStaffDate(record.landlord_approval.approved_at, "date")}`
                 : "Current landlord approval is not recorded."}
-            </p>
-            <p>
-              Verification and publishing actions will be available here soon.
             </p>
           </Panel>
         </div>
@@ -1230,6 +1228,23 @@ function PropertyView({
       )}
       {view !== "property" && (
         <Link href={staffLink("property", id)}>Property details</Link>
+      )}
+      {![
+        "edit-property",
+        "assign-review",
+        "availability",
+        "media",
+        "evidence",
+        "remove-media",
+        "document",
+        "document-expired",
+      ].includes(view) && (
+        <WorkflowPanel
+          key={record.version}
+          record={record}
+          act={act}
+          busy={busy}
+        />
       )}
       {view === "edit-property" ? (
         <EditProperty record={record} options={options} act={act} busy={busy} />

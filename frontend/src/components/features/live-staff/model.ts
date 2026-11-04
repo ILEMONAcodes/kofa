@@ -46,6 +46,8 @@ export function priceText(amount: number) {
 export function errorText(error: unknown) {
   if (error instanceof StaffInputError) return error.message;
   if (error instanceof ApiError) {
+    if (error.status === 409 && error.code === "INVALID_STATE_TRANSITION")
+      return error.message;
     if (error.status === 409)
       return "This record changed or the action is unavailable. Reload the record before trying again.";
     if (error.status === 403)

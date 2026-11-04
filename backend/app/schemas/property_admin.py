@@ -243,6 +243,9 @@ class VerificationSummary(BaseModel):
 
 
 class AdminPropertyDetail(AdminPropertySummary):
+    allowed_actions: list[str]
+    allowed_workflows: list[str]
+    publication_blockers: list[str]
     description: str
     intended_use: str
     area_id: UUID
