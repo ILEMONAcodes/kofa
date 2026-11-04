@@ -8,6 +8,7 @@ from app.models.property import (
     LandlordApproval,
     Property,
     PropertyAmenity,
+    PropertyDocument,
     PropertyMedia,
     PropertyVerification,
     VerificationCheck,
@@ -15,6 +16,38 @@ from app.models.property import (
 
 
 def visible():
+    # Recheck checklist integrity on reads too: a stale/imported passed flag alone
+    # must never bypass the publication workflow.
+    required_checks = [
+        exists(
+            select(VerificationCheck.id).where(
+                VerificationCheck.verification_id == PropertyVerification.id,
+                VerificationCheck.code == code,
+            )
+        )
+        for code in ("identity", "ownership_docs", "location", "price", "features")
+    ]
+    invalid_check = exists(
+        select(VerificationCheck.id).where(
+            VerificationCheck.verification_id == PropertyVerification.id,
+            or_(
+                VerificationCheck.result == "fail",
+                and_(
+                    VerificationCheck.result == "na",
+                    func.length(func.trim(func.coalesce(VerificationCheck.note, ""))) == 0,
+                ),
+                and_(
+                    VerificationCheck.evidence_document_id.is_not(None),
+                    ~exists(
+                        select(PropertyDocument.id).where(
+                            PropertyDocument.id == VerificationCheck.evidence_document_id,
+                            PropertyDocument.property_id == PropertyVerification.property_id,
+                        )
+                    ),
+                ),
+            ),
+        )
+    )
     verification = exists(
         select(PropertyVerification.id)
         .correlate(Property)
@@ -23,6 +56,8 @@ def visible():
             PropertyVerification.is_current.is_(True),
             PropertyVerification.status == "passed",
             PropertyVerification.verified_at.is_not(None),
+            *required_checks,
+            ~invalid_check,
         )
     )
     approval = exists(
