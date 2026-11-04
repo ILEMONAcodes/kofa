@@ -140,6 +140,7 @@ Frontend may develop against mocks only if **all** of these hold:
 - **Private bucket/prefix:** ownership and identity documents; accessed only through short-lived signed URLs generated for staff after an authorization check.
 - Uploads validated by content sniffing (not just extension), size limits, filename sanitisation; images re-encoded and thumbnails produced to strip EXIF location data.
 - Photos of unpublished or draft properties are private until publication.
+- BE-4.7 MVP delivery keeps the existing private objects and gates `/property-media/{id}` by current public eligibility. Local files are delivered inline; S3 redirects are signed for at most 60 seconds (issued grants remain valid until expiry). Public bucket/CDN promotion and Cloudflare R2 direct uploads remain pending. Public JSON contains media IDs/URLs, never document IDs or private storage keys.
 
 ## 11. Notifications
 

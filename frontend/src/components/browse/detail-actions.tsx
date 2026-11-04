@@ -9,9 +9,11 @@ import type { DetailPhoto } from "./detail-content";
 export function DetailActions({
   photos,
   title,
+  videos = [],
 }: {
   photos: DetailPhoto[];
   title: string;
+  videos?: { url: string; alt: string | null }[];
 }) {
   const [view, setView] = useState("");
   const [reason, setReason] = useState("outside");
@@ -66,7 +68,7 @@ export function DetailActions({
         </Button>
       </div>
       {view === "gallery" && (
-        <DetailGallery photos={photos} open onClose={close} />
+        <DetailGallery photos={photos} videos={videos} open onClose={close} />
       )}
       <Modal
         open={view === "report"}

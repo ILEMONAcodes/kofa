@@ -5,13 +5,19 @@ import { notFound } from "next/navigation";
 import { SearchNavigation } from "@/components/browse/search-navigation";
 import { HomeFooter } from "@/components/browse/home-footer";
 import { HomeLink } from "@/components/browse/home-link";
-import { previewDetail } from "@/components/browse/detail-content";
-import { illustrativeListings } from "@/components/browse/home-content";
+import { publicDetail } from "@/lib/api/public-server";
+import {
+  publicCard,
+  verificationLabel,
+  availabilityLabel,
+} from "@/lib/public-property";
+import { formatStaffDate } from "@/lib/formatters/date";
+
 import { PropertyGallery } from "@/components/browse/detail-gallery";
 import { DetailActions } from "@/components/browse/detail-actions";
 import {
-  DetailBreadcrumb,
   DetailInterestLink,
+  DetailBreadcrumb,
 } from "@/components/browse/detail-navigation-links";
 
 import {
@@ -20,28 +26,71 @@ import {
   furnishingLabel,
 } from "@/lib/property-presentation";
 import { formatMoney } from "@/lib/formatters/money";
-// This uses the twelve known sample slugs. Real publication gating belongs to the public API.
-export const dynamicParams = false;
-export function generateStaticParams() {
-  return illustrativeListings.map((property) => ({ id: property.slug }));
-}
+export const dynamic = "force-dynamic";
 type Props = {
   params: Promise<{ id: string }>;
 };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const property = previewDetail((await params).id);
+  const result = await publicDetail((await params).id);
+  if (!result.ok && result.status === 404) notFound();
+  const property = result.ok ? result.value.data : null;
   return {
     title: property?.title ?? "Property not found",
     description: property
-      ? `${property.title} · ${property.location}. Property details and photos.`
+      ? `${property.title} · ${property.location.neighbourhood}, ${property.location.city}. Property details and photos.`
       : undefined,
-    robots: { index: false, follow: false },
+    robots: { index: !!property, follow: !!property },
   };
 }
 export default async function PropertyDetail({ params }: Props) {
   // Public URL value is a slug, despite the requested [id] folder name.
-  const property = previewDetail((await params).id);
-  if (!property) notFound();
+  const result = await publicDetail((await params).id);
+  if (!result.ok) {
+    if (result.status === 404) notFound();
+    return (
+      <div className="search-page detail-page">
+        <SearchNavigation />
+        <main id="main-content" className="detail-header">
+          <h1>Unable to load this property</h1>
+          <p role="alert">{result.message}</p>
+          {result.requestId && <p>Reference: {result.requestId}</p>}
+          <Link href="/properties">Back to properties</Link>
+        </main>
+      </div>
+    );
+  }
+  const data = result.value.data;
+  const photos = data.media
+    .filter((m) => m.kind === "photo")
+    .map((m) => ({
+      src: m.url,
+      alt: m.alt ?? data.title,
+      label: m.alt ?? "Property photo",
+    }));
+  const property = {
+    ...publicCard(data),
+    neighbourhood: data.location.neighbourhood,
+    description: data.description,
+    features: data.amenities.map((a) => a.label).join(" · "),
+    paymentTerms: data.payment_terms,
+    photos,
+  };
+  const confirmed = data.last_availability_confirmed_at
+    ? `Availability last confirmed ${formatStaffDate(data.last_availability_confirmed_at, "date")}`
+    : "Availability confirmation pending";
+  const verificationCopy = data.verification
+    ? `${data.verification.method.replaceAll("_", " ")} · ${data.verification.scope.map((c) => c.replaceAll("_", " ")).join(", ")}.`
+    : "Verification details are unavailable.";
+  const charges = data.extra_charges.length ? (
+    data.extra_charges.map((c, i) => (
+      <p key={i}>
+        {c.label}: {formatMoney(c.amount)}
+      </p>
+    ))
+  ) : (
+    <p>No additional property charges supplied.</p>
+  );
+
   return (
     <div className="search-page detail-page" data-node-id="14:221">
       <SearchNavigation detail assistantHref="#assistant" />
@@ -60,21 +109,20 @@ export default async function PropertyDetail({ params }: Props) {
               </nav>
             }
           >
-            <DetailBreadcrumb neighbourhood={property.neighbourhood} />
+            <DetailBreadcrumb
+              neighbourhood={property.neighbourhood}
+              city={data.location.city}
+            />
           </Suspense>
           <a href="#verification" className="detail-badge">
-            Verified on 20 Oct 2026
+            {verificationLabel(data.verified_at)}
           </a>
           <h1
             id="property-title"
             className="detail-title"
             data-node-id="15:418"
           >
-            <span>{property.title.split(",")[0]},</span>
-            <span className="detail-title-neighbourhood">
-              {" "}
-              {property.neighbourhood}
-            </span>
+            {property.title}
           </h1>
           <p className="text-muted detail-location desktop-only">
             {property.location} · Approximate location
@@ -89,7 +137,16 @@ export default async function PropertyDetail({ params }: Props) {
             />
             <span>{property.location}</span>
           </div>
-          <PropertyGallery photos={property.photos} />
+          {photos.length ? (
+            <PropertyGallery
+              photos={photos}
+              videos={data.media.filter((m) => m.kind === "video")}
+            />
+          ) : (
+            <p className="detail-notice">
+              Photos are not available for this property.
+            </p>
+          )}
         </section>
         <section
           className="detail-facts"
@@ -106,23 +163,17 @@ export default async function PropertyDetail({ params }: Props) {
             </p>
             <p className="text-muted desktop-only">{property.description}</p>
             <div className="mobile-only mobile-detail-intro">
-              <span className="detail-badge">Available</span>
+              <span className="detail-badge">
+                {availabilityLabel(data.availability_status)}
+              </span>
               <h2>A home with room to breathe.</h2>
-              <p className="text-muted">
-                {property.slug === "3-bedroom-flat-wuse-2"
-                  ? "Bright living spaces, a fitted kitchen and parking."
-                  : property.description}
-              </p>
+              <p className="text-muted">{property.description}</p>
               <p>
                 {property.paymentTerms ?? "Payment terms not supplied"}
                 <br />
-                {property.cautionFee !== null
-                  ? `Caution fee: ${formatMoney(property.cautionFee)}`
-                  : "Charge details not supplied"}
               </p>
-              <p className="text-sm text-muted">
-                Availability last confirmed 20 Oct 2026
-              </p>
+              {charges}
+              <p className="text-sm text-muted">{confirmed}</p>
             </div>
             <hr className="desktop-only" />
             <h3 className="text-home-card desktop-only">Features</h3>
@@ -137,14 +188,10 @@ export default async function PropertyDetail({ params }: Props) {
                   className="text-home-card scroll-mt-8"
                   tabIndex={-1}
                 >
-                  Verification / 20 Oct 2026
+                  {verificationLabel(data.verified_at)}
                 </h3>
                 <div className="text-muted">
-                  <p>Method: desk review and physical inspection</p>
-                  <p>
-                    Checks: identity, ownership documents, location, price and
-                    features.
-                  </p>
+                  <p>{verificationCopy}</p>
                 </div>
                 <aside className="detail-notice">
                   <p className="font-medium text-primary">
@@ -157,11 +204,9 @@ export default async function PropertyDetail({ params }: Props) {
                 </aside>
               </div>
               <div className="mobile-only mobile-notice">
-                <h3>Verification / 20 Oct 2026</h3>
+                <h3>{verificationLabel(data.verified_at)}</h3>
                 <p>
-                  Desk review and physical inspection. Identity, ownership
-                  documents, location, price and features checked. Verification
-                  is not a guarantee of legal title.
+                  {verificationCopy} {data.verification?.disclaimer}
                 </p>
               </div>
             </section>
@@ -182,7 +227,27 @@ export default async function PropertyDetail({ params }: Props) {
                 through the inspection process.
               </p>
             </aside>
-            <DetailActions photos={property.photos} title={property.title} />
+            {data.media
+              .filter((m) => m.kind === "video")
+              .map((m) => (
+                <section key={m.id} aria-label="Property video">
+                  <h3>Video walkthrough</h3>
+                  <video
+                    className="w-full rounded-xl"
+                    controls
+                    preload="metadata"
+                    aria-label={m.alt ?? "Property walkthrough"}
+                    src={m.url}
+                  >
+                    <track kind="captions" />
+                  </video>
+                </section>
+              ))}
+            <DetailActions
+              photos={photos}
+              videos={data.media.filter((m) => m.kind === "video")}
+              title={property.title}
+            />
           </div>
           <aside
             className="detail-interest desktop-only"
@@ -194,23 +259,19 @@ export default async function PropertyDetail({ params }: Props) {
             </p>
             <p className="text-sm text-muted">
               Payment terms:{" "}
-              {property.paymentTerms ?? "Not supplied in this preview"}
+              {property.paymentTerms ?? "Contact our team for details"}
             </p>
             <hr />
             <h2 className="text-sm font-medium">Additional property charge</h2>
-            <p>
-              {property.cautionFee !== null
-                ? `Caution fee: ${formatMoney(property.cautionFee)}`
-                : "No charge details supplied for this sample."}
-            </p>
+            {charges}
             <p className="text-sm text-muted">
               Our team will explain any service fees before you agree to
               proceed.
             </p>
-            <span className="detail-badge">Available</span>
-            <p className="text-sm text-muted">
-              Availability last confirmed 20 Oct 2026
-            </p>
+            <span className="detail-badge">
+              {availabilityLabel(data.availability_status)}
+            </span>
+            <p className="text-sm text-muted">{confirmed}</p>
             <Suspense
               fallback={
                 <HomeLink

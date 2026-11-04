@@ -8,15 +8,22 @@ import {
   safePropertiesReturn,
   propertyDetailHref,
 } from "@/lib/property-navigation";
-export function DetailBreadcrumb({ neighbourhood }: { neighbourhood: string }) {
+export function DetailBreadcrumb({
+  neighbourhood,
+  city = "Abuja",
+}: {
+  neighbourhood: string;
+  city?: string;
+}) {
   const params = useSearchParams();
   const back = safePropertiesReturn(params.get("returnTo") ?? undefined);
   return (
     <nav aria-label="Breadcrumb" className="text-sm text-primary">
       <Link href={back}>Properties</Link> /{" "}
-      <Link href="/properties?city=Abuja">Abuja</Link> /{" "}
+      <Link href={`/properties?${new URLSearchParams({ city })}`}>{city}</Link>{" "}
+      /{" "}
       <Link
-        href={`/properties?${new URLSearchParams({ city: "Abuja", area: neighbourhood.toLowerCase().replaceAll(" ", "-") })}`}
+        href={`/properties?${new URLSearchParams({ city, q: neighbourhood })}`}
       >
         {neighbourhood}
       </Link>
@@ -37,8 +44,8 @@ export function DetailInterestLink({ slug }: { slug: string }) {
         role && role !== "client"
           ? reviewHome(role)
           : role
-          ? `/account/inquiry?${new URLSearchParams({ property: slug, returnTo: current })}`
-          : `/login?${new URLSearchParams({ returnTo: `/account/inquiry?${new URLSearchParams({ property: slug, returnTo: current })}` })}`
+            ? `/account/inquiry?${new URLSearchParams({ property: slug, returnTo: current })}`
+            : `/login?${new URLSearchParams({ returnTo: `/account/inquiry?${new URLSearchParams({ property: slug, returnTo: current })}` })}`
       }
       variant="primary"
       className="w-full"

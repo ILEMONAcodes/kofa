@@ -10,7 +10,13 @@ export type HomeListing = Pick<
   | "furnishing"
   | "listing_type"
   | "property_type"
-> & { image: string; alt: string; location: string };
+> & {
+  image: string;
+  alt: string;
+  location: string;
+  verified_at?: string | null;
+  availability_status?: string;
+};
 export const illustrativeListings: readonly HomeListing[] = [
   {
     slug: "3-bedroom-flat-wuse-2",

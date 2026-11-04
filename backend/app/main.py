@@ -93,7 +93,14 @@ def create_app(settings: Settings | None = None, engine=None):
             response = error_response(request, 413, "PAYLOAD_TOO_LARGE", "Request is too large.")
         response.headers["X-Request-ID"] = request.state.request_id
         if request.url.path.startswith(
-            ("/api/v1/auth", "/api/v1/admin", "/api/v1/landlord-submissions")
+            (
+                "/api/v1/auth",
+                "/api/v1/admin",
+                "/api/v1/landlord-submissions",
+                "/api/v1/properties",
+                "/api/v1/taxonomy",
+                "/api/v1/property-media",
+            )
         ):
             response.headers["Cache-Control"] = "no-store"
         return response
@@ -138,5 +145,8 @@ def create_app(settings: Settings | None = None, engine=None):
     app.include_router(auth.router)
     app.include_router(admin_users.router)
     app.include_router(landlord_submissions.router)
+    from app.api.v1 import properties
+
+    app.include_router(properties.router)
     app.include_router(admin_properties.router)
     return app

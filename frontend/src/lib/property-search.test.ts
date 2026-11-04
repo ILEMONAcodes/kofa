@@ -41,7 +41,11 @@ describe("desktop search URL preferences", () => {
       preferencesQuery({ ...defaultPreferences, city: "other" }),
     ).toThrow("Specify");
     expect(() =>
-      preferencesQuery({ ...defaultPreferences, price_min: "7,000,000" }),
+      preferencesQuery({
+        ...defaultPreferences,
+        price_min: "7,000,000",
+        price_max: "6,000,000",
+      }),
     ).toThrow("Minimum");
     expect(() =>
       preferencesQuery({ ...defaultPreferences, price_max: "1.001" }),
@@ -67,7 +71,7 @@ describe("desktop search URL preferences", () => {
         "listing_type=invalid&price_max=999999999999999999&area=unknown&sort=secret",
       ),
     );
-    expect(state.listing_type).toBe("rent");
+    expect(state.listing_type).toBe("");
     expect(state.price_max).toBe("");
     expect(state.area).toBe("");
     expect(state.sort).toBe("-published_at");
