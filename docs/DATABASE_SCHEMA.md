@@ -221,14 +221,14 @@ Reports and complaints share one table. Every row is an **unverified allegation*
 | Column | Type / values | Notes |
 |---|---|---|
 | id | uuid PK | |
-| reference | varchar(20) UNIQUE | `CMP-2026-000123`, returned to the reporter |
+| reference | derived, not stored | `CMP-<UUID>`, derived from the case ID; not an access credential |
 | kind | `suspicious_listing`,`dispute`,`service_complaint`,`other` | |
 | reason | `fake_listing`,`wrong_price`,`misleading_description`,`already_let_or_sold`,`unauthorised_agent`,`asked_to_pay_outside`,`other` | required when `kind='suspicious_listing'` |
 | status | `new`,`triage`,`investigating`,`resolved`,`dismissed` | |
 | reporter_user_id | uuid FK users NULL | **P3 staff-only** |
-| reporter_name, reporter_email (citext), reporter_phone | varchar, all NULL | **P3 staff-only**, anonymous reports |
-| reporter_ip_hash | char(64) | SHA-256 with server salt; raw IP never stored |
-| property_id, appointment_id, transaction_id | uuid FK NULL | `property_id` required for `suspicious_listing` |
+| reporter_name, reporter_email, reporter_phone | varchar(150/254/20), all NULL | **P3 staff-only**, anonymous reports |
+| reporter_ip_hash | varchar(64) | HMAC-SHA-256 with server secret; raw IP never stored |
+| property_id, appointment_id | uuid FK NULL | `property_id` required for `suspicious_listing`; transaction link deferred with 6B |
 | description | text | plain text, HTML stripped, never logged |
 | occurred_on | date NULL | |
 | desired_outcome | text NULL | ≤ 500 chars |
@@ -241,9 +241,10 @@ Reports and complaints share one table. Every row is an **unverified allegation*
 | hold_property_id | uuid FK NULL | property under precautionary hold |
 | hold_review_due_at | timestamptz NULL | now + 2 business days at hold time |
 | first_response_at, resolved_at | timestamptz NULL | |
-| row_version, created_at, updated_at | | |
+| upload_token_hash, upload_token_expires_at | varchar(64), timestamptz | Scoped random token stored hashed; 24-hour upload/removal access only |
+| row_version, created_at, updated_at | integer, timestamptz, timestamptz | Evidence changes also increment the case version |
 
-CHECKs: `status='resolved'` ⇒ `outcome`, `investigation_findings`, `evidence_reviewed` NOT NULL and `cardinality(actions_taken) ≥ 1`; `status='dismissed'` ⇒ `dismiss_reason` NOT NULL; `actions_taken` containing `landlord_blocked` or `listing_rejected` ⇒ `outcome IN ('substantiated','partially_substantiated')`. Indexes: `(status, created_at)`, `(property_id)`, `(assigned_staff_id, status)`, `(hold_review_due_at) WHERE hold_property_id IS NOT NULL`. Duplicate detection (same reporter or IP hash + property + reason within 24 h) is enforced in the service.
+CHECKs: `status='resolved'` ⇒ `outcome`, `investigation_findings`, `evidence_reviewed` NOT NULL and `cardinality(actions_taken) ≥ 1`; `status='dismissed'` ⇒ `dismiss_reason` NOT NULL; Known reason/outcome/dismiss/action enums and substantiated permanent-action findings are checked in the database. Role/outcome guards are also enforced in the service at both save and resolve. Indexes: `(status, created_at)`, `(property_id)`, `(assigned_staff_id, status)`, `(hold_property_id, hold_review_due_at)`, `(reporter_user_id, created_at)`. Duplicate detection (same reporter or IP hash + property + reason within 24 h) is enforced in the service.
 
 ### `complaint_evidence`  (private storage)
 `id`, `complaint_id` FK CASCADE, `storage_key`, `mime_type`, `size_bytes`, `created_at`. Max 3 per complaint (service check).
@@ -320,3 +321,8 @@ Schema v0.5, revision `be44_submissions`: properties.submission_reference nullab
 `storage_deletions` (P3): id uuid PK, storage_key text UNIQUE NOT NULL, attempts integer DEFAULT 0, created_at timestamptz DEFAULT now(). This private outbox commits with file-row removal, allowing private objects to be deleted/retried independently. Explicit cleanup-files command processes up to 20 queued entries with SKIP LOCKED; successful deletions remove the queue row. The schema downgrade refuses when references or pending deletion jobs exist, so rollback cannot silently discard operational records. No remote migration run.
 
 Blocked-contact matching normalizes incoming phone/email and stores a private review note on the new landlord record plus an audit flag. It does not mark the new landlord blocked or automatically change the submission status; every completed submission remains submitted, per owner override.
+
+
+### Complaint integration — v0.11.0 / `be615_complaints`
+
+The migration follows `be62_appointments` and creates `complaints`, `complaint_evidence`, and append-only `complaint_events`. The documented fields above reflect this implementation; transaction foreign keys/refund actions stay deferred with 6B. Random 24-hour upload tokens are stored hashed and grant no read access. Case row locks serialize evidence changes, version checks and closure. Duplicate public reports take per-identity advisory locks before the 24-hour check. Evidence removal queues `storage_deletions`; existing cleanup-files handles physical deletion. Outcome notices use the existing private email outbox, with real delivery pending SMTP setup. Holds require explicit review/release, block publication while active and never republish automatically. A blocked landlord's properties are excluded from public reads and publication. Owner-approved migration `be615_complaints` was applied to the configured Neon database on 5 November 2026; catalog checks verified the revision, three tables and append-only audit trigger without reading application records.

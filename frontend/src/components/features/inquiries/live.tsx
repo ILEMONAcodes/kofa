@@ -61,6 +61,7 @@ function Frame({ staff, children }: { staff: boolean; children: ReactNode }) {
             <Link href="/staff/inquiries">Inquiries</Link>
             <Link href="/staff/clients">Clients</Link>
             <Link href="/staff/inspections">Inspections</Link>
+            <Link href="/staff/complaints">Complaints</Link>
           </>
         ) : (
           <>
@@ -69,6 +70,7 @@ function Frame({ staff, children }: { staff: boolean; children: ReactNode }) {
             <Link href="/account/inquiries">Inquiries</Link>
             <Link href="/account/overview">Account</Link>
             <Link href="/account/inspections">Inspections</Link>
+            <Link href="/account/complaints">Complaints</Link>
           </>
         )}
       </nav>

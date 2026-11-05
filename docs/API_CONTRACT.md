@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.10.0` · **Status:** Auth/property/inquiry sections implemented; remaining modules Draft · **Joint ownership**
+**Contract version:** `0.11.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -178,12 +178,12 @@ Out-of-range pages return an empty `data` with correct `meta` (not an error).
 | `complaint_reason` (reports) | `fake_listing`, `wrong_price`, `misleading_description`, `already_let_or_sold`, `unauthorised_agent`, `asked_to_pay_outside`, `other` |
 | `complaint_status` | `new`, `triage`, `investigating`, `resolved`, `dismissed` |
 | `complaint_outcome` | `substantiated`, `partially_substantiated`, `unsubstantiated`, `inconclusive` |
-| `complaint_action` | `listing_corrected`, `listing_unpublished`, `listing_rejected`, `landlord_warned`, `landlord_blocked`, `client_warned`, `refund_recorded`, `no_action` |
+| `complaint_action` | `listing_corrected`, `listing_unpublished`, `listing_rejected`, `landlord_warned`, `landlord_blocked`, `client_warned`, `no_action` |
 | `complaint_dismiss_reason` | `duplicate`, `spam_or_abuse`, `out_of_scope`, `insufficient_information` |
 | `handoff_reason` | `out_of_scope`, `low_confidence`, `user_requested`, `sensitive_topic`, `repeated_failure`, `service_unavailable` |
 | `handoff_option_type` | `call`, `message_team`, `report_listing` |
 
-Enumerations for inquiries, appointments and transactions are frozen in J-5.1, J-6.1, J-6.7. The complaint and assistant enumerations above are `Draft` and frozen in J-6.14 and J-6.28.
+Enumerations for inquiries, appointments and transactions are frozen in J-5.1, J-6.1, J-6.7. Complaint enumerations are frozen by CR-COMPLAINT-001 with refund actions deferred; assistant enumerations remain Draft until J-6.28.
 
 ## 4. Endpoint specifications
 
@@ -449,9 +449,11 @@ Active statuses proposed/confirmed/reschedule_requested reserve half-open `[sche
 
 Each mutation returns appropriate role-specific Detail envelope and increments appointment version/history/audit atomically. Cancellation/no_show returns inquiry inspection_scheduled→qualified (unless inquiry subsequently closed/moved), with history/audit; completion leaves inquiry ready for manual negotiate action. One consistent inquiry→appointment→property lock order prevents racing schedule/reschedule actions; database exclusion guards are authoritative. Client actions come from server; frontend formats Nigeria/WAT times and fee values, never decides permissions or arithmetic. Address exception amends general BR-03 only for own confirmed inspection DetailClient.
 
-### 4.8 Complaints and suspicious-listing reports (proposal; `Draft` until J-6.14)
+### 4.8 Complaints and suspicious-listing reports (CR-COMPLAINT-001; v0.11.0)
 
 **Principles.** A report or complaint is an *unverified allegation* until staff conclude an investigation (BR-16). The reporter's identity is confidential (BR-17). Nothing permanent happens on an unverified report.
+
+**Current implementation:** The additive CR-COMPLAINT-001 below supersedes draft examples where noted (UUID references, deferred transaction/refund scope and explicit hold transitions).
 
 **Public report** — `POST /reports` (anonymous or signed-in; rate-limited; CAPTCHA-ready)
 ```json
@@ -479,7 +481,7 @@ Each mutation returns appropriate role-specific Detail envelope and increments a
   "subject": { "type": "appointment", "id": "uuid" },
   "description": "…", "occurred_on": "2026-10-20", "desired_outcome": "Refund of the inspection fee" }
 ```
-`subject.type` ∈ `property`, `appointment`, `transaction`, `general` (`id` null for `general`). An appointment or transaction that does not belong to the caller → `404`. `description` 20–4000; `desired_outcome` ≤ 500. `201` returns `id`, `reference`, `status`, `upload_token`.
+`subject.type` ∈ `property`, `appointment`, `general` (transaction subjects are deferred) (`id` null for `general`). An appointment that does not belong to the caller → `404`. `description` 20–4000; `desired_outcome` ≤ 500. `201` returns `id`, `reference`, `status`, `upload_token`.
 `GET /complaints` and `GET /complaints/{id}` return the caller's own: `reference`, `kind`, `status`, `created_at`, `public_note` (a staff-written message; never investigation notes).
 
 **Staff investigation** (roles `staff`, `admin`)
@@ -487,7 +489,7 @@ Each mutation returns appropriate role-specific Detail envelope and increments a
 | Method | Path | Notes |
 |---|---|---|
 | GET | `/admin/complaints` | Filters `status`, `kind`, `reason`, `assigned_to`, `property_id`, `outcome`, `overdue_first_response` (bool), `q`; sort `created_at`, `-created_at`; paginated |
-| GET | `/admin/complaints/{id}` | Full record: reporter details, subject links, evidence (signed URLs), event history, count of other open reports on the same property or landlord |
+| GET | `/admin/complaints/{id}` | Full record: reporter details, subject links, evidence metadata (separate staff-only five-minute grants), event history, count of other open reports on the same property or landlord |
 | POST | `/admin/complaints/{id}/assign` | `{ staff_id }` |
 | POST | `/admin/complaints/{id}/transitions` | `{ action, … , version }` — see table |
 | PUT | `/admin/complaints/{id}/investigation` | `{ findings, evidence_reviewed, outcome, actions: [complaint_action], public_note?, version }` — saves a working record |
@@ -500,7 +502,7 @@ Each mutation returns appropriate role-specific Detail envelope and increments a
 | `new` / `triage` / `investigating` | `dismiss` | `dismissed` | `dismiss_reason` |
 | `resolved` / `dismissed` | `reopen` (admin) | `investigating` | reason |
 
-Action permissions: staff may record `listing_corrected`, `landlord_warned`, `client_warned`, `refund_recorded`, `no_action`, and `listing_unpublished` as a **precautionary hold** (only for `fake_listing` or `asked_to_pay_outside`; sets `hold_review_due_at` = 2 business days; the unpublish is written to the property's status history with the complaint id). `listing_rejected` and `landlord_blocked` are **admin-only** and require outcome `substantiated` or `partially_substantiated`. The number of reports never triggers an action automatically.
+Action permissions: staff may record `listing_corrected`, `landlord_warned`, `client_warned`, `no_action`, and `listing_unpublished` as a **precautionary hold** (only for `fake_listing` or `asked_to_pay_outside`; sets `hold_review_due_at` = 2 business days; the unpublish is written to the property's status history with the complaint id). `listing_rejected` and `landlord_blocked` are **admin-only** and require outcome `substantiated` or `partially_substantiated`. The number of reports never triggers an action automatically.
 
 **Reporter notification.** When a case is `resolved` or `dismissed` and a contact exists, an email via the outbox says only that the report was reviewed (and the `public_note`, if staff wrote one). It never names the landlord, quotes evidence, or states the outcome category.
 
@@ -590,7 +592,8 @@ Rules: the `call` option is **present in every handoff**; `report_listing` appea
 | `/admin/fee-rules` (write) | — | — | read | ✓ |
 | `/appointments*`, `/transactions` (client) | — | own | — | — |
 | `POST /reports`, `POST /reports/{id}/files` (token) | ✓ | ✓ | ✓ | ✓ |
-| `POST /complaints`, `GET /complaints*` (own) | — | own | ✓ | ✓ |
+| `POST /complaints`, `GET /complaints*`, own complaint files (account + scoped token) | — | own | — | — |
+| `GET /admin/complaint-options` | — | — | ✓ | ✓ |
 | `/admin/complaints*`, `/admin/reports*` | — | — | ✓ (`listing_rejected`, `landlord_blocked`, `reopen`: admin only) | ✓ |
 | `/notifications*` | — | own | own | own |
 | `GET /public-config`, `POST /assistant/conversations`, `…/messages`, `GET …/{id}` | ✓ (token) | ✓ | ✓ | ✓ |
@@ -653,7 +656,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | GET /admin/properties/{id}/files/{file_id} (protected local-development delivery) | Implemented (BE-4.5) |
 | POST /admin/properties/{id}/transitions, PUT …/verification, POST …/verification/complete, POST …/landlord-approval | Draft (BE-4.6) |
 | GET /admin/landlords, GET /admin/landlords/{id} | Integrated (FE-4.14) |
-| POST /reports, POST /reports/{id}/files, POST/GET /complaints, GET /complaints/{id}, GET /admin/complaints, GET /admin/complaints/{id}, POST …/assign, POST …/transitions, PUT …/investigation | Draft (shapes proposed, §4.8) |
+| POST /reports, POST /reports/{id}/files, POST/GET /complaints, GET /complaints/{id}, GET /admin/complaints, GET /admin/complaints/{id}, POST …/assign, POST …/transitions, PUT …/investigation | Integrated locally (CR-COMPLAINT-001; deployment/peer review pending) |
 | POST/GET /inquiries, GET /inquiries/{id}, GET/POST /inquiries/{id}/messages, POST /inquiries/{id}/read; /admin/inquiries assignment/transitions/qualification/messages/notes; GET/PATCH /admin/clients | Integrated locally (J-5.10; see §4.7A and LIVE_INQUIRIES.md) |
 | GET /public-config, POST /assistant/conversations, GET /assistant/conversations/{id}, POST …/messages, POST …/handoff/message-team, POST /assistant/messages/{id}/feedback | Draft (shapes proposed, §4.9) |
 | GET/POST/PATCH /admin/knowledge-articles, POST …/publish, POST …/unpublish, GET /admin/assistant/conversations, GET/PATCH …/{id}, GET/PUT /admin/settings | Draft (shapes proposed, §4.9) |
@@ -699,6 +702,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.11.0 | 2026-11-05 | CR-COMPLAINT-001: scoped reports/complaints/evidence, confidential investigation, explicit holds, guarded admin actions; transaction/refund scope deferred | Backend + authorized frontend; peer review pending |
 | 0.10.0 | 2026-11-05 | CR-APPOINTMENT-001: inspection lifecycle, slot conflicts, scoped address exception approved by owner, zero fee default and integrated scheduling shapes | Backend + authorized frontend; peer review pending |
 | 0.9.0 | 2026-11-04 | CR-INQUIRY-001: freeze client/staff inquiries, text messages, private notes and client directory; OQ-08/14 defaults | Backend + authorized frontend; review pending |
 | 0.8.1 | 2026-11-04 | BE-4.9: clarify defence-in-depth checklist integrity on every public read; response shapes unchanged | Backend; review pending |
@@ -709,3 +713,13 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | 0.4.0 | 2026-11-02 | CR-LANDLORD-001: implement landlord draft/upload/removal/submit; clarify scoped tokens, consent, input/body limits, ownership evidence, stable receipts/deletion retries; owner selects submitted for every completed submission | Developer 2 implementation; owner status override; frontend review pending |
 | 0.3.0 | 2026-10-31 | User-directed authentication integration: password minimum 8 (formerly 10), CSRF bootstrap, identity lifecycle and admin version clarification (CR-AUTH-001) | Developer 2 session; user override, frontend review pending |
 | 0.2.0 | 2026-10-24 | Team review: currency/formatting conventions §2.10; unknown error codes and non-envelope failures §2.4; code 503; complaint minimum fields, rate limits, privacy and investigation workflow §4.8; AI assistant, public config, knowledge base, settings §4.9; new enums, rate limits, matrix rows | pending (J-1.3) |
+
+## CR-COMPLAINT-001 — 5 November 2026
+
+Additive complaint/report integration v0.11.0. Transactions, transaction subjects and refund actions remain deferred by owner. Existing listing/general/owned-appointment subjects are supported. Client property subjects require a published property or an existing own inquiry/appointment link. Public receipts return an opaque reference `CMP-<UUID>`, ID/status, follow-up message and scoped 24-hour upload token; no read access is conferred. Client complaint endpoints are client-role only; team members investigate through the staff endpoints and can use public listing reporting. Client complaints have separate `/complaints/{id}/files` upload/removal endpoints (own account plus scoped token); public `/reports/{id}/files` also supports DELETE `/{file_id}`. Max three JPEG/PNG/PDF files, 5 MiB each, before case closure; file contents validated. Staff-authenticated `/admin/complaints/{id}/files/{file_id}` returns a private five-minute read grant; local grants use `/admin/complaints/{id}/files/{file_id}/content?token=…`, still staff-authenticated. No client read endpoint returns evidence or investigation fields.
+
+Strict JSON/query validation; all cookie mutations require existing CSRF/Origin checks. Assignment requires version and active staff/admin. Investigation saves proposed actions only, and resolution executes them atomically. Add explicit transitions `place_hold` (fake_listing/asked_to_pay_outside only, reason required, active investigation/triage), `release_hold` (reason required; never automatically republishes). Blocking a landlord immediately removes their listings from public visibility and prevents further publication. An active hold blocks all publication paths until explicitly released; case closure does not silently release a hold. Deadline: two weekdays in Africa/Lagos, holiday calendar pending. Permanent rejection/blocking occurs only on resolve, by admin, with substantiated/partially_substantiated outcome. Permanent actions require linked property/landlord. `no_action` cannot combine with another action. `refund_recorded` is not available. Completed cases are immutable except admin reopen with reason. Reopen clears working findings/outcome/actions to require fresh investigation; retains immutable events. A hold never changes listings automatically based on report counts.
+
+Recording listing corrections or warnings attests to staff work performed separately; only holds, rejection and blocking change restrictions through this module. Staff detail alone includes description, contact/user ID (no raw IP), subject IDs, findings/evidence/outcome/actions, assignment, hold deadline, event history and other-open-case count. Client list/detail returns only own ID/reference/kind/status/created_at/public_note. Staff detail includes server-owned, role/subject-aware `allowed_actions` and `allowed_case_actions`, plus active staff options from `/admin/complaint-options`. Lists use existing page/page_size envelopes; staff accepts §4.8 filters plus `sort`; client accepts status. Receipts/tokens/private responses are no-store. Writes max 64 KiB; files max 5 MiB plus multipart overhead. Staff writes 120/hour/actor; reads require authorization; case mutation version conflicts return 409. Duplicate reports use per-identity advisory locking, salted HMAC IP key and a 24-hour window. Public follow-up emails contain only a generic reviewed notice and the public note. Private text is never logged. CAPTCHA-ready reports accept `X-Captcha-Token` through the existing server verifier interface. Required installations fail closed when the verifier is unavailable; provider/widget provisioning is pending.
+
+Public browsing keeps the same response/filter/pagination contract: visibility checks are grouped and property-scoped, and window counting shares eligibility with returned rows (out-of-range empty pages use a count fallback). This fixes the search-plan regression introduced while enforcing blocked-landlord visibility; it does not relax verification or privacy.
