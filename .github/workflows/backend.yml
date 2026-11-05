@@ -1,0 +1,93 @@
+name: Backend CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backend-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  checks:
+    name: Backend checks
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    defaults:
+      run:
+        working-directory: backend
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: kofa_test
+          POSTGRES_PASSWORD: ci-test-only
+          POSTGRES_DB: kofa_auth_test_ci
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U kofa_test -d kofa_auth_test_ci"
+          --health-interval 5s
+          --health-timeout 5s
+          --health-retries 12
+    env:
+      TEST_DATABASE_URL: postgresql://kofa_test:ci-test-only@127.0.0.1:5432/kofa_auth_test_ci
+      DATABASE_URL: postgresql://kofa_test:ci-test-only@127.0.0.1:5432/kofa_auth_test_ci
+      DATABASE_URL_UNPOOLED: postgresql://kofa_test:ci-test-only@127.0.0.1:5432/kofa_auth_test_ci
+      AUTH_SECRET: ci-only-auth-secret-not-used-outside-disposable-tests
+      APP_ENV: test
+      PUBLIC_ORIGIN: http://testserver
+      COOKIE_SECURE: 'false'
+      EMAIL_MODE: outbox
+      STORAGE_DRIVER: disabled
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: backend/requirements.lock
+      - name: Install media inspection tools
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends ffmpeg
+      - name: Install locked dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements.lock
+          python -m pip check
+      - name: Lint
+        run: ruff check .
+      - name: Typecheck
+        run: mypy app
+      - name: Check OpenAPI drift
+        run: |
+          python -m app.openapi
+          git diff --exit-code -- openapi.json
+      - name: Check migrations on empty database
+        run: |
+          alembic upgrade head
+          alembic downgrade base
+          alembic upgrade head
+      - name: API, privacy and seeded migration regression
+        run: pytest -q -k 'not test_search_plan_and_latency_on_5000_published' --junitxml=test-results/backend.xml
+      - name: Isolated search performance regression
+        run: pytest -q tests/test_public_properties.py -k test_search_plan_and_latency_on_5000_published --junitxml=test-results/performance.xml
+      - name: Dependency audit
+        run: |
+          python -m venv /tmp/kofa-audit
+          /tmp/kofa-audit/bin/python -m pip install --upgrade pip pip-audit
+          /tmp/kofa-audit/bin/pip-audit -r requirements.lock --strict --no-deps --disable-pip
+      - name: Preserve test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-test-results
+          path: backend/test-results/*.xml
+          if-no-files-found: ignore
+          retention-days: 7
