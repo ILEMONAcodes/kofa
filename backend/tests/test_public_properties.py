@@ -341,7 +341,15 @@ def test_search_plan_and_latency_on_5000_published(db, client, record):
     db.execute(insert(LandlordApproval), approvals)
     db.execute(insert(VerificationCheck), checks)
     db.commit()
-    for table in ["properties", "property_verifications", "property_landlord_approvals"]:
+    for table in [
+        "properties",
+        "property_verifications",
+        "property_landlord_approvals",
+        "verification_checks",
+        "property_documents",
+        "property_media",
+        "areas",
+    ]:
         db.execute(text(f"ANALYZE {table}"))
     stmt = (
         search_statement(

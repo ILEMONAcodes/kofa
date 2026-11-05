@@ -8,7 +8,7 @@ from fastapi.responses import JSONResponse
 from sqlalchemy.exc import SQLAlchemyError
 from starlette.exceptions import HTTPException
 
-from app.api.v1 import admin_properties, admin_users, auth, landlord_submissions
+from app.api.v1 import admin_properties, admin_users, auth, inquiries, landlord_submissions
 from app.core.body_limit import AuthBodyLimit
 from app.core.config import Settings, get_settings
 from app.core.database import make_engine, session_factory
@@ -33,6 +33,8 @@ def create_app(settings: Settings | None = None, engine=None):
         lifespan=lifespan,
         docs_url=None if settings.app_env == "production" else "/docs",
     )
+    app.include_router(inquiries.client_router)
+    app.include_router(inquiries.staff_router)
     app.state.storage = None
     app.state.captcha_verifier = None
     app.state.settings = settings
@@ -61,6 +63,9 @@ def create_app(settings: Settings | None = None, engine=None):
                 check_csrf(request, settings)
                 if (
                     request.url.path.startswith(("/api/v1/auth/", "/api/v1/admin/users"))
+                    or request.url.path.startswith(
+                        ("/api/v1/inquiries", "/api/v1/admin/inquiries", "/api/v1/admin/clients")
+                    )
                     or request.url.path == "/api/v1/landlord-submissions"
                     or (
                         request.url.path.startswith("/api/v1/admin/properties")
@@ -94,6 +99,7 @@ def create_app(settings: Settings | None = None, engine=None):
         response.headers["X-Request-ID"] = request.state.request_id
         if request.url.path.startswith(
             (
+                "/api/v1/inquiries",
                 "/api/v1/auth",
                 "/api/v1/admin",
                 "/api/v1/landlord-submissions",

@@ -18,15 +18,20 @@ from app.models.property import (
 def visible():
     # Recheck checklist integrity on reads too: a stale/imported passed flag alone
     # must never bypass the publication workflow.
-    required_checks = [
-        exists(
-            select(VerificationCheck.id).where(
-                VerificationCheck.verification_id == PropertyVerification.id,
-                VerificationCheck.code == code,
-            )
+    # A single indexed count avoids five additional semijoins in broad searches.
+    # (verification_id, code) is unique, so exactly five means every required code.
+    required_checks = (
+        select(func.count(VerificationCheck.id))
+        .where(
+            VerificationCheck.verification_id == PropertyVerification.id,
+            VerificationCheck.code.in_(
+                ("identity", "ownership_docs", "location", "price", "features")
+            ),
         )
-        for code in ("identity", "ownership_docs", "location", "price", "features")
-    ]
+        .correlate(PropertyVerification)
+        .scalar_subquery()
+        == 5
+    )
     invalid_check = exists(
         select(VerificationCheck.id).where(
             VerificationCheck.verification_id == PropertyVerification.id,
@@ -56,7 +61,7 @@ def visible():
             PropertyVerification.is_current.is_(True),
             PropertyVerification.status == "passed",
             PropertyVerification.verified_at.is_not(None),
-            *required_checks,
+            required_checks,
             ~invalid_check,
         )
     )

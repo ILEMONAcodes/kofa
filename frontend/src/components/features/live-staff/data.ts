@@ -1,10 +1,11 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { apiRequest } from "@/lib/api/client";
 import { ensureCsrf } from "@/lib/auth/client";
 import type { ApiEnvelope } from "@/types/api";
 export function useStaffResource<T>(path: string | null, query = "") {
   const [revision, setRevision] = useState(0);
+  const reload = useCallback(() => setRevision((v) => v + 1), []);
   const key = `${path}?${query}#${revision}`;
   const [result, setResult] = useState<{
     key: string;
@@ -40,7 +41,7 @@ export function useStaffResource<T>(path: string | null, query = "") {
     )?.meta,
     error: current?.error,
     loading: !!path && !current,
-    reload: () => setRevision((v) => v + 1),
+    reload,
   };
 }
 export async function staffWrite<T>(

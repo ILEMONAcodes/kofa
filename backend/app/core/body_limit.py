@@ -15,6 +15,10 @@ class AuthBodyLimit:
             return await self.app(scope, receive, send)
         if path.startswith(("/api/v1/auth/", "/api/v1/admin/users")):
             limit = 16384
+        elif path.startswith(
+            ("/api/v1/inquiries", "/api/v1/admin/inquiries", "/api/v1/admin/clients")
+        ):
+            limit = 65536
         elif path.startswith("/api/v1/admin/properties"):
             limit = 100 * 1024 * 1024 + 65536 if path.endswith("/media") else 65536
         elif path.startswith("/api/v1/landlord-submissions"):
