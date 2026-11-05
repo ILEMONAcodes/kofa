@@ -227,3 +227,7 @@ Use API §4.3/4.5, PRD BR-01/03, OQ-11 location default and existing substring s
 - 2026-11-04 owner override: defer BE-4.8 reusable development seed data. Test-only fictional fixtures remain; complete BE-4.9 hardening then the inquiry/messaging integration. Public reads recheck checklist integrity as defence in depth.
 
 - 2026-11-04 J-5.1 working assumptions: OQ-08 requires registered clients; OQ-14 async text-only threads with 30-second polling. No attachments, automatic contact detection, mail delivery or inspection scheduling in this module. CR-INQUIRY-001 freezes additive request/response/lifecycle shapes; other-developer review pending.
+
+- 2026-11-05 J-6.1 working assumptions (CR-APPOINTMENT-001): OQ-04 default fee zero/disabled; no payment operation. Require a qualified property inquiry; proposed/confirmed/reschedule_requested reserve the slot and one active appointment per inquiry. Rescheduling resets proposal/confirmation; completion/no-show can be recorded after the scheduled end. Exact-address disclosure conflict raised to owner (BR-03 vs FR-APPT-02/API privacy matrix); pending answer, no new client address disclosure implemented.
+
+- 2026-11-05 owner clarification: show the property exact address to its client only after that client confirms the inspection. This narrow FR-APPT-02/OQ-11 exception updates general BR-03; no landlord contact/document/coordinate disclosure. Rescheduling withdraws disclosure pending fresh confirmation; cancellation/no-show also withdraw it.

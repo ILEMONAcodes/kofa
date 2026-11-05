@@ -1,3 +1,5 @@
+import { LiveInspections } from "@/components/features/inspections/live";
+import { liveInspectionClientViews } from "@/components/features/inspections/model";
 import { LiveInquiries } from "@/components/features/inquiries/live";
 import { liveClientViews } from "@/components/features/inquiries/model";
 import { requireReviewRole } from "@/lib/review-server/session";
@@ -29,6 +31,12 @@ export default async function Page({
     `/account/${screen}${query.size ? `?${query}` : ""}`,
   );
   if (!clientScreens.some(({ slug }) => slug === screen)) notFound();
+  if (liveInspectionClientViews.has(screen))
+    return (
+      <Suspense fallback={<BrandLoading />}>
+        <LiveInspections key={screen} view={screen} />
+      </Suspense>
+    );
   return (
     <Suspense fallback={<BrandLoading />}>
       {liveClientViews.has(screen) ? (

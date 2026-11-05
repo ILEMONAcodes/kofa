@@ -60,6 +60,7 @@ function Frame({ staff, children }: { staff: boolean; children: ReactNode }) {
             <Link href="/staff/properties">Properties</Link>
             <Link href="/staff/inquiries">Inquiries</Link>
             <Link href="/staff/clients">Clients</Link>
+            <Link href="/staff/inspections">Inspections</Link>
           </>
         ) : (
           <>
@@ -67,6 +68,7 @@ function Frame({ staff, children }: { staff: boolean; children: ReactNode }) {
             <Link href="/properties">Explore</Link>
             <Link href="/account/inquiries">Inquiries</Link>
             <Link href="/account/overview">Account</Link>
+            <Link href="/account/inspections">Inspections</Link>
           </>
         )}
       </nav>
@@ -458,6 +460,23 @@ function Thread({ staff }: { staff: boolean }) {
         {words(row.status)} · {row.reference}
       </p>
       <p>Keep all conversations and payments on Kof’a’s approved channels.</p>
+      {staff && row.property && row.status === "qualified" && (
+        <Link
+          className="inquiry-primary"
+          href={`/staff/schedule-inspection?inquiry_id=${row.id}`}
+        >
+          Schedule inspection
+        </Link>
+      )}
+      <Link
+        href={
+          staff
+            ? `/staff/inspections?inquiry_id=${row.id}`
+            : "/account/inspections"
+        }
+      >
+        View inspections
+      </Link>
       {row.property?.slug && (
         <Link href={`/properties/${row.property.slug}`}>View property</Link>
       )}

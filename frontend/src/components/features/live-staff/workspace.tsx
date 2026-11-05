@@ -1404,6 +1404,8 @@ export function LiveStaffWorkspace({ view }: { view: string }) {
             ["Properties", "/staff/properties"],
             ["Landlords", "/staff/landlords"],
             ["Inquiries", "/staff/inquiries"],
+            ["Inspections", "/staff/inspections"],
+            ["Calendar", "/staff/calendar"],
             ["Account", "/account"],
           ].map(([label, href]) => (
             <Link key={href} href={href} onClick={() => setMenu(false)}>

@@ -1,3 +1,5 @@
+import { LiveInspections } from "@/components/features/inspections/live";
+import { liveInspectionStaffViews } from "@/components/features/inspections/model";
 import { LiveInquiries } from "@/components/features/inquiries/live";
 import { liveInquiryStaffViews } from "@/components/features/inquiries/model";
 import { LiveStaffWorkspace } from "@/components/features/live-staff/workspace";
@@ -28,6 +30,8 @@ export default async function Page({
     `/staff/${screen}${query.size ? `?${query}` : ""}`,
   );
   if (!staffScreens.some(({ slug }) => slug === screen)) notFound();
+  if (liveInspectionStaffViews.has(screen))
+    return <LiveInspections key={screen} view={screen} staff />;
   if (liveInquiryStaffViews.has(screen))
     return <LiveInquiries key={screen} view={screen} staff />;
   if (liveStaffViews.includes(screen))

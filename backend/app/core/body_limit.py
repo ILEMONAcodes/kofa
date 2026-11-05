@@ -16,7 +16,13 @@ class AuthBodyLimit:
         if path.startswith(("/api/v1/auth/", "/api/v1/admin/users")):
             limit = 16384
         elif path.startswith(
-            ("/api/v1/inquiries", "/api/v1/admin/inquiries", "/api/v1/admin/clients")
+            (
+                "/api/v1/inquiries",
+                "/api/v1/admin/inquiries",
+                "/api/v1/admin/clients",
+                "/api/v1/appointments",
+                "/api/v1/admin/appointments",
+            )
         ):
             limit = 65536
         elif path.startswith("/api/v1/admin/properties"):

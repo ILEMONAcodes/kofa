@@ -920,6 +920,37 @@
         "title": "AvailabilityInput",
         "type": "object"
       },
+      "Cancel": {
+        "additionalProperties": false,
+        "properties": {
+          "cancelled_by": {
+            "default": "staff",
+            "enum": [
+              "staff",
+              "landlord"
+            ],
+            "title": "Cancelled By",
+            "type": "string"
+          },
+          "reason": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "reason"
+        ],
+        "title": "Cancel",
+        "type": "object"
+      },
       "CheckInput": {
         "additionalProperties": false,
         "properties": {
@@ -1188,82 +1219,6 @@
         "title": "Completion",
         "type": "object"
       },
-      "Create": {
-        "additionalProperties": false,
-        "properties": {
-          "body": {
-            "maxLength": 4000,
-            "minLength": 1,
-            "title": "Body",
-            "type": "string"
-          },
-          "budget_max": {
-            "anyOf": [
-              {
-                "maximum": 9000000000000000.0,
-                "minimum": 0.0,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Budget Max"
-          },
-          "budget_min": {
-            "anyOf": [
-              {
-                "maximum": 9000000000000000.0,
-                "minimum": 0.0,
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Budget Min"
-          },
-          "desired_move_in": {
-            "anyOf": [
-              {
-                "format": "date",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Desired Move In"
-          },
-          "kind": {
-            "enum": [
-              "property_interest",
-              "inspection_request",
-              "general"
-            ],
-            "title": "Kind",
-            "type": "string"
-          },
-          "property_id": {
-            "anyOf": [
-              {
-                "format": "uuid",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Property Id"
-          }
-        },
-        "required": [
-          "body",
-          "kind"
-        ],
-        "title": "Create",
-        "type": "object"
-      },
       "CreateStaff": {
         "additionalProperties": false,
         "properties": {
@@ -1505,6 +1460,156 @@
         "title": "Detail",
         "type": "object"
       },
+      "DetailClient": {
+        "additionalProperties": false,
+        "properties": {
+          "allowed_actions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Allowed Actions",
+            "type": "array"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "duration_minutes": {
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "ends_at": {
+            "format": "date-time",
+            "title": "Ends At",
+            "type": "string"
+          },
+          "fee": {
+            "$ref": "#/components/schemas/Fee"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "inquiry_id": {
+            "format": "uuid",
+            "title": "Inquiry Id",
+            "type": "string"
+          },
+          "meeting_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meeting Address"
+          },
+          "meeting_instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meeting Instructions"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "enum": [
+                  "interested",
+                  "not_interested",
+                  "needs_follow_up"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
+          },
+          "property": {
+            "$ref": "#/components/schemas/PropertyRef"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "requested_scheduled_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Scheduled At"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          },
+          "staff_name": {
+            "title": "Staff Name",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "proposed",
+              "confirmed",
+              "reschedule_requested",
+              "completed",
+              "cancelled_by_client",
+              "cancelled_by_staff",
+              "cancelled_by_landlord",
+              "no_show"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "inquiry_id",
+          "property",
+          "staff_name",
+          "scheduled_at",
+          "ends_at",
+          "duration_minutes",
+          "status",
+          "version",
+          "fee",
+          "allowed_actions",
+          "requested_scheduled_at",
+          "outcome",
+          "created_at",
+          "updated_at",
+          "meeting_address",
+          "meeting_instructions"
+        ],
+        "title": "DetailClient",
+        "type": "object"
+      },
       "DetailEnvelope": {
         "properties": {
           "data": {
@@ -1527,6 +1632,252 @@
           "data"
         ],
         "title": "DetailEnvelopePublic",
+        "type": "object"
+      },
+      "DetailStaff": {
+        "additionalProperties": false,
+        "properties": {
+          "address_disclosed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Address Disclosed At"
+          },
+          "address_line": {
+            "title": "Address Line",
+            "type": "string"
+          },
+          "allowed_actions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Allowed Actions",
+            "type": "array"
+          },
+          "cancellation_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Cancellation Reason"
+          },
+          "client": {
+            "$ref": "#/components/schemas/Client"
+          },
+          "confirmed_meeting_address": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed Meeting Address"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "duration_minutes": {
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "ends_at": {
+            "format": "date-time",
+            "title": "Ends At",
+            "type": "string"
+          },
+          "fee": {
+            "$ref": "#/components/schemas/Fee"
+          },
+          "history": {
+            "items": {
+              "$ref": "#/components/schemas/History"
+            },
+            "title": "History",
+            "type": "array"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "inquiry_id": {
+            "format": "uuid",
+            "title": "Inquiry Id",
+            "type": "string"
+          },
+          "landlord_rep_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landlord Rep Name"
+          },
+          "landlord_rep_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landlord Rep Phone"
+          },
+          "meeting_instructions": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meeting Instructions"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "enum": [
+                  "interested",
+                  "not_interested",
+                  "needs_follow_up"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
+          },
+          "outcome_notes": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome Notes"
+          },
+          "property": {
+            "$ref": "#/components/schemas/PropertyRef"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "requested_scheduled_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Scheduled At"
+          },
+          "reschedule_reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reschedule Reason"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          },
+          "staff_id": {
+            "format": "uuid",
+            "title": "Staff Id",
+            "type": "string"
+          },
+          "staff_name": {
+            "title": "Staff Name",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "proposed",
+              "confirmed",
+              "reschedule_requested",
+              "completed",
+              "cancelled_by_client",
+              "cancelled_by_staff",
+              "cancelled_by_landlord",
+              "no_show"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "inquiry_id",
+          "property",
+          "staff_name",
+          "scheduled_at",
+          "ends_at",
+          "duration_minutes",
+          "status",
+          "version",
+          "fee",
+          "allowed_actions",
+          "requested_scheduled_at",
+          "outcome",
+          "created_at",
+          "updated_at",
+          "confirmed_meeting_address",
+          "client",
+          "staff_id",
+          "address_line",
+          "landlord_rep_name",
+          "landlord_rep_phone",
+          "meeting_instructions",
+          "address_disclosed_at",
+          "reschedule_reason",
+          "cancellation_reason",
+          "outcome_notes",
+          "history"
+        ],
+        "title": "DetailStaff",
         "type": "object"
       },
       "DocumentOut": {
@@ -1656,6 +2007,32 @@
         "title": "Envelope[Client]",
         "type": "object"
       },
+      "Envelope_DetailClient_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DetailClient"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[DetailClient]",
+        "type": "object"
+      },
+      "Envelope_DetailStaff_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/DetailStaff"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[DetailStaff]",
+        "type": "object"
+      },
       "Envelope_Detail_": {
         "additionalProperties": false,
         "properties": {
@@ -1706,6 +2083,19 @@
           "data"
         ],
         "title": "Envelope[Note]",
+        "type": "object"
+      },
+      "Envelope_Options_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Options"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[Options]",
         "type": "object"
       },
       "Envelope_ReadReceipt_": {
@@ -1774,6 +2164,36 @@
           "currency"
         ],
         "title": "ExtraCharge",
+        "type": "object"
+      },
+      "Fee": {
+        "additionalProperties": false,
+        "properties": {
+          "amount": {
+            "const": 0,
+            "default": 0,
+            "title": "Amount",
+            "type": "integer"
+          },
+          "currency": {
+            "const": "NGN",
+            "default": "NGN",
+            "title": "Currency",
+            "type": "string"
+          },
+          "disclosure": {
+            "default": "No inspection fee applies to this appointment. No payment is required to confirm, reschedule or cancel.",
+            "title": "Disclosure",
+            "type": "string"
+          },
+          "status": {
+            "const": "none",
+            "default": "none",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "title": "Fee",
         "type": "object"
       },
       "HTTPValidationError": {
@@ -2659,6 +3079,27 @@
         "title": "Note",
         "type": "object"
       },
+      "Options": {
+        "additionalProperties": false,
+        "properties": {
+          "fee": {
+            "$ref": "#/components/schemas/Fee"
+          },
+          "staff": {
+            "items": {
+              "$ref": "#/components/schemas/StaffMember"
+            },
+            "title": "Staff",
+            "type": "array"
+          }
+        },
+        "required": [
+          "staff",
+          "fee"
+        ],
+        "title": "Options",
+        "type": "object"
+      },
       "OptionsEnvelope": {
         "properties": {
           "data": {
@@ -2788,6 +3229,27 @@
           "meta"
         ],
         "title": "Page[Note]",
+        "type": "object"
+      },
+      "Page_SummaryClient_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/SummaryClient"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Page[SummaryClient]",
         "type": "object"
       },
       "Page_Summary_": {
@@ -3905,6 +4367,28 @@
         "title": "ReadReceipt",
         "type": "object"
       },
+      "Reason": {
+        "additionalProperties": false,
+        "properties": {
+          "reason": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "reason"
+        ],
+        "title": "Reason",
+        "type": "object"
+      },
       "Receipt": {
         "additionalProperties": false,
         "properties": {
@@ -3977,6 +4461,118 @@
         "title": "Register",
         "type": "object"
       },
+      "RequestReschedule": {
+        "additionalProperties": false,
+        "properties": {
+          "preferred_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Preferred At"
+          },
+          "reason": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "reason"
+        ],
+        "title": "RequestReschedule",
+        "type": "object"
+      },
+      "Reschedule": {
+        "additionalProperties": false,
+        "properties": {
+          "duration_minutes": {
+            "default": 45,
+            "maximum": 240.0,
+            "minimum": 15.0,
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "landlord_rep_name": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "minLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landlord Rep Name"
+          },
+          "landlord_rep_phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9]\\d{7,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landlord Rep Phone"
+          },
+          "meeting_instructions": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meeting Instructions"
+          },
+          "reason": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Reason",
+            "type": "string"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          },
+          "staff_id": {
+            "format": "uuid",
+            "title": "Staff Id",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "staff_id",
+          "scheduled_at",
+          "reason"
+        ],
+        "title": "Reschedule",
+        "type": "object"
+      },
       "ResetConfirm": {
         "additionalProperties": false,
         "properties": {
@@ -3998,6 +4594,74 @@
           "new_password"
         ],
         "title": "ResetConfirm",
+        "type": "object"
+      },
+      "Result": {
+        "additionalProperties": false,
+        "properties": {
+          "no_show": {
+            "default": false,
+            "title": "No Show",
+            "type": "boolean"
+          },
+          "notes": {
+            "anyOf": [
+              {
+                "maxLength": 4000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Notes"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "enum": [
+                  "interested",
+                  "not_interested",
+                  "needs_follow_up"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version"
+        ],
+        "title": "Result",
+        "type": "object"
+      },
+      "StaffMember": {
+        "additionalProperties": false,
+        "properties": {
+          "full_name": {
+            "title": "Full Name",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "full_name"
+        ],
+        "title": "StaffMember",
         "type": "object"
       },
       "StatusOut": {
@@ -4254,6 +4918,132 @@
           "last_staff_message_at"
         ],
         "title": "Summary",
+        "type": "object"
+      },
+      "SummaryClient": {
+        "additionalProperties": false,
+        "properties": {
+          "allowed_actions": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Allowed Actions",
+            "type": "array"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "duration_minutes": {
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "ends_at": {
+            "format": "date-time",
+            "title": "Ends At",
+            "type": "string"
+          },
+          "fee": {
+            "$ref": "#/components/schemas/Fee"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "inquiry_id": {
+            "format": "uuid",
+            "title": "Inquiry Id",
+            "type": "string"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "enum": [
+                  "interested",
+                  "not_interested",
+                  "needs_follow_up"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
+          },
+          "property": {
+            "$ref": "#/components/schemas/PropertyRef"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "requested_scheduled_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requested Scheduled At"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          },
+          "staff_name": {
+            "title": "Staff Name",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "proposed",
+              "confirmed",
+              "reschedule_requested",
+              "completed",
+              "cancelled_by_client",
+              "cancelled_by_staff",
+              "cancelled_by_landlord",
+              "no_show"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "inquiry_id",
+          "property",
+          "staff_name",
+          "scheduled_at",
+          "ends_at",
+          "duration_minutes",
+          "status",
+          "version",
+          "fee",
+          "allowed_actions",
+          "requested_scheduled_at",
+          "outcome",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "SummaryClient",
         "type": "object"
       },
       "TaxonomyAmenityPublic": {
@@ -4738,6 +5528,174 @@
         "title": "VerificationSummary",
         "type": "object"
       },
+      "Version": {
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version"
+        ],
+        "title": "Version",
+        "type": "object"
+      },
+      "app__schemas__appointment__Create": {
+        "additionalProperties": false,
+        "properties": {
+          "duration_minutes": {
+            "default": 45,
+            "maximum": 240.0,
+            "minimum": 15.0,
+            "title": "Duration Minutes",
+            "type": "integer"
+          },
+          "inquiry_id": {
+            "format": "uuid",
+            "title": "Inquiry Id",
+            "type": "string"
+          },
+          "landlord_rep_name": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "minLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landlord Rep Name"
+          },
+          "landlord_rep_phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9]\\d{7,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Landlord Rep Phone"
+          },
+          "meeting_instructions": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Meeting Instructions"
+          },
+          "scheduled_at": {
+            "format": "date-time",
+            "title": "Scheduled At",
+            "type": "string"
+          },
+          "staff_id": {
+            "format": "uuid",
+            "title": "Staff Id",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "staff_id",
+          "scheduled_at",
+          "inquiry_id",
+          "version"
+        ],
+        "title": "Create",
+        "type": "object"
+      },
+      "app__schemas__inquiry__Create": {
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Body",
+            "type": "string"
+          },
+          "budget_max": {
+            "anyOf": [
+              {
+                "maximum": 9000000000000000.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget Max"
+          },
+          "budget_min": {
+            "anyOf": [
+              {
+                "maximum": 9000000000000000.0,
+                "minimum": 0.0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Budget Min"
+          },
+          "desired_move_in": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Desired Move In"
+          },
+          "kind": {
+            "enum": [
+              "property_interest",
+              "inspection_request",
+              "general"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "property_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Property Id"
+          }
+        },
+        "required": [
+          "body",
+          "kind"
+        ],
+        "title": "Create",
+        "type": "object"
+      },
       "app__schemas__inquiry__StaffRef": {
         "additionalProperties": false,
         "properties": {
@@ -4867,6 +5825,395 @@
   },
   "openapi": "3.1.0",
   "paths": {
+    "/api/v1/admin/appointment-options": {
+      "get": {
+        "operationId": "options_api_v1_admin_appointment_options_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Options_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Options"
+      }
+    },
+    "/api/v1/admin/appointments": {
+      "get": {
+        "operationId": "calendar_api_v1_admin_appointments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "proposed",
+                    "confirmed",
+                    "reschedule_requested",
+                    "completed",
+                    "cancelled_by_client",
+                    "cancelled_by_staff",
+                    "cancelled_by_landlord",
+                    "no_show"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "staff_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Staff Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "inquiry_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Inquiry Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_SummaryClient_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Calendar"
+      },
+      "post": {
+        "operationId": "create_api_v1_admin_appointments_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/app__schemas__appointment__Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailStaff_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create"
+      }
+    },
+    "/api/v1/admin/appointments/{appointment_id}": {
+      "get": {
+        "operationId": "staff_detail_api_v1_admin_appointments__appointment_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailStaff_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Staff Detail"
+      },
+      "patch": {
+        "operationId": "reschedule_api_v1_admin_appointments__appointment_id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reschedule"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailStaff_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reschedule"
+      }
+    },
+    "/api/v1/admin/appointments/{appointment_id}/cancel": {
+      "post": {
+        "operationId": "cancel_staff_api_v1_admin_appointments__appointment_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cancel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailStaff_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cancel Staff"
+      }
+    },
+    "/api/v1/admin/appointments/{appointment_id}/outcome": {
+      "post": {
+        "operationId": "outcome_api_v1_admin_appointments__appointment_id__outcome_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Result"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailStaff_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Outcome"
+      }
+    },
     "/api/v1/admin/clients": {
       "get": {
         "operationId": "clients_api_v1_admin_clients_get",
@@ -6756,6 +8103,309 @@
         "summary": "Update"
       }
     },
+    "/api/v1/appointments": {
+      "get": {
+        "operationId": "mine_api_v1_appointments_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "proposed",
+                    "confirmed",
+                    "reschedule_requested",
+                    "completed",
+                    "cancelled_by_client",
+                    "cancelled_by_staff",
+                    "cancelled_by_landlord",
+                    "no_show"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "date_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "date-time",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Date To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_SummaryClient_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Mine"
+      }
+    },
+    "/api/v1/appointments/{appointment_id}": {
+      "get": {
+        "operationId": "own_detail_api_v1_appointments__appointment_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailClient_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Own Detail"
+      }
+    },
+    "/api/v1/appointments/{appointment_id}/cancel": {
+      "post": {
+        "operationId": "cancel_client_api_v1_appointments__appointment_id__cancel_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Reason"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailClient_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Cancel Client"
+      }
+    },
+    "/api/v1/appointments/{appointment_id}/confirm": {
+      "post": {
+        "operationId": "confirm_api_v1_appointments__appointment_id__confirm_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Version"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailClient_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Confirm"
+      }
+    },
+    "/api/v1/appointments/{appointment_id}/request-reschedule": {
+      "post": {
+        "operationId": "request_reschedule_api_v1_appointments__appointment_id__request_reschedule_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "appointment_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Appointment Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequestReschedule"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_DetailClient_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Request Reschedule"
+      }
+    },
     "/api/v1/auth/csrf": {
       "get": {
         "operationId": "csrf_api_v1_auth_csrf_get",
@@ -7138,7 +8788,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Create"
+                "$ref": "#/components/schemas/app__schemas__inquiry__Create"
               }
             }
           },
