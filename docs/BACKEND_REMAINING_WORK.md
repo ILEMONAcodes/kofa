@@ -105,3 +105,7 @@ Rows below preserve the current progress tracker status; those statuses can lag 
 | BE-7.5 | Backend deployment: Docker image, production config, migrate-on-deploy, backups, retention purge job, logging/monitoring, health checks | Not started | Staging and production deployable from CI; rollback documented; backups scheduled; secrets only via env |
 | J-7.7 | Staging UAT with real staff scenarios, fixes, legal content published, release acceptance checklist, go/no-go | Not started | UAT scenarios pass; counsel-approved policy content live; every Must requirement traced to a passing test; both developers sign |
 | J-7.8 | Production release and hypercare bug-fix window | Not started | Release tagged; monitoring reviewed daily for the agreed window; defects triaged |
+
+## CI automation update — 5 November 2026
+
+BE-2.6 / FE-2.7 workflows are implemented on `joint/J-2.6-ci-automation`, covering backend/frontend checks, disposable PostgreSQL migrations/API tests, OpenAPI snapshot drift and dependency audits. Hosted Actions execution and administrator configuration of required branch checks remain pending. See [CI handoff](CI_AUTOMATION.md). No deployment or Neon migration is part of these workflows.
