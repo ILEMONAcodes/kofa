@@ -186,7 +186,18 @@ Indexes: `(status, published_at DESC)`, `(area_id)`, `(listing_type, property_ty
 ## 6. Appointments  (J-6.1)
 
 ### `appointments`
-`id`, `inquiry_id` FK, `property_id` FK, `client_id` FK, `staff_id` FK, `scheduled_at timestamptz`, `duration_minutes smallint DEFAULT 45`, `status` (`proposed`,`confirmed`,`reschedule_requested`,`completed`,`cancelled_by_client`,`cancelled_by_staff`,`cancelled_by_landlord`,`no_show`), `landlord_rep_name`, `landlord_rep_phone` (**P3**), `meeting_instructions text`, `address_disclosed_at`, `fee_amount bigint NULL`, `fee_status` (`none`,`pending`,`paid`,`waived`,`credited`,`refunded`), `outcome` (`interested`,`not_interested`,`needs_follow_up`), `outcome_notes text`, `row_version`, `created_at`, `updated_at`. Overlap protection for the same staff or property: exclusion constraint (`btree_gist`) over `tstzrange` for active statuses — decided in BE-6.2.
+
+Implemented by `be62_appointments` after `be52_inquiries`. UUID id; inquiry_id/property_id/client_id/staff_id FKs; scheduled_at/ends_at timestamptz; duration_minutes15..240 (ORM default45); status proposed/confirmed/reschedule_requested/completed/cancelled_by_client/cancelled_by_staff/cancelled_by_landlord/no_show. ends_at must equal scheduled_at + duration minutes. Private landlord_rep_name/phone, meeting_instructions, and meeting_address snapshot; address_disclosed_at records confirmation. requested_scheduled_at and reschedule_reason store a client request while the original slot remains reserved. cancellation_reason and outcome_notes are staff-only. outcome interested/not_interested/needs_follow_up|null. row_version and UTC created_at/updated_at.
+
+Fee amount bigint is zero and status none, enforced by DB check for the disabled OQ-04 default; enabling fees requires a separate reviewed change. No payment operation here.
+
+GiST exclusion constraints via btree_gist reject overlapping active half-open `[scheduled_at,ends_at)` staff or property slots. Active = proposed/confirmed/reschedule_requested. A partial unique inquiry_id index permits one active visit per inquiry. B-tree indexes support client/date, staff/date and status/date. Cancelled/completed/no_show records release reservations. The shared btree_gist extension is preserved on downgrade.
+
+### `appointment_status_history` (append-only)
+
+UUID id; appointment_id FK; from_status nullable/to_status; actor_user_id FK; reason text nullable; created_at timestamptz. Index appointment_id/created_at/id. PostgreSQL trigger rejects UPDATE/DELETE. Scheduling also appends inquiry history/audit for inspection_scheduled; cancellation/no_show returns eligible inquiries to qualified, never reopens closed inquiries. Actor and versions are server-owned.
+
+Only own confirmed/completed client detail exposes meeting_address snapshot and meeting instructions. Client list never includes either. Cancellation/no_show/reschedule_requested withdraw disclosure, and staff rescheduling clears the snapshot until fresh confirmation. Landlord contacts/documents/coordinates/private notes remain excluded. Staff detail shows both current property address and the confirmed snapshot so property metadata edits cannot silently relocate a confirmed visit. Owner clarified this exception on 5 November 2026; see API v0.10.0 §4.7B.
 
 ## 7. Transactions and fees  (J-6.7)
 

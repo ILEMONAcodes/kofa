@@ -212,7 +212,7 @@ Priority is **Should**, pending both developers' confirmation (scope addition, A
 |---|---|
 | BR-01 | A listing is public only if status is `published`, verification is `passed`, and a landlord approval of the current price and description exists. |
 | BR-02 | "Verified" means the checks recorded in the verification record were done. It is **never** shown as a guarantee of legal ownership or title; the verification scope is shown beside the badge (§8). |
-| BR-03 | Landlord phone, email, documents and exact address are never returned by any public or client endpoint. |
+| BR-03 | Landlord phone, email and documents are never returned by public or client endpoints. Exact addresses remain private except the property address in the owning client’s confirmed inspection detail (FR-APPT-02/OQ-11; owner confirmed 5 November 2026). |
 | BR-04 | A fee is never charged without prior disclosure of what it covers, whether it is refundable or creditable, and what happens on cancellation or unavailability (§7). |
 | BR-05 | Fee amounts are computed on the server only. The frontend displays what the API returns. |
 | BR-06 | Monetary values are stored as integer kobo; currency is NGN. |

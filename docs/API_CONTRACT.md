@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.9.0` · **Status:** Auth/property/inquiry sections implemented; remaining modules Draft · **Joint ownership**
+**Contract version:** `0.10.0` · **Status:** Auth/property/inquiry sections implemented; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -407,7 +407,6 @@ These appear in the index so both developers can plan; **request/response shapes
 
 | Group | Endpoints (intent) | Roles | Freeze task |
 |---|---|---|---|
-| Appointments | `POST /admin/appointments`, `GET /admin/appointments`, `PATCH …/{id}`, `POST …/{id}/outcome`; `GET /appointments`, `POST /appointments/{id}/confirm\|cancel\|request-reschedule` | staff/admin; client | J-6.1 |
 | Fees & transactions | `GET/PUT /admin/fee-rules`, `POST/GET /admin/transactions`, `GET /admin/transactions/{id}`, `POST …/events`, `POST …/ledger-entries`, `POST …/transitions`; `GET /transactions` (client summary) | staff/admin; admin for rules; client | J-6.7 |
 | Complaints | Shapes proposed in §4.8 (still `Draft`) | public; client; staff/admin | J-6.14 |
 | AI assistant, public config, knowledge base, settings | Shapes proposed in §4.9 (still `Draft`) | public; client; staff/admin | J-6.28 |
@@ -429,6 +428,26 @@ Additive contract implemented and connected locally; cross-developer review and 
 - `POST …/transitions` `{version,action,reason?:0..2000}`. Actions: start (`new`→`in_progress`), qualify (`in_progress`→`qualified`), negotiate (`qualified` or `inspection_scheduled`→`negotiating`), close_won (`negotiating`→`closed_won`), close_lost or mark_spam (any open→`closed_lost`/`spam`, reason required). Inspection scheduling transition is reserved for BE-6.2, absent from API actions. Terminal threads cannot reopen in MVP. Transition adds history/audit atomically, updates qualified/closed timestamps. Invalid transition409 INVALID_STATE_TRANSITION; stale version409 VERSION_CONFLICT. Staff mutations return `{data:{id,version,status}}`; row locks serialize with messages.
 - `GET/POST …/notes`: staff only, paginated ascending; POST `{body}` 1..4000, returns201 `{id,body,created_at}`. Private notes separate from client reply and absent from staff detail too; only notes endpoint exposes them. 60 notes/hour/actor.
 - `GET /admin/clients`: page/page_size, optional q (name/email/phone literal), returns id/full_name/email/phone/is_active/version/created_at. `GET /admin/clients/{id}` adds paginated `inquiries` (first20) and inquiry_count; clients only, no password/session data. `PATCH …/{id}` `{version,is_active}` only; staff/admin can change client activity, revoke sessions on deactivation and audit. Cannot affect staff/admin via this route.
+
+### 4.7B Inspection appointments (J-6.1 / CR-APPOINTMENT-001)
+
+Working contract v0.10.0, owner-authorized implementation; peer review pending. Client endpoints require active client session and own-object access (404 for other clients); staff endpoints require active staff/admin. All writes require Origin/CSRF, strict bodies, 64 KiB receive cap and 120 attempts/hour/actor. Unknown/repeated query parameters return422; every appointment response is no-store. Money always NGN integer kobo. OQ-04 default: inspection fee disabled, amount0/statusnone, with server disclosure; no fee charging/payment endpoint introduced.
+
+`POST /admin/appointments` →201 `{data:DetailStaff}`: `{inquiry_id,version,staff_id,scheduled_at,duration_minutes?:45,meeting_instructions?:null,landlord_rep_name?:null,landlord_rep_phone?:null}`. Version is current inquiry version. Require qualified, property-linked inquiry; active client/staff; currently eligible published available property. scheduled_at timezone-aware and future, duration whole minutes15..240. Parties client/property derive from inquiry and cannot be supplied. Representative defaults to stored landlord contact; explicit phone E.164, name2..150; private instructions≤2000. Creates proposed appointment, append-only history/audit; moves inquiry to inspection_scheduled with history/audit/version. Does not send an email or create an appointment from a general inquiry.
+
+Active statuses proposed/confirmed/reschedule_requested reserve half-open `[scheduled_at,ends_at)` slots. Database GiST exclusion constraints (btree_gist) independently prevent overlapping staff or property slots, including concurrent writers. One active appointment per inquiry via partial unique index. Adjacent times allowed; cancelled/completed/no_show release reservations. Conflicts →409 CONFLICT; stale version409 VERSION_CONFLICT; illegal action409 INVALID_STATE_TRANSITION.
+
+- `GET /admin/appointment-options`: active staff/admin only, no query parameters; `{data:{staff:[{id,full_name}],fee}}` supplies valid hosts and the server fee disclosure before scheduling. No email, phone or credentials.
+- `GET /appointments` and `/admin/appointments`: page/page_size (default1/20, max100), status enum, timezone-aware date_from inclusive/date_to exclusive. Staff additionally staff_id and inquiry_id UUID filters. Ordered scheduled_at/id; `{data:SummaryClient[],meta:{page,page_size,total_items,total_pages}}`. Client list restricted server-side. Staff list deliberately omits contact/private fields; open staff detail for those.
+- `GET /appointments/{id}` →DetailClient; staff `/admin/appointments/{id}` →DetailStaff. SummaryClient: id, reference `APT-<UUID>`, inquiry_id, property `{id,slug,title}` (slugnull when unpublished), staff_name, scheduled_at, ends_at, duration_minutes, status, version, allowed_actions, requested_scheduled_at|null, outcome|null, created_at/updated_at, fee `{amount:0,currency:NGN,status:none,disclosure}`. DetailClient adds meeting_address/meeting_instructions nullable. DetailStaff adds client (existing safe staff client DTO), staff_id, current property address_line, confirmed_meeting_address snapshot|null, landlord_rep_name/phone, private instructions, address_disclosed_at, reschedule_reason/cancellation_reason, outcome_notes, history `{from_status,to_status,reason,created_at}`.
+- `POST /appointments/{id}/confirm` `{version}`: proposed future appointment only, property still publicly eligible/available. Status confirmed; snapshot exact address in private appointment and set address_disclosed_at. **Owner explicitly approved 5 November 2026:** only own confirmed/completed DetailClient discloses this property address and meeting instructions. Lists, unrelated clients and public endpoints never disclose. Cancel/no_show/request-reschedule withdraw disclosure; staff reschedule clears snapshot and confirmation, requiring fresh confirmation. Already-seen addresses cannot be recalled from a person's memory. Landlord contact/email/docs, coordinates, private notes/history never appear in client schemas.
+- `POST /appointments/{id}/cancel` `{version,reason:1..2000}`: any active status→cancelled_by_client.
+- `POST /appointments/{id}/request-reschedule` `{version,reason,preferred_at?:timezone-aware future|null}`: any active→reschedule_requested; original slot remains reserved pending staff action. Preferred time is a request, not a confirmed booking.
+- `PATCH /admin/appointments/{id}`: full new slot body (`staff_id,scheduled_at,duration_minutes,meeting_instructions,landlord_rep_name/phone`) plus appointment version/reason. Active only; validates eligibility and conflicts; returns proposed, clears confirmation/address snapshot and preferred request. No editing completed/cancelled records.
+- `POST /admin/appointments/{id}/cancel` `{version,reason,cancelled_by:staff|landlord}` → respective cancellation status; staff cannot forge a client cancellation.
+- `POST /admin/appointments/{id}/outcome` `{version,outcome:interested|not_interested|needs_follow_up|null,no_show?:false,notes?:null≤4000}`. Confirmed and scheduled end passed only. no_showtrue requires nonblank private notes, ends no_show with outcome null; otherwise outcome required and statuscompleted. Notes private, categorical outcome visible to client. Cannot complete a future/unconfirmed visit.
+
+Each mutation returns appropriate role-specific Detail envelope and increments appointment version/history/audit atomically. Cancellation/no_show returns inquiry inspection_scheduled→qualified (unless inquiry subsequently closed/moved), with history/audit; completion leaves inquiry ready for manual negotiate action. One consistent inquiry→appointment→property lock order prevents racing schedule/reschedule actions; database exclusion guards are authoritative. Client actions come from server; frontend formats Nigeria/WAT times and fee values, never decides permissions or arithmetic. Address exception amends general BR-03 only for own confirmed inspection DetailClient.
 
 ### 4.8 Complaints and suspicious-listing reports (proposal; `Draft` until J-6.14)
 
@@ -610,6 +629,7 @@ Field-level privacy matrix (BR-03, BR-11):
 | `POST /inquiries` | 20 / day per client |
 | Inquiry message and note POSTs | 60 / hour per actor per kind (messages/notes separately) |
 | Inquiry read acknowledgement POSTs | 240 / hour per actor |
+| Appointment mutations | 120 / hour per actor across appointment write routes |
 
 ## 7. OpenAPI
 
@@ -637,7 +657,8 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | POST/GET /inquiries, GET /inquiries/{id}, GET/POST /inquiries/{id}/messages, POST /inquiries/{id}/read; /admin/inquiries assignment/transitions/qualification/messages/notes; GET/PATCH /admin/clients | Integrated locally (J-5.10; see §4.7A and LIVE_INQUIRIES.md) |
 | GET /public-config, POST /assistant/conversations, GET /assistant/conversations/{id}, POST …/messages, POST …/handoff/message-team, POST /assistant/messages/{id}/feedback | Draft (shapes proposed, §4.9) |
 | GET/POST/PATCH /admin/knowledge-articles, POST …/publish, POST …/unpublish, GET /admin/assistant/conversations, GET/PATCH …/{id}, GET/PUT /admin/settings | Draft (shapes proposed, §4.9) |
-| Inquiries, clients, appointments, fees/transactions, notifications, reports (KPIs) | Draft (intent only, §4.7) |
+| Appointments client/staff list/detail, schedule/reschedule/cancel/confirm/request-reschedule/outcome and staff appointment-options | Integrated locally (J-6.6, §4.7B; deployment/review pending) |
+| Fees/transactions, notifications, reports (KPIs) | Draft (intent only, §4.7) |
 
 ## 9. Examples
 
@@ -678,6 +699,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.10.0 | 2026-11-05 | CR-APPOINTMENT-001: inspection lifecycle, slot conflicts, scoped address exception approved by owner, zero fee default and integrated scheduling shapes | Backend + authorized frontend; peer review pending |
 | 0.9.0 | 2026-11-04 | CR-INQUIRY-001: freeze client/staff inquiries, text messages, private notes and client directory; OQ-08/14 defaults | Backend + authorized frontend; review pending |
 | 0.8.1 | 2026-11-04 | BE-4.9: clarify defence-in-depth checklist integrity on every public read; response shapes unchanged | Backend; review pending |
 | 0.8.0 | 2026-11-04 | CR-PUBLIC-BROWSE-001: public taxonomy/search/detail, visibility-gated media, explicit query/null/privacy semantics; frontend connection | Backend + authorized frontend; review pending |
