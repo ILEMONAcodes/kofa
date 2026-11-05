@@ -2,8 +2,10 @@
 import { useEffect, useState } from "react";
 import { Modal } from "@/components/common/modal";
 import { Button } from "@/components/common/button";
-import { Input } from "@/components/common/input";
-import { PopoverSelect } from "@/components/common/popover-select";
+import { CaseForm } from "@/components/features/complaints/form";
+import { usePathname } from "next/navigation";
+import { Suspense } from "react";
+
 import { DetailGallery } from "./detail-gallery";
 import type { DetailPhoto } from "./detail-content";
 export function DetailActions({
@@ -16,8 +18,7 @@ export function DetailActions({
   videos?: { url: string; alt: string | null }[];
 }) {
   const [view, setView] = useState("");
-  const [reason, setReason] = useState("outside");
-  const [other, setOther] = useState("");
+  const path = usePathname();
   useEffect(() => {
     const update = () => {
       if (window.location.hash === "#assistant") setView("assistant");
@@ -81,33 +82,13 @@ export function DetailActions({
             Report this listing. Our team investigates before deciding on
             action.
           </p>
-          <PopoverSelect
-            label="Reason"
-            title="Reason"
-            description="Choose an option, or Other to specify."
-            value={reason}
-            onChange={setReason}
-            options={[
-              { value: "fake", label: "Fake listing" },
-              { value: "price", label: "Wrong price" },
-              { value: "description", label: "Misleading description" },
-              { value: "unavailable", label: "Already let or sold" },
-              { value: "agent", label: "Unauthorised agent" },
-              { value: "outside", label: "Asked to pay outside" },
-              { value: "other", label: "Other" },
-            ]}
-          />
-          {reason === "other" && (
-            <Input
-              label="Specify your concern"
-              value={other}
-              onChange={(event) => setOther(event.target.value)}
+          <Suspense>
+            <CaseForm
+              publicReport
+              initialTitle={title}
+              initialSlug={decodeURIComponent(path.split("/").at(-1) ?? "")}
             />
-          )}
-          <p role="status" className="detail-notice">
-            Reporting is currently unavailable. Your report has not been sent.
-          </p>
-          <Button disabled>Submit report</Button>
+          </Suspense>
           <Button variant="secondary" onClick={close}>
             Back to listing
           </Button>

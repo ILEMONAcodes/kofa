@@ -1,3 +1,4 @@
+import { redirect } from "next/navigation";
 import { PolicyDraftPage } from "@/content/policies/page";
 import { requireReviewRole } from "@/lib/review-server/session";
 import { BrandLoading } from "@/components/common/brand-loading";
@@ -18,8 +19,19 @@ export default async function Page({
   params: Promise<{ screen: string }>;
 }) {
   const { screen } = await params;
-  if (screen === "terms" || screen === "privacy") return <PolicyDraftPage type={screen} />;
-  if (screen === "conflict") await requireReviewRole(["staff", "admin"], "/resources/conflict");
+  if (
+    [
+      "report",
+      "report-evidence",
+      "report-received",
+      "duplicate-report",
+    ].includes(screen)
+  )
+    redirect("/report");
+  if (screen === "terms" || screen === "privacy")
+    return <PolicyDraftPage type={screen} />;
+  if (screen === "conflict")
+    await requireReviewRole(["staff", "admin"], "/resources/conflict");
   if (!mediaScreens.some((s) => s.slug === screen)) notFound();
   if (screen === "loading")
     return (

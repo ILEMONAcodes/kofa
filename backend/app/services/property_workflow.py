@@ -8,6 +8,7 @@ from app.models.property import (
     VerificationCheck,
 )
 from app.repositories import property_workflow as repo
+from app.repositories.complaint import active_hold, owner_blocked
 from app.services.property_admin import locked, moment, mutation, record
 
 REQUIRED = {"identity", "ownership_docs", "location", "price", "features"}
@@ -56,6 +57,10 @@ def valid_checks(checks):
 
 def blockers(db, prop):
     result = []
+    if owner_blocked(db, prop.landlord_id):
+        result.append("A blocked landlord cannot publish listings.")
+    if active_hold(db, prop.id):
+        result.append("Release the complaint precautionary hold before publication.")
     verification = repo.current_verification(db, prop.id)
     if verification is None or verification.status != "passed" or verification.verified_at is None:
         result.append("Complete a passing verification.")

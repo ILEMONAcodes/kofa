@@ -1,3 +1,5 @@
+import { redirect } from "next/navigation";
+import { staffCaseViews } from "@/components/features/complaints/model";
 import { requireReviewRole } from "@/lib/review-server/session";
 import { notFound } from "next/navigation";
 import { StaffScreen } from "@/components/features/staff-operations/staff-screen";
@@ -13,6 +15,7 @@ export default async function Page({
   params: Promise<{ screen: string }>;
 }) {
   const { screen } = await params;
+  if (staffCaseViews.has(screen)) redirect(`/staff/${screen}`);
   await requireReviewRole(["admin"], `/admin/${screen}`);
   if (!administrationScreens.some(({ slug }) => slug === screen)) notFound();
   return <StaffScreen key={screen} slug={screen} administration />;

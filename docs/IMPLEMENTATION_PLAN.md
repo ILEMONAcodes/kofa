@@ -215,6 +215,8 @@ flowchart TD
 
 **Goal:** Complete the operational workflow: inspections, fees and transactions, complaint investigation, email notifications, KPIs, legal pages, and an AI assistant with human call-line handoff.  
 **Exit criteria:** Each sub-module (6A–6G) has its own integration task and passes before the next dependent one starts.  
+**Owner sequencing override — 5 November 2026:** Defer 6B transactions/fee records (J-6.7–J-6.12). Next is J-6.14, then listing/general complaint and suspicious-listing report implementation/integration (BE-6.15, FE-6.16, J-6.17). The BE-6.9 dependency remains applicable to transaction/payment-linked complaint features, which stay pending; it does not block listing/general cases. Notifications/reporting that require financial records also remain pending. This is a sequencing change, not removal of release requirements.
+
 **Parallelism:** Sub-modules are ordered by dependency: 6A appointments → 6B fees/transactions → 6C complaints → 6D notifications → 6E reporting. 6F (policy pages) is independent and may start any time after FE-2.3. 6G (AI assistant) needs Phase 5 (handoff creates inquiries), the property search API, and approved knowledge content; it is otherwise independent.
 
 | ID | Task | Owner | Pri | Depends on | Files expected to change | Acceptance criteria | Tests required | Blockers |

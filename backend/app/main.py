@@ -13,6 +13,7 @@ from app.api.v1 import (
     admin_users,
     appointments,
     auth,
+    complaints,
     inquiries,
     landlord_submissions,
 )
@@ -40,6 +41,13 @@ def create_app(settings: Settings | None = None, engine=None):
         lifespan=lifespan,
         docs_url=None if settings.app_env == "production" else "/docs",
     )
+    for router in [
+        complaints.public_router,
+        complaints.client_router,
+        complaints.staff_router,
+        complaints.options_router,
+    ]:
+        app.include_router(router)
     app.include_router(appointments.options_router)
     app.include_router(appointments.client_router)
     app.include_router(appointments.staff_router)
@@ -78,7 +86,10 @@ def create_app(settings: Settings | None = None, engine=None):
                             "/api/v1/inquiries",
                             "/api/v1/admin/inquiries",
                             "/api/v1/admin/clients",
+                            "/api/v1/complaints",
+                            "/api/v1/reports",
                             "/api/v1/appointments",
+                            "/api/v1/admin/complaints",
                             "/api/v1/admin/appointments",
                         )
                     )
@@ -115,6 +126,8 @@ def create_app(settings: Settings | None = None, engine=None):
         response.headers["X-Request-ID"] = request.state.request_id
         if request.url.path.startswith(
             (
+                "/api/v1/complaints",
+                "/api/v1/reports",
                 "/api/v1/appointments",
                 "/api/v1/inquiries",
                 "/api/v1/auth",
@@ -143,8 +156,14 @@ def create_app(settings: Settings | None = None, engine=None):
             details.append(
                 {
                     "field": field,
-                    "code": "required" if entry["type"] == "missing" else "invalid_format",
-                    "message": "This field is required."
+                    "code": "sensitive_data"
+                    if entry["type"] == "sensitive_data"
+                    else "required"
+                    if entry["type"] == "missing"
+                    else "invalid_format",
+                    "message": "Remove card, bank or identity-document numbers."
+                    if entry["type"] == "sensitive_data"
+                    else "This field is required."
                     if entry["type"] == "missing"
                     else "Enter a valid value.",
                 }

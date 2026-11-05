@@ -7,9 +7,15 @@ import { Modal } from "@/components/common/modal";
 export function InspectionFrame({
   staff,
   children,
+  backHref = "/account/inspections",
+  helpTitle = "Help with your visit",
+  helpText = "Ask our team in your inquiry conversation for help with your visit. Keep conversations and payments on Kof’a’s approved channels.",
 }: {
   staff: boolean;
   children: ReactNode;
+  backHref?: string;
+  helpTitle?: string;
+  helpText?: string;
 }) {
   const [dialog, setDialog] = useState<"menu" | "help" | null>(null);
   const destinations = staff
@@ -19,6 +25,7 @@ export function InspectionFrame({
         ["Inquiries", "/staff/inquiries"],
         ["Inspections", "/staff/inspections"],
         ["Calendar", "/staff/calendar"],
+        ["Complaints", "/staff/complaints"],
         ["Clients", "/staff/clients"],
       ]
     : [
@@ -26,6 +33,7 @@ export function InspectionFrame({
         ["Explore", "/properties"],
         ["Inquiries", "/account/inquiries"],
         ["Inspections", "/account/inspections"],
+        ["Complaints", "/account/complaints"],
         ["Account", "/account/overview"],
       ];
   return (
@@ -54,7 +62,7 @@ export function InspectionFrame({
             </Button>
           ) : (
             <>
-              <Link className="inspection-back" href="/account/inspections">
+              <Link className="inspection-back" href={backHref}>
                 Back
               </Link>
               <Button variant="secondary" onClick={() => setDialog("help")}>
@@ -109,16 +117,10 @@ export function InspectionFrame({
       <Modal
         open={dialog !== null}
         onClose={() => setDialog(null)}
-        title={dialog === "help" ? "Help with your visit" : "Workspace"}
+        title={dialog === "help" ? helpTitle : "Workspace"}
       >
         <div className="inspection-stack">
-          {dialog === "help" && (
-            <p>
-              Ask our team in your inquiry conversation for help with your
-              visit. Keep conversations and payments on Kof’a’s approved
-              channels.
-            </p>
-          )}
+          {dialog === "help" && <p>{helpText}</p>}
           {destinations.map(([name, href]) => (
             <Link key={href} href={href} onClick={() => setDialog(null)}>
               {name}
