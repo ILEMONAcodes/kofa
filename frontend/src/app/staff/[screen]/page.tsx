@@ -1,3 +1,7 @@
+import { Suspense } from "react";
+import { BrandLoading } from "@/components/common/brand-loading";
+import { LiveComplaints } from "@/components/features/complaints/live";
+import { staffCaseViews } from "@/components/features/complaints/model";
 import { LiveInspections } from "@/components/features/inspections/live";
 import { liveInspectionStaffViews } from "@/components/features/inspections/model";
 import { LiveInquiries } from "@/components/features/inquiries/live";
@@ -29,6 +33,12 @@ export default async function Page({
     ["staff", "admin"],
     `/staff/${screen}${query.size ? `?${query}` : ""}`,
   );
+  if (staffCaseViews.has(screen))
+    return (
+      <Suspense fallback={<BrandLoading />}>
+        <LiveComplaints key={screen} view={screen} staff />
+      </Suspense>
+    );
   if (!staffScreens.some(({ slug }) => slug === screen)) notFound();
   if (liveInspectionStaffViews.has(screen))
     return <LiveInspections key={screen} view={screen} staff />;

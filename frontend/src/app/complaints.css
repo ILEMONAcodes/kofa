@@ -1,0 +1,11 @@
+.complaint-honeypot {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.inspection-form input[type="file"] {
+  max-width: 100%;
+  white-space: normal;
+}

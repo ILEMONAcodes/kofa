@@ -1,3 +1,5 @@
+import { LiveComplaints } from "@/components/features/complaints/live";
+import { clientCaseViews } from "@/components/features/complaints/model";
 import { LiveInspections } from "@/components/features/inspections/live";
 import { liveInspectionClientViews } from "@/components/features/inspections/model";
 import { LiveInquiries } from "@/components/features/inquiries/live";
@@ -30,6 +32,12 @@ export default async function Page({
     ["client"],
     `/account/${screen}${query.size ? `?${query}` : ""}`,
   );
+  if (clientCaseViews.has(screen))
+    return (
+      <Suspense fallback={<BrandLoading />}>
+        <LiveComplaints key={screen} view={screen} />
+      </Suspense>
+    );
   if (!clientScreens.some(({ slug }) => slug === screen)) notFound();
   if (liveInspectionClientViews.has(screen))
     return (

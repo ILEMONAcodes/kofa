@@ -400,3 +400,49 @@ def test_inconsistent_passed_checklist_hidden_on_all_public_surfaces(db, client,
     assert client.get("/api/v1/properties").json()["data"] == []
     assert client.get(f"/api/v1/properties/{prop.slug}").status_code == 404
     assert client.get(f"/api/v1/property-media/{photo.id}").status_code == 404
+
+
+def test_count_and_page_share_eligibility_with_empty_page_fallback(db, client, record):
+    prop, _, _ = record
+    publish(db, prop)
+    first = client.get("/api/v1/properties?page_size=1").json()
+    assert len(first["data"]) == 1 and first["meta"]["total_items"] == 1
+    beyond = client.get("/api/v1/properties?page=99&page_size=1").json()
+    assert beyond["data"] == [] and beyond["meta"]["total_items"] == 1
+    empty = client.get("/api/v1/properties?q=no-such-fictional-listing").json()
+    assert empty["data"] == [] and empty["meta"]["total_items"] == 0
+    from app.models.property import Landlord
+
+    db.get(Landlord, prop.landlord_id).blocked_at = datetime.now(UTC)
+    db.commit()
+    blocked = client.get("/api/v1/properties?page_size=1").json()
+    assert blocked["data"] == [] and blocked["meta"]["total_items"] == 0
+
+
+def test_evidence_from_another_verified_listing_never_satisfies_ownership(db, client, record):
+    from sqlalchemy import select
+
+    prop, photo, doc = record
+    publish(db, prop)
+    other = clone(db, prop)
+    db.commit()
+    publish(db, other)
+    doc.property_id = other.id
+    verification = db.scalar(
+        select(PropertyVerification).where(
+            PropertyVerification.property_id == prop.id, PropertyVerification.is_current.is_(True)
+        )
+    )
+    check = db.scalar(
+        select(VerificationCheck).where(
+            VerificationCheck.verification_id == verification.id,
+            VerificationCheck.code == "ownership_docs",
+        )
+    )
+    check.evidence_document_id = doc.id
+    db.commit()
+    assert client.get("/api/v1/properties/" + prop.slug).status_code == 404
+    assert client.get("/api/v1/property-media/" + str(photo.id)).status_code == 404
+    assert client.get("/api/v1/properties/" + other.slug).status_code == 200
+    ids = [row["id"] for row in client.get("/api/v1/properties").json()["data"]]
+    assert str(prop.id) not in ids and str(other.id) in ids

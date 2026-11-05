@@ -92,3 +92,7 @@ Regenerate the checked-in OpenAPI snapshot with `python -m app.openapi`; this ex
 ## Inspection scheduling (J-6.6)
 
 Migration `be62_appointments` adds appointments/history and btree_gist exclusions for overlapping staff/property slots. This task only applies migrations to isolated local test databases. Production rollout requires a separate explicit approval and an intended direct database URL; do not run downgrade against real appointments. Client UI `/account/inspections`, staff `/staff/inspections` and `/staff/calendar`, scheduling from a qualified property inquiry. Read [inspection handoff](../docs/INSPECTION_SCHEDULING.md) and API v0.10.0 §4.7B for versions, cancellation/rescheduling, zero-fee disclosure and the owner-approved confirmed-address exception. No mail, fee collection, storage provisioning or public role selector is added.
+
+## Complaints and listing reports
+
+Public reports, client-owned complaint tracking, private evidence and staff investigation are integrated with the existing frontend. See [handoff](../docs/COMPLAINTS_REPORTING.md). Migration `be615_complaints` follows `be62_appointments`; it was applied to the configured Neon database with owner approval on 5 November 2026, and its three tables and append-only audit trigger were verified. Application merge/deployment remains pending. Uploads use the configured private storage driver; production storage provisioning and SMTP delivery remain separate pending operations. No transaction/refund processing is included.

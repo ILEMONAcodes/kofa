@@ -815,34 +815,6 @@
         "title": "AreaPublic",
         "type": "object"
       },
-      "Assign": {
-        "additionalProperties": false,
-        "properties": {
-          "assigned_staff_id": {
-            "anyOf": [
-              {
-                "format": "uuid",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Assigned Staff Id"
-          },
-          "version": {
-            "minimum": 1.0,
-            "title": "Version",
-            "type": "integer"
-          }
-        },
-        "required": [
-          "version",
-          "assigned_staff_id"
-        ],
-        "title": "Assign",
-        "type": "object"
-      },
       "Assignment": {
         "additionalProperties": false,
         "properties": {
@@ -920,6 +892,34 @@
         "title": "AvailabilityInput",
         "type": "object"
       },
+      "Body_own_upload_api_v1_complaints__id__files_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_own_upload_api_v1_complaints__id__files_post",
+        "type": "object"
+      },
+      "Body_public_upload_api_v1_reports__id__files_post": {
+        "properties": {
+          "file": {
+            "contentMediaType": "application/octet-stream",
+            "title": "File",
+            "type": "string"
+          }
+        },
+        "required": [
+          "file"
+        ],
+        "title": "Body_public_upload_api_v1_reports__id__files_post",
+        "type": "object"
+      },
       "Cancel": {
         "additionalProperties": false,
         "properties": {
@@ -949,6 +949,67 @@
           "reason"
         ],
         "title": "Cancel",
+        "type": "object"
+      },
+      "CaseSummary": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "suspicious_listing",
+              "dispute",
+              "service_complaint",
+              "other"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "public_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Public Note"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "new",
+              "triage",
+              "investigating",
+              "resolved",
+              "dismissed"
+            ],
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "kind",
+          "status",
+          "created_at",
+          "public_note"
+        ],
+        "title": "CaseSummary",
         "type": "object"
       },
       "CheckInput": {
@@ -1981,6 +2042,19 @@
         "title": "EmailInput",
         "type": "object"
       },
+      "Envelope_CaseSummary_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/CaseSummary"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[CaseSummary]",
+        "type": "object"
+      },
       "Envelope_ClientDetail_": {
         "additionalProperties": false,
         "properties": {
@@ -2046,6 +2120,32 @@
         "title": "Envelope[Detail]",
         "type": "object"
       },
+      "Envelope_Evidence_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Evidence"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[Evidence]",
+        "type": "object"
+      },
+      "Envelope_Grant_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Grant"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[Grant]",
+        "type": "object"
+      },
       "Envelope_Message_": {
         "additionalProperties": false,
         "properties": {
@@ -2085,19 +2185,6 @@
         "title": "Envelope[Note]",
         "type": "object"
       },
-      "Envelope_Options_": {
-        "additionalProperties": false,
-        "properties": {
-          "data": {
-            "$ref": "#/components/schemas/Options"
-          }
-        },
-        "required": [
-          "data"
-        ],
-        "title": "Envelope[Options]",
-        "type": "object"
-      },
       "Envelope_ReadReceipt_": {
         "additionalProperties": false,
         "properties": {
@@ -2111,17 +2198,17 @@
         "title": "Envelope[ReadReceipt]",
         "type": "object"
       },
-      "Envelope_Receipt_": {
+      "Envelope_StaffDetail_": {
         "additionalProperties": false,
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/Receipt"
+            "$ref": "#/components/schemas/StaffDetail"
           }
         },
         "required": [
           "data"
         ],
-        "title": "Envelope[Receipt]",
+        "title": "Envelope[StaffDetail]",
         "type": "object"
       },
       "Envelope_Summary_": {
@@ -2135,6 +2222,68 @@
           "data"
         ],
         "title": "Envelope[Summary]",
+        "type": "object"
+      },
+      "Event": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "from_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Status"
+          },
+          "note": {
+            "title": "Note",
+            "type": "string"
+          },
+          "to_status": {
+            "title": "To Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "from_status",
+          "to_status",
+          "note",
+          "created_at"
+        ],
+        "title": "Event",
+        "type": "object"
+      },
+      "Evidence": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "mime_type": {
+            "title": "Mime Type",
+            "type": "string"
+          },
+          "size_bytes": {
+            "title": "Size Bytes",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "mime_type",
+          "size_bytes"
+        ],
+        "title": "Evidence",
         "type": "object"
       },
       "ExtraCharge": {
@@ -2194,6 +2343,25 @@
           }
         },
         "title": "Fee",
+        "type": "object"
+      },
+      "Grant": {
+        "additionalProperties": false,
+        "properties": {
+          "expires_at": {
+            "title": "Expires At",
+            "type": "integer"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "url",
+          "expires_at"
+        ],
+        "title": "Grant",
         "type": "object"
       },
       "HTTPValidationError": {
@@ -2325,6 +2493,77 @@
           "alt"
         ],
         "title": "ImagePublic",
+        "type": "object"
+      },
+      "Investigation": {
+        "additionalProperties": false,
+        "properties": {
+          "actions": {
+            "items": {
+              "enum": [
+                "listing_corrected",
+                "listing_unpublished",
+                "listing_rejected",
+                "landlord_warned",
+                "landlord_blocked",
+                "client_warned",
+                "no_action"
+              ],
+              "type": "string"
+            },
+            "maxItems": 7,
+            "minItems": 1,
+            "title": "Actions",
+            "type": "array"
+          },
+          "evidence_reviewed": {
+            "maxLength": 4000,
+            "minLength": 1,
+            "title": "Evidence Reviewed",
+            "type": "string"
+          },
+          "findings": {
+            "maxLength": 8000,
+            "minLength": 1,
+            "title": "Findings",
+            "type": "string"
+          },
+          "outcome": {
+            "enum": [
+              "substantiated",
+              "partially_substantiated",
+              "unsubstantiated",
+              "inconclusive"
+            ],
+            "title": "Outcome",
+            "type": "string"
+          },
+          "public_note": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Public Note"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "findings",
+          "evidence_reviewed",
+          "outcome",
+          "actions"
+        ],
+        "title": "Investigation",
         "type": "object"
       },
       "LandlordContact": {
@@ -3079,27 +3318,6 @@
         "title": "Note",
         "type": "object"
       },
-      "Options": {
-        "additionalProperties": false,
-        "properties": {
-          "fee": {
-            "$ref": "#/components/schemas/Fee"
-          },
-          "staff": {
-            "items": {
-              "$ref": "#/components/schemas/StaffMember"
-            },
-            "title": "Staff",
-            "type": "array"
-          }
-        },
-        "required": [
-          "staff",
-          "fee"
-        ],
-        "title": "Options",
-        "type": "object"
-      },
       "OptionsEnvelope": {
         "properties": {
           "data": {
@@ -3166,6 +3384,27 @@
           "total_pages"
         ],
         "title": "PageMetaPublic",
+        "type": "object"
+      },
+      "Page_CaseSummary_": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/CaseSummary"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/Meta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "Page[CaseSummary]",
         "type": "object"
       },
       "Page_Client_": {
@@ -4389,32 +4628,6 @@
         "title": "Reason",
         "type": "object"
       },
-      "Receipt": {
-        "additionalProperties": false,
-        "properties": {
-          "id": {
-            "format": "uuid",
-            "title": "Id",
-            "type": "string"
-          },
-          "reference": {
-            "title": "Reference",
-            "type": "string"
-          },
-          "status": {
-            "const": "new",
-            "default": "new",
-            "title": "Status",
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "reference"
-        ],
-        "title": "Receipt",
-        "type": "object"
-      },
       "Register": {
         "additionalProperties": false,
         "properties": {
@@ -4459,6 +4672,141 @@
           "accepted_policies"
         ],
         "title": "Register",
+        "type": "object"
+      },
+      "Report": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "maxLength": 2000,
+            "minLength": 20,
+            "title": "Description",
+            "type": "string"
+          },
+          "property_slug": {
+            "maxLength": 200,
+            "minLength": 1,
+            "title": "Property Slug",
+            "type": "string"
+          },
+          "reason": {
+            "enum": [
+              "fake_listing",
+              "wrong_price",
+              "misleading_description",
+              "already_let_or_sold",
+              "unauthorised_agent",
+              "asked_to_pay_outside",
+              "other"
+            ],
+            "title": "Reason",
+            "type": "string"
+          },
+          "reporter": {
+            "$ref": "#/components/schemas/Reporter"
+          },
+          "website": {
+            "default": "",
+            "maxLength": 500,
+            "title": "Website",
+            "type": "string"
+          }
+        },
+        "required": [
+          "property_slug",
+          "reason",
+          "description"
+        ],
+        "title": "Report",
+        "type": "object"
+      },
+      "Reporter": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "format": "email",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "maxLength": 150,
+                "minLength": 2,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9]\\d{7,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          }
+        },
+        "title": "Reporter",
+        "type": "object"
+      },
+      "ReporterOut": {
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Name"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          }
+        },
+        "required": [
+          "name",
+          "email",
+          "phone"
+        ],
+        "title": "ReporterOut",
         "type": "object"
       },
       "RequestReschedule": {
@@ -4644,6 +4992,324 @@
         "title": "Result",
         "type": "object"
       },
+      "StaffDetail": {
+        "additionalProperties": false,
+        "properties": {
+          "actions": {
+            "items": {
+              "enum": [
+                "listing_corrected",
+                "listing_unpublished",
+                "listing_rejected",
+                "landlord_warned",
+                "landlord_blocked",
+                "client_warned",
+                "no_action"
+              ],
+              "type": "string"
+            },
+            "title": "Actions",
+            "type": "array"
+          },
+          "allowed_actions": {
+            "items": {
+              "enum": [
+                "start_triage",
+                "start_investigation",
+                "resolve",
+                "dismiss",
+                "reopen",
+                "place_hold",
+                "release_hold"
+              ],
+              "type": "string"
+            },
+            "title": "Allowed Actions",
+            "type": "array"
+          },
+          "allowed_case_actions": {
+            "items": {
+              "enum": [
+                "listing_corrected",
+                "listing_unpublished",
+                "listing_rejected",
+                "landlord_warned",
+                "landlord_blocked",
+                "client_warned",
+                "no_action"
+              ],
+              "type": "string"
+            },
+            "title": "Allowed Case Actions",
+            "type": "array"
+          },
+          "appointment_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Appointment Id"
+          },
+          "assigned_staff_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assigned Staff Id"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "description": {
+            "title": "Description",
+            "type": "string"
+          },
+          "desired_outcome": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Desired Outcome"
+          },
+          "dismiss_reason": {
+            "anyOf": [
+              {
+                "enum": [
+                  "duplicate",
+                  "spam_or_abuse",
+                  "out_of_scope",
+                  "insufficient_information"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dismiss Reason"
+          },
+          "events": {
+            "items": {
+              "$ref": "#/components/schemas/Event"
+            },
+            "title": "Events",
+            "type": "array"
+          },
+          "evidence": {
+            "items": {
+              "$ref": "#/components/schemas/Evidence"
+            },
+            "title": "Evidence",
+            "type": "array"
+          },
+          "evidence_reviewed": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Evidence Reviewed"
+          },
+          "findings": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Findings"
+          },
+          "hold_review_due_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hold Review Due At"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "kind": {
+            "enum": [
+              "suspicious_listing",
+              "dispute",
+              "service_complaint",
+              "other"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "occurred_on": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Occurred On"
+          },
+          "other_open_reports": {
+            "title": "Other Open Reports",
+            "type": "integer"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "enum": [
+                  "substantiated",
+                  "partially_substantiated",
+                  "unsubstantiated",
+                  "inconclusive"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
+          },
+          "property_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Property Id"
+          },
+          "public_note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Public Note"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "enum": [
+                  "fake_listing",
+                  "wrong_price",
+                  "misleading_description",
+                  "already_let_or_sold",
+                  "unauthorised_agent",
+                  "asked_to_pay_outside",
+                  "other"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "reporter": {
+            "$ref": "#/components/schemas/ReporterOut"
+          },
+          "reporter_user_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reporter User Id"
+          },
+          "status": {
+            "enum": [
+              "new",
+              "triage",
+              "investigating",
+              "resolved",
+              "dismissed"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "kind",
+          "status",
+          "created_at",
+          "public_note",
+          "reason",
+          "description",
+          "reporter",
+          "reporter_user_id",
+          "property_id",
+          "appointment_id",
+          "occurred_on",
+          "desired_outcome",
+          "assigned_staff_id",
+          "findings",
+          "evidence_reviewed",
+          "outcome",
+          "actions",
+          "dismiss_reason",
+          "hold_review_due_at",
+          "version",
+          "other_open_reports",
+          "evidence",
+          "events",
+          "allowed_actions",
+          "allowed_case_actions"
+        ],
+        "title": "StaffDetail",
+        "type": "object"
+      },
       "StaffMember": {
         "additionalProperties": false,
         "properties": {
@@ -4718,6 +5384,37 @@
           "created_at"
         ],
         "title": "StatusOut",
+        "type": "object"
+      },
+      "Subject": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Id"
+          },
+          "type": {
+            "enum": [
+              "general",
+              "property",
+              "appointment"
+            ],
+            "title": "Type",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "Subject",
         "type": "object"
       },
       "SubmissionCreate": {
@@ -5543,6 +6240,23 @@
         "title": "Version",
         "type": "object"
       },
+      "app__api__v1__complaints__Options": {
+        "additionalProperties": false,
+        "properties": {
+          "staff": {
+            "items": {
+              "$ref": "#/components/schemas/StaffMember"
+            },
+            "title": "Staff",
+            "type": "array"
+          }
+        },
+        "required": [
+          "staff"
+        ],
+        "title": "Options",
+        "type": "object"
+      },
       "app__schemas__appointment__Create": {
         "additionalProperties": false,
         "properties": {
@@ -5620,6 +6334,230 @@
         "title": "Create",
         "type": "object"
       },
+      "app__schemas__appointment__Options": {
+        "additionalProperties": false,
+        "properties": {
+          "fee": {
+            "$ref": "#/components/schemas/Fee"
+          },
+          "staff": {
+            "items": {
+              "$ref": "#/components/schemas/StaffMember"
+            },
+            "title": "Staff",
+            "type": "array"
+          }
+        },
+        "required": [
+          "staff",
+          "fee"
+        ],
+        "title": "Options",
+        "type": "object"
+      },
+      "app__schemas__complaint__Assign": {
+        "additionalProperties": false,
+        "properties": {
+          "staff_id": {
+            "format": "uuid",
+            "title": "Staff Id",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "staff_id"
+        ],
+        "title": "Assign",
+        "type": "object"
+      },
+      "app__schemas__complaint__Create": {
+        "additionalProperties": false,
+        "properties": {
+          "description": {
+            "maxLength": 4000,
+            "minLength": 20,
+            "title": "Description",
+            "type": "string"
+          },
+          "desired_outcome": {
+            "anyOf": [
+              {
+                "maxLength": 500,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Desired Outcome"
+          },
+          "kind": {
+            "enum": [
+              "dispute",
+              "service_complaint",
+              "other"
+            ],
+            "title": "Kind",
+            "type": "string"
+          },
+          "occurred_on": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Occurred On"
+          },
+          "subject": {
+            "$ref": "#/components/schemas/Subject"
+          }
+        },
+        "required": [
+          "kind",
+          "subject",
+          "description"
+        ],
+        "title": "Create",
+        "type": "object"
+      },
+      "app__schemas__complaint__Receipt": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "message": {
+            "title": "Message",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "status": {
+            "const": "new",
+            "default": "new",
+            "title": "Status",
+            "type": "string"
+          },
+          "upload_token": {
+            "title": "Upload Token",
+            "type": "string"
+          },
+          "upload_token_expires_at": {
+            "format": "date-time",
+            "title": "Upload Token Expires At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "reference",
+          "upload_token",
+          "upload_token_expires_at",
+          "message"
+        ],
+        "title": "Receipt",
+        "type": "object"
+      },
+      "app__schemas__complaint__Transition": {
+        "additionalProperties": false,
+        "properties": {
+          "action": {
+            "enum": [
+              "start_triage",
+              "start_investigation",
+              "resolve",
+              "dismiss",
+              "reopen",
+              "place_hold",
+              "release_hold"
+            ],
+            "title": "Action",
+            "type": "string"
+          },
+          "dismiss_reason": {
+            "anyOf": [
+              {
+                "enum": [
+                  "duplicate",
+                  "spam_or_abuse",
+                  "out_of_scope",
+                  "insufficient_information"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Dismiss Reason"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "maxLength": 2000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "action"
+        ],
+        "title": "Transition",
+        "type": "object"
+      },
+      "app__schemas__inquiry__Assign": {
+        "additionalProperties": false,
+        "properties": {
+          "assigned_staff_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assigned Staff Id"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "assigned_staff_id"
+        ],
+        "title": "Assign",
+        "type": "object"
+      },
       "app__schemas__inquiry__Create": {
         "additionalProperties": false,
         "properties": {
@@ -5694,6 +6632,84 @@
           "kind"
         ],
         "title": "Create",
+        "type": "object"
+      },
+      "app__schemas__inquiry__Envelope_Options___1": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/app__api__v1__complaints__Options"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[Options]",
+        "type": "object"
+      },
+      "app__schemas__inquiry__Envelope_Options___2": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/app__schemas__appointment__Options"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[Options]",
+        "type": "object"
+      },
+      "app__schemas__inquiry__Envelope_Receipt___1": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/app__schemas__complaint__Receipt"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[Receipt]",
+        "type": "object"
+      },
+      "app__schemas__inquiry__Envelope_Receipt___2": {
+        "additionalProperties": false,
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/app__schemas__inquiry__Receipt"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope[Receipt]",
+        "type": "object"
+      },
+      "app__schemas__inquiry__Receipt": {
+        "additionalProperties": false,
+        "properties": {
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "reference": {
+            "title": "Reference",
+            "type": "string"
+          },
+          "status": {
+            "const": "new",
+            "default": "new",
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "reference"
+        ],
+        "title": "Receipt",
         "type": "object"
       },
       "app__schemas__inquiry__StaffRef": {
@@ -5833,7 +6849,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Envelope_Options_"
+                  "$ref": "#/components/schemas/app__schemas__inquiry__Envelope_Options___2"
                 }
               }
             },
@@ -6372,6 +7388,548 @@
         "summary": "Client Patch"
       }
     },
+    "/api/v1/admin/complaint-options": {
+      "get": {
+        "operationId": "options_api_v1_admin_complaint_options_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app__schemas__inquiry__Envelope_Options___1"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Options"
+      }
+    },
+    "/api/v1/admin/complaints": {
+      "get": {
+        "operationId": "queue_api_v1_admin_complaints_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "new",
+                    "triage",
+                    "investigating",
+                    "resolved",
+                    "dismissed"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          },
+          {
+            "in": "query",
+            "name": "kind",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "suspicious_listing",
+                    "dispute",
+                    "service_complaint",
+                    "other"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Kind"
+            }
+          },
+          {
+            "in": "query",
+            "name": "reason",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "fake_listing",
+                    "wrong_price",
+                    "misleading_description",
+                    "already_let_or_sold",
+                    "unauthorised_agent",
+                    "asked_to_pay_outside",
+                    "other"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Reason"
+            }
+          },
+          {
+            "in": "query",
+            "name": "assigned_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Assigned To"
+            }
+          },
+          {
+            "in": "query",
+            "name": "property_id",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Property Id"
+            }
+          },
+          {
+            "in": "query",
+            "name": "outcome",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "substantiated",
+                    "partially_substantiated",
+                    "unsubstantiated",
+                    "inconclusive"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Outcome"
+            }
+          },
+          {
+            "in": "query",
+            "name": "overdue_first_response",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Overdue First Response"
+            }
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "in": "query",
+            "name": "sort",
+            "required": false,
+            "schema": {
+              "default": "-created_at",
+              "enum": [
+                "created_at",
+                "-created_at"
+              ],
+              "title": "Sort",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_CaseSummary_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Queue"
+      }
+    },
+    "/api/v1/admin/complaints/{id}": {
+      "get": {
+        "operationId": "detail_api_v1_admin_complaints__id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_StaffDetail_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Detail"
+      }
+    },
+    "/api/v1/admin/complaints/{id}/assign": {
+      "post": {
+        "operationId": "assign_api_v1_admin_complaints__id__assign_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/app__schemas__complaint__Assign"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_StaffDetail_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Assign"
+      }
+    },
+    "/api/v1/admin/complaints/{id}/files/{file_id}": {
+      "get": {
+        "operationId": "grant_api_v1_admin_complaints__id__files__file_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "file_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "File Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Grant_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Grant"
+      }
+    },
+    "/api/v1/admin/complaints/{id}/files/{file_id}/content": {
+      "get": {
+        "operationId": "content_api_v1_admin_complaints__id__files__file_id__content_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "file_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "File Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "token",
+            "required": true,
+            "schema": {
+              "maxLength": 1000,
+              "title": "Token",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {}
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Content"
+      }
+    },
+    "/api/v1/admin/complaints/{id}/investigation": {
+      "put": {
+        "operationId": "investigation_api_v1_admin_complaints__id__investigation_put",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Investigation"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_StaffDetail_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Investigation"
+      }
+    },
+    "/api/v1/admin/complaints/{id}/transitions": {
+      "post": {
+        "operationId": "transition_api_v1_admin_complaints__id__transitions_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/app__schemas__complaint__Transition"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_StaffDetail_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Transition"
+      }
+    },
     "/api/v1/admin/inquiries": {
       "get": {
         "operationId": "pipeline_api_v1_admin_inquiries_get",
@@ -6544,7 +8102,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/Assign"
+                "$ref": "#/components/schemas/app__schemas__inquiry__Assign"
               }
             }
           },
@@ -8651,6 +10209,271 @@
         "summary": "Register"
       }
     },
+    "/api/v1/complaints": {
+      "get": {
+        "operationId": "mine_api_v1_complaints_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "new",
+                    "triage",
+                    "investigating",
+                    "resolved",
+                    "dismissed"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Page_CaseSummary_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Mine"
+      },
+      "post": {
+        "operationId": "create_api_v1_complaints_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/app__schemas__complaint__Create"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app__schemas__inquiry__Envelope_Receipt___1"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create"
+      }
+    },
+    "/api/v1/complaints/{id}": {
+      "get": {
+        "operationId": "own_api_v1_complaints__id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_CaseSummary_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Own"
+      }
+    },
+    "/api/v1/complaints/{id}/files": {
+      "post": {
+        "operationId": "own_upload_api_v1_complaints__id__files_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Upload-Token",
+            "required": true,
+            "schema": {
+              "maxLength": 200,
+              "title": "X-Upload-Token",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_own_upload_api_v1_complaints__id__files_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Evidence_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Own Upload"
+      }
+    },
+    "/api/v1/complaints/{id}/files/{file_id}": {
+      "delete": {
+        "operationId": "own_remove_api_v1_complaints__id__files__file_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "file_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "File Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Upload-Token",
+            "required": true,
+            "schema": {
+              "maxLength": 200,
+              "title": "X-Upload-Token",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Own Remove"
+      }
+    },
     "/api/v1/health": {
       "get": {
         "operationId": "health_api_v1_health_get",
@@ -8799,7 +10622,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/Envelope_Receipt_"
+                  "$ref": "#/components/schemas/app__schemas__inquiry__Envelope_Receipt___2"
                 }
               }
             },
@@ -9670,6 +11493,176 @@
           }
         },
         "summary": "Media File"
+      }
+    },
+    "/api/v1/reports": {
+      "post": {
+        "operationId": "report_api_v1_reports_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "X-Captcha-Token",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 4096,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Captcha-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Report"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/app__schemas__inquiry__Envelope_Receipt___1"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Report"
+      }
+    },
+    "/api/v1/reports/{id}/files": {
+      "post": {
+        "operationId": "public_upload_api_v1_reports__id__files_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Upload-Token",
+            "required": true,
+            "schema": {
+              "maxLength": 200,
+              "title": "X-Upload-Token",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "$ref": "#/components/schemas/Body_public_upload_api_v1_reports__id__files_post"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope_Evidence_"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Public Upload"
+      }
+    },
+    "/api/v1/reports/{id}/files/{file_id}": {
+      "delete": {
+        "operationId": "public_remove_api_v1_reports__id__files__file_id__delete",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "path",
+            "name": "file_id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "File Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Upload-Token",
+            "required": true,
+            "schema": {
+              "maxLength": 200,
+              "title": "X-Upload-Token",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Public Remove"
       }
     },
     "/api/v1/taxonomy": {

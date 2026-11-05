@@ -5,6 +5,7 @@ from sqlalchemy import and_, exists, func, or_, select
 from app.models.property import (
     Amenity,
     Area,
+    Landlord,
     LandlordApproval,
     Property,
     PropertyAmenity,
@@ -16,55 +17,53 @@ from app.models.property import (
 
 
 def visible():
-    # Recheck checklist integrity on reads too: a stale/imported passed flag alone
-    # must never bypass the publication workflow.
-    # A single indexed count avoids five additional semijoins in broad searches.
-    # (verification_id, code) is unique, so exactly five means every required code.
-    required_checks = (
-        select(func.count(VerificationCheck.id))
-        .where(
-            VerificationCheck.verification_id == PropertyVerification.id,
-            VerificationCheck.code.in_(
-                ("identity", "ownership_docs", "location", "price", "features")
+    # Aggregate verification checks once instead of running correlated counts
+    # for every candidate listing. The unique (verification_id, code) key means
+    # five required-code rows cover the whole required checklist.
+    eligible = (
+        select(PropertyVerification.property_id)
+        .join(VerificationCheck, VerificationCheck.verification_id == PropertyVerification.id)
+        .outerjoin(
+            PropertyDocument,
+            and_(
+                PropertyDocument.id == VerificationCheck.evidence_document_id,
+                PropertyDocument.property_id == PropertyVerification.property_id,
             ),
         )
-        .correlate(PropertyVerification)
-        .scalar_subquery()
-        == 5
-    )
-    invalid_check = exists(
-        select(VerificationCheck.id).where(
-            VerificationCheck.verification_id == PropertyVerification.id,
-            or_(
-                VerificationCheck.result == "fail",
-                and_(
-                    VerificationCheck.result == "na",
-                    func.length(func.trim(func.coalesce(VerificationCheck.note, ""))) == 0,
-                ),
-                and_(
-                    VerificationCheck.evidence_document_id.is_not(None),
-                    ~exists(
-                        select(PropertyDocument.id).where(
-                            PropertyDocument.id == VerificationCheck.evidence_document_id,
-                            PropertyDocument.property_id == PropertyVerification.property_id,
-                        )
-                    ),
-                ),
-            ),
-        )
-    )
-    verification = exists(
-        select(PropertyVerification.id)
-        .correlate(Property)
         .where(
-            PropertyVerification.property_id == Property.id,
             PropertyVerification.is_current.is_(True),
             PropertyVerification.status == "passed",
             PropertyVerification.verified_at.is_not(None),
-            required_checks,
-            ~invalid_check,
+        )
+        .group_by(PropertyVerification.id, PropertyVerification.property_id)
+        .having(
+            func.count(VerificationCheck.id).filter(
+                VerificationCheck.code.in_(
+                    ("identity", "ownership_docs", "location", "price", "features")
+                )
+            )
+            == 5,
+            func.bool_and(
+                or_(
+                    VerificationCheck.result == "pass",
+                    and_(
+                        VerificationCheck.result == "na",
+                        func.length(func.trim(func.coalesce(VerificationCheck.note, ""))) > 0,
+                    ),
+                )
+            ),
+            func.bool_and(
+                or_(
+                    VerificationCheck.evidence_document_id.is_(None),
+                    PropertyDocument.id.is_not(None),
+                )
+            ),
         )
     )
+    # Keep membership as a filter: pulling the aggregate into a nested-loop
+    # join can compare every listing against every verified-property group.
+    # Both IDs are non-null, so IS TRUE preserves the same visibility rule.
+    verification = Property.id.in_(eligible).is_(True)
     approval = exists(
         select(LandlordApproval.id)
         .correlate(Property)
@@ -77,7 +76,16 @@ def visible():
             LandlordApproval.approved_at <= func.now(),
         )
     )
-    return and_(Property.status == "published", verification, approval)
+    return and_(
+        Property.status == "published",
+        verification,
+        approval,
+        ~exists(
+            select(Landlord.id).where(
+                Landlord.id == Property.landlord_id, Landlord.blocked_at.is_not(None)
+            )
+        ),
+    )
 
 
 def joined():
@@ -142,7 +150,6 @@ def search_statement(filters):
 
 def search(db, filters, sorts, page, size):
     stmt = search_statement(filters)
-    total = db.scalar(select(func.count()).select_from(stmt.subquery())) or 0
     ordering = []
     for name, desc in sorts:
         column = (
@@ -153,9 +160,19 @@ def search(db, filters, sorts, page, size):
             )
         )
         ordering.append((column.desc() if desc else column.asc()).nulls_last())
-    return db.execute(
-        stmt.order_by(*ordering, Property.id).offset((page - 1) * size).limit(size)
-    ).all(), total
+    # Count the same eligible rows in the page query instead of repeating all
+    # verification/privacy predicates in a separate count query on every request.
+    rows = db.execute(
+        stmt.add_columns(func.count().over().label("total_items"))
+        .order_by(*ordering, Property.id)
+        .offset((page - 1) * size)
+        .limit(size)
+    ).all()
+    if rows:
+        return [tuple(row[:4]) for row in rows], int(rows[0][4])
+    # An offset beyond the last page has no window row from which to read total.
+    total = db.scalar(select(func.count()).select_from(stmt.subquery())) if page > 1 else 0
+    return [], total or 0
 
 
 def detail(db, slug):

@@ -21,13 +21,19 @@ def send_outbox(db, settings):
             message["From"] = settings.smtp_from
             message["To"] = row.to_email
             message["Subject"] = {
+                "complaint_reviewed": "Your Kof’a report has been reviewed",
                 "reset": "Reset your Kof’a password",
                 "invitation": "Your Kof’a team invitation",
                 "verification": "Verify your Kof’a email",
             }[row.template]
-            message.set_content(
-                f"Follow this single-use link within one hour:\n{row.payload['link']}\nIf you did not request this, ignore this email."
-            )
+            if row.template == "complaint_reviewed":
+                message.set_content(
+                    "Our team has reviewed your report.\n" + row.payload.get("public_note", "")
+                )
+            else:
+                message.set_content(
+                    f"Follow this single-use link within one hour:\n{row.payload['link']}\nIf you did not request this, ignore this email."
+                )
             try:
                 server.send_message(message)
                 row.status, row.sent_at = "sent", now()
