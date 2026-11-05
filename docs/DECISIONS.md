@@ -223,3 +223,7 @@ Use §4.6 transition table and PRD BR-01/02. Verification is an in-review operat
 ### 2026-11-04 — BE-4.7 public browsing working assumptions
 
 Use API §4.3/4.5, PRD BR-01/03, OQ-11 location default and existing substring search. Public eligibility rechecks published/passed/current-approved data. Round coordinates to two decimals with a conservative 1000 m radius. Keep files private and provide visibility-gated local delivery / at-most-60-second signed S3 redirects instead of provisioning a public bucket. Issued grants may survive unpublication until expiry. Existing indexes assessed locally before adding migrations. No remote database access, infrastructure, direct uploads or staff email work. User explicitly authorizes frontend integration preserving original design. API v0.8.0, CR-PUBLIC-BROWSE-001; external review pending.
+
+- 2026-11-04 owner override: defer BE-4.8 reusable development seed data. Test-only fictional fixtures remain; complete BE-4.9 hardening then the inquiry/messaging integration. Public reads recheck checklist integrity as defence in depth.
+
+- 2026-11-04 J-5.1 working assumptions: OQ-08 requires registered clients; OQ-14 async text-only threads with 30-second polling. No attachments, automatic contact detection, mail delivery or inspection scheduling in this module. CR-INQUIRY-001 freezes additive request/response/lifecycle shapes; other-developer review pending.

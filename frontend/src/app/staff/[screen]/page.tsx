@@ -1,3 +1,5 @@
+import { LiveInquiries } from "@/components/features/inquiries/live";
+import { liveInquiryStaffViews } from "@/components/features/inquiries/model";
 import { LiveStaffWorkspace } from "@/components/features/live-staff/workspace";
 import { liveStaffViews } from "@/components/features/live-staff/model";
 import { requireReviewRole } from "@/lib/review-server/session";
@@ -26,6 +28,8 @@ export default async function Page({
     `/staff/${screen}${query.size ? `?${query}` : ""}`,
   );
   if (!staffScreens.some(({ slug }) => slug === screen)) notFound();
+  if (liveInquiryStaffViews.has(screen))
+    return <LiveInquiries key={screen} view={screen} staff />;
   if (liveStaffViews.includes(screen))
     return <LiveStaffWorkspace key={screen} view={screen} />;
   return <StaffScreen key={screen} slug={screen} />;

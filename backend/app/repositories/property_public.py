@@ -8,6 +8,7 @@ from app.models.property import (
     LandlordApproval,
     Property,
     PropertyAmenity,
+    PropertyDocument,
     PropertyMedia,
     PropertyVerification,
     VerificationCheck,
@@ -15,6 +16,43 @@ from app.models.property import (
 
 
 def visible():
+    # Recheck checklist integrity on reads too: a stale/imported passed flag alone
+    # must never bypass the publication workflow.
+    # A single indexed count avoids five additional semijoins in broad searches.
+    # (verification_id, code) is unique, so exactly five means every required code.
+    required_checks = (
+        select(func.count(VerificationCheck.id))
+        .where(
+            VerificationCheck.verification_id == PropertyVerification.id,
+            VerificationCheck.code.in_(
+                ("identity", "ownership_docs", "location", "price", "features")
+            ),
+        )
+        .correlate(PropertyVerification)
+        .scalar_subquery()
+        == 5
+    )
+    invalid_check = exists(
+        select(VerificationCheck.id).where(
+            VerificationCheck.verification_id == PropertyVerification.id,
+            or_(
+                VerificationCheck.result == "fail",
+                and_(
+                    VerificationCheck.result == "na",
+                    func.length(func.trim(func.coalesce(VerificationCheck.note, ""))) == 0,
+                ),
+                and_(
+                    VerificationCheck.evidence_document_id.is_not(None),
+                    ~exists(
+                        select(PropertyDocument.id).where(
+                            PropertyDocument.id == VerificationCheck.evidence_document_id,
+                            PropertyDocument.property_id == PropertyVerification.property_id,
+                        )
+                    ),
+                ),
+            ),
+        )
+    )
     verification = exists(
         select(PropertyVerification.id)
         .correlate(Property)
@@ -23,6 +61,8 @@ def visible():
             PropertyVerification.is_current.is_(True),
             PropertyVerification.status == "passed",
             PropertyVerification.verified_at.is_not(None),
+            required_checks,
+            ~invalid_check,
         )
     )
     approval = exists(

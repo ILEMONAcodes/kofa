@@ -169,10 +169,13 @@ Indexes: `(status, published_at DESC)`, `(area_id)`, `(listing_type, property_ty
 ## 5. Inquiry domain  (shapes frozen in J-5.1)
 
 ### `inquiries`
-`id`, `client_id` FK users NOT NULL, `property_id` FK NULL (null = general inquiry), `kind` (`property_interest`,`inspection_request`,`general`), `source` (`web_form`,`assistant`) DEFAULT `web_form`, `assistant_conversation_id` FK NULL, `status` (`new`,`in_progress`,`qualified`,`inspection_scheduled`,`negotiating`,`closed_won`,`closed_lost`,`spam`), `assigned_staff_id` FK, `budget_min bigint`, `budget_max bigint`, `desired_move_in date`, `qualified_at`, `closed_at`, `closed_reason text`, `last_client_message_at`, `last_staff_message_at`, `row_version`, `created_at`, `updated_at`. Partial unique `(client_id, property_id)` WHERE `status NOT IN ('closed_won','closed_lost','spam') AND property_id IS NOT NULL`. Indexes: `(status, created_at)`, `(assigned_staff_id, status)`, `(client_id)`.
+`id`, `client_id` FK users NOT NULL, `property_id` FK NULL (null = general inquiry), `kind` (`property_interest`,`inspection_request`,`general`), `source` (`web_form`,`assistant`) DEFAULT `web_form`, `status` (`new`,`in_progress`,`qualified`,`inspection_scheduled`,`negotiating`,`closed_won`,`closed_lost`,`spam`), `assigned_staff_id` FK, `budget_min bigint`, `budget_max bigint`, `desired_move_in date`, `qualified_at`, `closed_at`, `closed_reason text`, `last_client_message_at`, `last_staff_message_at`, `row_version`, `created_at`, `updated_at`. Partial unique `(client_id, property_id)` WHERE `status NOT IN ('closed_won','closed_lost','spam') AND property_id IS NOT NULL`. Indexes: `(status, created_at)`, `(assigned_staff_id, status)`, `(client_id, created_at)`. BE-5.2 implements these tables in `be52_inquiries`; assistant conversation linkage is deferred to the assistant module. Messages/notes have database length checks; budgets are nonnegative and ordered; kind/general property linkage is constrained.
 
 ### `inquiry_messages`
-`id`, `inquiry_id` FK, `sender_id` FK users, `sender_role` (`client`,`staff`), `body text` (≤ 4000), `created_at`, `read_at`. Index `(inquiry_id, created_at)`.
+`id`, `inquiry_id` FK, `sender_id` FK users, `sender_role` (`client`,`staff`), `body text` (≤ 4000), `created_at`, `read_at`. Index `(inquiry_id, created_at, id)`.
+
+### `inquiry_requests` (private idempotency)
+`id` UUID, `client_id` FK users, `inquiry_id` FK inquiries, `key_hash` SHA256 varchar(64), `body_hash` SHA256 varchar(64), `created_at`. Unique `(client_id,key_hash)`. Original inquiry receipt is replayed for 24h for the same normalized body; expired keys can be replaced. Raw keys are never stored.
 
 ### `inquiry_notes`  (staff-only)
 `id`, `inquiry_id` FK, `author_id` FK, `body text`, `created_at`.

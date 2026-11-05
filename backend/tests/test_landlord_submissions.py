@@ -387,10 +387,12 @@ def test_submission_migration_rollback_guard(engine, db):
     prop.submission_reference = "SUB-TEST-000001"
     db.commit()
     db.close()
+    with engine.connect() as conn:
+        revision_before = conn.scalar(text("SELECT version_num FROM alembic_version"))
     with pytest.raises(DBAPIError, match="submission references"):
         command.downgrade(migration_config(), "be42_properties")
     with engine.connect() as conn:
-        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == "be44_submissions"
+        assert conn.scalar(text("SELECT version_num FROM alembic_version")) == revision_before
 
 
 def test_draft_json_receive_limit(client, setup_submission):

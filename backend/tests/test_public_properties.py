@@ -285,6 +285,7 @@ def test_search_plan_and_latency_on_5000_published(db, client, record):
     rows = []
     verifications = []
     approvals = []
+    checks = []
     for i in range(4999):
         pid = uuid.uuid4()
         rows.append(
@@ -308,8 +309,14 @@ def test_search_plan_and_latency_on_5000_published(db, client, record):
                 published_at=now,
             )
         )
+        vid = uuid.uuid4()
+        checks.extend(
+            dict(verification_id=vid, code=c, result="pass")
+            for c in ["identity", "ownership_docs", "location", "price", "features"]
+        )
         verifications.append(
             dict(
+                id=vid,
                 property_id=pid,
                 method="desk_review",
                 status="passed",
@@ -332,8 +339,17 @@ def test_search_plan_and_latency_on_5000_published(db, client, record):
     db.execute(insert(Property), rows)
     db.execute(insert(PropertyVerification), verifications)
     db.execute(insert(LandlordApproval), approvals)
+    db.execute(insert(VerificationCheck), checks)
     db.commit()
-    for table in ["properties", "property_verifications", "property_landlord_approvals"]:
+    for table in [
+        "properties",
+        "property_verifications",
+        "property_landlord_approvals",
+        "verification_checks",
+        "property_documents",
+        "property_media",
+        "areas",
+    ]:
         db.execute(text(f"ANALYZE {table}"))
     stmt = (
         search_statement(
@@ -364,3 +380,23 @@ def test_search_plan_and_latency_on_5000_published(db, client, record):
         )
     )
     assert p95 < 500, f"Local API p95 {p95:.1f} ms exceeds target"
+
+
+@pytest.mark.parametrize("damage", ["missing", "failed", "blank_na"])
+def test_inconsistent_passed_checklist_hidden_on_all_public_surfaces(db, client, record, damage):
+    from sqlalchemy import select
+
+    prop, photo, _ = record
+    publish(db, prop)
+    check = db.scalar(select(VerificationCheck).where(VerificationCheck.code == "identity"))
+    if damage == "missing":
+        db.delete(check)
+    elif damage == "failed":
+        check.result = "fail"
+    else:
+        check.result = "na"
+        check.note = "  "
+    db.commit()
+    assert client.get("/api/v1/properties").json()["data"] == []
+    assert client.get(f"/api/v1/properties/{prop.slug}").status_code == 404
+    assert client.get(f"/api/v1/property-media/{photo.id}").status_code == 404

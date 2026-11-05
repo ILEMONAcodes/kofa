@@ -82,3 +82,9 @@ Set real private S3 configuration before deployed file operations. Schedule `pyt
 ## Staff property management (BE-4.5)
 
 Staff/admin sessions can use queue/detail/PATCH/assign/availability/media routes under /api/v1/admin/properties and the read-only /api/v1/admin/landlords directory. Read the [staff API handoff](../docs/STAFF_PROPERTY_API.md) for versioning, private links and deployment prerequisites. No new migration in this task. Verification and publish transitions are the next module; public browsing and frontend staff integration are not included yet.
+
+## Inquiries and messaging (J-5.10)
+
+Migration `be52_inquiries` adds inquiries, text messages, staff-only notes, append-only status history and hashed idempotency requests. Apply reviewed migrations on the intended database before enabling the connected UI; no production migration was run by this task. Routes use normal authenticated sessions, CSRF/Origin checks, per-actor rate limits and audience-specific DTOs. Clients use `/account/inquiries` and staff/admin `/staff/inquiries` and `/staff/clients`. See [contract and deployment handoff](../docs/LIVE_INQUIRIES.md). No email delivery, inspection scheduling or production fixture data added.
+
+Regenerate the checked-in OpenAPI snapshot with `python -m app.openapi`; this export uses non-secret local settings and does not connect to a database. `tests/test_openapi.py` catches drift.

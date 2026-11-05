@@ -1,3 +1,5 @@
+import { LiveInquiries } from "@/components/features/inquiries/live";
+import { liveClientViews } from "@/components/features/inquiries/model";
 import { requireReviewRole } from "@/lib/review-server/session";
 import { Suspense } from "react";
 import { BrandLoading } from "@/components/common/brand-loading";
@@ -10,19 +12,30 @@ export const metadata = {
 };
 export const dynamic = "force-dynamic";
 export default async function Page({
-  params, searchParams,
+  params,
+  searchParams,
 }: {
   params: Promise<{ screen: string }>;
-  searchParams: Promise<Record<string,string | string[] | undefined>>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { screen } = await params;
   const query = new URLSearchParams();
-  for (const [key,value] of Object.entries(await searchParams)) { if (Array.isArray(value)) value.forEach(item=>query.append(key,item)); else if (value !== undefined) query.set(key,value); }
-  await requireReviewRole(["client"], `/account/${screen}${query.size ? `?${query}` : ""}`);
+  for (const [key, value] of Object.entries(await searchParams)) {
+    if (Array.isArray(value)) value.forEach((item) => query.append(key, item));
+    else if (value !== undefined) query.set(key, value);
+  }
+  await requireReviewRole(
+    ["client"],
+    `/account/${screen}${query.size ? `?${query}` : ""}`,
+  );
   if (!clientScreens.some(({ slug }) => slug === screen)) notFound();
   return (
     <Suspense fallback={<BrandLoading />}>
-      <ClientJourney key={screen} slug={screen} />
+      {liveClientViews.has(screen) ? (
+        <LiveInquiries key={screen} view={screen} />
+      ) : (
+        <ClientJourney key={screen} slug={screen} />
+      )}
     </Suspense>
   );
 }

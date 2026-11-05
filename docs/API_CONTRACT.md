@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.8.0` · **Status:** Draft (conventions and auth/property sections become `Agreed` in J-1.3 and J-4.1) · **Joint ownership**
+**Contract version:** `0.9.0` · **Status:** Auth/property/inquiry sections implemented; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -330,7 +330,7 @@ Only properties with status `published` are returned (BR-01). The public schema 
 | GET | `/properties` | Filters: `q` (title, description, neighbourhood), `listing_type`, `property_type` (multi), `state`, `city`, `area` (slug, multi), `price_min`, `price_max`, `bedrooms_min`, `bedrooms_max`, `bathrooms_min`, `furnishing` (multi), `amenities` (multi, **all** must match), `availability` (multi, default `available`). Sort: `published_at` (default `-published_at`), `price`, `verified_at`. Paginated `PropertySummary` |
 | GET | `/properties/{slug}` | `200 { data: PropertyDetail }`; `404` for non-published |
 
-**BE-4.7 / CR-PUBLIC-BROWSE-001 (v0.8.0, additive):** public taxonomy, search/detail and `GET /property-media/{media_id}?thumbnail=false` implemented. BR-01 is rechecked on every public read: published status, current passed verification with completion timestamp, and non-superseded description approval matching the current price/period with a non-future approval timestamp. Noneligible detail/media returns 404 even to staff; use admin endpoints for private review. Public schemas are independent of admin DTOs. Optional absent cover, thumbnail, alt, payment terms, approximate location and confirmation dates are null. Verification methods use desk_review/physical_inspection/both. Approximate coordinates round to two decimal places and declare radius_m=1000; raw coordinates are never returned.
+**BE-4.7 / CR-PUBLIC-BROWSE-001 (v0.8.0, additive):** public taxonomy, search/detail and `GET /property-media/{media_id}?thumbnail=false` implemented. BE-4.9 clarification: required identity/ownership/location/price/features checks must also exist, all checks must pass or carry a nonblank NA note, and referenced evidence must belong to the property. BR-01 is rechecked on every public read: published status, current passed verification with completion timestamp, and non-superseded description approval matching the current price/period with a non-future approval timestamp. Noneligible detail/media returns 404 even to staff; use admin endpoints for private review. Public schemas are independent of admin DTOs. Optional absent cover, thumbnail, alt, payment terms, approximate location and confirmation dates are null. Verification methods use desk_review/physical_inspection/both. Approximate coordinates round to two decimal places and declare radius_m=1000; raw coordinates are never returned.
 
 Search defaults page=1/page_size=20, availability=available, sort=-published_at. Empty optional text is ignored; unknown/repeated query keys, unknown/duplicate enum/area/amenity/sort values and inverted ranges return 422. Maximum q=150, state/city=100, multi area/amenity strings=2000, price bounds 0..9007199254740991 kobo, bedroom/bathroom bounds 0..20. q is case-insensitive literal substring over title/description and neighbourhood (SQL wildcards escaped). State/city compare case-insensitively, area uses active slugs; amenity filters require every requested active code. Sorts accept multiple contract fields with stable ID tie-breaks and nulls last. Out-of-range page returns empty data/correct meta. Taxonomy returns active areas/amenities only; no private staff references.
 
@@ -407,9 +407,6 @@ These appear in the index so both developers can plan; **request/response shapes
 
 | Group | Endpoints (intent) | Roles | Freeze task |
 |---|---|---|---|
-| Inquiries (client) | `POST /inquiries`, `GET /inquiries`, `GET /inquiries/{id}`, `GET/POST /inquiries/{id}/messages` | client | J-5.1 |
-| Inquiries (staff) | `GET /admin/inquiries`, `GET /admin/inquiries/{id}`, `POST …/assign`, `POST …/transitions`, `PUT …/qualification`, `GET/POST …/notes`, `POST …/messages` | staff, admin | J-5.1 |
-| Clients (staff) | `GET /admin/clients`, `GET /admin/clients/{id}`, `PATCH /admin/clients/{id}` | staff, admin | J-5.1 |
 | Appointments | `POST /admin/appointments`, `GET /admin/appointments`, `PATCH …/{id}`, `POST …/{id}/outcome`; `GET /appointments`, `POST /appointments/{id}/confirm\|cancel\|request-reschedule` | staff/admin; client | J-6.1 |
 | Fees & transactions | `GET/PUT /admin/fee-rules`, `POST/GET /admin/transactions`, `GET /admin/transactions/{id}`, `POST …/events`, `POST …/ledger-entries`, `POST …/transitions`; `GET /transactions` (client summary) | staff/admin; admin for rules; client | J-6.7 |
 | Complaints | Shapes proposed in §4.8 (still `Draft`) | public; client; staff/admin | J-6.14 |
@@ -417,6 +414,21 @@ These appear in the index so both developers can plan; **request/response shapes
 | Notifications | `GET /notifications`, `POST /notifications/{id}/read` | any authenticated | J-6.18 |
 | Reports | `GET /admin/reports/kpis?from&to` | staff, admin | J-6.22 |
 | Policies | Static pages; `GET /policies/current` returns current policy versions for consent | public | J-1.3 |
+
+### 4.7A Inquiries and client directory (J-5.1 / CR-INQUIRY-001)
+
+Additive contract implemented and connected locally; cross-developer review and deployment pending. Authenticated clients only for `/inquiries`; active staff/admin only for `/admin/inquiries` and `/admin/clients`. CSRF/Origin on writes; JSON cap 64 KiB; strict bodies and unknown/repeated query rejection. Text is plain text rendered escaped; no attachments. Every response is no-store. OQ-08 and OQ-14 defaults apply.
+
+- `POST /inquiries`: `{kind:property_interest|inspection_request|general, property_id?:UUID|null, body:1..4000 nonblank, budget_min?:integer kobo|null, budget_max?:integer kobo|null, desired_move_in?:YYYY-MM-DD|null}`. General requires null property; other kinds require currently publicly eligible property (404 otherwise). Nonnegative budgets up to 9e15, min ≤ max. Source server-owned web_form. 201 `{data:{id,reference:"INQ-<UUID>",status:"new"}}`. One open inquiry/client/property across property kinds; duplicate returns 409 CONFLICT. 20 creates/day/client. Optional Idempotency-Key 1..128 chars, client-scoped SHA256 storage; same normalized payload/key within 24h returns original minimal receipt (201), changed payload returns 409 CONFLICT. Actor row locks serialize duplicate/idempotency checks. Expired keys may be reused. Unknown network outcomes should retry with same key.
+- `GET /inquiries` and `GET /admin/inquiries`: page/page_size (1..100, default20), optional status enum, q max150 literal search over reference/title; staff additionally assigned_to UUID. Ordered updated_at desc then id, `{data:Summary[],meta:{page,page_size,total_items,total_pages}}`.
+- Summary: id, reference, kind, status, unread_count (incoming messages not yet acknowledged by the client/team), property `{id,slug,title}`|null (unpublished target has null slug), budget_min/max, desired_move_in, created_at/updated_at, last_client_message_at/last_staff_message_at. Client never gets landlord/contact/address, staff IDs, closed_reason, notes, audit or qualification internals. `GET /inquiries/{id}` returns own Summary only (other owner's ID =404); staff detail adds client `{id,full_name,email,phone,is_active}`, assigned_staff `{id,full_name}`|null, version, closed_reason, allowed_actions and status history `{from_status,to_status,reason,created_at}`.
+- `GET /inquiries/{id}/messages`: own only, paginated ascending created_at/id. Staff same route under /admin. Message `{id,body,sender_role:client|staff,created_at}`; no sender identity/contact. Reads do not mutate read markers. `POST …/messages` `{body}` returns 201 message, updates last-message time/version. 60 messages/hour/actor across threads. Terminal threads reject writes 409. Admin messages serialize as staff. Notes are never joined into these endpoints.
+- `POST /inquiries/{id}/read` and staff `/admin/inquiries/{id}/read`: `{through_message_id:UUID}` acknowledges incoming messages through that visible message by `(created_at,id)`, never future messages or other threads. Object-level 404 and normal role guards; 240/hour/actor. Returns `{data:{unread_count}}`. Updates message read_at only; no aggregate version bump. Staff share team read state. Connected open threads acknowledge only loaded incoming messages while visible.
+- `POST /admin/inquiries/{id}/assign` `{version,assigned_staff_id:UUID|null}` checks active staff/admin, supports unassign.
+- `PUT …/qualification` `{version,budget_min,budget_max,desired_move_in}` uses same budget rules; null clears values. Qualification does not advance status automatically.
+- `POST …/transitions` `{version,action,reason?:0..2000}`. Actions: start (`new`→`in_progress`), qualify (`in_progress`→`qualified`), negotiate (`qualified` or `inspection_scheduled`→`negotiating`), close_won (`negotiating`→`closed_won`), close_lost or mark_spam (any open→`closed_lost`/`spam`, reason required). Inspection scheduling transition is reserved for BE-6.2, absent from API actions. Terminal threads cannot reopen in MVP. Transition adds history/audit atomically, updates qualified/closed timestamps. Invalid transition409 INVALID_STATE_TRANSITION; stale version409 VERSION_CONFLICT. Staff mutations return `{data:{id,version,status}}`; row locks serialize with messages.
+- `GET/POST …/notes`: staff only, paginated ascending; POST `{body}` 1..4000, returns201 `{id,body,created_at}`. Private notes separate from client reply and absent from staff detail too; only notes endpoint exposes them. 60 notes/hour/actor.
+- `GET /admin/clients`: page/page_size, optional q (name/email/phone literal), returns id/full_name/email/phone/is_active/version/created_at. `GET /admin/clients/{id}` adds paginated `inquiries` (first20) and inquiry_count; clients only, no password/session data. `PATCH …/{id}` `{version,is_active}` only; staff/admin can change client activity, revoke sessions on deactivation and audit. Cannot affect staff/admin via this route.
 
 ### 4.8 Complaints and suspicious-listing reports (proposal; `Draft` until J-6.14)
 
@@ -596,6 +608,8 @@ Field-level privacy matrix (BR-03, BR-11):
 | `POST /assistant/conversations/{id}/messages` | 20 / hour per IP (anonymous); 60 / hour per user; ≤ 1000 characters; 1 in flight per conversation |
 | Assistant daily token budget | Set by admin; exhaustion → handoff `service_unavailable` (not an error) |
 | `POST /inquiries` | 20 / day per client |
+| Inquiry message and note POSTs | 60 / hour per actor per kind (messages/notes separately) |
+| Inquiry read acknowledgement POSTs | 240 / hour per actor |
 
 ## 7. OpenAPI
 
@@ -620,6 +634,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | POST /admin/properties/{id}/transitions, PUT …/verification, POST …/verification/complete, POST …/landlord-approval | Draft (BE-4.6) |
 | GET /admin/landlords, GET /admin/landlords/{id} | Integrated (FE-4.14) |
 | POST /reports, POST /reports/{id}/files, POST/GET /complaints, GET /complaints/{id}, GET /admin/complaints, GET /admin/complaints/{id}, POST …/assign, POST …/transitions, PUT …/investigation | Draft (shapes proposed, §4.8) |
+| POST/GET /inquiries, GET /inquiries/{id}, GET/POST /inquiries/{id}/messages, POST /inquiries/{id}/read; /admin/inquiries assignment/transitions/qualification/messages/notes; GET/PATCH /admin/clients | Integrated locally (J-5.10; see §4.7A and LIVE_INQUIRIES.md) |
 | GET /public-config, POST /assistant/conversations, GET /assistant/conversations/{id}, POST …/messages, POST …/handoff/message-team, POST /assistant/messages/{id}/feedback | Draft (shapes proposed, §4.9) |
 | GET/POST/PATCH /admin/knowledge-articles, POST …/publish, POST …/unpublish, GET /admin/assistant/conversations, GET/PATCH …/{id}, GET/PUT /admin/settings | Draft (shapes proposed, §4.9) |
 | Inquiries, clients, appointments, fees/transactions, notifications, reports (KPIs) | Draft (intent only, §4.7) |
@@ -663,6 +678,8 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.9.0 | 2026-11-04 | CR-INQUIRY-001: freeze client/staff inquiries, text messages, private notes and client directory; OQ-08/14 defaults | Backend + authorized frontend; review pending |
+| 0.8.1 | 2026-11-04 | BE-4.9: clarify defence-in-depth checklist integrity on every public read; response shapes unchanged | Backend; review pending |
 | 0.8.0 | 2026-11-04 | CR-PUBLIC-BROWSE-001: public taxonomy/search/detail, visibility-gated media, explicit query/null/privacy semantics; frontend connection | Backend + authorized frontend; review pending |
 | 0.7.0 | 2026-11-02 | CR-PROPERTY-WORKFLOW-001: implement verification/approval/transitions, explicit version semantics and private server-owned capabilities/blockers; connect staff workflow forms | Developer 2 authorized cross-area implementation; frontend review pending |
 | 0.6.0 | 2026-11-02 | CR-STAFF-PROPERTY-002: private active dropdown options; staff property/landlord frontend integration with multipart/CSRF, optimistic versions and real-stack coverage; workflow transitions remain Draft | Developer 2 authorized cross-area implementation; frontend review pending |
