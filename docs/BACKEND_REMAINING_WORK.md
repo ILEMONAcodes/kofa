@@ -117,3 +117,7 @@ Rows below preserve the current progress tracker status; those statuses can lag 
 ## CI automation update — 5 November 2026
 
 BE-2.6 / FE-2.7 workflows are implemented on `joint/J-2.6-ci-automation`, covering backend/frontend checks, disposable PostgreSQL migrations/API tests, OpenAPI snapshot drift and dependency audits. Hosted Actions execution and administrator configuration of required branch checks remain pending. See [CI handoff](CI_AUTOMATION.md). No deployment or Neon migration is part of these workflows.
+
+## Live dashboard update — 11 November 2026
+
+J-6.22 / BE-6.23 / FE-6.24 / J-6.25 now connect four current workload counts to the staff/admin dashboard with WAT date cohorts, refresh, permissions and empty/error states. See [dashboard handoff](LIVE_DASHBOARD.md). No migration required. Financial metrics and additional PRD KPIs remain separate; live email delivery/staff invitation setup, Cloudflare R2 and transactions remain deferred. Review, push/merge and deployment are not implied by local implementation.

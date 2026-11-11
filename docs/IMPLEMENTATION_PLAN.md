@@ -276,3 +276,5 @@ flowchart TD
 ## 8. Change control for this plan
 
 Adding, splitting or re-prioritising a task needs the developer in charge's agreement (the other reviews at PR time) and an edit to **both** this file and `docs/PROGRESS.md`. Scope additions (anything not in PRD §5) go through `agents/PRODUCT_PLANNER.md` first.
+
+- 2026-11-11 J-6.25: owner-authorized non-financial reporting integrates four current-state workload counts (review listings, open inquiries, upcoming inspections, active complaints) with WAT date cohorts. Financial dependencies remain deferred; fixtures are isolated tests, not the deferred reusable development seed module. See LIVE_DASHBOARD.md.

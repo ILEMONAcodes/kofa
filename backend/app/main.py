@@ -10,6 +10,7 @@ from starlette.exceptions import HTTPException
 
 from app.api.v1 import (
     admin_properties,
+    admin_reports,
     admin_users,
     appointments,
     auth,
@@ -48,6 +49,7 @@ def create_app(settings: Settings | None = None, engine=None):
         complaints.options_router,
     ]:
         app.include_router(router)
+    app.include_router(admin_reports.router)
     app.include_router(appointments.options_router)
     app.include_router(appointments.client_router)
     app.include_router(appointments.staff_router)

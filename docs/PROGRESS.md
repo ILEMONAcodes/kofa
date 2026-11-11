@@ -1,6 +1,6 @@
 # Progress
 
-**Last updated:** 2026-11-04 · **Current phase:** 4 (property management integration in progress) · **PRD:** v0.2 · **Contract version:** 0.8.0 (auth, property workflow and public browsing integrated locally; remaining sections Draft)
+**Last updated:** 2026-11-11 · **Current phase:** 6E (live non-financial dashboard) · **PRD:** v0.2 · **Contract version:** 0.13.0 (four operational dashboard metrics integrated locally; financial reporting deferred)
 
 Rules: each developer updates only the rows they own; joint rows are updated by whoever completes the task and confirmed by the other. Test results are the **actual** output summary, never assumed. See `docs/IMPLEMENTATION_PLAN.md` for files and test requirements per task.
 
@@ -87,7 +87,7 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 | Complaints and reports | Draft (shapes proposed, §4.8) | J-6.14 |
 | AI assistant, public config, knowledge base, settings | Draft (shapes proposed, §4.9) | J-6.28 |
 | Notifications | Draft (intent only) | J-6.18 |
-| Reports | Draft (intent only) | J-6.22 |
+| Reports | Four operational counts integrated locally (CR-REPORT-001); financial/additional KPIs deferred | J-6.22 |
 
 ## Active mocks (must be empty before a feature is accepted)
 
@@ -202,10 +202,10 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 | BE-6.19 | 6D Notification outbox, worker, email sending and event hooks (inquiry reply, appointment changes, listing decisions, transaction updates) | Backend | Should | J-6.18, BE-6.9, BE-6.3, BE-5.4, BE-4.6 | Not started | — | — | Outbox row written in same transaction; worker retries with backoff; failures never break requests; emails tested in Mailpit |
 | FE-6.20 | 6D In-app notification centre (bell, list, mark read) | Frontend | Could | FE-5.7, J-6.18 | Not started | — | — | Unread count; mark read; links to entities |
 | J-6.21 | 6D Notifications integration: E2E key events produce emails (and in-app if built) | Both (lead: Backend) | Should | BE-6.19 | Not started | — | — | E2E green with Mailpit assertions |
-| J-6.22 | 6E Freeze KPI definitions and reporting contract (system-derivable KPIs only) | Both (lead: Backend) | Should | J-6.7 | Not started | OQ-17 | — | Each KPI has formula, source columns, period; excluded KPIs listed |
-| BE-6.23 | 6E KPI aggregate endpoints with date ranges | Backend | Should | BE-6.9, BE-5.2, BE-4.2, J-6.22 | Not started | — | — | Numbers match hand-computed expectations on a fixture dataset; staff/admin only; query plans acceptable |
-| FE-6.24 | 6E Admin dashboard home: queue counts, KPI cards/charts, date filter | Frontend | Should | FE-4.14, J-6.22 | Not started | — | — | Matches API numbers; accessible chart alternatives; loading/empty states |
-| J-6.25 | 6E Reporting integration: remove mocks; verify KPIs against the dev seed | Both (lead: Backend) | Should | BE-6.23, FE-6.24 | Not started | — | — | Dashboard figures equal fixture expectations |
+| J-6.22 | 6E Freeze KPI definitions and reporting contract (system-derivable KPIs only) | Both (lead: Backend) | Should | J-6.7 | In review | OQ-17 | — | Each KPI has formula, source columns, period; excluded KPIs listed |
+| BE-6.23 | 6E KPI aggregate endpoints with date ranges | Backend | Should | BE-6.9, BE-5.2, BE-4.2, J-6.22 | In review | — | — | Numbers match hand-computed expectations on a fixture dataset; staff/admin only; query plans acceptable |
+| FE-6.24 | 6E Admin dashboard home: queue counts, KPI cards/charts, date filter | Frontend | Should | FE-4.14, J-6.22 | In review | — | — | Matches API numbers; accessible chart alternatives; loading/empty states |
+| J-6.25 | 6E Reporting integration: remove mocks; verify KPIs against the dev seed | Both (lead: Backend) | Should | BE-6.23, FE-6.24 | In review | — | — | Dashboard figures equal fixture expectations |
 | FE-6.26 | 6F Policy and disclosure pages: terms, privacy, fees, verification limits, refunds, reporting (placeholder content until legal approval) | Frontend | Must | FE-2.3 | Not started | OQ-01, OQ-18 | — | Pages exist, linked from footer and consent checkboxes; placeholder banner visible until counsel approves; version string matches `/policies/current` |
 | BE-6.27 | 6F Stale-availability job: flag listings not confirmed within the threshold | Backend | Could | BE-4.5, BE-6.19 | Not started | — | — | Listings past the threshold appear under `stale_availability` and trigger a staff email |
 | J-6.28 | 6G Freeze AI assistant contract and safety policy: scope and intents, knowledge-base rules, handoff triggers, call-line and hours config, guardrails, logging and retention, evaluation criteria | Both (lead: Backend) | Should | J-5.1, J-4.1 | Not started | OQ-23, OQ-24, OQ-25, OQ-26 | — | §4.9 endpoints `Agreed`; handoff triggers and refusal categories fixed; call-line number and hours supplied (OQ-24); provider and data-sharing decided (OQ-23); initial FAQ list and ≥40-question golden set drafted (OQ-25) |
@@ -378,3 +378,10 @@ Applied `be615_complaints` to the configured Neon database after explicit owner 
 User explicitly requested both backend and frontend GitHub checks. Added `.github/workflows/backend.yml` and `frontend.yml` on `joint/J-2.6-ci-automation`, based on current main `df2c583`. Every PR/main push/manual run checks locked dependencies and project quality; disposable PostgreSQL 16 backs migration/API tests, OpenAPI snapshot regeneration must match, search latency runs separately, and audits fail on their configured severity. No secrets, deployed backend or Neon access; no deployments. Required branch checks need administrator configuration after hosted execution. See [CI handoff](CI_AUTOMATION.md).
 
 Local verification: actionlint passed; backend Ruff/mypy/pip consistency/OpenAPI passed; empty migration round trip passed; **518 regression tests plus 1 separate performance test passed**, p95 **404.78 ms**. Frontend lint, **146 unit tests**, mock audit, build and typecheck passed. Backend audit found no known vulnerabilities; frontend audit passed the high/critical gate with eight moderate development-tooling findings retained for follow-up. Local runtimes differ from the hosted target; first GitHub run, failing-PR verification, branch protection and independent review remain pending. Contract unchanged; no application code or production data changed.
+
+
+### 2026-11-11 — J-6.25 live operational dashboard
+
+Owner-authorized backend/frontend integration on joint/J-6.25-live-dashboard (main 0264d26): staff overview and admin overview/reports share real review-listing, open-inquiry, upcoming-inspection and active-complaint counts. Added paired inclusive WAT dates, definitions, refresh, role checks and honest loading/error/empty states. Admin root opens the overview; team tools remain linked. Original theme/mobile navigation retained, with a corrected wide desktop layout. Contract v0.13.0 / CR-REPORT-001; no migration or dependency on deferred notification rollout.
+
+Earlier full regression: 576 backend and 154 frontend tests passed; final fresh-local reporting/OpenAPI checks: 18 passed; focused UI: 3 passed; real-stack Chrome: 2 passed with responsive/axe and screenshot review. Ruff/mypy (70 files), lint, types and build verification passed. Separately scheduled latency case passed at p95 260.76 ms on 5,000 listings. See LIVE_DASHBOARD.md for evidence and dates. Financial/extra KPIs, live email and staff invitations, Cloudflare storage and transactions remain separate/deferred. No private env or production operations. Independent review, push/merge and deployment remain pending.

@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.11.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
+**Contract version:** `0.13.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -411,7 +411,7 @@ These appear in the index so both developers can plan; **request/response shapes
 | Complaints | Shapes proposed in §4.8 (still `Draft`) | public; client; staff/admin | J-6.14 |
 | AI assistant, public config, knowledge base, settings | Shapes proposed in §4.9 (still `Draft`) | public; client; staff/admin | J-6.28 |
 | Notifications | `GET /notifications`, `POST /notifications/{id}/read` | any authenticated | J-6.18 |
-| Reports | `GET /admin/reports/kpis?from&to` | staff, admin | J-6.22 |
+| Reports (four operational counts; implemented) | `GET /admin/reports/kpis?from&to` | staff, admin | J-6.22 / CR-REPORT-001 |
 | Policies | Static pages; `GET /policies/current` returns current policy versions for consent | public | J-1.3 |
 
 ### 4.7A Inquiries and client directory (J-5.1 / CR-INQUIRY-001)
@@ -594,7 +594,8 @@ Rules: the `call` option is **present in every handoff**; `report_listing` appea
 | `POST /reports`, `POST /reports/{id}/files` (token) | ✓ | ✓ | ✓ | ✓ |
 | `POST /complaints`, `GET /complaints*`, own complaint files (account + scoped token) | — | own | — | — |
 | `GET /admin/complaint-options` | — | — | ✓ | ✓ |
-| `/admin/complaints*`, `/admin/reports*` | — | — | ✓ (`listing_rejected`, `landlord_blocked`, `reopen`: admin only) | ✓ |
+| `/admin/complaints*` | — | — | ✓ (`listing_rejected`, `landlord_blocked`, `reopen`: admin only) | ✓ |
+| `GET /admin/reports/kpis` | — | — | ✓ (team aggregates) | ✓ |
 | `/notifications*` | — | own | own | own |
 | `GET /public-config`, `POST /assistant/conversations`, `…/messages`, `GET …/{id}` | ✓ (token) | ✓ | ✓ | ✓ |
 | `POST /assistant/conversations/{id}/handoff/message-team` | — | ✓ | — | — |
@@ -661,7 +662,8 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | GET /public-config, POST /assistant/conversations, GET /assistant/conversations/{id}, POST …/messages, POST …/handoff/message-team, POST /assistant/messages/{id}/feedback | Draft (shapes proposed, §4.9) |
 | GET/POST/PATCH /admin/knowledge-articles, POST …/publish, POST …/unpublish, GET /admin/assistant/conversations, GET/PATCH …/{id}, GET/PUT /admin/settings | Draft (shapes proposed, §4.9) |
 | Appointments client/staff list/detail, schedule/reschedule/cancel/confirm/request-reschedule/outcome and staff appointment-options | Integrated locally (J-6.6, §4.7B; deployment/review pending) |
-| Fees/transactions, notifications, reports (KPIs) | Draft (intent only, §4.7) |
+| Fees/transactions, notifications | Draft (intent only, §4.7; notification implementation pending on a separate branch) |
+| GET /admin/reports/kpis | Integrated locally (CR-REPORT-001; peer review/deployment pending) |
 
 ## 9. Examples
 
@@ -702,6 +704,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.13.0 | 2026-11-05 | CR-REPORT-001: private four-count operational dashboard, strict WAT date filters and current-state cohort definitions; financial KPIs deferred. v0.12.0 reserved on pending notification branch. | Backend + authorized frontend; peer review pending |
 | 0.11.0 | 2026-11-05 | CR-COMPLAINT-001: scoped reports/complaints/evidence, confidential investigation, explicit holds, guarded admin actions; transaction/refund scope deferred | Backend + authorized frontend; peer review pending |
 | 0.10.0 | 2026-11-05 | CR-APPOINTMENT-001: inspection lifecycle, slot conflicts, scoped address exception approved by owner, zero fee default and integrated scheduling shapes | Backend + authorized frontend; peer review pending |
 | 0.9.0 | 2026-11-04 | CR-INQUIRY-001: freeze client/staff inquiries, text messages, private notes and client directory; OQ-08/14 defaults | Backend + authorized frontend; review pending |
@@ -723,3 +726,14 @@ Strict JSON/query validation; all cookie mutations require existing CSRF/Origin 
 Recording listing corrections or warnings attests to staff work performed separately; only holds, rejection and blocking change restrictions through this module. Staff detail alone includes description, contact/user ID (no raw IP), subject IDs, findings/evidence/outcome/actions, assignment, hold deadline, event history and other-open-case count. Client list/detail returns only own ID/reference/kind/status/created_at/public_note. Staff detail includes server-owned, role/subject-aware `allowed_actions` and `allowed_case_actions`, plus active staff options from `/admin/complaint-options`. Lists use existing page/page_size envelopes; staff accepts §4.8 filters plus `sort`; client accepts status. Receipts/tokens/private responses are no-store. Writes max 64 KiB; files max 5 MiB plus multipart overhead. Staff writes 120/hour/actor; reads require authorization; case mutation version conflicts return 409. Duplicate reports use per-identity advisory locking, salted HMAC IP key and a 24-hour window. Public follow-up emails contain only a generic reviewed notice and the public note. Private text is never logged. CAPTCHA-ready reports accept `X-Captcha-Token` through the existing server verifier interface. Required installations fail closed when the verifier is unavailable; provider/widget provisioning is pending.
 
 Public browsing keeps the same response/filter/pagination contract: visibility checks are grouped and property-scoped, and window counting shares eligibility with returned rows (out-of-range empty pages use a count fallback). This fixes the search-plan regression introduced while enforcing blocked-landlord visibility; it does not relax verification or privacy.
+
+
+### CR-REPORT-001 — operational dashboard (J-6.22, v0.13.0)
+
+`GET /admin/reports/kpis` — staff/admin only; implemented with frontend integration. Optional `from` and `to` must both be present as `YYYY-MM-DD` calendar dates, with `from <= to`. Unknown/repeated keys, empty dates, invalid dates, timestamps or unrepresentable following-day bounds return `422 VALIDATION_ERROR`. Default is all dates. Date windows are inclusive calendar days in Africa/Lagos, translated to UTC `[from midnight, midnight after to)`. Response is private (`Cache-Control: no-store`), with no entities, contacts, documents or narrative.
+
+```json
+{"data":{"as_of":"2030-05-10T12:00:00Z","period":{"from_date":"2030-05-10","to_date":"2030-05-10","timezone":"Africa/Lagos"},"counts":{"listings_awaiting_review":2,"open_inquiries":5,"upcoming_inspections":3,"active_complaints":3}}}
+```
+
+Metric definitions/date columns: [live dashboard](LIVE_DASHBOARD.md#metric-definitions). These are **current** status counts within the selected date cohort, not historical snapshots or totals of all events in that period. Upcoming inspections must also start at or after response `as_of`, even when the date filter is in the past. Query uses one database statement/snapshot for all four aggregates. Anonymous → 401; clients → 403; inactive users use the existing revoked-session behavior. No financial KPIs, export endpoint or additional PRD metrics are implemented in this scope. Version 0.12.0 is reserved for the independent notification work and is not a dashboard dependency.
