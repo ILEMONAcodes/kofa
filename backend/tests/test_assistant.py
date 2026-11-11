@@ -508,7 +508,8 @@ def test_usage_accounting_and_provider_transport(configured, client, db, setting
     repo.account(db, day, result, 1000, 100)
     row = db.get(AssistantUsage, day)
     assert row.reserved_tokens == 100 and row.tokens_in == 12 and row.tokens_out == 3
-    # An unexpected usage overrun closes the remaining budget for this day.
+    # A second reserved call unexpectedly overruns and closes the remaining budget.
+    assert repo.reserve(db, 100, 1000, 10) is not None
     repo.account(db, day, provider.Reply("{}", "test", 900, 900, True), 1000, 100)
     db.expire_all()
     assert db.get(AssistantUsage, day).reserved_tokens >= 1000
@@ -708,3 +709,28 @@ def test_general_complaint_handoff_does_not_misroute_to_listing_report(configure
     result = ask(client, start(client), "I have a complaint about the service").json()["data"]
     assert result["handoff"]["reason"] == "out_of_scope"
     assert [option["type"] for option in result["handoff"]["options"]] == ["call", "message_team"]
+
+
+def test_handoff_blocks_a_delayed_question_claim(configured, client, db):
+    login(client, db, "client")
+    conv = start(client)
+    id = uuid.UUID(conv["id"])
+    assert (
+        write(
+            client, "/assistant/conversations/" + conv["id"] + "/handoff/message-team", {}
+        ).status_code
+        == 201
+    )
+    assert repo.claim(db, id, uuid.uuid4()) is False
+
+
+def test_unfinished_call_usage_remains_unconfirmed(configured, db):
+    day = repo.reserve(db, 100, 1000, 10)
+    row = db.get(AssistantUsage, day)
+    assert row.requests == 1 and row.unknown_usage_requests == 1
+    repo.account(db, day, provider.Reply("{}", "test", 20, 10, True), 1000, 100)
+    db.expire_all()
+    assert db.get(AssistantUsage, day).unknown_usage_requests == 0
+    assert repo.reserve(db, 100, 1000, 10) is not None
+    db.expire_all()
+    assert db.get(AssistantUsage, day).unknown_usage_requests == 1

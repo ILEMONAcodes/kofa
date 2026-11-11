@@ -42,6 +42,7 @@ def claim(db, id, lease):
         .where(
             Conversation.id == id,
             Conversation.status != "closed",
+            Conversation.inquiry_id.is_(None),
             or_(Conversation.in_flight.is_(None), Conversation.lease_until < now()),
         )
         .values(in_flight=lease, lease_until=now() + timedelta(seconds=60))
@@ -88,6 +89,7 @@ def reserve(db, amount, limit, request_limit):
         .values(
             reserved_tokens=AssistantUsage.reserved_tokens + amount,
             requests=AssistantUsage.requests + 1,
+            unknown_usage_requests=AssistantUsage.unknown_usage_requests + 1,
         )
         .returning(AssistantUsage.day)
     ).scalar()
@@ -107,7 +109,7 @@ def account(db, day, reply, limit, reservation):
         .values(
             tokens_in=AssistantUsage.tokens_in + (reply.tokens_in if known else 0),
             tokens_out=AssistantUsage.tokens_out + (reply.tokens_out if known else 0),
-            unknown_usage_requests=AssistantUsage.unknown_usage_requests + (0 if known else 1),
+            unknown_usage_requests=AssistantUsage.unknown_usage_requests - (1 if known else 0),
             **extra,
         )
     )
