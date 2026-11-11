@@ -121,3 +121,7 @@ BE-2.6 / FE-2.7 workflows are implemented on `joint/J-2.6-ci-automation`, coveri
 ## Live dashboard update — 11 November 2026
 
 J-6.22 / BE-6.23 / FE-6.24 / J-6.25 now connect four current workload counts to the staff/admin dashboard with WAT date cohorts, refresh, permissions and empty/error states. See [dashboard handoff](LIVE_DASHBOARD.md). No migration required. Financial metrics and additional PRD KPIs remain separate; live email delivery/staff invitation setup, Cloudflare R2 and transactions remain deferred. Review, push/merge and deployment are not implied by local implementation.
+
+## Availability maintenance update — 11 November 2026
+
+BE-6.27 now supplies a configurable stale queue, bounded audit scanner and connected staff confirmations/history. No migration or automatic unpublish/email. Scanner scheduling on the deployed host remains an operational setup step; see [handoff](AVAILABILITY_MAINTENANCE.md). Email/staff invitations, private Cloudflare storage and transactions remain deferred. Support/assistant and production readiness remain separate modules.

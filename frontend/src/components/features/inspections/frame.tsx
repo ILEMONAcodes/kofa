@@ -21,6 +21,7 @@ export function InspectionFrame({
   const destinations = staff
     ? [
         ["Overview", "/staff/overview"],
+        ["Availability review", "/staff/availability-queue"],
         ["Properties", "/staff/properties"],
         ["Inquiries", "/staff/inquiries"],
         ["Inspections", "/staff/inspections"],

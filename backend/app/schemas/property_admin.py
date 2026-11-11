@@ -83,9 +83,19 @@ class Assignment(StrictModel):
 
 
 class AvailabilityInput(StrictModel):
-    availability_status: Availability
+    availability_status: Availability | None = None
+    outcome: (
+        Literal["available", "under_offer", "unavailable", "let", "sold", "withdrawn"] | None
+    ) = None
+    note: str | None = Field(default=None, max_length=1000)
     confirmed_at: datetime | None = None
     version: int | None = Field(default=None, strict=True, ge=1)
+
+    @model_validator(mode="after")
+    def supplied_availability(self):
+        if self.availability_status is None and self.outcome is None:
+            raise ValueError("Choose an availability status or confirmation outcome")
+        return self
 
 
 class MediaPatch(StrictModel):

@@ -97,7 +97,9 @@ def summary(row, links):
 
 def list_properties(db, settings, actor_id, filters, sorts, page, size, storage=None):
     current_staff(db, actor_id)
-    rows, total = repo.queue(db, filters, sorts, page, size, moment())
+    rows, total = repo.queue(
+        db, filters, sorts, page, size, moment(), settings.availability_stale_days
+    )
     links = FileLinks(settings, storage)
     return schema.PropertyPage(
         data=[summary(row, links) for row in rows], meta=metadata(page, size, total)
@@ -373,14 +375,30 @@ def availability(db, actor_id, property_id, data):
         raise invalid(
             "confirmed_at", "Use a timezone-aware confirmation time that is not in the future."
         )
-    prop.availability_status = data.availability_status
+    outcome = data.outcome or data.availability_status
+    expected = "unavailable" if outcome in {"let", "sold", "withdrawn"} else outcome
+    if (
+        (data.availability_status is not None and expected != data.availability_status)
+        or (outcome == "let" and prop.listing_type != "rent")
+        or (outcome == "sold" and prop.listing_type != "sale")
+    ):
+        raise invalid("outcome", "Choose an outcome matching the availability and listing type.")
+    previous = prop.availability_status
+    prop.availability_status = expected
     prop.last_availability_confirmed_at = confirmed
     record(
         db,
         prop,
         actor,
         "property.availability_confirmed",
-        {"availability_status": data.availability_status},
+        {
+            "availability_status": expected,
+            "previous_status": previous,
+            "version": prop.row_version + 1,
+            "confirmed_at": confirmed.isoformat(),
+            "outcome": outcome,
+            "note": data.note.strip() if data.note else None,
+        },
     )
     return mutation(prop)
 

@@ -14,6 +14,7 @@ from app.api.v1 import (
     admin_users,
     appointments,
     auth,
+    availability,
     complaints,
     inquiries,
     landlord_submissions,
@@ -50,6 +51,7 @@ def create_app(settings: Settings | None = None, engine=None):
     ]:
         app.include_router(router)
     app.include_router(admin_reports.router)
+    app.include_router(availability.router)
     app.include_router(appointments.options_router)
     app.include_router(appointments.client_router)
     app.include_router(appointments.staff_router)

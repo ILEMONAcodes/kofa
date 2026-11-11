@@ -11,8 +11,8 @@ from app.models.appointment import Appointment
 from app.models.complaint import Complaint
 from app.models.identity import User
 from app.models.inquiry import Inquiry
+from tests.browser_property import property_record
 from tests.e2e_server import settings
-from tests.test_property_models import property_record
 
 
 def main():

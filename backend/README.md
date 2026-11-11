@@ -96,3 +96,8 @@ Migration `be62_appointments` adds appointments/history and btree_gist exclusion
 ## Complaints and listing reports
 
 Public reports, client-owned complaint tracking, private evidence and staff investigation are integrated with the existing frontend. See [handoff](../docs/COMPLAINTS_REPORTING.md). Migration `be615_complaints` follows `be62_appointments`; it was applied to the configured Neon database with owner approval on 5 November 2026, and its three tables and append-only audit trigger were verified. Application merge/deployment remains pending. Uploads use the configured private storage driver; production storage provisioning and SMTP delivery remain separate pending operations. No transaction/refund processing is included.
+
+
+## Availability maintenance (BE-6.27)
+
+Staff can review `/staff/availability-queue`, save a confirmation outcome/note and view `/staff/availability-history?id=...`. `AVAILABILITY_STALE_DAYS=14` controls the shared threshold (1..365). Configure the host scheduler to run `python -m app.workers.availability --limit 100` hourly; larger backlogs drain across bounded runs. Queue truth is computed immediately, while the worker records idempotent audit detections. No automatic unpublish, email or migration. See [scope, privacy, test evidence and rollout](../docs/AVAILABILITY_MAINTENANCE.md). Hosting/scheduler setup is separate and no production command has been run.

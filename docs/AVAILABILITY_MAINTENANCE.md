@@ -1,0 +1,27 @@
+# Availability maintenance — BE-6.27
+
+Task Brief: Joint, Backend lead; joint/BE-6.27-availability-maintenance stacked on dashboard commit 1814068 (main has not yet merged it). Objective: configurable stale detection, private actionable staff queue and confirmation audit/history. Read: PRD BR-10/OQ-12, plan BE-6.27, API staff-property availability, schema property/audit, architecture worker/auth guidance. Files: backend configuration, availability repository/service/router/worker and existing confirmation service/schema; existing staff UI and tests; contract/progress/schema docs. Acceptance: more-than-14-day default and never-confirmed flags, strict equality boundary, staff/admin-only paginated queue, no automatic unpublish/email, auditable consistent confirmations, outcome mapping, concurrent/idempotent scheduled scans and real-stack UI. Tests: dates/thresholds, roles/privacy, scanner repeat/races, confirmation versions/history and browser journey. No migration or production operation. Assumes OQ-12 (no automatic unpublish) and owner deferral of email; existing public availability enums are preserved. Let/sold/withdrawn are staff outcomes mapped to unavailable, not new public values. Dashboard is a branch dependency; merge its PR first. No dependency on pending notification migration.
+
+
+## Behavior and operation
+
+AVAILABILITY_STALE_DAYS defaults to 14 (valid 1..365). The dedicated queue includes published available/under-offer listings with no confirmation or one strictly older than the cutoff; equality is fresh. The generic existing stale filter keeps its all-status semantics. Both use the same predicate/configuration. Unavailable, let, sold and withdrawn listings are outside recurring maintenance. Staleness itself never unpublishes or changes public visibility.
+
+The queue is computed from current data, so it remains correct if a scheduled run is missed. Fresh confirmations disappear immediately; a historical confirmation older than the cutoff remains due. Staff edits use optimistic versions; worker detections do not bump versions or cause spurious edit conflicts. The worker locks and skips active records, records each confirmation cycle once, commits a bounded batch and logs a count only. It does not send email. Existing audit append-only protection remains in force.
+
+Run from the backend image: `python -m app.workers.availability --limit 100`. Schedule hourly using the host's scheduler; run repeatedly to drain a larger backlog. Host provisioning is not performed here. It uses the existing private DATABASE_URL/AUTH_SECRET/application settings; do not run test fixtures against Neon. No new migration, service dependency or object storage is required.
+
+The staff overview links to `/staff/availability-queue`. Search, refresh, pagination and versioned confirmation support available, under offer, let (rent), sold (sale), withdrawn and unavailable/other. Backend alone maps outcomes to public values. The existing property confirmation page displays the latest 50 audit records, with recorder name and recorded time separate from the actual confirmation time. Legacy dates remain unknown when not captured originally. Notes/outcomes/history stay private; public listings continue to show only their ordinary availability and last-confirmed date.
+
+Deployment: merge the dashboard dependency first, then this branch. Deploy matching backend/frontend; optionally configure the scanner schedule. Live SMTP, staff invitation emails, Cloudflare R2 and transactions remain deferred. No real data, hosting changes, automatic unpublication or email are authorized by local implementation.
+
+## Verification — 11 November 2026
+
+- Full isolated backend regression: 592 passed with one latency test scheduled separately. That separate 5,000-listing test passed at p95 124.8 ms against the unchanged 500 ms target: 593 distinct cases passed across runs.
+- Initial targeted staff/availability/OpenAPI checks: 98 passed. Final availability/OpenAPI rerun after history ordering and distinct schema-name review: 17 passed. Covers cutoffs, config changes, never-confirmed and excluded states, idempotent/skip-locked scans, version conflicts, mapping guards, privacy and role matrix.
+- Frontend: 157 tests in 29 files passed. Final production build, types, lint and three affected UI checks passed. Mock audit found no active handlers. Ruff/mypy (76 files) and schema export passed.
+- Real-stack Chrome: availability journey and dashboard regression both passed; final populated-queue visual/axe rerun passed. Verified confirmation removal, independent history, recorder/note, let mapping, public-search removal, private-note exclusion, client denial and responsive widths. Screenshots inspected. A repeat-run test-district collision was fixed by reusing seeded taxonomy through a guarded browser fixture builder; no assertions or production guards were relaxed.
+- Local scanner CLI smoke passed with zero remaining eligible detections. No Neon, real mail, hosted scheduling or real user data used. No new migration or dependencies.
+- Backend audit found no known vulnerabilities. Frontend high/critical gate passed with seven moderate tooling findings left for separate maintenance. Existing Starlette/httpx and pypdf warnings remain non-fatal.
+
+Implementation in review. Merge dashboard dependency 1814068 first. Independent review, push/merge, deployment and hourly scheduler setup remain pending. Email reminders, staff invitation delivery, Cloudflare storage and transactions remain deferred.
