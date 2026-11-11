@@ -572,8 +572,7 @@ Rules: the `call` option is **present in every handoff**; `report_listing` appea
 | POST | `/admin/knowledge-articles/{id}/publish` / `unpublish` | **Admin** publishes |
 | GET | `/admin/assistant/conversations` | Filters `handoff_reason`, `flagged`, `from`, `to`; transcript detail at `/{id}` |
 | PATCH | `/admin/assistant/conversations/{id}` | `{ flagged, review_note }` |
-| GET/PUT | `GET /knowledge-articles`, `GET /knowledge-articles/{slug}` (published only) | ✓ | ✓ | ✓ | ✓ |
-| `/admin/settings` | Read: staff/admin. Write (admin only): `support_phone` (E.164), `support_hours`, `assistant_enabled`, `assistant_daily_token_budget` |
+| GET/PUT | `/admin/settings` | Read: staff/admin. Admin writes support_phone/support_email/support_hours/version; assistant enablement remains false (CR-SUPPORT-001) |
 
 **Safety policy (full text frozen in J-6.28; these rules are binding now)**
 1. **Sources only.** Answers come only from published knowledge articles and public property data returned by the search tool. No match above the confidence threshold → handoff `low_confidence`.
@@ -671,7 +670,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | GET /admin/landlords, GET /admin/landlords/{id} | Integrated (FE-4.14) |
 | POST /reports, POST /reports/{id}/files, POST/GET /complaints, GET /complaints/{id}, GET /admin/complaints, GET /admin/complaints/{id}, POST …/assign, POST …/transitions, PUT …/investigation | Integrated locally (CR-COMPLAINT-001; deployment/peer review pending) |
 | POST/GET /inquiries, GET /inquiries/{id}, GET/POST /inquiries/{id}/messages, POST /inquiries/{id}/read; /admin/inquiries assignment/transitions/qualification/messages/notes; GET/PATCH /admin/clients | Integrated locally (J-5.10; see §4.7A and LIVE_INQUIRIES.md) |
-| GET /public-config, GET /knowledge-articles, GET /knowledge-articles/{slug}, GET/POST /admin/knowledge-articles, GET/PATCH …/{id}, POST …/publish/unpublish, GET/PUT /admin/settings | Implemented locally (CR-SUPPORT-001; browser integration validation tracked in SUPPORT_KNOWLEDGE.md) |
+| GET /public-config, GET /knowledge-articles, GET /knowledge-articles/{slug}, GET/POST /admin/knowledge-articles, GET/PATCH …/{id}, POST …/publish/unpublish, GET/PUT /admin/settings | Integrated locally (CR-SUPPORT-001; real-stack browser/API evidence in SUPPORT_KNOWLEDGE.md; deployment/peer review pending) |
 | POST /assistant/conversations, GET /assistant/conversations/{id}, POST …/messages, POST …/handoff/message-team, POST /assistant/messages/{id}/feedback | Draft (shapes proposed, §4.9) |
 | GET /admin/assistant/conversations, GET/PATCH …/{id} | Draft (assistant review not implemented, §4.9) |
 | Appointments client/staff list/detail, schedule/reschedule/cancel/confirm/request-reschedule/outcome and staff appointment-options | Integrated locally (J-6.6, §4.7B; deployment/review pending) |

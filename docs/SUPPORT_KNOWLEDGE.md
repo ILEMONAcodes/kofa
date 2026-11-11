@@ -10,3 +10,13 @@ Task Brief: Joint, Backend lead; joint/BE-6.29-support-knowledge stacked on avai
 - New database migration: `be629_support`. **Not applied to Neon.** Apply only after approval, coordinating with the separately pending notification migration. No email worker, AI provider, or production settings were enabled.
 
 Initial contacts/hours are application fallback values until the first admin save; all future changes are stored and audited in PostgreSQL. Weekly opening is inclusive, closing exclusive. Articles render as plain text so pasted markup cannot execute.
+
+## Verification
+
+- Focused local PostgreSQL support/OpenAPI suite: **39 passed**, including request budgets, simultaneous settings edits, draft privacy, publication lifecycle, audit minimisation and seeded migration downgrade/upgrade preserving unrelated users.
+- ORM metadata vs migrated local database: **no differences**. Search EXPLAIN uses the status index on the small fixture; trigram index exists for larger search sets.
+- Real production frontend + local FastAPI/PostgreSQL browser journey: **1 passed** on final build; staff draft → admin publish → public article → unpublish; support email changed through admin. Help overflow and axe checks passed at360/768/1280px; mobile/desktop screenshots reviewed.
+- Frontend: **157 unit tests passed**; lint/types/build/mock audit passed. Backend Ruff/mypy(81 files)/pip consistency passed. OpenAPI snapshot matches.
+- Audits: backend no known vulnerabilities; frontend high/critical gate passed, seven existing moderate development-tooling findings retained.
+- Local single-session reviewer checked committed routes/services/repositories/schemas/UI and corrected one contract-table formatting issue; no blocking finding. Independent developer review still pending.
+- No private environment file or unrelated changes are included. Full backend regression: **626 passed, 1 separate property-latency case deselected**; final focused39 checks also cover four cases added after full-suite collection. See PROGRESS.md.
