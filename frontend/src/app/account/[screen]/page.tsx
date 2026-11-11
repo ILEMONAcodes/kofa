@@ -1,3 +1,4 @@
+import { ClientAccountDetails } from "@/components/features/account/details";
 import { LiveComplaints } from "@/components/features/complaints/live";
 import { clientCaseViews } from "@/components/features/complaints/model";
 import { LiveInspections } from "@/components/features/inspections/live";
@@ -32,6 +33,7 @@ export default async function Page({
     ["client"],
     `/account/${screen}${query.size ? `?${query}` : ""}`,
   );
+  if (screen === "overview") return <ClientAccountDetails />;
   if (clientCaseViews.has(screen))
     return (
       <Suspense fallback={<BrandLoading />}>

@@ -15,7 +15,6 @@ export function unread(record: { unread_count: number }) {
 }
 
 const clientViews = new Set([
-  "overview",
   "inquiry",
   "general-inquiry",
   "inquiry-received",
