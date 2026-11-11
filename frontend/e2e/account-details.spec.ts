@@ -17,6 +17,14 @@ test("PWA Account opens current client details, separate inquiries and private o
   await expect(details.getByText(me.email, { exact: true })).toBeVisible();
   await expect(details.getByText(me.phone, { exact: true })).toBeVisible();
   await expect(page.getByText("Email not verified", { exact: true })).toBeVisible();
+  // Keep the PWA mounted, expire only the short-lived cookie, and tap Account again.
+  await page.getByRole("navigation", { name: "Mobile navigation" }).getByRole("link", { name: "Explore", exact: true }).click();
+  const appAccount = page.getByRole("navigation", { name: "App navigation" }).getByRole("link", { name: "Account", exact: true });
+  await expect(appAccount).toBeVisible();
+  await page.context().clearCookies({ name: "access_token" });
+  await appAccount.click();
+  await expect(page).toHaveURL(/\/account\/overview$/);
+  await expect(details.getByText(me.email, { exact: true })).toBeVisible();
   for (const width of [360, 768, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);

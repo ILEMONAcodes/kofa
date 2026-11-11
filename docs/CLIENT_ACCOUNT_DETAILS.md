@@ -10,5 +10,7 @@ Acceptance: Account opens actual full name/email/phone/email-verification status
 - Real production frontend + local FastAPI/PostgreSQL browser journey1 passed: tap PWA Account from properties → /account/overview → own full name/email/phone/status; inquiries separate; another user_id query cannot select another identity; logout revokes access; anonymous Account redirects to sign-in.
 - Overflow and axe passed at360/768/1280px; mobile screenshot reviewed. Fictional accounts only; AI disabled.
 - No contract, backend, schema, migration, credential or production-data change. Details remain read-only through existing /auth/me. No frontend sample account or profile image.
-- Existing role-aware /account redirect and all Account links continue using the stable overview route; only its rendered content changes. Server client-only guard remains before rendering.
+- Role-aware /account workspace destinations and all Account links retain the stable overview route. Missing/expired access cookies now use the existing /session/restore flow before sign-in, preserving valid refresh sessions. Server client-only guard remains before rendering.
 - Peer review, push/merge and deployment remain pending; unrelated .DS_Store/.vscode/REGISTRATION_RECOVERY.md changes left untouched.
+
+Final local review resolved the expired-access-cookie Account redirect edge. Fresh production build/lint/types passed, and the extended real-stack browser test passed after deleting only the access cookie in the mounted PWA: the existing refresh session restored the same client details without requiring login. No blocking local review finding remains; independent peer review and deployment pending.
