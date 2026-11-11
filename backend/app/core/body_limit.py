@@ -13,7 +13,9 @@ class AuthBodyLimit:
         path = scope.get("path", "")
         if scope["type"] != "http":
             return await self.app(scope, receive, send)
-        if path.startswith("/api/v1/admin/knowledge-articles"):
+        if path.startswith(("/api/v1/assistant", "/api/v1/admin/assistant")):
+            limit = 16384
+        elif path.startswith("/api/v1/admin/knowledge-articles"):
             limit = 262144
         elif path == "/api/v1/admin/settings":
             limit = 16384

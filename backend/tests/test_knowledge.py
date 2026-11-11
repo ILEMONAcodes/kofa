@@ -110,7 +110,6 @@ def test_settings_clear_and_conflict(client, db):
 @pytest.mark.parametrize(
     "patch",
     [
-        {"assistant_enabled": True},
         {"support_phone": "bad"},
         {"support_email": "bad"},
         {"version": True},

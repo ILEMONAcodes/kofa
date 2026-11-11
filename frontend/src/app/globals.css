@@ -252,3 +252,14 @@ body:has(.local-access-bar) .journey-screen {
 .input-prefix-control input.input-prefixed {
   padding-inline-start: 40px;
 }
+
+.assistant-launcher { position: fixed; right: 1rem; bottom: calc(5.5rem + env(safe-area-inset-bottom)); z-index: 35; }
+.assistant-panel { display: grid; gap: 1rem; max-height: 45dvh; overflow-y: auto; overflow-wrap: anywhere; padding: .125rem; }
+.assistant-support { display: grid; gap: .5rem; padding: 1rem; border: 1px solid rgb(var(--border)); border-radius: 1rem; }
+.assistant-messages { display: grid; gap: .75rem; }
+.assistant-message { display: grid; gap: .75rem; border-radius: 1rem; padding: 1rem; background: rgb(var(--surface)); border: 1px solid rgb(var(--border)); }
+.assistant-message.user { margin-left: 1rem; }
+@media(min-width: 768px) { .assistant-launcher { bottom: 1.5rem; right: 1.5rem; } }
+
+.assistant-support { margin-bottom: .75rem; }
+.assistant-support p { font-size: .75rem; line-height: 1.25rem; }

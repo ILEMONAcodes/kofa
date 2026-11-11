@@ -84,7 +84,7 @@ function SettingsEditor({data,refresh}:{data:SupportSettings;refresh:()=>void}) 
  const [phone,setPhone]=useState(data.support_phone??""),[email,setEmail]=useState(data.support_email??"");
  const [schedule,setSchedule]=useState(days.map((_,day)=>({day,enabled:!!data.support_hours.days.find(d=>d.day===day),open:data.support_hours.days.find(d=>d.day===day)?.open??"09:00",close:data.support_hours.days.find(d=>d.day===day)?.close??"16:00"})));
  const [busy,setBusy]=useState(false),[error,setError]=useState(""),[message,setMessage]=useState("");
- async function save(e:FormEvent){e.preventDefault();setBusy(true);setError("");try{await staffWrite("/admin/settings","PUT",{version:data.version,support_phone:phone||null,support_email:email||null,support_hours:{timezone:"Africa/Lagos",days:schedule.filter(d=>d.enabled).map(({day,open,close})=>({day,open,close}))},assistant_enabled:false,assistant_daily_token_budget:data.assistant_daily_token_budget});setMessage("Support settings saved.");refresh();}catch(e){setError(errorText(e));}finally{setBusy(false);}}
+ async function save(e:FormEvent){e.preventDefault();setBusy(true);setError("");try{await staffWrite("/admin/settings","PUT",{version:data.version,support_phone:phone||null,support_email:email||null,support_hours:{timezone:"Africa/Lagos",days:schedule.filter(d=>d.enabled).map(({day,open,close})=>({day,open,close}))},assistant_enabled:data.assistant_enabled,assistant_daily_token_budget:data.assistant_daily_token_budget});setMessage("Support settings saved.");refresh();}catch(e){setError(errorText(e));}finally{setBusy(false);}}
  return <form onSubmit={save} className="live-staff-stack">
   <Input label="Support phone" type="tel" value={phone} onChange={e=>setPhone(e.target.value)} hint="International format, such as +2348145935403" disabled={role!=="admin"}/>
   <Input label="Support email" type="email" value={email} onChange={e=>setEmail(e.target.value)} disabled={role!=="admin"}/>
@@ -110,7 +110,7 @@ export function KnowledgeWorkspace({view,id=null}:{view:string;id?:string|null})
  const result=view==="knowledge"?list:view==="support-settings"?settings:detail;
  return <InspectionFrame staff><div className="operational-dashboard">
   <h1>{view==="support-settings"?"Keep support within reach.":view==="knowledge"?"Helpful answers, carefully published.":id?"Review your article.":"Write a helpful answer."}</h1>
-  <div className="live-staff-actions"><Link href={`${prefix}/knowledge`}>Knowledge base</Link>{role==="admin"&&<Link href="/admin/support-settings">Support settings</Link>}<Link href="/resources/help">Public Help</Link></div>
+  <div className="live-staff-actions"><Link href={`${prefix}/knowledge`}>Knowledge base</Link>{role==="admin"&&<Link href="/admin/support-settings">Support settings</Link>}<Link href="/resources/help">Public Help</Link><Link href={`${prefix}/assistant`}>Assistant review</Link>{role==="admin"&&<Link href="/admin/assistant-usage">Assistant usage</Link>}</div>
   {notice&&<p role="status">{notice}</p>}
   {view==="knowledge"?<>
    <Link className={buttonStyles()} href={`${prefix}/edit-article`}>Create article</Link>

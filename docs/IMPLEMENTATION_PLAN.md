@@ -284,3 +284,7 @@ Adding, splitting or re-prioritising a task needs the developer in charge's agre
 ### BE-6.29 execution note — 2026-11-11
 
 Support settings and the knowledge editorial/public Help subset are implemented under CR-SUPPORT-001 v0.15.0 on joint/BE-6.29-support-knowledge; see SUPPORT_KNOWLEDGE.md for verification and deployment boundaries. FE-6.33 support/editorial screens are connected; assistant enablement and conversation review remain pending with BE-6.30/31. No real provider calls or production migrations are included.
+
+### Assistant execution note — 2026-11-11
+
+BE-6.30/31 and FE-6.32/33 assistant subset implemented on joint/BE-6.30-assistant-workflow under CR-ASSISTANT-001 v0.16.0, verification tracked in AI_ASSISTANT.md. Includes source selection, public retrieval, deterministic handoff, anonymous/client ownership, staff review, admin usage/budget controls and test-only provider. J-6.34 local simulated-provider integration is being verified; live model/key compatibility and production enablement are separate and pending. No provider key needed for the local test workflow.

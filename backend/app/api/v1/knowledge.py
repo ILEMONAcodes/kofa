@@ -45,8 +45,8 @@ def budget(db, request, actor=None):
 
 
 @public_router.get("/public-config", response_model=s.PublicConfigEnvelope)
-def config(db=Depends(get_db)):
-    return {"data": service.public_config(db)}
+def config(request: Request, db=Depends(get_db)):
+    return {"data": service.public_config(db, request.app.state.settings)}
 
 
 @public_router.get("/knowledge-articles", response_model=s.PublicArticlePage)

@@ -60,7 +60,7 @@ class SupportSettingsInput(StrictModel):
     support_phone: Phone | None = None
     support_email: EmailStr | None = None
     support_hours: SupportHours
-    assistant_enabled: Literal[False] = False
+    assistant_enabled: bool = Field(default=False, strict=True)
     assistant_daily_token_budget: int = Field(default=0, strict=True, ge=0, le=10000000)
 
 
@@ -69,7 +69,7 @@ class SupportSettingsOut(BaseModel):
     support_phone: str | None
     support_email: str | None
     support_hours: SupportHours
-    assistant_enabled: Literal[False] = False
+    assistant_enabled: bool = False
     assistant_daily_token_budget: int = 0
 
 
@@ -87,7 +87,7 @@ class PublicSupport(BaseModel):
 
 
 class PublicAssistant(BaseModel):
-    enabled: Literal[False] = False
+    enabled: bool = False
     disclosure: str = "I'm an AI assistant. I can answer common questions, but I can make mistakes. For payments, legal questions or complaints, please contact our team."
 
 

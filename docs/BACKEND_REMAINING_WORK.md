@@ -129,3 +129,7 @@ BE-6.27 now supplies a configurable stale queue, bounded audit scanner and conne
 ### 11 November — support/editorial module
 
 Support contacts/hours and knowledge drafting/publication are implemented under CR-SUPPORT-001. See SUPPORT_KNOWLEDGE.md for initial owner details and admin routes. BE-6.30 assistant interface/retrieval/handoff remains the next separate module; no provider configured and no chat requests sent. New be629_support migration remains local-only.
+
+### Assistant workflow update — 11 November 2026
+
+Assistant source/retrieval/guards/conversations, team handoff, staff review and admin usage controls implemented locally; see AI_ASSISTANT.md. Live API key/provider selection, live-model evaluation, production migration and rollout remain pending. No external AI request made. Email/invitations/domain, Cloudflare R2, availability scan schedule and transactions/fees remain deferred. Retention worker deployment must be configured separately after retention policy review.

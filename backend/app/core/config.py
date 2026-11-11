@@ -33,6 +33,14 @@ class Settings(BaseSettings):
     s3_secret_access_key: SecretStr = SecretStr("")
     ffprobe_binary: str = "ffprobe"
     availability_stale_days: int = Field(default=14, ge=1, le=365)
+    assistant_provider: Literal["disabled", "test", "chat_completions"] = "disabled"
+    assistant_api_key: SecretStr = SecretStr("")
+    assistant_api_url: str = ""
+    assistant_model: str = Field(default="", max_length=100)
+    assistant_allow_live: bool = False
+    assistant_daily_request_limit: int = Field(default=100, ge=1, le=10000)
+    assistant_hard_token_limit: int = Field(default=100000, ge=0, le=10000000)
+    assistant_max_output_tokens: int = Field(default=256, ge=64, le=512)
     captcha_required: bool = False
 
     @model_validator(mode="after")
@@ -55,6 +63,21 @@ class Settings(BaseSettings):
             raise ValueError("PUBLIC_ORIGIN must be a bare HTTP(S) origin")
         if self.app_env == "production" and (not self.cookie_secure or origin.scheme != "https"):
             raise ValueError("Production requires HTTPS and Secure cookies")
+        if self.assistant_provider == "test" and self.app_env != "test":
+            raise ValueError("The simulated assistant provider is test-only")
+        if self.assistant_api_url:
+            endpoint = urlsplit(self.assistant_api_url)
+            if (
+                endpoint.scheme != "https"
+                or not endpoint.hostname
+                or endpoint.username
+                or endpoint.password
+                or endpoint.query
+                or endpoint.fragment
+            ):
+                raise ValueError(
+                    "ASSISTANT_API_URL must be an HTTPS endpoint without credentials or query"
+                )
         return self
 
 

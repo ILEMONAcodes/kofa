@@ -25,6 +25,7 @@ export function InspectionFrame({
         ["Overview", "/staff/overview"],
         ["Availability review", "/staff/availability-queue"],
         ["Knowledge base", "/staff/knowledge"],
+        ["Assistant review", "/staff/assistant"],
         ["Properties", "/staff/properties"],
         ["Inquiries", "/staff/inquiries"],
         ["Inspections", "/staff/inspections"],

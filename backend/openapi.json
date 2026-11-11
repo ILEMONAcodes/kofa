@@ -1829,7 +1829,7 @@
           },
           "history": {
             "items": {
-              "$ref": "#/components/schemas/History"
+              "$ref": "#/components/schemas/app__schemas__inquiry__History"
             },
             "title": "History",
             "type": "array"
@@ -2182,7 +2182,7 @@
           },
           "history": {
             "items": {
-              "$ref": "#/components/schemas/History"
+              "$ref": "#/components/schemas/app__schemas__appointment__History"
             },
             "title": "History",
             "type": "array"
@@ -2579,7 +2579,7 @@
         "additionalProperties": false,
         "properties": {
           "data": {
-            "$ref": "#/components/schemas/Message"
+            "$ref": "#/components/schemas/app__schemas__inquiry__Message"
           }
         },
         "required": [
@@ -2774,6 +2774,49 @@
         "title": "Fee",
         "type": "object"
       },
+      "FeedbackEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/FeedbackReceipt"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "FeedbackEnvelope",
+        "type": "object"
+      },
+      "FeedbackInput": {
+        "additionalProperties": false,
+        "properties": {
+          "comment": {
+            "default": "",
+            "maxLength": 500,
+            "title": "Comment",
+            "type": "string"
+          },
+          "helpful": {
+            "title": "Helpful",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "helpful"
+        ],
+        "title": "FeedbackInput",
+        "type": "object"
+      },
+      "FeedbackReceipt": {
+        "properties": {
+          "recorded": {
+            "default": true,
+            "title": "Recorded",
+            "type": "boolean"
+          }
+        },
+        "title": "FeedbackReceipt",
+        "type": "object"
+      },
       "Grant": {
         "additionalProperties": false,
         "properties": {
@@ -2806,48 +2849,101 @@
         "title": "HTTPValidationError",
         "type": "object"
       },
-      "History": {
-        "additionalProperties": false,
+      "Handoff": {
         "properties": {
-          "created_at": {
-            "format": "date-time",
-            "title": "Created At",
+          "message": {
+            "title": "Message",
             "type": "string"
           },
-          "from_status": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "From Status"
+          "options": {
+            "items": {
+              "$ref": "#/components/schemas/Option"
+            },
+            "title": "Options",
+            "type": "array"
           },
           "reason": {
+            "enum": [
+              "out_of_scope",
+              "low_confidence",
+              "user_requested",
+              "sensitive_topic",
+              "repeated_failure",
+              "service_unavailable"
+            ],
+            "title": "Reason",
+            "type": "string"
+          },
+          "required": {
+            "const": true,
+            "default": true,
+            "title": "Required",
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "reason",
+          "message",
+          "options"
+        ],
+        "title": "Handoff",
+        "type": "object"
+      },
+      "HandoffEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/HandoffReceipt"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "HandoffEnvelope",
+        "type": "object"
+      },
+      "HandoffInput": {
+        "additionalProperties": false,
+        "properties": {
+          "summary": {
             "anyOf": [
               {
+                "maxLength": 500,
                 "type": "string"
               },
               {
                 "type": "null"
               }
             ],
-            "title": "Reason"
-          },
-          "to_status": {
-            "title": "To Status",
+            "title": "Summary"
+          }
+        },
+        "title": "HandoffInput",
+        "type": "object"
+      },
+      "HandoffReceipt": {
+        "properties": {
+          "inquiry_id": {
+            "format": "uuid",
+            "title": "Inquiry Id",
             "type": "string"
           }
         },
         "required": [
-          "from_status",
-          "to_status",
-          "reason",
-          "created_at"
+          "inquiry_id"
         ],
-        "title": "History",
+        "title": "HandoffReceipt",
+        "type": "object"
+      },
+      "HistoryEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/app__schemas__assistant__History"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "HistoryEnvelope",
         "type": "object"
       },
       "ImageOut": {
@@ -3534,39 +3630,20 @@
         "title": "MediaPublic",
         "type": "object"
       },
-      "Message": {
+      "MessageInput": {
         "additionalProperties": false,
         "properties": {
-          "body": {
-            "title": "Body",
-            "type": "string"
-          },
-          "created_at": {
-            "format": "date-time",
-            "title": "Created At",
-            "type": "string"
-          },
-          "id": {
-            "format": "uuid",
-            "title": "Id",
-            "type": "string"
-          },
-          "sender_role": {
-            "enum": [
-              "client",
-              "staff"
-            ],
-            "title": "Sender Role",
+          "content": {
+            "maxLength": 1000,
+            "minLength": 1,
+            "title": "Content",
             "type": "string"
           }
         },
         "required": [
-          "id",
-          "body",
-          "sender_role",
-          "created_at"
+          "content"
         ],
-        "title": "Message",
+        "title": "MessageInput",
         "type": "object"
       },
       "Meta": {
@@ -3747,6 +3824,90 @@
         "title": "Note",
         "type": "object"
       },
+      "Option": {
+        "properties": {
+          "display_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Phone"
+          },
+          "hours_text": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Hours Text"
+          },
+          "is_open_now": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Is Open Now"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "requires_login": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Requires Login"
+          },
+          "type": {
+            "enum": [
+              "call",
+              "message_team",
+              "report_listing"
+            ],
+            "title": "Type",
+            "type": "string"
+          },
+          "url": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Url"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "Option",
+        "type": "object"
+      },
       "OptionsEnvelope": {
         "properties": {
           "data": {
@@ -3862,7 +4023,7 @@
         "properties": {
           "data": {
             "items": {
-              "$ref": "#/components/schemas/Message"
+              "$ref": "#/components/schemas/app__schemas__inquiry__Message"
             },
             "title": "Data",
             "type": "array"
@@ -5128,7 +5289,6 @@
             "type": "string"
           },
           "enabled": {
-            "const": false,
             "default": false,
             "title": "Enabled",
             "type": "boolean"
@@ -5692,6 +5852,244 @@
         "title": "Result",
         "type": "object"
       },
+      "ReviewDetail": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "flagged": {
+            "title": "Flagged",
+            "type": "boolean"
+          },
+          "handoff_reason": {
+            "anyOf": [
+              {
+                "enum": [
+                  "out_of_scope",
+                  "low_confidence",
+                  "user_requested",
+                  "sensitive_topic",
+                  "repeated_failure",
+                  "service_unavailable"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handoff Reason"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "inquiry_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Inquiry Id"
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/app__schemas__assistant__Message"
+            },
+            "title": "Messages",
+            "type": "array"
+          },
+          "review_note": {
+            "title": "Review Note",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "handoff_reason",
+          "flagged",
+          "version",
+          "created_at",
+          "updated_at",
+          "messages",
+          "review_note",
+          "inquiry_id"
+        ],
+        "title": "ReviewDetail",
+        "type": "object"
+      },
+      "ReviewEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/ReviewDetail"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "ReviewEnvelope",
+        "type": "object"
+      },
+      "ReviewInput": {
+        "additionalProperties": false,
+        "properties": {
+          "flagged": {
+            "title": "Flagged",
+            "type": "boolean"
+          },
+          "review_note": {
+            "default": "",
+            "maxLength": 2000,
+            "title": "Review Note",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "flagged"
+        ],
+        "title": "ReviewInput",
+        "type": "object"
+      },
+      "ReviewPage": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/ReviewSummary"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "ReviewPage",
+        "type": "object"
+      },
+      "ReviewSummary": {
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "flagged": {
+            "title": "Flagged",
+            "type": "boolean"
+          },
+          "handoff_reason": {
+            "anyOf": [
+              {
+                "enum": [
+                  "out_of_scope",
+                  "low_confidence",
+                  "user_requested",
+                  "sensitive_topic",
+                  "repeated_failure",
+                  "service_unavailable"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Handoff Reason"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "handoff_reason",
+          "flagged",
+          "version",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "ReviewSummary",
+        "type": "object"
+      },
+      "Source": {
+        "properties": {
+          "id": {
+            "title": "Id",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "type": {
+            "enum": [
+              "article",
+              "property"
+            ],
+            "title": "Type",
+            "type": "string"
+          },
+          "url": {
+            "title": "Url",
+            "type": "string"
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "title",
+          "url"
+        ],
+        "title": "Source",
+        "type": "object"
+      },
       "StaffArticle": {
         "properties": {
           "body": {
@@ -6235,6 +6633,57 @@
         "title": "StaffMember",
         "type": "object"
       },
+      "Start": {
+        "properties": {
+          "disclosure": {
+            "title": "Disclosure",
+            "type": "string"
+          },
+          "greeting": {
+            "title": "Greeting",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "support": {
+            "$ref": "#/components/schemas/PublicSupport"
+          },
+          "token": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Token"
+          }
+        },
+        "required": [
+          "id",
+          "greeting",
+          "disclosure",
+          "support"
+        ],
+        "title": "Start",
+        "type": "object"
+      },
+      "StartEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Start"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "StartEnvelope",
+        "type": "object"
+      },
       "StatusOut": {
         "properties": {
           "actor_user_id": {
@@ -6720,7 +7169,6 @@
             "type": "integer"
           },
           "assistant_enabled": {
-            "const": false,
             "default": false,
             "title": "Assistant Enabled",
             "type": "boolean"
@@ -6773,7 +7221,6 @@
             "type": "integer"
           },
           "assistant_enabled": {
-            "const": false,
             "default": false,
             "title": "Assistant Enabled",
             "type": "boolean"
@@ -6940,6 +7387,41 @@
         "title": "TokenInput",
         "type": "object"
       },
+      "Turn": {
+        "properties": {
+          "handoff": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Handoff"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "message": {
+            "$ref": "#/components/schemas/app__schemas__assistant__Message"
+          }
+        },
+        "required": [
+          "message",
+          "handoff"
+        ],
+        "title": "Turn",
+        "type": "object"
+      },
+      "TurnEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Turn"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "TurnEnvelope",
+        "type": "object"
+      },
       "UpdateUser": {
         "additionalProperties": false,
         "properties": {
@@ -7054,6 +7536,103 @@
           "status"
         ],
         "title": "UploadReceipt",
+        "type": "object"
+      },
+      "Usage": {
+        "properties": {
+          "day": {
+            "format": "date",
+            "title": "Day",
+            "type": "string"
+          },
+          "enabled": {
+            "title": "Enabled",
+            "type": "boolean"
+          },
+          "model": {
+            "title": "Model",
+            "type": "string"
+          },
+          "provider": {
+            "title": "Provider",
+            "type": "string"
+          },
+          "provider_ready": {
+            "title": "Provider Ready",
+            "type": "boolean"
+          },
+          "remaining_requests": {
+            "title": "Remaining Requests",
+            "type": "integer"
+          },
+          "remaining_tokens": {
+            "title": "Remaining Tokens",
+            "type": "integer"
+          },
+          "request_limit": {
+            "title": "Request Limit",
+            "type": "integer"
+          },
+          "requests": {
+            "title": "Requests",
+            "type": "integer"
+          },
+          "reserved_tokens": {
+            "title": "Reserved Tokens",
+            "type": "integer"
+          },
+          "timezone": {
+            "const": "Africa/Lagos",
+            "default": "Africa/Lagos",
+            "title": "Timezone",
+            "type": "string"
+          },
+          "token_limit": {
+            "title": "Token Limit",
+            "type": "integer"
+          },
+          "tokens_in": {
+            "title": "Tokens In",
+            "type": "integer"
+          },
+          "tokens_out": {
+            "title": "Tokens Out",
+            "type": "integer"
+          },
+          "unknown_usage_requests": {
+            "title": "Unknown Usage Requests",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "day",
+          "enabled",
+          "provider_ready",
+          "provider",
+          "model",
+          "token_limit",
+          "request_limit",
+          "reserved_tokens",
+          "requests",
+          "tokens_in",
+          "tokens_out",
+          "unknown_usage_requests",
+          "remaining_tokens",
+          "remaining_requests"
+        ],
+        "title": "Usage",
+        "type": "object"
+      },
+      "UsageEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Usage"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "UsageEnvelope",
         "type": "object"
       },
       "ValidationError": {
@@ -7408,6 +7987,50 @@
         "title": "Create",
         "type": "object"
       },
+      "app__schemas__appointment__History": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "from_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Status"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "to_status": {
+            "title": "To Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "from_status",
+          "to_status",
+          "reason",
+          "created_at"
+        ],
+        "title": "History",
+        "type": "object"
+      },
       "app__schemas__appointment__Options": {
         "additionalProperties": false,
         "properties": {
@@ -7427,6 +8050,99 @@
           "fee"
         ],
         "title": "Options",
+        "type": "object"
+      },
+      "app__schemas__assistant__History": {
+        "properties": {
+          "handoff": {
+            "anyOf": [
+              {
+                "$ref": "#/components/schemas/Handoff"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "inquiry_id": {
+            "anyOf": [
+              {
+                "format": "uuid",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Inquiry Id"
+          },
+          "messages": {
+            "items": {
+              "$ref": "#/components/schemas/app__schemas__assistant__Message"
+            },
+            "title": "Messages",
+            "type": "array"
+          },
+          "status": {
+            "title": "Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "messages",
+          "handoff",
+          "inquiry_id"
+        ],
+        "title": "History",
+        "type": "object"
+      },
+      "app__schemas__assistant__Message": {
+        "properties": {
+          "content": {
+            "title": "Content",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "user",
+              "assistant"
+            ],
+            "title": "Role",
+            "type": "string"
+          },
+          "sources": {
+            "items": {
+              "$ref": "#/components/schemas/Source"
+            },
+            "title": "Sources",
+            "type": "array"
+          }
+        },
+        "required": [
+          "id",
+          "role",
+          "content",
+          "created_at",
+          "sources"
+        ],
+        "title": "Message",
         "type": "object"
       },
       "app__schemas__complaint__Assign": {
@@ -7758,6 +8474,85 @@
           "data"
         ],
         "title": "Envelope[Receipt]",
+        "type": "object"
+      },
+      "app__schemas__inquiry__History": {
+        "additionalProperties": false,
+        "properties": {
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "from_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Status"
+          },
+          "reason": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Reason"
+          },
+          "to_status": {
+            "title": "To Status",
+            "type": "string"
+          }
+        },
+        "required": [
+          "from_status",
+          "to_status",
+          "reason",
+          "created_at"
+        ],
+        "title": "History",
+        "type": "object"
+      },
+      "app__schemas__inquiry__Message": {
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "sender_role": {
+            "enum": [
+              "client",
+              "staff"
+            ],
+            "title": "Sender Role",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "body",
+          "sender_role",
+          "created_at"
+        ],
+        "title": "Message",
         "type": "object"
       },
       "app__schemas__inquiry__Receipt": {
@@ -8302,6 +9097,237 @@
           }
         },
         "summary": "Outcome"
+      }
+    },
+    "/api/v1/admin/assistant/conversations": {
+      "get": {
+        "operationId": "review_list_api_v1_admin_assistant_conversations_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "flagged",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Flagged"
+            }
+          },
+          {
+            "in": "query",
+            "name": "handoff_reason",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "out_of_scope",
+                    "low_confidence",
+                    "user_requested",
+                    "sensitive_topic",
+                    "repeated_failure",
+                    "service_unavailable"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Handoff Reason"
+            }
+          },
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewPage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Review List"
+      }
+    },
+    "/api/v1/admin/assistant/conversations/{id}": {
+      "get": {
+        "operationId": "review_detail_api_v1_admin_assistant_conversations__id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Review Detail"
+      },
+      "patch": {
+        "operationId": "review_edit_api_v1_admin_assistant_conversations__id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ReviewInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReviewEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Review Edit"
+      }
+    },
+    "/api/v1/admin/assistant/usage": {
+      "get": {
+        "operationId": "usage_api_v1_admin_assistant_usage_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UsageEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Usage"
       }
     },
     "/api/v1/admin/availability-queue": {
@@ -11619,6 +12645,318 @@
           }
         },
         "summary": "Request Reschedule"
+      }
+    },
+    "/api/v1/assistant/conversations": {
+      "post": {
+        "operationId": "start_api_v1_assistant_conversations_post",
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StartEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Start"
+      }
+    },
+    "/api/v1/assistant/conversations/{id}": {
+      "get": {
+        "operationId": "history_api_v1_assistant_conversations__id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Assistant-Token",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Assistant-Token"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "History"
+      }
+    },
+    "/api/v1/assistant/conversations/{id}/handoff/message-team": {
+      "post": {
+        "operationId": "team_api_v1_assistant_conversations__id__handoff_message_team_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Assistant-Token",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Assistant-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/HandoffInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HandoffEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Team"
+      }
+    },
+    "/api/v1/assistant/conversations/{id}/messages": {
+      "post": {
+        "operationId": "message_api_v1_assistant_conversations__id__messages_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Assistant-Token",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Assistant-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TurnEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Message"
+      }
+    },
+    "/api/v1/assistant/current": {
+      "get": {
+        "operationId": "current_api_v1_assistant_current_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HistoryEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Current"
+      }
+    },
+    "/api/v1/assistant/messages/{id}/feedback": {
+      "post": {
+        "operationId": "feedback_api_v1_assistant_messages__id__feedback_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "X-Assistant-Token",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 100,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "X-Assistant-Token"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/FeedbackInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Feedback"
+      }
+    },
+    "/api/v1/assistant/session": {
+      "delete": {
+        "operationId": "clear_api_v1_assistant_session_delete",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/FeedbackEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Clear"
       }
     },
     "/api/v1/auth/csrf": {

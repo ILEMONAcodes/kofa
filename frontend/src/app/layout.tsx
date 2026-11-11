@@ -1,3 +1,4 @@
+import { AssistantWidget } from "@/components/features/assistant/widget";
 import {
   LocalAccessProvider,
   AccessStatus,
@@ -75,6 +76,7 @@ export default function RootLayout({
           <AccessStatus />
           <div id="app-content">{children}</div>
           <MobileAppChrome />
+          <AssistantWidget />
         </LocalAccessProvider>
       </body>
     </html>

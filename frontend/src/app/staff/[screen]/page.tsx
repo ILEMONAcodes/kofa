@@ -1,3 +1,4 @@
+import { AssistantWorkspace } from "@/components/features/assistant/workspace";
 import { KnowledgeWorkspace } from "@/components/features/knowledge/live";
 import { AvailabilityQueue, AvailabilityHistoryPage } from "@/components/features/availability/queue";
 import { Suspense } from "react";
@@ -35,6 +36,7 @@ export default async function Page({
     ["staff", "admin"],
     `/staff/${screen}${query.size ? `?${query}` : ""}`,
   );
+  if (["assistant", "assistant-review", "assistant-usage"].includes(screen)) return <AssistantWorkspace view={screen} id={typeof search.id === "string" ? search.id : null} />;
   if (["knowledge", "article", "edit-article"].includes(screen)) return <KnowledgeWorkspace view={screen} id={typeof search.id === "string" ? search.id : null} />;
   if (screen === "availability-history") return <AvailabilityHistoryPage id={typeof search.id === "string" ? search.id : null} />;
   if (screen === "availability-queue") return <AvailabilityQueue />;

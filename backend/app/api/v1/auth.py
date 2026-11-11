@@ -126,6 +126,13 @@ def logout(request: Request, db: Session = Depends(get_db)):
     )
     response = Response(status_code=204)
     clear_auth_cookies(response, request.app.state.settings)
+    response.delete_cookie(
+        "kofa_assistant",
+        path="/api/v1/assistant",
+        secure=request.app.state.settings.cookie_secure,
+        httponly=True,
+        samesite="lax",
+    )
     return response
 
 
@@ -150,6 +157,13 @@ def confirm_reset(data: ResetConfirm, request: Request, db: Session = Depends(ge
     )
     response = Response(status_code=204)
     clear_auth_cookies(response, request.app.state.settings)
+    response.delete_cookie(
+        "kofa_assistant",
+        path="/api/v1/assistant",
+        secure=request.app.state.settings.cookie_secure,
+        httponly=True,
+        samesite="lax",
+    )
     return response
 
 
