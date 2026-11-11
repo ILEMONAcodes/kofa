@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.14.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
+**Contract version:** `0.15.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -517,7 +517,7 @@ Action permissions: staff may record `listing_corrected`, `landlord_warned`, `cl
 
 **Purpose.** Answer common questions from approved content, and hand off to humans — **always showing the call line** — when it cannot help. The assistant is read-only: it cannot create, change or approve anything except the explicit "message the team" handoff.
 
-**Public config** — `GET /public-config` (anonymous, cacheable 60 s)
+**Public config** — `GET /public-config` (anonymous, no-store; CR-SUPPORT-001 supersedes proposed caching)
 ```json
 { "data": {
   "support": { "phone": "+2348000000000", "display_phone": "0800 000 0000",
@@ -525,6 +525,16 @@ Action permissions: staff may record `listing_corrected`, `landlord_warned`, `cl
   "assistant": { "enabled": true,
     "disclosure": "I'm an AI assistant. I can answer common questions, but I can make mistakes. For payments, legal questions or complaints, please call us." } } }
 ```
+
+**CR-SUPPORT-001 — implemented support/editorial subset (v0.15.0).** The conversation endpoints below remain Draft. `GET /public-config` is `no-store`, not cached for 60 seconds: support changes and opening status are current on each request. Its `support` object includes nullable `phone`, nullable `display_phone` (E.164), nullable `email`, `hours_text`, `timezone: Africa/Lagos`, and `is_open_now`. Assistant enabled is always false until BE-6.30; disclosure is informational only. Initial owner-provided defaults: +2348145935403, Mon–Fri 09:00–16:00 WAT, email null. Saving null explicitly removes a contact rather than restoring its default.
+
+- `GET /knowledge-articles`: anonymous, published only; `page` ≥1, `page_size` 1–100 (default20), `q` ≤150 chars, optional category. Literal case-insensitive title/body search; `%` and `_` are escaped. Summaries contain only slug/title/category/language/published_at; paginated envelope. `GET /knowledge-articles/{slug}` adds body; draft/absent →404.
+- `GET /admin/knowledge-articles`: staff/admin; same filters plus status draft/published; summaries add id/status/version/created_at/updated_at. `GET /admin/knowledge-articles/{id}` adds body. No creator identity is returned.
+- `POST /admin/knowledge-articles`: staff/admin, title3–160 chars, body20–30000, category from the declared enum, language en. Trims text, rejects active script/iframe/object/style markup; creates draft, returns201 detail. Slug remains stable. Public rendering is escaped plain text, preserving newlines; no HTML execution or markdown interpretation.
+- `PATCH /admin/knowledge-articles/{id}` uses a **full editorial document** (title, body, category, language, version), an explicit exception to partial PATCH. Only drafts can be edited. `POST .../publish` and `.../unpublish` require admin and `{version}`; repeated state→409 INVALID_STATE_TRANSITION. Published articles must be unpublished before edits. Stale version→409 VERSION_CONFLICT. Every successful mutation increments version and audits status/version without body text.
+- `GET /admin/settings`: staff/admin. `PUT /admin/settings`: admin only; full support settings with version≥0, nullable support_phone/support_email, support_hours, assistant_enabled:false, assistant_daily_token_budget integer0–10000000. Known keys only; extra fields rejected. Version starts0 and changes atomically under an advisory lock; stale→409 VERSION_CONFLICT. Secret/provider settings are never exposed. The token budget is stored only for later integration; no provider calls occur.
+- `support_hours`: `{timezone:"Africa/Lagos",days:[{day:0..6,open:"HH:MM",close:"HH:MM"}]}`; Monday0. At most one interval/day, no overlaps including week wrap. Closing≤opening crosses midnight; equal means24 hours. Opening inclusive, closing exclusive; empty schedule is closed. No contact means is_open_now:false.
+- All routes reject unknown/repeated query parameters. Editorial/settings writes share120/hour per actor; public article reads120/minute/IP. JSON bodies bounded at256KiB articles/16KiB settings. Standard auth, CSRF and error envelopes apply. Public DTOs never include drafts, internal settings, creator IDs or audit records.
 
 **Start conversation** — `POST /assistant/conversations` (anonymous or signed-in)
 `201 { "data": { "id": "uuid", "token": "…" (anonymous only), "greeting": "…", "disclosure": "…", "support": { …as above } } }`
@@ -562,7 +572,8 @@ Rules: the `call` option is **present in every handoff**; `report_listing` appea
 | POST | `/admin/knowledge-articles/{id}/publish` / `unpublish` | **Admin** publishes |
 | GET | `/admin/assistant/conversations` | Filters `handoff_reason`, `flagged`, `from`, `to`; transcript detail at `/{id}` |
 | PATCH | `/admin/assistant/conversations/{id}` | `{ flagged, review_note }` |
-| GET/PUT | `/admin/settings` | Read: staff/admin. Write (admin only): `support_phone` (E.164), `support_hours`, `assistant_enabled`, `assistant_daily_token_budget` |
+| GET/PUT | `GET /knowledge-articles`, `GET /knowledge-articles/{slug}` (published only) | ✓ | ✓ | ✓ | ✓ |
+| `/admin/settings` | Read: staff/admin. Write (admin only): `support_phone` (E.164), `support_hours`, `assistant_enabled`, `assistant_daily_token_budget` |
 
 **Safety policy (full text frozen in J-6.28; these rules are binding now)**
 1. **Sources only.** Answers come only from published knowledge articles and public property data returned by the search tool. No match above the confidence threshold → handoff `low_confidence`.
@@ -600,6 +611,7 @@ Rules: the `call` option is **present in every handoff**; `report_listing` appea
 | `GET /public-config`, `POST /assistant/conversations`, `…/messages`, `GET …/{id}` | ✓ (token) | ✓ | ✓ | ✓ |
 | `POST /assistant/conversations/{id}/handoff/message-team` | — | ✓ | — | — |
 | `/admin/knowledge-articles*`, `/admin/assistant/*` | — | — | ✓ (publish: admin only) | ✓ |
+| `GET /knowledge-articles`, `GET /knowledge-articles/{slug}` (published only) | ✓ | ✓ | ✓ | ✓ |
 | `/admin/settings` | — | — | read | ✓ (write) |
 
 Field-level privacy matrix (BR-03, BR-11):
@@ -659,8 +671,9 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | GET /admin/landlords, GET /admin/landlords/{id} | Integrated (FE-4.14) |
 | POST /reports, POST /reports/{id}/files, POST/GET /complaints, GET /complaints/{id}, GET /admin/complaints, GET /admin/complaints/{id}, POST …/assign, POST …/transitions, PUT …/investigation | Integrated locally (CR-COMPLAINT-001; deployment/peer review pending) |
 | POST/GET /inquiries, GET /inquiries/{id}, GET/POST /inquiries/{id}/messages, POST /inquiries/{id}/read; /admin/inquiries assignment/transitions/qualification/messages/notes; GET/PATCH /admin/clients | Integrated locally (J-5.10; see §4.7A and LIVE_INQUIRIES.md) |
-| GET /public-config, POST /assistant/conversations, GET /assistant/conversations/{id}, POST …/messages, POST …/handoff/message-team, POST /assistant/messages/{id}/feedback | Draft (shapes proposed, §4.9) |
-| GET/POST/PATCH /admin/knowledge-articles, POST …/publish, POST …/unpublish, GET /admin/assistant/conversations, GET/PATCH …/{id}, GET/PUT /admin/settings | Draft (shapes proposed, §4.9) |
+| GET /public-config, GET /knowledge-articles, GET /knowledge-articles/{slug}, GET/POST /admin/knowledge-articles, GET/PATCH …/{id}, POST …/publish/unpublish, GET/PUT /admin/settings | Implemented locally (CR-SUPPORT-001; browser integration validation tracked in SUPPORT_KNOWLEDGE.md) |
+| POST /assistant/conversations, GET /assistant/conversations/{id}, POST …/messages, POST …/handoff/message-team, POST /assistant/messages/{id}/feedback | Draft (shapes proposed, §4.9) |
+| GET /admin/assistant/conversations, GET/PATCH …/{id} | Draft (assistant review not implemented, §4.9) |
 | Appointments client/staff list/detail, schedule/reschedule/cancel/confirm/request-reschedule/outcome and staff appointment-options | Integrated locally (J-6.6, §4.7B; deployment/review pending) |
 | Fees/transactions, notifications | Draft (intent only, §4.7; notification implementation pending on a separate branch) |
 | GET /admin/reports/kpis | Integrated locally (CR-REPORT-001; peer review/deployment pending) |
@@ -704,6 +717,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.15.0 | 2026-11-11 | CR-SUPPORT-001: editable support contacts/hours, versioned staff drafts/admin publication, published-only public Help; assistant remains disabled | Backend + authorized frontend; peer review pending |
 | 0.14.0 | 2026-11-11 | CR-AVAILABILITY-001: configurable stale queue/scanner, confirmation history and mapped staff outcomes; public availability values unchanged; email deferred | Backend + authorized frontend; peer review pending |
 | 0.13.0 | 2026-11-05 | CR-REPORT-001: private four-count operational dashboard, strict WAT date filters and current-state cohort definitions; financial KPIs deferred. v0.12.0 reserved on pending notification branch. | Backend + authorized frontend; peer review pending |
 | 0.11.0 | 2026-11-05 | CR-COMPLAINT-001: scoped reports/complaints/evidence, confidential investigation, explicit holds, guarded admin actions; transaction/refund scope deferred | Backend + authorized frontend; peer review pending |

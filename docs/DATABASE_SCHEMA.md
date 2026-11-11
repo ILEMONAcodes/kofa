@@ -264,10 +264,10 @@ CHECKs: `status='resolved'` ⇒ `outcome`, `investigation_findings`, `evidence_r
 ### 8b. AI assistant, knowledge base, settings  (J-6.28)
 
 ### `site_settings`
-`key varchar(60)` PK, `value jsonb`, `updated_by` FK users, `updated_at`. Keys: `support_phone` (E.164), `support_hours` (`{timezone, days:[{day, open, close}]}`), `assistant_enabled` (bool), `assistant_daily_token_budget` (int). Every change is written to `audit_log`.
+`key varchar(60)` PK, `value jsonb`, `updated_by` FK users, `updated_at`. Implemented by `be629_support` (follows `be615_complaints`; not applied remotely). Keys: `version` (optimistic integer, initial0), `support_email` (nullable), `support_phone` (E.164), `support_hours` (`{timezone, days:[{day, open, close}]}`), `assistant_daily_token_budget` (int). Assistant enablement is currently hard-disabled, not writable true. `value` is non-null JSONB; JSON null explicitly clears contacts. Missing support keys use owner-provided defaults +2348145935403 and Mon–Fri09:00–16:00 Africa/Lagos; no seed rows/articles. Every change is written to `audit_log`.
 
 ### `knowledge_articles`
-`id`, `slug` UNIQUE, `title varchar(160)`, `body text` (markdown, rendered safely), `category` (`how_it_works`,`fees`,`verification`,`inspections`,`policies`,`reporting`,`contact`,`other`), `language char(2) DEFAULT 'en'`, `status` (`draft`,`published`), `published_by` FK users, `published_at`, `row_version`, `created_by`, `created_at`, `updated_at`. Only `published` rows are retrievable by the assistant. Index: GIN trgm on `title || ' ' || body`; an embedding column may be added later (ADR when decided).
+`id`, `slug` UNIQUE, `title varchar(160)`, `body text` (escaped plain text preserving newlines; markdown rendering deferred), `category` (`how_it_works`,`fees`,`verification`,`inspections`,`policies`,`reporting`,`contact`,`other`), `language varchar(2)` (application default en; CHECK en), `status` (`draft`,`published`), `published_by` FK users, `published_at`, `row_version`, `created_by`, `created_at`, `updated_at`. Published state requires publication actor/time; version >0. Drafts never reach public endpoints; publication is admin-only and edits require draft state. Index `(status, updated_at)` plus GIN trgm on `title || ' ' || body`; an embedding column may be added later (ADR when decided).
 
 ### `assistant_conversations`
 `id`, `user_id` FK NULL, `anon_token_hash char(64)` NULL, `ip_hash char(64)`, `status` (`active`,`handed_off`,`closed`), `handoff_reason` NULL, `handed_off_at`, `inquiry_id` FK NULL, `flagged boolean DEFAULT false`, `review_note text`, `created_at`, `updated_at`. CHECK: `user_id` or `anon_token_hash` is set.
@@ -284,8 +284,8 @@ CHECKs: `status='resolved'` ⇒ `outcome`, `investigation_findings`, `evidence_r
 | Areas | Launch city neighbourhoods (OQ-02 default Abuja) | BE-4.2 |
 | Dev data | ≥ 30 properties across all statuses and types, placeholder images, 10 clients, 3 staff | BE-4.8 |
 | Fee rules | Default 2%/2% rules effective from launch (after OQ-03) | BE-6.8 |
-| Settings | `support_phone` placeholder, hours placeholder, `assistant_enabled=false` until configured | BE-6.29 |
-| Knowledge articles | Initial FAQ set (drafts) from the proposal, published by an admin after founder approval (OQ-25) | BE-6.29 |
+| Settings | No automatic seed rows; owner-provided phone/weekdays fallback, admin overrides in site_settings; assistant disabled | BE-6.29 |
+| Knowledge articles | No automatic seed/publication; staff create drafts and admins review/publish through the workspace | BE-6.29 |
 
 ## 10. Query and performance notes
 

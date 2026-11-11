@@ -162,6 +162,7 @@ export function OperationalDashboard({ reports = false }: { reports?: boolean })
       ) : null}
       <div className="live-staff-actions">
         <Link className={buttonStyles()} href="/staff/availability-queue">Review availability</Link>
+        <Link className={buttonStyles()} href="/staff/knowledge">Knowledge base</Link>
         <Link className={buttonStyles("secondary")} href="/staff/landlords">
           Landlord directory
         </Link>
