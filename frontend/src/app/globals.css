@@ -10,6 +10,7 @@
 @import "./client-journeys.css";
 @import "./staff-operations.css";
 @import "./media-help.css";
+@import "./reports.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

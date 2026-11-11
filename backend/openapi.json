@@ -1280,6 +1280,38 @@
         "title": "Completion",
         "type": "object"
       },
+      "Counts": {
+        "properties": {
+          "active_complaints": {
+            "minimum": 0.0,
+            "title": "Active Complaints",
+            "type": "integer"
+          },
+          "listings_awaiting_review": {
+            "minimum": 0.0,
+            "title": "Listings Awaiting Review",
+            "type": "integer"
+          },
+          "open_inquiries": {
+            "minimum": 0.0,
+            "title": "Open Inquiries",
+            "type": "integer"
+          },
+          "upcoming_inspections": {
+            "minimum": 0.0,
+            "title": "Upcoming Inspections",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "listings_awaiting_review",
+          "open_inquiries",
+          "upcoming_inspections",
+          "active_complaints"
+        ],
+        "title": "Counts",
+        "type": "object"
+      },
       "CreateStaff": {
         "additionalProperties": false,
         "properties": {
@@ -1335,6 +1367,28 @@
           "role"
         ],
         "title": "CreateStaff",
+        "type": "object"
+      },
+      "Dashboard": {
+        "properties": {
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "counts": {
+            "$ref": "#/components/schemas/Counts"
+          },
+          "period": {
+            "$ref": "#/components/schemas/Period"
+          }
+        },
+        "required": [
+          "as_of",
+          "period",
+          "counts"
+        ],
+        "title": "Dashboard",
         "type": "object"
       },
       "Detail": {
@@ -2040,6 +2094,18 @@
           "email"
         ],
         "title": "EmailInput",
+        "type": "object"
+      },
+      "Envelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/Dashboard"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Envelope",
         "type": "object"
       },
       "Envelope_CaseSummary_": {
@@ -3510,6 +3576,46 @@
           "meta"
         ],
         "title": "Page[Summary]",
+        "type": "object"
+      },
+      "Period": {
+        "properties": {
+          "from_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "From Date"
+          },
+          "timezone": {
+            "const": "Africa/Lagos",
+            "default": "Africa/Lagos",
+            "title": "Timezone",
+            "type": "string"
+          },
+          "to_date": {
+            "anyOf": [
+              {
+                "format": "date",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "To Date"
+          }
+        },
+        "required": [
+          "from_date",
+          "to_date"
+        ],
+        "title": "Period",
         "type": "object"
       },
       "PolicyInput": {
@@ -9456,6 +9562,68 @@
           }
         },
         "summary": "Property Options"
+      }
+    },
+    "/api/v1/admin/reports/kpis": {
+      "get": {
+        "operationId": "kpis_api_v1_admin_reports_kpis_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "from",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "From"
+            }
+          },
+          {
+            "in": "query",
+            "name": "to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Envelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Kpis"
       }
     },
     "/api/v1/admin/users": {

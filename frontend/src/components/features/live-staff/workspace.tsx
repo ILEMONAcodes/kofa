@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- signed private images must keep staff cookies and bypass the public image optimizer. */
 import Image from "next/image";
+import { OperationalDashboard } from "@/components/features/reports/dashboard";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
 import { useState, type ReactNode } from "react";
@@ -277,53 +278,7 @@ function LoadError({ error, retry }: { error: unknown; retry: () => void }) {
   );
 }
 function Overview() {
-  const { user } = useLocalAccess();
-  const all = useStaffResource<StaffSummary[]>(
-    "/admin/properties",
-    "page_size=1",
-  );
-  const stale = useStaffResource<StaffSummary[]>(
-    "/admin/properties",
-    "page_size=1&stale_availability=true",
-  );
-  return (
-    <>
-      <h1>
-        Welcome
-        {user?.full_name ? `, ${user.full_name.trim().split(/\s+/)[0]}` : ""}.
-      </h1>
-      <p>A clear view of your property workspace.</p>
-      {all.loading ? (
-        <BrandLoading />
-      ) : all.error ? (
-        <LoadError error={all.error} retry={all.reload} />
-      ) : (
-        <Panel>
-          <h2>{all.meta?.total_items ?? 0} properties</h2>
-          <Link className={buttonStyles()} href="/staff/properties">
-            Review properties
-          </Link>
-        </Panel>
-      )}
-      {stale.error ? (
-        <LoadError error={stale.error} retry={stale.reload} />
-      ) : (
-        <Panel>
-          <h2>
-            {stale.loading
-              ? "Checking availability…"
-              : `${stale.meta?.total_items ?? 0} need availability confirmation`}
-          </h2>
-          <Link href="/staff/properties?stale_availability=true">
-            Review availability
-          </Link>
-        </Panel>
-      )}
-      <Link className={buttonStyles("secondary")} href="/staff/landlords">
-        Landlord directory
-      </Link>
-    </>
-  );
+  return <OperationalDashboard />;
 }
 
 type Act = (job: () => Promise<string>) => Promise<boolean>;
@@ -1306,7 +1261,7 @@ export function LiveStaffWorkspace({ view }: { view: string }) {
     id = params.get("id");
   const { role } = useLocalAccess();
   const [menu, setMenu] = useState(false);
-  const options = useStaffResource<StaffOptions>("/admin/property-options");
+  const options = useStaffResource<StaffOptions>(view === "overview" ? null : "/admin/property-options");
   return (
     <main id="main-content" className="journey-screen staff-preview staff-live">
       <header className="journey-header">

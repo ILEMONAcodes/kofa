@@ -16,6 +16,15 @@ for (let start = 0; start < screens.length; start += 10) {
     for (const screen of group) {
       await page.goto(`/admin/${screen.slug}`);
       await expect(page.locator(".mobile-launch")).toBeHidden();
+      if (screen.slug === "reports") {
+        const response = await page.request.get("/api/v1/admin/reports/kpis");
+        expect(response.status()).toBe(200);
+        const counts = (await response.json()).data.counts;
+        await expect(page.getByLabel(`Open inquiries: ${counts.open_inquiries}`, { exact: true })).toBeVisible();
+        await expect(page.getByLabel("From date", { exact: true })).toBeVisible();
+        await expect(page.getByText("Completed transactions", { exact: true })).toHaveCount(0);
+        continue;
+      }
       if (screen.slug === "users") {
         await expect(page.getByRole("heading", { level: 1 })).toHaveText(
           "Your team, together.",
@@ -64,23 +73,17 @@ for (let start = 0; start < screens.length; start += 10) {
     }
   });
 }
-test("staff reports and administration menu are connected", async ({
-  page,
-}) => {
+test("live reports and administration entry points are connected", async ({ page }) => {
   await page.goto("/staff/overview");
-  await page.getByRole("button", { name: "View reports", exact: true }).click();
-  await expect(page).toHaveURL(/admin\/reports$/);
-  await page.getByRole("button", { name: "Menu", exact: true }).first().click();
-  await expect(page.getByRole("dialog").locator("ol li")).toHaveCount(0);
-  await page
-    .getByRole("navigation", { name: "Workspace sections" })
-    .getByRole("link", { name: "Users", exact: true })
-    .click();
-  await expect(page.getByRole("heading", { level: 1 })).toHaveText(
-    "Your team, together.",
-  );
-  await expect(page.getByRole("heading", {name:"Add a team member", exact:true})).toBeVisible();
-  await expect(page.getByRole("button", {name:"Add team member", exact:true})).toBeVisible();
+  await page.getByRole("link", { name: "Administration and team", exact: true }).click();
+  await expect(page).toHaveURL(/admin\/administration$/);
+  await page.goto("/admin/reports");
+  await expect(page.getByRole("heading", { name: "Measure the work that matters." })).toBeVisible();
+  await page.getByRole("link", { name: "Administration and team", exact: true }).click();
+  await expect(page).toHaveURL(/admin\/administration$/);
+  await page.goto("/admin/users");
+  await expect(page.getByRole("heading", { name: "Add a team member", exact: true })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Add team member", exact: true })).toBeVisible();
 });
 test("transaction fields validate without posting or calculating fees", async ({
   page,
