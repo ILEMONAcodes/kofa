@@ -41,7 +41,9 @@ def settings():
 
 def main():
     config = settings()
-    os.environ.update(DATABASE_URL=TEST_URL, DATABASE_URL_UNPOOLED=TEST_URL, AUTH_SECRET=SECRET)
+    os.environ.update(
+        DATABASE_URL=TEST_URL, DATABASE_URL_UNPOOLED=TEST_URL, AUTH_SECRET=SECRET, APP_ENV="test"
+    )
     get_settings.cache_clear()
     cfg = Config(str(Path(__file__).parents[1] / "alembic.ini"))
     cfg.set_main_option("script_location", str(Path(__file__).parents[1] / "alembic"))
@@ -51,7 +53,7 @@ def main():
     with engine.begin() as conn:
         conn.execute(
             text(
-                "TRUNCATE users, auth_sessions, password_reset_tokens, policy_acceptances, audit_log, email_outbox, auth_rate_limits CASCADE"
+                "TRUNCATE assistant_daily_usage, users, auth_sessions, password_reset_tokens, policy_acceptances, audit_log, email_outbox, auth_rate_limits CASCADE"
             )
         )
     with session_factory(engine)() as db:

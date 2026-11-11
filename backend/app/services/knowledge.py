@@ -25,6 +25,7 @@ def values(rows):
     value = {key: row.value for key, row in rows.items()}
     return s.SupportSettingsOut(
         version=value.get("version", 0),
+        assistant_enabled=value.get("assistant_enabled", False),
         support_phone=value.get("support_phone", DEFAULT_PHONE),
         support_email=value.get("support_email"),
         support_hours=value.get("support_hours", DEFAULT_HOURS),
@@ -49,9 +50,7 @@ def set_settings(db, actor_id, data):
     rows = repo.settings(db, True)
     current = values(rows)
     check_version(current.version, data.version)
-    changes = data.model_dump(mode="json", exclude={"version", "assistant_enabled"}) | {
-        "version": current.version + 1
-    }
+    changes = data.model_dump(mode="json", exclude={"version"}) | {"version": current.version + 1}
     for key, value in changes.items():
         if key in rows:
             rows[key].value = value
@@ -84,7 +83,9 @@ def is_open(hours, stamp):
     return False
 
 
-def public_config(db):
+def public_config(db, settings=None):
+    from app.services.assistant.provider import ready
+
     config = values(repo.settings(db))
     names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     hours = (
@@ -96,6 +97,16 @@ def public_config(db):
         or "Support hours are not configured"
     )
     return s.PublicConfigData(
+        assistant=s.PublicAssistant(
+            enabled=bool(
+                settings
+                and config.assistant_enabled
+                and ready(settings)
+                and config.support_phone
+                and min(config.assistant_daily_token_budget, settings.assistant_hard_token_limit)
+                > 0
+            )
+        ),
         support=s.PublicSupport(
             phone=config.support_phone,
             display_phone=config.support_phone,
@@ -103,7 +114,7 @@ def public_config(db):
             hours_text=hours + " (WAT)" if config.support_hours.days else hours,
             is_open_now=bool(config.support_phone or config.support_email)
             and is_open(config.support_hours, now()),
-        )
+        ),
     )
 
 

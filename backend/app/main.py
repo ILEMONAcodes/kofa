@@ -13,6 +13,7 @@ from app.api.v1 import (
     admin_reports,
     admin_users,
     appointments,
+    assistant,
     auth,
     availability,
     complaints,
@@ -52,6 +53,8 @@ def create_app(settings: Settings | None = None, engine=None):
     ]:
         app.include_router(router)
     app.include_router(admin_reports.router)
+    app.include_router(assistant.router)
+    app.include_router(assistant.staff_router)
     app.include_router(knowledge.public_router)
     app.include_router(knowledge.staff_router)
     app.include_router(availability.router)
@@ -143,6 +146,7 @@ def create_app(settings: Settings | None = None, engine=None):
                 "/api/v1/properties",
                 "/api/v1/taxonomy",
                 "/api/v1/property-media",
+                "/api/v1/assistant",
                 "/api/v1/public-config",
                 "/api/v1/knowledge-articles",
             )

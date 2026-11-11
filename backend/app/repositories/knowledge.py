@@ -7,6 +7,7 @@ from app.models.knowledge import KnowledgeArticle, SiteSetting
 
 KEYS = {
     "version",
+    "assistant_enabled",
     "support_phone",
     "support_email",
     "support_hours",
