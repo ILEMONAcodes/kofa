@@ -1,12 +1,14 @@
 # Progress
 
-**Last updated:** 2026-11-11 · **Current phase:** 6E (live non-financial dashboard) · **PRD:** v0.2 · **Contract version:** 0.13.0 (four operational dashboard metrics integrated locally; financial reporting deferred)
+**Last updated:** 2026-11-11 · **Current phase:** 6F (availability maintenance) · **PRD:** v0.2 · **Contract version:** 0.14.0 (staff availability maintenance and existing operational dashboard integrated locally)
 
 Rules: each developer updates only the rows they own; joint rows are updated by whoever completes the task and confirmed by the other. Test results are the **actual** output summary, never assumed. See `docs/IMPLEMENTATION_PLAN.md` for files and test requirements per task.
 
 **Status values:** Not started · Ready · In progress · In review · Blocked · Done · In use (approval optional) · Deferred
 
 ## Current focus
+
+- **2026-11-11 BE-6.27 availability maintenance — In review:** configured stale detection, staff queue, versioned outcomes/notes/history and bounded idempotent scanner are connected. Public enums unchanged; no migration, automatic unpublish or email. Branch joint/BE-6.27-availability-maintenance stacks on dashboard 1814068. Full backend 592 plus separate latency case passed (593 distinct; p95 124.8 ms); final targeted 17 passed. Frontend 157 tests, final build/types/lint, affected UI and real-stack browser/axe checks passed; screenshots inspected. Backend audit clean; frontend high/critical gate passed with seven moderate tooling findings. See AVAILABILITY_MAINTENANCE.md. Peer review, push/merge, deployment and hourly scheduler setup remain pending; existing email/R2/transaction deferrals remain.
 
 **Owner reminders (two):** staff invitation emails; Cloudflare R2 private storage/direct uploads with deployed upload validation. See [follow-ups](LIVE_STAFF_INTEGRATION.md#owner-requested-follow-ups).
 
@@ -207,7 +209,7 @@ Rules: each developer updates only the rows they own; joint rows are updated by 
 | FE-6.24 | 6E Admin dashboard home: queue counts, KPI cards/charts, date filter | Frontend | Should | FE-4.14, J-6.22 | In review | — | — | Matches API numbers; accessible chart alternatives; loading/empty states |
 | J-6.25 | 6E Reporting integration: remove mocks; verify KPIs against the dev seed | Both (lead: Backend) | Should | BE-6.23, FE-6.24 | In review | — | — | Dashboard figures equal fixture expectations |
 | FE-6.26 | 6F Policy and disclosure pages: terms, privacy, fees, verification limits, refunds, reporting (placeholder content until legal approval) | Frontend | Must | FE-2.3 | Not started | OQ-01, OQ-18 | — | Pages exist, linked from footer and consent checkboxes; placeholder banner visible until counsel approves; version string matches `/policies/current` |
-| BE-6.27 | 6F Stale-availability job: flag listings not confirmed within the threshold | Backend | Could | BE-4.5, BE-6.19 | Not started | — | — | Listings past the threshold appear under `stale_availability` and trigger a staff email |
+| BE-6.27 | 6F Stale-availability job: flag listings not confirmed within the threshold | Backend | Could | BE-4.5, BE-6.19 | In review | — | — | Listings past the threshold appear under `stale_availability` and trigger a staff email |
 | J-6.28 | 6G Freeze AI assistant contract and safety policy: scope and intents, knowledge-base rules, handoff triggers, call-line and hours config, guardrails, logging and retention, evaluation criteria | Both (lead: Backend) | Should | J-5.1, J-4.1 | Not started | OQ-23, OQ-24, OQ-25, OQ-26 | — | §4.9 endpoints `Agreed`; handoff triggers and refusal categories fixed; call-line number and hours supplied (OQ-24); provider and data-sharing decided (OQ-23); initial FAQ list and ≥40-question golden set drafted (OQ-25) |
 | BE-6.29 | 6G Support settings, public-config endpoint, knowledge-article models and admin API (draft → admin publish) | Backend | Should | BE-3.3, J-6.28 | Not started | — | — | `/public-config` returns call line, hours and `is_open_now` (Africa/Lagos); only published articles are retrievable; only admins publish and change settings; changes audited; phone validated as E.164 |
 | BE-6.30 | 6G Assistant service and conversation API: LLM client interface (mock + real), retrieval over articles and public property search, deterministic handoff guards, output filter, rate limits, token budget, logging, message-the-team handoff | Backend | Should | BE-6.29, BE-4.7, BE-5.3, J-6.28 | Not started | — | — | Answers only from approved sources with source references; every handoff includes the call option; output never contains a phone/email other than the support contact; assistant tools cannot reach landlord, user, inquiry or document data; provider error, timeout or budget exhaustion → 200 handoff `service_unavailable`; message-team handoff creates a `general` inquiry with transcript note; LLM key server-side only; rate limits per contract §6 |

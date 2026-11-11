@@ -1,6 +1,7 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- signed private images must keep staff cookies and bypass the public image optimizer. */
 import Image from "next/image";
+import { AvailabilityHistory, outcomes } from "@/components/features/availability/queue";
 import { OperationalDashboard } from "@/components/features/reports/dashboard";
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -805,7 +806,8 @@ function AvailabilityForm({
   act: Act;
   busy: boolean;
 }) {
-  const [selected, setSelected] = useState(record.availability_status);
+  const [selected, setSelected] = useState<string>(record.availability_status);
+  const [note, setNote] = useState("");
   return (
     <form
       className="live-staff-stack"
@@ -815,7 +817,7 @@ function AvailabilityForm({
           await staffWrite(
             `/admin/properties/${record.id}/availability`,
             "PATCH",
-            { availability_status: selected, version: record.version },
+            { outcome: selected, note, version: record.version },
           );
           return "Availability confirmed.";
         });
@@ -830,17 +832,17 @@ function AvailabilityForm({
       <Dropdown
         label="Availability"
         value={selected}
-        options={["available", "under_offer", "unavailable"].map((v) =>
-          option(v),
-        )}
+        options={outcomes(record.listing_type)}
         onChange={(e) =>
           setSelected(e.target.value as StaffDetail["availability_status"])
         }
       />
+      <Input label="Confirmation note (optional)" value={note} maxLength={1000} onChange={e => setNote(e.target.value)} />
       <p>Saving records the current confirmation time.</p>
       <Button type="submit" loading={busy}>
         Confirm availability
       </Button>
+      <AvailabilityHistory id={record.id} key={record.version} />
     </form>
   );
 }
@@ -1356,6 +1358,7 @@ export function LiveStaffWorkspace({ view }: { view: string }) {
         <div className="live-staff-stack">
           {[
             ["Overview", "/staff/overview"],
+            ["Availability review", "/staff/availability-queue"],
             ["Properties", "/staff/properties"],
             ["Landlords", "/staff/landlords"],
             ["Inquiries", "/staff/inquiries"],

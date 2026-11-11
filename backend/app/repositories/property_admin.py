@@ -1,7 +1,5 @@
 """Parameterized staff queue and property history queries."""
 
-from datetime import timedelta
-
 from sqlalchemy import and_, delete, func, or_, select, update
 from sqlalchemy.sql.elements import ColumnElement
 
@@ -19,6 +17,7 @@ from app.models.property import (
     PropertyVerification,
     VerificationCheck,
 )
+from app.repositories.availability import stale as stale_clause
 
 
 def joined_properties():
@@ -41,7 +40,7 @@ def joined_properties():
     )
 
 
-def queue(db, filters, sorts, page, page_size, now):
+def queue(db, filters, sorts, page, page_size, now, stale_days=14):
     statement = joined_properties()
     conditions: list[ColumnElement[bool]] = []
     if filters.get("status"):
@@ -66,10 +65,7 @@ def queue(db, filters, sorts, page, page_size, now):
     if filters.get("landlord_id"):
         conditions.append(Property.landlord_id == filters["landlord_id"])
     if filters.get("stale_availability") is not None:
-        stale = or_(
-            Property.last_availability_confirmed_at.is_(None),
-            Property.last_availability_confirmed_at < now - timedelta(days=14),
-        )
+        stale = stale_clause(now, stale_days)
         conditions.append(stale if filters["stale_availability"] else ~stale)
     statement = statement.where(*conditions)
     total = db.scalar(select(func.count()).select_from(statement.subquery())) or 0

@@ -849,17 +849,120 @@
         "title": "Assignment",
         "type": "object"
       },
+      "AvailabilityConfirmation": {
+        "properties": {
+          "actor_name": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Actor Name"
+          },
+          "availability_status": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Availability Status"
+          },
+          "confirmed_at": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Confirmed At"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
+          },
+          "recorded_at": {
+            "format": "date-time",
+            "title": "Recorded At",
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "recorded_at",
+          "confirmed_at",
+          "actor_name",
+          "availability_status",
+          "outcome",
+          "note"
+        ],
+        "title": "AvailabilityConfirmation",
+        "type": "object"
+      },
+      "AvailabilityHistory": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/AvailabilityConfirmation"
+            },
+            "title": "Data",
+            "type": "array"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "AvailabilityHistory",
+        "type": "object"
+      },
       "AvailabilityInput": {
         "additionalProperties": false,
         "properties": {
           "availability_status": {
-            "enum": [
-              "available",
-              "under_offer",
-              "unavailable"
+            "anyOf": [
+              {
+                "enum": [
+                  "available",
+                  "under_offer",
+                  "unavailable"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
             ],
-            "title": "Availability Status",
-            "type": "string"
+            "title": "Availability Status"
           },
           "confirmed_at": {
             "anyOf": [
@@ -872,6 +975,37 @@
               }
             ],
             "title": "Confirmed At"
+          },
+          "note": {
+            "anyOf": [
+              {
+                "maxLength": 1000,
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Note"
+          },
+          "outcome": {
+            "anyOf": [
+              {
+                "enum": [
+                  "available",
+                  "under_offer",
+                  "unavailable",
+                  "let",
+                  "sold",
+                  "withdrawn"
+                ],
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Outcome"
           },
           "version": {
             "anyOf": [
@@ -886,10 +1020,130 @@
             "title": "Version"
           }
         },
-        "required": [
-          "availability_status"
-        ],
         "title": "AvailabilityInput",
+        "type": "object"
+      },
+      "AvailabilityQueue": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/AvailabilityQueueItem"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/AvailabilityQueueMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "AvailabilityQueue",
+        "type": "object"
+      },
+      "AvailabilityQueueItem": {
+        "properties": {
+          "assigned_staff": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Assigned Staff"
+          },
+          "availability_status": {
+            "enum": [
+              "available",
+              "under_offer",
+              "unavailable"
+            ],
+            "title": "Availability Status",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "last_confirmed_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last Confirmed At"
+          },
+          "listing_type": {
+            "title": "Listing Type",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "listing_type",
+          "availability_status",
+          "last_confirmed_at",
+          "version",
+          "assigned_staff"
+        ],
+        "title": "AvailabilityQueueItem",
+        "type": "object"
+      },
+      "AvailabilityQueueMeta": {
+        "properties": {
+          "as_of": {
+            "format": "date-time",
+            "title": "As Of",
+            "type": "string"
+          },
+          "page": {
+            "title": "Page",
+            "type": "integer"
+          },
+          "page_size": {
+            "title": "Page Size",
+            "type": "integer"
+          },
+          "threshold_days": {
+            "title": "Threshold Days",
+            "type": "integer"
+          },
+          "total_items": {
+            "title": "Total Items",
+            "type": "integer"
+          },
+          "total_pages": {
+            "title": "Total Pages",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "page",
+          "page_size",
+          "total_items",
+          "total_pages",
+          "threshold_days",
+          "as_of"
+        ],
+        "title": "AvailabilityQueueMeta",
         "type": "object"
       },
       "Body_own_upload_api_v1_complaints__id__files_post": {
@@ -7336,6 +7590,93 @@
         "summary": "Outcome"
       }
     },
+    "/api/v1/admin/availability-queue": {
+      "get": {
+        "operationId": "queue_api_v1_admin_availability_queue_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 150,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "in": "query",
+            "name": "assigned_to",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "format": "uuid",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Assigned To"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailabilityQueue"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Queue"
+      }
+    },
     "/api/v1/admin/clients": {
       "get": {
         "operationId": "clients_api_v1_admin_clients_get",
@@ -9092,6 +9433,46 @@
           }
         },
         "summary": "Availability"
+      }
+    },
+    "/api/v1/admin/properties/{id}/availability-history": {
+      "get": {
+        "operationId": "history_api_v1_admin_properties__id__availability_history_get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AvailabilityHistory"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "History"
       }
     },
     "/api/v1/admin/properties/{id}/files/{file_id}": {

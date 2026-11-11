@@ -1,3 +1,4 @@
+import { AvailabilityQueue, AvailabilityHistoryPage } from "@/components/features/availability/queue";
 import { Suspense } from "react";
 import { BrandLoading } from "@/components/common/brand-loading";
 import { LiveComplaints } from "@/components/features/complaints/live";
@@ -33,6 +34,8 @@ export default async function Page({
     ["staff", "admin"],
     `/staff/${screen}${query.size ? `?${query}` : ""}`,
   );
+  if (screen === "availability-history") return <AvailabilityHistoryPage id={typeof search.id === "string" ? search.id : null} />;
+  if (screen === "availability-queue") return <AvailabilityQueue />;
   if (staffCaseViews.has(screen))
     return (
       <Suspense fallback={<BrandLoading />}>
