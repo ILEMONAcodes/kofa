@@ -1,3 +1,4 @@
+import { KnowledgeWorkspace } from "@/components/features/knowledge/live";
 import { AvailabilityQueue, AvailabilityHistoryPage } from "@/components/features/availability/queue";
 import { Suspense } from "react";
 import { BrandLoading } from "@/components/common/brand-loading";
@@ -34,6 +35,7 @@ export default async function Page({
     ["staff", "admin"],
     `/staff/${screen}${query.size ? `?${query}` : ""}`,
   );
+  if (["knowledge", "article", "edit-article"].includes(screen)) return <KnowledgeWorkspace view={screen} id={typeof search.id === "string" ? search.id : null} />;
   if (screen === "availability-history") return <AvailabilityHistoryPage id={typeof search.id === "string" ? search.id : null} />;
   if (screen === "availability-queue") return <AvailabilityQueue />;
   if (staffCaseViews.has(screen))

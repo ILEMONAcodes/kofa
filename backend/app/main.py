@@ -17,6 +17,7 @@ from app.api.v1 import (
     availability,
     complaints,
     inquiries,
+    knowledge,
     landlord_submissions,
 )
 from app.core.body_limit import AuthBodyLimit
@@ -51,6 +52,8 @@ def create_app(settings: Settings | None = None, engine=None):
     ]:
         app.include_router(router)
     app.include_router(admin_reports.router)
+    app.include_router(knowledge.public_router)
+    app.include_router(knowledge.staff_router)
     app.include_router(availability.router)
     app.include_router(appointments.options_router)
     app.include_router(appointments.client_router)
@@ -140,6 +143,8 @@ def create_app(settings: Settings | None = None, engine=None):
                 "/api/v1/properties",
                 "/api/v1/taxonomy",
                 "/api/v1/property-media",
+                "/api/v1/public-config",
+                "/api/v1/knowledge-articles",
             )
         ):
             response.headers["Cache-Control"] = "no-store"

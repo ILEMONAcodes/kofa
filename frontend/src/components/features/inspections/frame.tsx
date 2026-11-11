@@ -8,12 +8,14 @@ export function InspectionFrame({
   staff,
   children,
   backHref = "/account/inspections",
+  homeHref,
   helpTitle = "Help with your visit",
   helpText = "Ask our team in your inquiry conversation for help with your visit. Keep conversations and payments on Kof’a’s approved channels.",
 }: {
   staff: boolean;
   children: ReactNode;
   backHref?: string;
+  homeHref?: string;
   helpTitle?: string;
   helpText?: string;
 }) {
@@ -22,6 +24,7 @@ export function InspectionFrame({
     ? [
         ["Overview", "/staff/overview"],
         ["Availability review", "/staff/availability-queue"],
+        ["Knowledge base", "/staff/knowledge"],
         ["Properties", "/staff/properties"],
         ["Inquiries", "/staff/inquiries"],
         ["Inspections", "/staff/inspections"],
@@ -46,7 +49,7 @@ export function InspectionFrame({
         <p>{staff ? "Kof’a workspace" : "The doorway to your home"}</p>
         <div>
           <Link
-            href={staff ? "/staff/overview" : "/account/overview"}
+            href={homeHref ?? (staff ? "/staff/overview" : "/account/overview")}
             aria-label="Kof’a overview"
             className="inspection-logo"
           >

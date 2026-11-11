@@ -815,6 +815,115 @@
         "title": "AreaPublic",
         "type": "object"
       },
+      "ArticleCreate": {
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "maxLength": 30000,
+            "minLength": 20,
+            "title": "Body",
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "how_it_works",
+              "fees",
+              "verification",
+              "inspections",
+              "policies",
+              "reporting",
+              "contact",
+              "other"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "language": {
+            "const": "en",
+            "default": "en",
+            "title": "Language",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 160,
+            "minLength": 3,
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "title",
+          "body",
+          "category"
+        ],
+        "title": "ArticleCreate",
+        "type": "object"
+      },
+      "ArticleEdit": {
+        "additionalProperties": false,
+        "properties": {
+          "body": {
+            "maxLength": 30000,
+            "minLength": 20,
+            "title": "Body",
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "how_it_works",
+              "fees",
+              "verification",
+              "inspections",
+              "policies",
+              "reporting",
+              "contact",
+              "other"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "language": {
+            "const": "en",
+            "default": "en",
+            "title": "Language",
+            "type": "string"
+          },
+          "title": {
+            "maxLength": 160,
+            "minLength": 3,
+            "title": "Title",
+            "type": "string"
+          },
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "title",
+          "body",
+          "category",
+          "version"
+        ],
+        "title": "ArticleEdit",
+        "type": "object"
+      },
+      "ArticleVersion": {
+        "additionalProperties": false,
+        "properties": {
+          "version": {
+            "minimum": 1.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version"
+        ],
+        "title": "ArticleVersion",
+        "type": "object"
+      },
       "Assignment": {
         "additionalProperties": false,
         "properties": {
@@ -4884,6 +4993,237 @@
         "title": "PropertySummaryPublic",
         "type": "object"
       },
+      "PublicArticle": {
+        "properties": {
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "how_it_works",
+              "fees",
+              "verification",
+              "inspections",
+              "policies",
+              "reporting",
+              "contact",
+              "other"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "language": {
+            "const": "en",
+            "title": "Language",
+            "type": "string"
+          },
+          "published_at": {
+            "format": "date-time",
+            "title": "Published At",
+            "type": "string"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slug",
+          "title",
+          "category",
+          "language",
+          "published_at",
+          "body"
+        ],
+        "title": "PublicArticle",
+        "type": "object"
+      },
+      "PublicArticleEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PublicArticle"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "PublicArticleEnvelope",
+        "type": "object"
+      },
+      "PublicArticlePage": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/PublicArticleSummary"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "PublicArticlePage",
+        "type": "object"
+      },
+      "PublicArticleSummary": {
+        "properties": {
+          "category": {
+            "enum": [
+              "how_it_works",
+              "fees",
+              "verification",
+              "inspections",
+              "policies",
+              "reporting",
+              "contact",
+              "other"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "language": {
+            "const": "en",
+            "title": "Language",
+            "type": "string"
+          },
+          "published_at": {
+            "format": "date-time",
+            "title": "Published At",
+            "type": "string"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          }
+        },
+        "required": [
+          "slug",
+          "title",
+          "category",
+          "language",
+          "published_at"
+        ],
+        "title": "PublicArticleSummary",
+        "type": "object"
+      },
+      "PublicAssistant": {
+        "properties": {
+          "disclosure": {
+            "default": "I'm an AI assistant. I can answer common questions, but I can make mistakes. For payments, legal questions or complaints, please contact our team.",
+            "title": "Disclosure",
+            "type": "string"
+          },
+          "enabled": {
+            "const": false,
+            "default": false,
+            "title": "Enabled",
+            "type": "boolean"
+          }
+        },
+        "title": "PublicAssistant",
+        "type": "object"
+      },
+      "PublicConfigData": {
+        "properties": {
+          "assistant": {
+            "$ref": "#/components/schemas/PublicAssistant"
+          },
+          "support": {
+            "$ref": "#/components/schemas/PublicSupport"
+          }
+        },
+        "required": [
+          "support"
+        ],
+        "title": "PublicConfigData",
+        "type": "object"
+      },
+      "PublicConfigEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/PublicConfigData"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "PublicConfigEnvelope",
+        "type": "object"
+      },
+      "PublicSupport": {
+        "properties": {
+          "display_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Display Phone"
+          },
+          "email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Email"
+          },
+          "hours_text": {
+            "title": "Hours Text",
+            "type": "string"
+          },
+          "is_open_now": {
+            "title": "Is Open Now",
+            "type": "boolean"
+          },
+          "phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Phone"
+          },
+          "timezone": {
+            "const": "Africa/Lagos",
+            "default": "Africa/Lagos",
+            "title": "Timezone",
+            "type": "string"
+          }
+        },
+        "required": [
+          "phone",
+          "display_phone",
+          "email",
+          "hours_text",
+          "is_open_now"
+        ],
+        "title": "PublicSupport",
+        "type": "object"
+      },
       "Qualify": {
         "additionalProperties": false,
         "properties": {
@@ -5350,6 +5690,211 @@
           "version"
         ],
         "title": "Result",
+        "type": "object"
+      },
+      "StaffArticle": {
+        "properties": {
+          "body": {
+            "title": "Body",
+            "type": "string"
+          },
+          "category": {
+            "enum": [
+              "how_it_works",
+              "fees",
+              "verification",
+              "inspections",
+              "policies",
+              "reporting",
+              "contact",
+              "other"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "language": {
+            "const": "en",
+            "title": "Language",
+            "type": "string"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "published"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "category",
+          "language",
+          "status",
+          "version",
+          "published_at",
+          "created_at",
+          "updated_at",
+          "body"
+        ],
+        "title": "StaffArticle",
+        "type": "object"
+      },
+      "StaffArticleEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/StaffArticle"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "StaffArticleEnvelope",
+        "type": "object"
+      },
+      "StaffArticlePage": {
+        "properties": {
+          "data": {
+            "items": {
+              "$ref": "#/components/schemas/StaffArticleSummary"
+            },
+            "title": "Data",
+            "type": "array"
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PageMeta"
+          }
+        },
+        "required": [
+          "data",
+          "meta"
+        ],
+        "title": "StaffArticlePage",
+        "type": "object"
+      },
+      "StaffArticleSummary": {
+        "properties": {
+          "category": {
+            "enum": [
+              "how_it_works",
+              "fees",
+              "verification",
+              "inspections",
+              "policies",
+              "reporting",
+              "contact",
+              "other"
+            ],
+            "title": "Category",
+            "type": "string"
+          },
+          "created_at": {
+            "format": "date-time",
+            "title": "Created At",
+            "type": "string"
+          },
+          "id": {
+            "format": "uuid",
+            "title": "Id",
+            "type": "string"
+          },
+          "language": {
+            "const": "en",
+            "title": "Language",
+            "type": "string"
+          },
+          "published_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Published At"
+          },
+          "slug": {
+            "title": "Slug",
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "draft",
+              "published"
+            ],
+            "title": "Status",
+            "type": "string"
+          },
+          "title": {
+            "title": "Title",
+            "type": "string"
+          },
+          "updated_at": {
+            "format": "date-time",
+            "title": "Updated At",
+            "type": "string"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "id",
+          "slug",
+          "title",
+          "category",
+          "language",
+          "status",
+          "version",
+          "published_at",
+          "created_at",
+          "updated_at"
+        ],
+        "title": "StaffArticleSummary",
         "type": "object"
       },
       "StaffDetail": {
@@ -6101,6 +6646,175 @@
           "updated_at"
         ],
         "title": "SummaryClient",
+        "type": "object"
+      },
+      "SupportDay": {
+        "additionalProperties": false,
+        "properties": {
+          "close": {
+            "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+            "title": "Close",
+            "type": "string"
+          },
+          "day": {
+            "maximum": 6.0,
+            "minimum": 0.0,
+            "title": "Day",
+            "type": "integer"
+          },
+          "open": {
+            "pattern": "^([01]\\d|2[0-3]):[0-5]\\d$",
+            "title": "Open",
+            "type": "string"
+          }
+        },
+        "required": [
+          "day",
+          "open",
+          "close"
+        ],
+        "title": "SupportDay",
+        "type": "object"
+      },
+      "SupportHours": {
+        "additionalProperties": false,
+        "properties": {
+          "days": {
+            "items": {
+              "$ref": "#/components/schemas/SupportDay"
+            },
+            "maxItems": 7,
+            "title": "Days",
+            "type": "array"
+          },
+          "timezone": {
+            "const": "Africa/Lagos",
+            "default": "Africa/Lagos",
+            "title": "Timezone",
+            "type": "string"
+          }
+        },
+        "title": "SupportHours",
+        "type": "object"
+      },
+      "SupportSettingsEnvelope": {
+        "properties": {
+          "data": {
+            "$ref": "#/components/schemas/SupportSettingsOut"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "SupportSettingsEnvelope",
+        "type": "object"
+      },
+      "SupportSettingsInput": {
+        "additionalProperties": false,
+        "properties": {
+          "assistant_daily_token_budget": {
+            "default": 0,
+            "maximum": 10000000.0,
+            "minimum": 0.0,
+            "title": "Assistant Daily Token Budget",
+            "type": "integer"
+          },
+          "assistant_enabled": {
+            "const": false,
+            "default": false,
+            "title": "Assistant Enabled",
+            "type": "boolean"
+          },
+          "support_email": {
+            "anyOf": [
+              {
+                "format": "email",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support Email"
+          },
+          "support_hours": {
+            "$ref": "#/components/schemas/SupportHours"
+          },
+          "support_phone": {
+            "anyOf": [
+              {
+                "pattern": "^\\+[1-9]\\d{7,14}$",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support Phone"
+          },
+          "version": {
+            "minimum": 0.0,
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "support_hours"
+        ],
+        "title": "SupportSettingsInput",
+        "type": "object"
+      },
+      "SupportSettingsOut": {
+        "properties": {
+          "assistant_daily_token_budget": {
+            "default": 0,
+            "title": "Assistant Daily Token Budget",
+            "type": "integer"
+          },
+          "assistant_enabled": {
+            "const": false,
+            "default": false,
+            "title": "Assistant Enabled",
+            "type": "boolean"
+          },
+          "support_email": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support Email"
+          },
+          "support_hours": {
+            "$ref": "#/components/schemas/SupportHours"
+          },
+          "support_phone": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Support Phone"
+          },
+          "version": {
+            "title": "Version",
+            "type": "integer"
+          }
+        },
+        "required": [
+          "version",
+          "support_phone",
+          "support_email",
+          "support_hours"
+        ],
+        "title": "SupportSettingsOut",
         "type": "object"
       },
       "TaxonomyAmenityPublic": {
@@ -8952,6 +9666,346 @@
         "summary": "Transition"
       }
     },
+    "/api/v1/admin/knowledge-articles": {
+      "get": {
+        "operationId": "staff_list_api_v1_admin_knowledge_articles_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 150,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "how_it_works",
+                    "fees",
+                    "verification",
+                    "inspections",
+                    "policies",
+                    "reporting",
+                    "contact",
+                    "other"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            }
+          },
+          {
+            "in": "query",
+            "name": "status",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "draft",
+                    "published"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Status"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StaffArticlePage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Staff List"
+      },
+      "post": {
+        "operationId": "create_api_v1_admin_knowledge_articles_post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArticleCreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StaffArticleEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Create"
+      }
+    },
+    "/api/v1/admin/knowledge-articles/{id}": {
+      "get": {
+        "operationId": "detail_api_v1_admin_knowledge_articles__id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StaffArticleEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Detail"
+      },
+      "patch": {
+        "operationId": "edit_api_v1_admin_knowledge_articles__id__patch",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArticleEdit"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StaffArticleEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Edit"
+      }
+    },
+    "/api/v1/admin/knowledge-articles/{id}/publish": {
+      "post": {
+        "operationId": "publish_api_v1_admin_knowledge_articles__id__publish_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArticleVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StaffArticleEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Publish"
+      }
+    },
+    "/api/v1/admin/knowledge-articles/{id}/unpublish": {
+      "post": {
+        "operationId": "unpublish_api_v1_admin_knowledge_articles__id__unpublish_post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": {
+              "format": "uuid",
+              "title": "Id",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ArticleVersion"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StaffArticleEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Unpublish"
+      }
+    },
     "/api/v1/admin/landlords": {
       "get": {
         "operationId": "landlords_api_v1_admin_landlords_get",
@@ -10005,6 +11059,60 @@
           }
         },
         "summary": "Kpis"
+      }
+    },
+    "/api/v1/admin/settings": {
+      "get": {
+        "operationId": "settings_api_v1_admin_settings_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportSettingsEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Settings"
+      },
+      "put": {
+        "operationId": "update_settings_api_v1_admin_settings_put",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupportSettingsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportSettingsEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Update Settings"
       }
     },
     "/api/v1/admin/users": {
@@ -11392,6 +12500,141 @@
         "summary": "Own Read"
       }
     },
+    "/api/v1/knowledge-articles": {
+      "get": {
+        "operationId": "public_list_api_v1_knowledge_articles_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": {
+              "default": 1,
+              "minimum": 1,
+              "title": "Page",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "page_size",
+            "required": false,
+            "schema": {
+              "default": 20,
+              "maximum": 100,
+              "minimum": 1,
+              "title": "Page Size",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "query",
+            "name": "q",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "maxLength": 150,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Q"
+            }
+          },
+          {
+            "in": "query",
+            "name": "category",
+            "required": false,
+            "schema": {
+              "anyOf": [
+                {
+                  "enum": [
+                    "how_it_works",
+                    "fees",
+                    "verification",
+                    "inspections",
+                    "policies",
+                    "reporting",
+                    "contact",
+                    "other"
+                  ],
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Category"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicArticlePage"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Public List"
+      }
+    },
+    "/api/v1/knowledge-articles/{slug}": {
+      "get": {
+        "operationId": "public_detail_api_v1_knowledge_articles__slug__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "slug",
+            "required": true,
+            "schema": {
+              "title": "Slug",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicArticleEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Public Detail"
+      }
+    },
     "/api/v1/landlord-submissions": {
       "post": {
         "operationId": "create_api_v1_landlord_submissions_post",
@@ -12042,6 +13285,24 @@
           }
         },
         "summary": "Media File"
+      }
+    },
+    "/api/v1/public-config": {
+      "get": {
+        "operationId": "config_api_v1_public_config_get",
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PublicConfigEnvelope"
+                }
+              }
+            },
+            "description": "Successful Response"
+          }
+        },
+        "summary": "Config"
       }
     },
     "/api/v1/reports": {

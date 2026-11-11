@@ -1,3 +1,4 @@
+import { PublicHelp } from "@/components/features/knowledge/live";
 import { redirect } from "next/navigation";
 import { PolicyDraftPage } from "@/content/policies/page";
 import { requireReviewRole } from "@/lib/review-server/session";
@@ -14,11 +15,14 @@ export function generateStaticParams() {
   return mediaScreens.map(({ slug }) => ({ screen: slug }));
 }
 export default async function Page({
-  params,
+  params, searchParams,
 }: {
   params: Promise<{ screen: string }>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
   const { screen } = await params;
+  const search = await searchParams;
+  if (screen === "help" || screen === "article") return <PublicHelp slug={screen === "article" && typeof search.slug === "string" ? search.slug : null} />;
   if (
     [
       "report",

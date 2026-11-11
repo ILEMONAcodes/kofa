@@ -280,3 +280,7 @@ Adding, splitting or re-prioritising a task needs the developer in charge's agre
 - 2026-11-11 J-6.25: owner-authorized non-financial reporting integrates four current-state workload counts (review listings, open inquiries, upcoming inspections, active complaints) with WAT date cohorts. Financial dependencies remain deferred; fixtures are isolated tests, not the deferred reusable development seed module. See LIVE_DASHBOARD.md.
 
 - 2026-11-11 BE-6.27: owner requests availability maintenance now. Implement computed stale queue, configurable threshold, audit-backed scanner and connected staff reconfirmation/history. Email dependency BE-6.19 remains deferred by owner; no email job or automatic unpublication. Public availability enums remain unchanged; detailed staff outcomes map server-side. Dashboard branch 1814068 is the pending stack dependency.
+
+### BE-6.29 execution note — 2026-11-11
+
+Support settings and the knowledge editorial/public Help subset are implemented under CR-SUPPORT-001 v0.15.0 on joint/BE-6.29-support-knowledge; see SUPPORT_KNOWLEDGE.md for verification and deployment boundaries. FE-6.33 support/editorial screens are connected; assistant enablement and conversation review remain pending with BE-6.30/31. No real provider calls or production migrations are included.
