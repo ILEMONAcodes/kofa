@@ -20,3 +20,7 @@ Initial contacts/hours are application fallback values until the first admin sav
 - Audits: backend no known vulnerabilities; frontend high/critical gate passed, seven existing moderate development-tooling findings retained.
 - Local single-session reviewer checked committed routes/services/repositories/schemas/UI and corrected one contract-table formatting issue; no blocking finding. Independent developer review still pending.
 - No private environment file or unrelated changes are included. Full backend regression: **626 passed, 1 separate property-latency case deselected**; final focused39 checks also cover four cases added after full-suite collection. See PROGRESS.md.
+
+## Approved Neon migration — 11 November 2026
+
+Owner approved the migration and push after local validation. `be629_support` was applied successfully from `be615_complaints`; catalog-only checks verified both tables and indexes without reading/seeding application records. This supersedes the earlier local-only migration status. Pending notification branch still requires migration-head coordination before it joins. Application merge/deployment remains separate from this push.
