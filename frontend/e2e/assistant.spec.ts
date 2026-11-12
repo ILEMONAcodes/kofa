@@ -17,6 +17,7 @@ test("grounded assistant, human handoff, staff review and admin usage controls",
  await expect(dialog.getByRole("link",{name:"Source: Preparing for an inspection"})).toBeVisible();
  for(const width of [360,768,1280]){
   await page.setViewportSize({width,height:900});
+  await expect(dialog.getByRole("button",{name:"Send question",exact:true})).toBeInViewport();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth)).toBe(true);
   expect((await new AxeBuilder({page}).analyze()).violations).toEqual([]);
   await page.screenshot({path:`/tmp/kofa-assistant-${width}.png`,fullPage:true});
@@ -24,7 +25,7 @@ test("grounded assistant, human handoff, staff review and admin usage controls",
  await dialog.getByLabel("Your question").fill("How do I pay a service fee?");
  await dialog.getByRole("button",{name:"Send question",exact:true}).click();
  await expect(dialog.getByRole("region",{name:"Contact the team"})).toBeVisible();
- await expect(dialog.getByRole("link",{name:"Call +2348145935403"})).toBeVisible();
+ await expect(dialog.getByRole("link",{name:"Call team at Kof’a"})).toBeVisible();
  await dialog.getByRole("link",{name:"Sign in to message our team"}).click();
  await expect(page).toHaveURL(/\/login/);
  await page.getByLabel("Email",{exact:true}).fill(client.email);
@@ -32,7 +33,7 @@ test("grounded assistant, human handoff, staff review and admin usage controls",
  await page.getByRole("button",{name:"Log in",exact:true}).click();
  await expect(page).not.toHaveURL(/\/login/);
  await page.getByRole("button",{name:"Ask Kof’a",exact:true}).click();
- await dialog.getByRole("button",{name:"Send conversation to our team",exact:true}).click();
+ await dialog.getByRole("button",{name:"Send to our team",exact:true}).click();
  await expect(dialog.getByRole("link",{name:"Open your inquiry",exact:true})).toBeVisible();
  const href=await dialog.getByRole("link",{name:"Open your inquiry",exact:true}).getAttribute("href");
  const inquiry=new URL(href!,"http://localhost").searchParams.get("id");

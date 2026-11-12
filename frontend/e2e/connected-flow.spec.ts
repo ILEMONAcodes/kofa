@@ -149,39 +149,18 @@ test("account, staff login and team management fit supported widths and have acc
     }
   }
 });
-test("mobile entrance holds for three seconds and loading uses the logo orbit", async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  const start = new Date("2026-10-31T00:00:00Z");
-  await page.clock.install({ time: start });
-  await page.clock.pauseAt(new Date(start.getTime() + 1000));
-  await page.goto("/");
-  // CSS fallback animations use wall time; freeze only the entrance while checking its JS timeline.
-  await page.addStyleTag({
-    content:
-      ".mobile-launch,.mobile-launch img{animation:none!important;transition:none!important}",
-  });
-  await page.clock.runFor(20);
-  await expect(page.locator(".mobile-launch")).toBeVisible();
-  await page.clock.runFor(2800);
-  await expect(page.locator(".mobile-launch")).toBeVisible();
-  await page.clock.runFor(600);
-  await expect(page.locator(".mobile-launch")).toHaveCount(0);
-  await page.goto("/resources/loading");
-  await page.clock.runFor(20);
-  await expect(
-    page.getByRole("status", { name: "Loading Kof’a", exact: true }),
-  ).toBeVisible();
-  await expect(page.locator(".brand-loading-orbit")).toHaveCSS(
-    "animation-name",
-    "brand-orbit",
-  );
-  await page.emulateMedia({ reducedMotion: "reduce" });
-  await expect(page.locator(".brand-loading-orbit")).toHaveCSS(
-    "animation-name",
-    "none",
-  );
+test("mobile opens directly and loading uses the icon-only thick orbit",async({page})=>{
+ await page.setViewportSize({width:390,height:844});
+ await page.goto("/");
+ await expect(page.locator(".mobile-launch")).toHaveCount(0);
+ await page.goto("/resources/loading");
+ const loader=page.getByRole("status",{name:"Loading Kof’a",exact:true});
+ await expect(loader).toBeVisible();
+ await expect(loader.locator("img")).toHaveAttribute("src","/assets/kofa-mark.svg");
+ await expect(page.locator(".brand-loading-orbit")).toHaveCSS("border-top-width","7px");
+ await expect(page.locator(".brand-loading-orbit")).toHaveCSS("animation-name","brand-orbit");
+ await page.emulateMedia({reducedMotion:"reduce"});
+ await expect(page.locator(".brand-loading-orbit")).toHaveCSS("animation-name","none");
 });
 
 test("a signed-out saved inquiry link preserves its property through login", async ({

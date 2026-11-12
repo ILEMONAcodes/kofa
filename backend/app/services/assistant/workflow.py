@@ -466,7 +466,15 @@ def usage(db, settings, actor):
             "unknown_usage_requests",
         ]
     }
+    readiness_issues = provider.issues(settings)
+    if not config.assistant_enabled:
+        readiness_issues.append("admin_disabled")
+    if limit <= 0:
+        readiness_issues.append("token_budget_zero")
+    if not config.support_phone:
+        readiness_issues.append("support_phone_missing")
     return s.Usage(
+        readiness_issues=readiness_issues,
         day=day,
         enabled=knowledge.public_config(db, settings).assistant.enabled,
         provider_ready=bool(provider.ready(settings)),

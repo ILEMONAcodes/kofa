@@ -1,13 +1,13 @@
 import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Kof’a — The doorway to your home",
+    name: "Kof’a",
     short_name: "Kof’a",
     description: "Explore homes with clearer property information.",
     start_url: "/",
     scope: "/",
     display: "standalone",
-    background_color: "#643B29",
+    background_color: "#F7F3EE",
     theme_color: "#643B29",
     icons: [
       {

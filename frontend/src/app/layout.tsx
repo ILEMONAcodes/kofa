@@ -63,7 +63,7 @@ export default function RootLayout({
           Skip to content
         </a>
         <noscript>
-          <style>{`#app-content,.mobile-launch,.mobile-bottom-nav{display:none!important}`}</style>
+          <style>{`#app-content,.mobile-bottom-nav{display:none!important}`}</style>
           <main id="no-script-content" className="page-container">
             <h1 className="text-3xl">Welcome to Kof’a</h1>
             <p className="mt-4 text-muted">

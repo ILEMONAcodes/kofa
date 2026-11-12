@@ -7561,6 +7561,13 @@
             "title": "Provider Ready",
             "type": "boolean"
           },
+          "readiness_issues": {
+            "items": {
+              "type": "string"
+            },
+            "title": "Readiness Issues",
+            "type": "array"
+          },
           "remaining_requests": {
             "title": "Remaining Requests",
             "type": "integer"
@@ -7607,6 +7614,7 @@
         "required": [
           "day",
           "enabled",
+          "readiness_issues",
           "provider_ready",
           "provider",
           "model",

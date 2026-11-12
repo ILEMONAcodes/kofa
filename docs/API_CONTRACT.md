@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.16.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
+**Contract version:** `0.17.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -547,6 +547,7 @@ Action permissions: staff may record `listing_corrected`, `landlord_warned`, `cl
 - Feedback POST `{helpful:boolean,comment?:string≤500}` is scoped by conversation ownership. One immutable feedback/message; identical helpful replay succeeds, changed vote409. Negative feedback flags review and contributes to repeated-failure handoff; positive resets it. Comments redacted.
 - Message-team POST `{summary?:string≤500}` is client-role only; anonymous401, staff/admin403. Creates one general inquiry with source=assistant, a client message and redacted transcript in staff-only notes. Transactional conversation lock guarantees retry idempotency. It explicitly transfers the anonymous conversation to the signed-in client when token proof is supplied. No automatic emails or financial records.
 - Staff review GET collection supports page≥1/page_size1–100, flagged, handoff_reason, paired from/to YYYY-MM-DD (inclusive WAT last-activity dates). GET detail adds messages/review_note/inquiry_id. PATCH requires version≥1, flagged and optional review_note≤2000 (defaults empty); optimistic conflict409, successful update audited without message/note bodies. No owner contact/IP/token fields are returned.
+- Admin-only `readiness_issues` lists safe configuration codes (`admin_disabled`, `token_budget_zero`, `support_phone_missing`, `provider_disabled`, `live_access_disabled`, `api_key_missing`, `api_url_missing`, `model_missing`). These contain no credentials or user data.
 - Admin-only GET `/admin/assistant/usage`: current WAT day, effective enabled/provider_ready/provider/model, effective token_limit, host request_limit, reserved_tokens/requests/reported tokens_in/tokens_out/unknown_usage_requests and nonnegative remaining_tokens/remaining_requests. No secret, pricing or user breakdown. No endpoint exposes the API key or URL.
 - Global daily accounting reserves serialized UTF-8 input bytes + output-token cap +512 framing allowance atomically before a call; effective limit=min(admin budget, host hard limit). Each attempted model request counts once; no refunds on failure. Unconfirmed usage includes in-flight/crashed reservations and missing reports; it is counted at reservation and cleared only by a valid usage report; actual usage exceeding its reservation closes remaining budget for that day. A host daily request ceiling independently limits calls. Days reset by Africa/Lagos date, including requests spanning midnight charging their reserved day. These are conservative usage ceilings, not a currency guarantee; provider billing/hidden-token semantics and free quota require separate provider limits and live compatibility verification.
 - Additional request limits: start5/day/IP anonymous or20/day/user; messages20/hour/IP or60/hour/user; history120/minute/actor orIP; feedback60/hour; staff reviews120/hour; handoffs share the existing inquiry-create20/day/client bucket. Limit breaches429 with Retry-After; no automatic frontend resend. Bodies bounded16KiB. Unknown/repeated query parameters rejected422. All assistant responses no-store.
@@ -733,6 +734,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.17.0 | 2026-11-11 | Add admin-only assistant readiness diagnostics; no public payload or permission change | Backend + authorized frontend; peer review pending |
 | 0.16.0 | 2026-11-11 | CR-ASSISTANT-001: scoped conversations, source-verified selection, handoff/review/feedback, atomic daily usage and host gates; simulated local evaluation, live model/provider pending | Backend + authorized frontend; peer review pending |
 | 0.15.0 | 2026-11-11 | CR-SUPPORT-001: editable support contacts/hours, versioned staff drafts/admin publication, published-only public Help; assistant remains disabled | Backend + authorized frontend; peer review pending |
 | 0.14.0 | 2026-11-11 | CR-AVAILABILITY-001: configurable stale queue/scanner, confirmation history and mapped staff outcomes; public availability values unchanged; email deferred | Backend + authorized frontend; peer review pending |

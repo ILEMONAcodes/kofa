@@ -1,6 +1,6 @@
 "use client";
 /* eslint-disable @next/next/no-img-element -- Exact Figma SVG exports at intrinsic dimensions. */
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Modal } from "@/components/common/modal";
@@ -53,35 +53,6 @@ export function MobileHeader({ back }: { back?: string }) {
 }
 export function MobileAppChrome() {
   const pathname = usePathname();
-  const [visible, setVisible] = useState(true);
-  const [leaving, setLeaving] = useState(false);
-  useEffect(() => {
-    if (!window.matchMedia("(max-width: 767px)").matches) return;
-    const frame = requestAnimationFrame(() => {
-      try {
-        if (sessionStorage.getItem("kofa-launch-seen")) {
-          setVisible(false);
-          return;
-        }
-        sessionStorage.setItem("kofa-launch-seen", "1");
-      } catch {
-        /* Entry remains available with restricted storage. */
-      }
-    });
-    const reduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-    const fade = window.setTimeout(() => setLeaving(true), 3000);
-    const done = window.setTimeout(
-      () => setVisible(false),
-      reduced ? 3000 : 3350,
-    );
-    return () => {
-      cancelAnimationFrame(frame);
-      clearTimeout(fade);
-      clearTimeout(done);
-    };
-  }, []);
   const browse =
     pathname === "/" ||
     pathname === "/properties" ||
@@ -147,20 +118,6 @@ export function MobileAppChrome() {
             </Link>
           ))}
         </nav>
-      )}
-      {visible && (
-        <div
-          className={`mobile-only mobile-launch${leaving ? " mobile-launch-leaving" : ""}`}
-          role="status"
-          aria-label="Opening Kof’a"
-        >
-          <img
-            src="/assets/home-logo-footer.svg"
-            width="192.667"
-            height="62.4445"
-            alt="Kof’a"
-          />
-        </div>
       )}
     </>
   );

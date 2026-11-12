@@ -7,53 +7,15 @@ async function settle(page: import("@playwright/test").Page) {
   ).not.toBeVisible();
   await page.evaluate(() => document.fonts.ready);
 }
-test("mobile launch appears once and manifest carries brand metadata", async ({
-  page,
-}) => {
-  // Freeze only animation and timer progression while inspecting the transient launch screen.
-  const start = new Date("2026-10-29T00:00:00Z");
-  await page.clock.install({ time: start });
-  await page.clock.pauseAt(new Date(start.getTime() + 1000));
-  await page.route("**/*.css", async (route) => {
-    const response = await route.fetch();
-    await route.fulfill({
-      response,
-      body:
-        (await response.text()) +
-        "\n.mobile-launch,.mobile-launch img{animation:none!important;transition:none!important}",
-    });
-  });
-  await page.goto("/");
-  await page.clock.runFor(20);
-  await expect(
-    page.getByRole("status", { name: "Opening Kof’a" }),
-  ).toBeVisible();
-  await expect(page.getByRole("status", { name: "Opening Kof’a" })).toHaveCSS(
-    "background-color",
-    "rgb(100, 59, 41)",
-  );
-  await expect(page.locator(".mobile-launch img")).toHaveCSS("opacity", "1");
-  await page.screenshot({ path: "test-results/mobile-launch.png" });
-  await page.clock.runFor(3400);
-  await settle(page);
-  await page.clock.resume();
-  await page
-    .getByRole("navigation", { name: "App navigation" })
-    .getByRole("link", { name: "Explore", exact: true })
-    .click();
-  await expect(
-    page.getByRole("heading", { name: "Explore Abuja", exact: true }),
-  ).toBeVisible();
-  await expect(page.getByRole("status", { name: "Opening Kof’a" })).toHaveCount(
-    0,
-  );
-  const manifest = await (
-    await page.request.get("/manifest.webmanifest")
-  ).json();
-  expect(manifest.display).toBe("standalone");
-  expect(manifest.background_color).toBe("#643B29");
-  for (const icon of manifest.icons)
-    expect((await page.request.get(icon.src)).ok()).toBe(true);
+test("mobile opens directly and manifest uses compact branding", async ({page}) => {
+ await page.goto("/");
+ await expect(page.getByRole("status", {name:"Opening Kof’a"})).toHaveCount(0);
+ await expect(page.locator(".mobile-launch")).toHaveCount(0);
+ const manifest=await(await page.request.get("/manifest.webmanifest")).json();
+ expect(manifest.name).toBe("Kof’a");
+ expect(manifest.display).toBe("standalone");
+ expect(manifest.background_color).toBe("#F7F3EE");
+ for(const icon of manifest.icons)expect((await page.request.get(icon.src)).ok()).toBe(true);
 });
 test("mobile screens match source geometry and remain accessible", async ({
   page,

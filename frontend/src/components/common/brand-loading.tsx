@@ -6,10 +6,10 @@ export function BrandLoading() {
       <div className="brand-loading-mark">
         <span className="brand-loading-orbit" aria-hidden="true" />
         <Image
-          src="/assets/kofa-logo.svg"
+          src="/assets/kofa-mark.svg"
           alt=""
-          width={116}
-          height={38}
+          width={64}
+          height={80}
           priority
         />
       </div>
