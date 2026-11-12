@@ -4,6 +4,7 @@ import json
 import time
 from dataclasses import dataclass
 from typing import Protocol
+from urllib.parse import urlsplit
 
 import httpx
 
@@ -43,7 +44,7 @@ def ready(settings):
 
 
 def payload(question, sources, settings):
-    return {
+    result = {
         "model": settings.assistant_model,
         "messages": [
             {"role": "system", "content": SYSTEM},
@@ -58,6 +59,32 @@ def payload(question, sources, settings):
         "temperature": 0,
         "stream": False,
     }
+    if urlsplit(settings.assistant_api_url).hostname == "generativelanguage.googleapis.com":
+        result["response_format"] = {"type": "json_object"}
+        result["reasoning_effort"] = (
+            "none"
+            if settings.assistant_model.startswith("gemini-2.5")
+            and "flash" in settings.assistant_model
+            else "minimal"
+        )
+    return result
+
+
+def issues(settings):
+    if settings.assistant_provider == "disabled":
+        return ["provider_disabled"]
+    if settings.assistant_provider == "test":
+        return [] if settings.app_env == "test" else ["provider_disabled"]
+    result = []
+    if not settings.assistant_allow_live:
+        result.append("live_access_disabled")
+    if not settings.assistant_api_key.get_secret_value():
+        result.append("api_key_missing")
+    if not settings.assistant_api_url:
+        result.append("api_url_missing")
+    if not settings.assistant_model:
+        result.append("model_missing")
+    return result
 
 
 class Simulated:

@@ -154,6 +154,7 @@ class Usage(BaseModel):
     day: date
     timezone: Literal["Africa/Lagos"] = "Africa/Lagos"
     enabled: bool
+    readiness_issues: list[str]
     provider_ready: bool
     provider: str
     model: str

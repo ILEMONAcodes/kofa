@@ -6,11 +6,13 @@ export function Modal({
   onClose,
   title,
   children,
+  className = "",
 }: {
   open: boolean;
   onClose: () => void;
   title: string;
   children: ReactNode;
+  className?: string;
 }) {
   const ref = useRef<HTMLDialogElement>(null);
   const titleId = useId();
@@ -34,7 +36,7 @@ export function Modal({
       aria-labelledby={titleId}
       onCancel={onClose}
       onClose={onClose}
-      className="w-[calc(100%_-_2.5rem)] max-w-lg rounded-xl bg-surface p-6 text-ink shadow-panel backdrop:bg-ink/50"
+      className={`w-[calc(100%_-_2.5rem)] max-w-lg rounded-xl bg-surface p-6 text-ink shadow-panel backdrop:bg-ink/50 ${className}`}
     >
       <div className="mb-6 flex items-center justify-between gap-4">
         <h2 id={titleId} className="text-xl font-medium">

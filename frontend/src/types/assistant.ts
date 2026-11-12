@@ -5,6 +5,6 @@ export interface AssistantHandoff {required:true;reason:string;message:string;op
 export interface AssistantStart {id:string;token:string|null;greeting:string;disclosure:string;support:PublicConfig["support"]}
 export interface AssistantTurn {message:AssistantMessage;handoff:AssistantHandoff|null}
 export interface AssistantReview {id:string;status:string;handoff_reason:string|null;flagged:boolean;version:number;created_at:string;updated_at:string;messages?:AssistantMessage[];review_note?:string;inquiry_id?:string|null}
-export interface AssistantUsage {day:string;timezone:string;enabled:boolean;provider_ready:boolean;provider:string;model:string;token_limit:number;request_limit:number;reserved_tokens:number;requests:number;tokens_in:number;tokens_out:number;unknown_usage_requests:number;remaining_tokens:number;remaining_requests:number}
+export interface AssistantUsage {day:string;timezone:string;enabled:boolean;readiness_issues:string[];provider_ready:boolean;provider:string;model:string;token_limit:number;request_limit:number;reserved_tokens:number;requests:number;tokens_in:number;tokens_out:number;unknown_usage_requests:number;remaining_tokens:number;remaining_requests:number}
 
 export interface AssistantHistory {id:string;status:string;messages:AssistantMessage[];handoff:AssistantHandoff|null;inquiry_id:string|null}

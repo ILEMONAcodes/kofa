@@ -47,26 +47,38 @@ export function AssistantWidget(){
  async function toTeam(){if(!conversation||busy)return;setBusy(true);setError("");const version=generation.current;try{const result=await write<{inquiry_id:string}>(`/assistant/conversations/${conversation.id}/handoff/message-team`,{});if(version===generation.current)setInquiry(result.inquiry_id);}catch(e){if(version===generation.current)setError(errorText(e));}finally{if(version===generation.current)setBusy(false);}}
  async function reset(){setBusy(true);setError("");try{await ensureCsrf();await apiRequest("/assistant/session",{method:"DELETE"});generation.current++;setConversation(null);setMessages([]);setHandoff(null);setInquiry(null);setFeedback({});recovered.current=true;}catch(e){setError(errorText(e));}finally{setBusy(false);}}
  async function rate(id:string,helpful:boolean){try{await write(`/assistant/messages/${id}/feedback`,{helpful});setFeedback(value=>({...value,[id]:helpful}));}catch(e){setError(errorText(e));}}
+ const call=handoff?.options.find(option=>option.type==="call");
+ const phone=call?.phone??contact?.phone;
+ const available=!!config.data?.assistant.enabled;
  return <>
   <button type="button" className={`${buttonStyles()} assistant-launcher`} onClick={()=>{config.reload();setOpen(true);}} aria-haspopup="dialog">Ask Kof’a</button>
-  <Modal open={open} onClose={()=>setOpen(false)} title="Ask Kof’a">
-    {contact&&<section className="assistant-support" aria-label="Assistant support contact">{contact.phone&&<a className={buttonStyles()} href={`tel:${contact.phone}`}>Call {contact.display_phone}</a>}<p>{contact.hours_text}</p><p>{contact.is_open_now?"Support line open now":"Support line currently closed"}</p>{contact.email&&<a href={`mailto:${contact.email}`}>{contact.email}</a>}</section>}
-   <div className="assistant-panel">
-    <p>{config.data?.assistant.disclosure??"I’m an AI assistant. For questions I cannot answer, our team can help."}</p>
-    <p className="text-sm text-muted">Avoid sharing bank details, passwords or identity numbers. Your messages may be reviewed by our team.</p>
-
-    {!!config.error&&<><p role="alert">Support details could not be loaded.</p><Button onClick={config.reload}>Retry support details</Button></>}
-    {!config.loading&&!config.error&&!config.data?.assistant.enabled&&<p>The assistant is currently unavailable. You can read Help articles or contact our team.</p>}
+  <Modal open={open} onClose={()=>setOpen(false)} title="Ask Kof’a" className="assistant-dialog">
+   <div className="assistant-toolbar">
+    <span>AI support · Answers from Kof’a</span>
+    {phone&&<a href={`tel:${phone}`} aria-label="Call team at Kof’a">Call team</a>}
+    <details className="assistant-about"><summary>About &amp; contact</summary><div>
+     <p>{config.data?.assistant.disclosure??"I’m an AI assistant. Answers may be imperfect."}</p>
+     <p>Avoid sharing passwords, bank details or identity numbers. Our team may review your messages.</p>
+     {contact&&<><p>{contact.hours_text}</p><p>{contact.is_open_now?"Support line open now":"Support line currently closed"}</p>{contact.phone&&<a href={`tel:${contact.phone}`}>{contact.display_phone}</a>}{contact.email&&<a href={`mailto:${contact.email}`}>{contact.email}</a>}</>}
+    </div></details>
+   </div>
+   <div className="assistant-body">
+    {config.loading&&<p role="status">Connecting…</p>}
+    {!!config.error&&<div className="assistant-handoff"><p role="alert">Chat could not connect. Please try again.</p><Button variant="secondary" onClick={config.reload}>Retry connection</Button></div>}
+    {!config.loading&&!config.error&&!available&&<div className="assistant-empty"><h3>Chat is offline right now.</h3><p>Our team can still help.</p><Link className={buttonStyles()} href="/account/general-inquiry" onClick={()=>setOpen(false)}>Message our team</Link><Button variant="secondary" onClick={config.reload}>Check connection</Button></div>}
+    {available&&messages.length===0&&<div className="assistant-empty"><h3>How can I help?</h3><p>Ask about finding a home or inspections.</p><div className="assistant-suggestions">{["How does verification work?","How do I prepare for an inspection?"].map(text=><button key={text} type="button" onClick={()=>setQuestion(text)}>{text}</button>)}</div></div>}
     <div className="assistant-messages" role="log" aria-label="Assistant conversation" aria-live="polite" aria-relevant="additions">
-     {messages.map(message=><article key={message.id} className={`assistant-message ${message.role}`}><p className="font-medium">{message.role==="user"?"You":"Kof’a assistant"}</p><p className="whitespace-pre-wrap break-words">{message.content}</p>{message.sources.map(source=><Link key={source.id} href={source.url} onClick={()=>setOpen(false)}>Source: {source.title}</Link>)}{message.role==="assistant"&&(feedback[message.id]!==undefined?<p>Thank you for your feedback.</p>:<div className="flex flex-wrap gap-2"><Button variant="secondary" onClick={()=>void rate(message.id,true)}>Helpful</Button><Button variant="secondary" onClick={()=>void rate(message.id,false)}>Not helpful</Button></div>)}</article>)}
+     {messages.map(message=><article key={message.id} className={`assistant-message ${message.role}`}><p className="assistant-speaker">{message.role==="user"?"You":"Kof’a"}</p><p className="whitespace-pre-wrap break-words">{message.content}</p>{message.sources.map(source=><Link key={source.id} href={source.url} onClick={()=>setOpen(false)}>Source: {source.title}</Link>)}{message.role==="assistant"&&(feedback[message.id]!==undefined?<small>Thanks for your feedback.</small>:<div className="assistant-feedback"><button type="button" aria-label="Mark answer helpful" onClick={()=>void rate(message.id,true)}>Helpful</button><button type="button" aria-label="Mark answer not helpful" onClick={()=>void rate(message.id,false)}>Not helpful</button></div>)}</article>)}
     </div>
-    {busy&&<p role="status">Preparing your response…</p>}
-    {(handoff||error)&&<section className="assistant-support" aria-label="Contact the team"><p>{handoff?.message??"Please try again shortly, or contact our team using the support details above."}</p>{handoff?.options.some(option=>option.type==="report_listing")&&<Link href="/report" onClick={()=>setOpen(false)}>Report a suspicious listing</Link>}</section>}
+    {busy&&<p role="status" className="assistant-thinking">Thinking…</p>}
+    {(handoff||error)&&<section className="assistant-handoff" aria-label="Contact the team"><p>{handoff?.message??"Try again, or contact our team."}</p>{handoff?.options.some(option=>option.type==="report_listing")&&<Link href="/report" onClick={()=>setOpen(false)}>Report a suspicious listing</Link>}</section>}
     {error&&<p role="alert">{error}</p>}
-    {inquiry?<Link className={buttonStyles()} href={`/account/conversation?id=${inquiry}`} onClick={()=>setOpen(false)}>Open your inquiry</Link>:conversation&&user?.role==="client"?<Button onClick={()=>void toTeam()} loading={busy}>Send conversation to our team</Button>:conversation&&!user?<Link className={buttonStyles()} href={`/login?returnTo=${encodeURIComponent(path)}`} onClick={()=>setOpen(false)}>Sign in to message our team</Link>:null}
-    {!inquiry&&<form onSubmit={send} className="grid gap-3"><Input label="Your question" value={question} maxLength={1000} required disabled={busy||!config.data?.assistant.enabled} onChange={e=>setQuestion(e.target.value)}/><Button type="submit" loading={busy} disabled={!config.data?.assistant.enabled||!question.trim()}>Send question</Button></form>}
-    <div className="flex flex-wrap items-center gap-3"><Link href="/resources/help" onClick={()=>setOpen(false)}>Read Help articles</Link><Link href="/account/general-inquiry" onClick={()=>setOpen(false)}>Message our team</Link>{conversation&&<Button variant="secondary" disabled={busy} onClick={()=>void reset()}>New conversation</Button>}</div>
+    {inquiry?<Link className={buttonStyles()} href={`/account/conversation?id=${inquiry}`} onClick={()=>setOpen(false)}>Open your inquiry</Link>:conversation&&user?.role==="client"?<Button onClick={()=>void toTeam()} loading={busy} aria-label="Send to our team">Send to our team</Button>:conversation&&!user?<Link className={buttonStyles()} href={`/login?returnTo=${encodeURIComponent(path)}`} onClick={()=>setOpen(false)}>Sign in to message our team</Link>:null}
     <div ref={end}/>
+   </div>
+   <div className="assistant-footer">
+    {available&&!inquiry&&<form onSubmit={send} className="assistant-composer"><Input label="Your question" value={question} maxLength={1000} required disabled={busy} onChange={e=>setQuestion(e.target.value)}/><Button type="submit" aria-label="Send question" loading={busy} disabled={!question.trim()}>Send</Button></form>}
+    <div className="assistant-footer-links"><Link href="/resources/help" onClick={()=>setOpen(false)}>Help articles</Link>{available&&<Link href="/account/general-inquiry" onClick={()=>setOpen(false)}>Message our team</Link>}{conversation&&<button type="button" disabled={busy} onClick={()=>void reset()}>New conversation</button>}</div>
    </div>
   </Modal>
  </>;
