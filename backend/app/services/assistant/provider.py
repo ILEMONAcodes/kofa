@@ -65,7 +65,7 @@ def payload(question, sources, settings):
             "none"
             if settings.assistant_model.startswith("gemini-2.5")
             and "flash" in settings.assistant_model
-            else "minimal"
+            else "low"
         )
     return result
 
@@ -103,7 +103,7 @@ class ChatCompletions:
         started = time.monotonic()
         # No retries/redirects/proxy inheritance: each reservation permits one request.
         with httpx.Client(
-            timeout=httpx.Timeout(5, connect=3), follow_redirects=False, trust_env=False
+            timeout=httpx.Timeout(20, connect=5), follow_redirects=False, trust_env=False
         ) as client:
             with client.stream(
                 "POST",
@@ -113,12 +113,15 @@ class ChatCompletions:
                 },
                 json=payload,
             ) as response:
-                response.raise_for_status()
                 content = bytearray()
                 for part in response.iter_bytes():
                     content.extend(part)
-                    if len(content) > 65536 or time.monotonic() - started > 8:
+                    if len(content) > 65536 or time.monotonic() - started > 25:
                         raise ValueError("Provider response limit")
+                if response.is_error:
+                    httpx.Response(
+                        response.status_code, content=bytes(content), request=response.request
+                    ).raise_for_status()
         data = json.loads(content)
         text = data["choices"][0]["message"]["content"]
         if not isinstance(text, str) or len(text) > 4000:

@@ -3,7 +3,7 @@
 from app.services.assistant import provider
 
 
-def test_google_uses_json_mode_and_minimal_reasoning(settings):
+def test_google_uses_json_mode_and_low_reasoning(settings):
     config = settings.model_copy(
         update={
             "assistant_api_url": "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
@@ -12,7 +12,7 @@ def test_google_uses_json_mode_and_minimal_reasoning(settings):
     )
     result = provider.payload("fictional question", [], config)
     assert result["response_format"] == {"type": "json_object"}
-    assert result["reasoning_effort"] == "minimal"
+    assert result["reasoning_effort"] == "low"
     assert result["max_tokens"] == 256
 
 
