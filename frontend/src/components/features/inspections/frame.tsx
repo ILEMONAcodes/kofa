@@ -1,4 +1,6 @@
 "use client";
+import { Fragment } from "react";
+import { AssistantTrigger } from "@/components/features/assistant/trigger";
 import Image from "next/image";
 import Link from "next/link";
 import { useState, type ReactNode } from "react";
@@ -70,6 +72,7 @@ export function InspectionFrame({
               <Link className="inspection-back" href={backHref}>
                 Back
               </Link>
+              <AssistantTrigger className="assistant-desktop-entry"/>
               <Button variant="secondary" onClick={() => setDialog("help")}>
                 Help
               </Button>
@@ -97,7 +100,7 @@ export function InspectionFrame({
               ["Account", "/account/overview", "account-active"],
             ]
         ).map(([label, href, icon]) => (
-          <Link key={label} href={href}>
+          <Fragment key={label}>{!staff && label === "Inquiries" && <AssistantTrigger/>}<Link href={href}>
             <Image
               src={`/assets/mobile-${icon}.svg`}
               width={22}
@@ -105,7 +108,7 @@ export function InspectionFrame({
               alt=""
             />
             {label}
-          </Link>
+          </Link></Fragment>
         ))}
         {staff && (
           <button type="button" onClick={() => setDialog("menu")}>

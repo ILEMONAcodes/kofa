@@ -83,14 +83,14 @@
     left: 0;
     right: 0;
     display: grid;
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 8px;
     padding: 20px 4px calc(20px + env(safe-area-inset-bottom, 0px));
     height: calc(84px + env(safe-area-inset-bottom, 0px));
     background: rgb(var(--surface));
     border: 1px solid rgb(var(--border));
   }
-  .mobile-bottom-nav a {
+  .mobile-bottom-nav a, .mobile-bottom-nav button {
     display: flex;
     flex-direction: column;
     gap: 4px;
@@ -502,7 +502,7 @@
     gap: 0;
     padding-inline: 12px;
   }
-  .mobile-bottom-nav a {
+  .mobile-bottom-nav a, .mobile-bottom-nav button {
     font-weight: 500;
   }
 }

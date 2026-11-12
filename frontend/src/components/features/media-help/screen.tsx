@@ -1,4 +1,6 @@
 "use client";
+import { Fragment } from "react";
+import { AssistantTrigger } from "@/components/features/assistant/trigger";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -756,7 +758,7 @@ export function MediaHelpScreen({
                 ["Account", "/account", "account-active"],
               ]
           ).map(([label, target, icon]) => (
-            <Link key={label} href={target}>
+            <Fragment key={label}>{!workspace && label === "Inquiries" && <AssistantTrigger/>}<Link href={target}>
               <Image
                 src={`/assets/mobile-${icon}.svg`}
                 width={22}
@@ -764,7 +766,7 @@ export function MediaHelpScreen({
                 alt=""
               />
               {label}
-            </Link>
+            </Link></Fragment>
           ))}
           {workspace && (
             <button type="button" onClick={() => setDialog("menu")}>

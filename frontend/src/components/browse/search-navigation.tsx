@@ -1,12 +1,13 @@
+import { AssistantTrigger } from "@/components/features/assistant/trigger";
 import { AccountEntry } from "@/components/access/account-entry";
 /* eslint-disable @next/next/no-img-element -- Preserve fractional dimensions of the exported Figma vector. */
 import Link from "next/link";
 import { MobileHeader } from "@/components/mobile/app-shell";
 import { HomeLink } from "./home-link";
-import { buttonStyles } from "@/components/common/button";
+
 export function SearchNavigation({
   detail = false,
-  assistantHref = "/resources/assistant",
+
 }: {
   detail?: boolean;
   assistantHref?: string;
@@ -47,18 +48,7 @@ export function SearchNavigation({
             List a property ↗
           </HomeLink>
           <AccountEntry />
-          {assistantHref.startsWith("#") ? (
-            <a
-              href={assistantHref}
-              className={buttonStyles("secondary", "home-nav-ask")}
-            >
-              Ask Kof’a
-            </a>
-          ) : (
-            <HomeLink href={assistantHref} className="home-nav-ask">
-              Ask Kof’a
-            </HomeLink>
-          )}
+          <AssistantTrigger className="home-nav-ask"/>
         </div>
       </header>
     </>

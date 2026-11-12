@@ -1,3 +1,4 @@
+import { AssistantTrigger } from "@/components/features/assistant/trigger";
 import Link from "next/link";
 import Image from "next/image";
 export function SiteHeader() {
@@ -19,7 +20,7 @@ export function SiteHeader() {
         >
           <Link href="/properties">Explore properties</Link>
           <Link href="/landlord">List your property</Link>
-          <Link href="/account">My account</Link>
+          <Link href="/account">My account</Link><AssistantTrigger/>
         </nav>
       </div>
     </header>
