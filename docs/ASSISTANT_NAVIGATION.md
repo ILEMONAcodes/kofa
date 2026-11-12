@@ -1,0 +1,1 @@
+Task FE-6.33: owner-authorized frontend change led by Developer2. Replace obstructing floating assistant with mark-only icon plus label in mobile navigation between Explore/Inquiries, and desktop header entry. Preserve shared chat state, auth and handoff. Existing APIs unchanged. Tests: frontend lint/types/unit/build. No live provider calls.

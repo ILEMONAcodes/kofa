@@ -1,6 +1,7 @@
 "use client";
+import { AssistantTrigger } from "@/components/features/assistant/trigger";
 /* eslint-disable @next/next/no-img-element -- Exact Figma SVG exports at intrinsic dimensions. */
-import { useState } from "react";
+import { Fragment, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Modal } from "@/components/common/modal";
@@ -94,8 +95,9 @@ export function MobileAppChrome() {
           aria-label="App navigation"
         >
           {items.map((item) => (
+            <Fragment key={item.label}>
+            {item.label === "Inquiries" && <AssistantTrigger/>}
             <Link
-              key={item.label}
               href={item.href}
               aria-current={
                 (item.label === "Home" && pathname === "/") ||
@@ -115,7 +117,7 @@ export function MobileAppChrome() {
                 alt=""
               />
               <span>{item.label}</span>
-            </Link>
+            </Link></Fragment>
           ))}
         </nav>
       )}

@@ -20,6 +20,7 @@ export function AssistantWidget(){
  const recovered=useRef(false);
  const [open,setOpen]=useState(false),[conversation,setConversation]=useState<Pick<AssistantStart,"id"|"token">|null>(null),[messages,setMessages]=useState<AssistantMessage[]>([]),[handoff,setHandoff]=useState<AssistantHandoff|null>(null),[question,setQuestion]=useState(""),[busy,setBusy]=useState(false),[error,setError]=useState(""),[inquiry,setInquiry]=useState<string|null>(null),[feedback,setFeedback]=useState<Record<string,boolean>>({});
  const owner=useRef<string|null>(null),generation=useRef(0);
+ useEffect(()=>{const show=()=>setOpen(true);window.addEventListener("kofa:open-assistant",show);return()=>window.removeEventListener("kofa:open-assistant",show);},[]);
  const end=useRef<HTMLDivElement>(null);
  useEffect(()=>{if(open&&messages.length)end.current?.scrollIntoView?.({block:"nearest"});},[open,messages.length]);
  useEffect(()=>{
@@ -51,7 +52,6 @@ export function AssistantWidget(){
  const phone=call?.phone??contact?.phone;
  const available=!!config.data?.assistant.enabled;
  return <>
-  <button type="button" className={`${buttonStyles()} assistant-launcher`} onClick={()=>{config.reload();setOpen(true);}} aria-haspopup="dialog">Ask Kof’a</button>
   <Modal open={open} onClose={()=>setOpen(false)} title="Ask Kof’a" className="assistant-dialog">
    <div className="assistant-toolbar">
     <span>AI support · Answers from Kof’a</span>

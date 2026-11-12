@@ -1,3 +1,4 @@
+import { AssistantTrigger } from "@/components/features/assistant/trigger";
 import { AccountEntry } from "@/components/access/account-entry";
 /* eslint-disable @next/next/no-img-element -- Keep Figma SVG exports at their exact fractional intrinsic dimensions. */
 import Image from "next/image";
@@ -46,9 +47,7 @@ export function Hero() {
           List a property ↗
         </HomeLink>
         <AccountEntry />
-        <HomeLink href="/resources/assistant" className="home-nav-ask">
-          Ask Kof’a
-        </HomeLink>
+        <AssistantTrigger className="home-nav-ask"/>
       </header>
       <p className="home-wordmark" aria-hidden="true">
         KOF’A

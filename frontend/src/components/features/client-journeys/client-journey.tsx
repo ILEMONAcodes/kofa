@@ -1,4 +1,6 @@
 "use client";
+import { Fragment } from "react";
+import { AssistantTrigger } from "@/components/features/assistant/trigger";
 
 import Link from "next/link";
 import { useSearchParams, useRouter } from "next/navigation";
@@ -478,7 +480,7 @@ export function ClientJourney({ slug }: { slug: string }) {
           ["Inquiries", path("inquiries"), "inquiries"],
           ["Account", path("overview"), "account"],
         ].map(([name, href, icon]) => (
-          <Link key={name} href={href}>
+          <Fragment key={name}>{name === "Inquiries" && <AssistantTrigger/>}<Link href={href}>
             <Image
               src={`/assets/mobile-${icon}${(icon === "inquiries" && ["inquiries", "conversation", "message-sent"].includes(slug)) || (icon === "account" && !["inquiries", "conversation", "message-sent"].includes(slug)) ? "-active" : ""}.svg`}
               width="22"
@@ -486,7 +488,7 @@ export function ClientJourney({ slug }: { slug: string }) {
               alt=""
             />
             {name}
-          </Link>
+          </Link></Fragment>
         ))}
       </nav>
       <Modal
