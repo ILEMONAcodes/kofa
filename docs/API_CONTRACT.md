@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.17.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
+**Contract version:** `0.18.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -536,6 +536,8 @@ Action permissions: staff may record `listing_corrected`, `landlord_warned`, `cl
 - `support_hours`: `{timezone:"Africa/Lagos",days:[{day:0..6,open:"HH:MM",close:"HH:MM"}]}`; Monday0. At most one interval/day, no overlaps including week wrap. Closing≤opening crosses midnight; equal means24 hours. Opening inclusive, closing exclusive; empty schedule is closed. No contact means is_open_now:false.
 - All routes reject unknown/repeated query parameters. Editorial/settings writes share120/hour per actor; public article reads120/minute/IP. JSON bodies bounded at256KiB articles/16KiB settings. Standard auth, CSRF and error envelopes apply. Public DTOs never include drafts, internal settings, creator IDs or audit records.
 
+**CR-ASSISTANT-002 (0.18.0):** Owner override: activation is server-managed. Stored assistant_enabled/daily budget no longer gate calls. Code daily allowance10,000 capped by ASSISTANT_HARD_TOKEN_LIMIT; provider/live/key/URL/model/support phone gates retained. Admin usage is read-only. Legacy assistant fields on support settings remain accepted for compatibility but ignored on writes; values are deprecated, not runtime controls. No admin_disabled readiness issue.
+
 **CR-ASSISTANT-001 — v0.16.0 implementation.** This section freezes the conversation/editorial integration below; it supersedes the disabled-only setting restriction in CR-SUPPORT-001. Admin settings now accept strict boolean `assistant_enabled`; it defaults false. Public `assistant.enabled` is effective readiness: configured admin flag, nonzero effective budget, support phone, and ready host provider. Test provider is permitted only in app_env=test; live calls additionally require ASSISTANT_ALLOW_LIVE=true, server-only API URL/key/model. No live model was called during implementation.
 
 - Browser recovery: start also sets a1-day HttpOnly, SameSite=Lax, Secure-in-production kofa_assistant cookie scoped to /api/v1/assistant. GET /assistant/current recovers scoped history across the sign-in reload; it never returns the token. DELETE /assistant/session clears the cookie (CSRF required). Logout clears it too. Explicit X-Assistant-Token takes precedence; no token/local-storage persistence. All unsafe calls require standard Origin/CSRF, including anonymous start/messages/feedback. Anonymous start returns an unpredictable scoped token once; only its SHA-256 hash is stored. Use `X-Assistant-Token`, never a query parameter. Signed-in conversations use the authenticated user ID; wrong owner/token/expired (>90 days since start) →404. A signed-in client may explicitly claim their anonymous conversation using its token when handing it to the team; afterwards that token cannot read it.
@@ -734,6 +736,7 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.18.0 | 2026-11-18 | Owner override: code-managed assistant activation and10,000 daily allowance; admin usage read-only, legacy settings fields ignored | Joint; peer review pending |
 | 0.17.0 | 2026-11-11 | Add admin-only assistant readiness diagnostics; no public payload or permission change | Backend + authorized frontend; peer review pending |
 | 0.16.0 | 2026-11-11 | CR-ASSISTANT-001: scoped conversations, source-verified selection, handoff/review/feedback, atomic daily usage and host gates; simulated local evaluation, live model/provider pending | Backend + authorized frontend; peer review pending |
 | 0.15.0 | 2026-11-11 | CR-SUPPORT-001: editable support contacts/hours, versioned staff drafts/admin publication, published-only public Help; assistant remains disabled | Backend + authorized frontend; peer review pending |

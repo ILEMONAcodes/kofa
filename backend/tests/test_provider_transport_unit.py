@@ -66,3 +66,22 @@ class TransportTests(unittest.TestCase):
                 provider.ChatCompletions().complete({}, settings)
         self.assertEqual(error.exception.response.json()["error"]["status"], "INVALID_ARGUMENT")
         self.assertEqual(len(calls), 1)
+
+    def test_code_allowance_obeys_host_ceiling(self):
+        self.assertEqual(
+            provider.token_limit(SimpleNamespace(assistant_hard_token_limit=100000)), 10000
+        )
+        self.assertEqual(provider.token_limit(SimpleNamespace(assistant_hard_token_limit=500)), 500)
+        self.assertEqual(provider.token_limit(SimpleNamespace(assistant_hard_token_limit=0)), 0)
+
+    def test_public_readiness_ignores_saved_admin_disable(self):
+        from app.services import knowledge
+
+        settings = SimpleNamespace(
+            assistant_hard_token_limit=100000, assistant_provider="test", app_env="test"
+        )
+        with patch.object(knowledge.repo, "settings", return_value={}):
+            self.assertTrue(knowledge.public_config(None, settings).assistant.enabled)
+        settings.assistant_hard_token_limit = 0
+        with patch.object(knowledge.repo, "settings", return_value={}):
+            self.assertFalse(knowledge.public_config(None, settings).assistant.enabled)

@@ -29,6 +29,13 @@ class Provider(Protocol):
     def complete(self, payload: dict, settings) -> Reply: ...
 
 
+DAILY_TOKEN_BUDGET = 10000
+
+
+def token_limit(settings):
+    return min(DAILY_TOKEN_BUDGET, settings.assistant_hard_token_limit)
+
+
 def ready(settings):
     return (
         settings.assistant_provider == "test"

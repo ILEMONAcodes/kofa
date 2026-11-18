@@ -50,7 +50,9 @@ def set_settings(db, actor_id, data):
     rows = repo.settings(db, True)
     current = values(rows)
     check_version(current.version, data.version)
-    changes = data.model_dump(mode="json", exclude={"version"}) | {"version": current.version + 1}
+    changes = data.model_dump(
+        mode="json", exclude={"version", "assistant_enabled", "assistant_daily_token_budget"}
+    ) | {"version": current.version + 1}
     for key, value in changes.items():
         if key in rows:
             rows[key].value = value
@@ -84,7 +86,7 @@ def is_open(hours, stamp):
 
 
 def public_config(db, settings=None):
-    from app.services.assistant.provider import ready
+    from app.services.assistant.provider import ready, token_limit
 
     config = values(repo.settings(db))
     names = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
@@ -99,12 +101,7 @@ def public_config(db, settings=None):
     return s.PublicConfigData(
         assistant=s.PublicAssistant(
             enabled=bool(
-                settings
-                and config.assistant_enabled
-                and ready(settings)
-                and config.support_phone
-                and min(config.assistant_daily_token_budget, settings.assistant_hard_token_limit)
-                > 0
+                settings and ready(settings) and config.support_phone and token_limit(settings) > 0
             )
         ),
         support=s.PublicSupport(
@@ -209,7 +206,9 @@ def change(db, actor_id, id, data, operation="edit"):
             raise AppError(
                 409, "INVALID_STATE_TRANSITION", "Unpublish this article before editing it."
             )
-        for key, value in data.model_dump(exclude={"version"}).items():
+        for key, value in data.model_dump(
+            exclude={"version", "assistant_enabled", "assistant_daily_token_budget"}
+        ).items():
             setattr(row, key, value)
     else:
         target = "published" if operation == "publish" else "draft"

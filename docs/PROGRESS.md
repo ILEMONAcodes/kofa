@@ -435,3 +435,17 @@ BE-6.30 push verification: owner selects `gemini-2.5-flash-lite`; local ignored 
 ### 2026-11-12 — FE-6.33 assistant navigation
 
 Owner requests doorway logo assistant entry in five-item mobile nav and desktop header instead of floating launcher. Connected browse/account/inquiry/inspection/help client shells to existing singleton modal using a shared trigger; staff navigation unchanged. No API change/live model calls. Lint/types passed;30 unaffected unit files161 tests passed, corrected assistant file3 tests passed on rerun. Production compilation/type/static generation passed, build finalization checked separately. Real browser validation not run (local test database unavailable). Changes local pending push request.
+
+### 2026-11-18 — code-managed assistant activation
+
+Owner explicitly removes admin switch/budget dependency. Runtime uses provider host readiness/support phone with code daily10,000 capped by host hard limit; legacy stored flags/budgets ignored and not written, admin usage read-only. Contract0.18.0, no migration. Five offline backend regressions passed, Ruff/mypy90 files/OpenAPI comparison passed; frontend lint,164 units, production build passed. Initial parallel typecheck collided with build regeneration; build TypeScript subsequently passed. PostgreSQL integration/browser/live provider verification not run. No secret changes or live quota consumed. Deployment remains required; Render credentials inaccessible to session.
+
+### 2026-11-18 — golden evaluation quota isolation
+
+CI golden-answer regression traced to ten simulated calls sharing the new10,000 daily reservation allowance; later turns were service_unavailable budget handoffs, not bad grounding. Test-local monkeypatch gives this quality evaluation1,000,000 fictional allowance, preserves production10,000 and90% threshold, and explicitly rejects service-unavailable contamination. Isolated local PostgreSQL18: assistant workflow/evaluation/transport suite **102 passed**, Ruff passed. Full backend regression not rerun; CI will run it. No live AI/data/credentials changed.
+
+### 2026-11-18 — CI dependency patch follow-up
+
+Task BE-6.30 security-check unblock on existing integration branch: update transitive dnspython lock2.9.1→2.9.2 for CVE-2026-128089. Scope lock only, no contract/schema/application changes. Verify installed version, pip check, and strict CI-equivalent pip-audit; results recorded after execution.
+
+Dependency verification: dnspython2.9.2 installed, pip check no broken requirements, email-validator smoke passed. Strict audit tool installation is slow due to PyPI network timeouts; no audit pass claimed yet. CI scan retained unchanged, no exclusions.

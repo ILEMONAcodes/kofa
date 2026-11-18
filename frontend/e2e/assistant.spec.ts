@@ -51,9 +51,7 @@ test("grounded assistant, human handoff, staff review and admin usage controls",
  await expect(staff.getByText("Model requests",{exact:true})).toBeVisible();
  const usage=await staff.request.get("/api/v1/admin/assistant/usage");
  expect((await usage.json()).data.requests).toBe(1); // Out-of-scope question never calls the model.
- await staff.getByLabel("Daily token budget",{exact:true}).fill("0");
- await staff.getByRole("button",{name:"Save assistant controls",exact:true}).click();
- await expect(staff.getByRole("status").filter({hasText:"Assistant controls saved."})).toHaveText("Assistant controls saved.");
- await expect.poll(async()=> (await(await staff.request.get("/api/v1/public-config")).json()).data.assistant.enabled).toBe(false);
+ await expect(staff.getByText("Assistant activation and the daily allowance are managed by backend configuration.")).toBeVisible();
+ await expect(staff.getByRole("button",{name:"Save assistant controls"})).toHaveCount(0);
  await team.close();
 });

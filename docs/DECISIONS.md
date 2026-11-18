@@ -251,3 +251,7 @@ Owner requests assistant integration and usage controls while obtaining a key. U
 ### 2026-11-11 — assistant polish and live-check approval
 
 Owner removes the entire artificial splash and requests mark-only thick loading orbit and concise assistant UI. Existing AI disclosure/privacy/contact remain available under About & contact; call link stays directly reachable. Owner approved one fictional Gemini check and 10,000-token daily cap. The single connection attempt timed out; its reservation remains counted, no retries or settings enablement occurred. Credentials unchanged. Enablement remains pending a successful provider connectivity check and host readiness. Additive admin diagnostics are contract v0.17.0.
+
+### 2026-11-18 — owner override: code-managed assistant
+
+Owner explicitly removes admin control of AI activation/budget. Backend readiness uses host provider/key/URL/model/live access/support contact only, daily code budget10,000 capped by host hard limit. Ignore legacy saved assistant settings and exclude them from support-settings writes. Admin usage remains read-only. Contract0.18.0; no migration, retries or private data expansion.
