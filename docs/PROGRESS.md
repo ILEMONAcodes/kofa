@@ -439,3 +439,7 @@ Owner requests doorway logo assistant entry in five-item mobile nav and desktop 
 ### 2026-11-18 — code-managed assistant activation
 
 Owner explicitly removes admin switch/budget dependency. Runtime uses provider host readiness/support phone with code daily10,000 capped by host hard limit; legacy stored flags/budgets ignored and not written, admin usage read-only. Contract0.18.0, no migration. Five offline backend regressions passed, Ruff/mypy90 files/OpenAPI comparison passed; frontend lint,164 units, production build passed. Initial parallel typecheck collided with build regeneration; build TypeScript subsequently passed. PostgreSQL integration/browser/live provider verification not run. No secret changes or live quota consumed. Deployment remains required; Render credentials inaccessible to session.
+
+### 2026-11-18 — golden evaluation quota isolation
+
+CI golden-answer regression traced to ten simulated calls sharing the new10,000 daily reservation allowance; later turns were service_unavailable budget handoffs, not bad grounding. Test-local monkeypatch gives this quality evaluation1,000,000 fictional allowance, preserves production10,000 and90% threshold, and explicitly rejects service-unavailable contamination. Isolated local PostgreSQL18: assistant workflow/evaluation/transport suite **102 passed**, Ruff passed. Full backend regression not rerun; CI will run it. No live AI/data/credentials changed.

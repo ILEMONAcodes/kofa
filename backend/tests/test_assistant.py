@@ -420,7 +420,10 @@ def test_append_only_and_retention(configured, client, db):
     assert db.get(Conversation, id) is not None
 
 
-def test_golden_grounded_answers(configured, client):
+def test_golden_grounded_answers(configured, client, monkeypatch):
+    # Measure grounding separately from daily quota exhaustion. The simulated
+    # provider reserves conservative byte allowances across ten questions.
+    monkeypatch.setattr(provider, "DAILY_TOKEN_BUDGET", 1000000)
     conv = start(client)
     questions = [
         "How does verification work?",
@@ -439,6 +442,9 @@ def test_golden_grounded_answers(configured, client):
         response = ask(client, conv, question)
         assert response.status_code == 200, response.text
         turn = response.json()["data"]
+        assert turn["handoff"] is None or turn["handoff"]["reason"] != "service_unavailable", (
+            "Quality evaluation must not be limited by provider readiness or daily quota"
+        )
         if turn["handoff"] is None:
             assert turn["message"]["content"] in BODY
             assert turn["message"]["sources"][0]["id"] == str(configured.id)
