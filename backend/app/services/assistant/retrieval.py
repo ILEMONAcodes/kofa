@@ -8,6 +8,7 @@ from sqlalchemy import literal_column, or_, select
 
 from app.models.knowledge import KnowledgeArticle
 from app.services import property_public
+from app.services.assistant.documents import articles as document_articles
 from app.services.assistant.safety import safe_output, tokens
 
 
@@ -26,7 +27,7 @@ def retrieve(db, question, support):
         .limit(30)
     )
     ranked = []
-    for row in articles:
+    for row in [*articles, *document_articles()]:
         text = row.body[:1800]
         overlap = len(wanted & tokens(row.title + " " + text))
         if overlap and safe_output(row.title + " " + text, support):

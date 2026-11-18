@@ -146,24 +146,40 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
             reason = "service_unavailable"
         else:
             reason = safety.reason(content)
+        greeting = bool(
+            not reason
+            and re.fullmatch(
+                r"\s*(?:hello|hi|hey|good morning|good afternoon|good evening)[!.?\s]*",
+                content,
+                re.I,
+            )
+        )
         question = safety.redact(content)
-        if not reason and row.failures >= 2:
+        if not reason and not greeting and row.failures >= 2:
             reason = "repeated_failure"
         contact = support(db, settings)
         limit = provider.token_limit(settings)
         sources = []
         reply = None
         chosen = None
-        text = ""
+        text = (
+            "Hello! I’m Kof’a’s assistant. I can help with finding a home, verification, inspections and listing a property. What would you like to know?"
+            if greeting
+            else ""
+        )
         intent = "help"
         day = None
-        if not reason and (not provider.ready(settings) or not contact.phone or limit <= 0):
+        if (
+            not reason
+            and not greeting
+            and (not provider.ready(settings) or not contact.phone or limit <= 0)
+        ):
             reason = "service_unavailable"
-        if not reason:
+        if not reason and not greeting:
             sources = retrieve(db, question, contact)
             if not sources:
                 reason = "low_confidence"
-        if not reason:
+        if not reason and not greeting:
             payload = provider.payload(question, sources, settings)
             amount = (
                 len(json.dumps(payload, ensure_ascii=False).encode())
@@ -176,7 +192,7 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
                 day = repo.reserve(db, amount, limit, settings.assistant_daily_request_limit)
                 if not day:
                     reason = "service_unavailable"
-            if not reason:
+            if not reason and not greeting:
                 try:
                     reply = (adapter or provider.build(settings)).complete(payload, settings)
                     selection = json.loads(reply.text)
@@ -229,7 +245,11 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
         report = bool(re.search(r"fraud|scam", content, re.I))
         hand = handoff(reason, contact, report) if reason else None
         intent = reason or (
-            "property_search" if chosen and chosen["type"] == "property" else "knowledge"
+            "greeting"
+            if greeting
+            else "property_search"
+            if chosen and chosen["type"] == "property"
+            else "knowledge"
         )
         if hand:
             text = hand.message

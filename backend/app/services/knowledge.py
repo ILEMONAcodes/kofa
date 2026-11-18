@@ -142,7 +142,9 @@ def article_list(db, page, size, public=False, actor_id=None, **filters):
 
 
 def public_article(db, slug):
-    row = repo.published(db, slug)
+    from app.services.assistant.documents import by_slug
+
+    row = by_slug(slug) or repo.published(db, slug)
     if row is None:
         raise AppError(404, "NOT_FOUND", "Help article not found.")
     return public_out(row, True)

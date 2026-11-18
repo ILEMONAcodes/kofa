@@ -255,3 +255,7 @@ Owner removes the entire artificial splash and requests mark-only thick loading 
 ### 2026-11-18 — owner override: code-managed assistant
 
 Owner explicitly removes admin control of AI activation/budget. Backend readiness uses host provider/key/URL/model/live access/support contact only, daily code budget10,000 capped by host hard limit. Ignore legacy saved assistant settings and exclude them from support-settings writes. Admin usage remains read-only. Contract0.18.0; no migration, retries or private data expansion.
+
+### 2026-11-18 — bundled public assistant guidance
+
+Owner requests local Markdown sources instead of depending on published articles. Add seven allowlisted public .md files with guide-* citations; retain lexical RAG/source verification and existing published/property retrieval. Greeting-only messages are deterministic conversational UI, not factual model answers; no provider or quota needed. No arbitrary file access, private docs, legal/fee policy or model training.

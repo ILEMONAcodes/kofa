@@ -27,6 +27,11 @@ BODY = "Verification checks identity, location, price and property features. Our
 
 @pytest.fixture
 def configured(client, db, settings, monkeypatch):
+    # These cases isolate editorial publication/removal. Bundled Markdown has
+    # independent empty-editorial coverage in test_markdown_knowledge.
+    from app.services.assistant import retrieval
+
+    monkeypatch.setattr(retrieval, "document_articles", lambda: [])
     monkeypatch.setattr(settings, "assistant_provider", "test")
     monkeypatch.setattr(settings, "assistant_hard_token_limit", 1000000)
     monkeypatch.setattr(settings, "assistant_daily_request_limit", 100)
