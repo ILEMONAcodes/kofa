@@ -40,7 +40,8 @@ def seed_admin(db, email, password, name):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
-        "command", choices=["seed-admin", "seed-taxonomy", "send-email", "cleanup-files"]
+        "command",
+        choices=["seed-admin", "seed-taxonomy", "seed-knowledge", "send-email", "cleanup-files"],
     )
     args = parser.parse_args()
     settings = get_settings()  # Loads backend/.env through Pydantic settings.
@@ -74,6 +75,23 @@ def main():
             created = seed_admin(db, email, password, seed.seed_admin_name)
             print(
                 "Administrator created." if created else "Administrator already exists; unchanged."
+            )
+        elif args.command == "seed-knowledge":
+            from pydantic_settings import BaseSettings, SettingsConfigDict
+
+            from app.seeds.knowledge import seed_knowledge
+
+            class ContentSeedSettings(BaseSettings):
+                model_config = SettingsConfigDict(
+                    env_file=".env", extra="ignore", hide_input_in_errors=True
+                )
+                seed_admin_email: str = ""
+
+            actor = by_email(db, ContentSeedSettings().seed_admin_email)
+            if actor is None:
+                raise SystemExit("Configure SEED_ADMIN_EMAIL for an existing active administrator.")
+            print(
+                f"Published {seed_knowledge(db, actor.id)} starter Help articles; existing content preserved."
             )
         elif args.command == "seed-taxonomy":
             from app.seeds.taxonomy import seed_taxonomy
