@@ -443,3 +443,9 @@ Owner explicitly removes admin switch/budget dependency. Runtime uses provider h
 ### 2026-11-18 — golden evaluation quota isolation
 
 CI golden-answer regression traced to ten simulated calls sharing the new10,000 daily reservation allowance; later turns were service_unavailable budget handoffs, not bad grounding. Test-local monkeypatch gives this quality evaluation1,000,000 fictional allowance, preserves production10,000 and90% threshold, and explicitly rejects service-unavailable contamination. Isolated local PostgreSQL18: assistant workflow/evaluation/transport suite **102 passed**, Ruff passed. Full backend regression not rerun; CI will run it. No live AI/data/credentials changed.
+
+### 2026-11-18 — CI dependency patch follow-up
+
+Task BE-6.30 security-check unblock on existing integration branch: update transitive dnspython lock2.9.1→2.9.2 for CVE-2026-128089. Scope lock only, no contract/schema/application changes. Verify installed version, pip check, and strict CI-equivalent pip-audit; results recorded after execution.
+
+Dependency verification: dnspython2.9.2 installed, pip check no broken requirements, email-validator smoke passed. Strict audit tool installation is slow due to PyPI network timeouts; no audit pass claimed yet. CI scan retained unchanged, no exclusions.
