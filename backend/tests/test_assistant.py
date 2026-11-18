@@ -576,16 +576,14 @@ def test_controls_ready_and_host_ceiling(configured, client, db, settings):
     )
     assert client.get("/api/v1/public-config").json()["data"]["assistant"]["enabled"] is True
     usage = client.get("/api/v1/admin/assistant/usage").json()["data"]
-    assert usage["token_limit"] == min(
-        current["assistant_daily_token_budget"], settings.assistant_hard_token_limit
-    )
+    assert usage["token_limit"] == min(10000, settings.assistant_hard_token_limit)
     assert (
         write(
             client, "/admin/settings", current | {"assistant_daily_token_budget": 0}, method="put"
         ).status_code
         == 200
     )
-    assert client.get("/api/v1/public-config").json()["data"]["assistant"]["enabled"] is False
+    assert client.get("/api/v1/public-config").json()["data"]["assistant"]["enabled"] is True
 
 
 def test_actor_ownership_and_expiration(configured, client, db):

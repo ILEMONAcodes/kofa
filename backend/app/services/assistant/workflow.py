@@ -150,20 +150,14 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
         if not reason and row.failures >= 2:
             reason = "repeated_failure"
         contact = support(db, settings)
-        config = knowledge.values(knowledge_repo.settings(db))
-        limit = min(config.assistant_daily_token_budget, settings.assistant_hard_token_limit)
+        limit = provider.token_limit(settings)
         sources = []
         reply = None
         chosen = None
         text = ""
         intent = "help"
         day = None
-        if not reason and (
-            not config.assistant_enabled
-            or not provider.ready(settings)
-            or not contact.phone
-            or limit <= 0
-        ):
+        if not reason and (not provider.ready(settings) or not contact.phone or limit <= 0):
             reason = "service_unavailable"
         if not reason:
             sources = retrieve(db, question, contact)
@@ -455,7 +449,7 @@ def usage(db, settings, actor):
     config = knowledge.values(knowledge_repo.settings(db))
     day = repo.today()
     row = db.get(AssistantUsage, day)
-    limit = min(config.assistant_daily_token_budget, settings.assistant_hard_token_limit)
+    limit = provider.token_limit(settings)
     counts = {
         name: getattr(row, name) if row else 0
         for name in [
@@ -467,8 +461,6 @@ def usage(db, settings, actor):
         ]
     }
     readiness_issues = provider.issues(settings)
-    if not config.assistant_enabled:
-        readiness_issues.append("admin_disabled")
     if limit <= 0:
         readiness_issues.append("token_budget_zero")
     if not config.support_phone:
