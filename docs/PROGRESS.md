@@ -449,3 +449,9 @@ CI golden-answer regression traced to ten simulated calls sharing the new10,000 
 Task BE-6.30 security-check unblock on existing integration branch: update transitive dnspython lock2.9.1→2.9.2 for CVE-2026-128089. Scope lock only, no contract/schema/application changes. Verify installed version, pip check, and strict CI-equivalent pip-audit; results recorded after execution.
 
 Dependency verification: dnspython2.9.2 installed, pip check no broken requirements, email-validator smoke passed. Strict audit tool installation is slow due to PyPI network timeouts; no audit pass claimed yet. CI scan retained unchanged, no exclusions.
+
+### 2026-11-18 — assistant starter RAG content
+
+Owner requested published starter articles; created11 short workflow FAQs from documented behaviour, no invented fees/legal policies/guarantees. Explicit `seed-knowledge` CLI uses configured existing active admin, audited create/publish, preserves existing titles/drafts. Local PostgreSQL publication/retrieval/idempotency test1 passed; backend Ruff/mypy91 files passed; frontend lint/assistant3 tests passed. Authorized seed reported11 published in configured Neon; deployed public API verification follows. No live AI call/secret changes. Duplicate handoff message removed locally, frontend deployment pending.
+
+Post-publication verification: deployed public API returned11 published articles and1 verification search match. Source content is live; no Gemini generation verification performed.
