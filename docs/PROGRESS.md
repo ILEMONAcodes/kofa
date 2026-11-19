@@ -477,3 +477,7 @@ Render/Vercel public health200/databaseok, enabledtrue, bundled verification sou
 ### 2026-11-19 — approved testing allowance increase
 
 Owner approves code daily allowance100,000 (10x), host hard ceiling retained. No usage reset/provider quota bypass. Pair with safe provider failure logging (fixed category and numericstatus only). Final targeted local PostgreSQL assistant/prompt/transport checks **68 passed**,1 existing deprecation warning; Ruff/mypy94 files passed. No live provider calls/production writes/secrets changed. Backend deployment plus host ceiling>=100000 needed for full testing allowance. Original upstream error remains unverified until logs from a new request are available.
+
+### 2026-11-19 — Gemma4 compatibility
+
+Owner requests Gemma4 support: Google-hosted gemma-4-* uses minimal reasoning, JSON/system/context/history retained; other models/hosts unchanged. Local ignored ASSISTANT_MODEL changed only to gemma-4-26b-a4b-it; key/endpoint/live gates unchanged. Example configuration corrected. Added strict HTTP envelope/choices/message/usage guards so malformed bodies fail predictably. Offline targeted checks76 passed,3 subtests; Ruff/mypy94 files and6 standalone transport checks passed. First approved fictional live check hit TypeError (insufficient retained detail to identify stage); two further approved checks returned503. No successful live inference claimed; no quota reset/retries/additional calls. Branch be/BE-6.30-gemma-provider; code pending deployment, runtime confirmation blocked by provider availability.

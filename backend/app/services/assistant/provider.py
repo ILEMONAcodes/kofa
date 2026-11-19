@@ -81,6 +81,8 @@ def payload(question, sources, settings, history=None):
             "none"
             if settings.assistant_model.startswith("gemini-2.5")
             and "flash" in settings.assistant_model
+            else "minimal"
+            if settings.assistant_model.startswith("gemma-4-")
             else "low"
         )
     return result
@@ -157,10 +159,20 @@ class ChatCompletions:
                         response.status_code, content=bytes(content), request=response.request
                     ).raise_for_status()
         data = json.loads(content)
-        text = data["choices"][0]["message"]["content"]
+        if not isinstance(data, dict):
+            raise ValueError("Invalid provider envelope")
+        choices = data.get("choices")
+        if not isinstance(choices, list) or not choices or not isinstance(choices[0], dict):
+            raise ValueError("Invalid provider choices")
+        message = choices[0].get("message")
+        if not isinstance(message, dict):
+            raise ValueError("Invalid provider message")
+        text = message.get("content")
         if not isinstance(text, str) or len(text) > 4000:
             raise ValueError("Invalid provider response")
         usage = data.get("usage", {})
+        if not isinstance(usage, dict):
+            usage = {}
         known = all(
             type(usage.get(key)) is int and 0 <= usage[key] <= 10000000
             for key in ["prompt_tokens", "completion_tokens"]
