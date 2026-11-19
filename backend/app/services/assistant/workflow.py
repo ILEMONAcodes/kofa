@@ -20,6 +20,7 @@ from app.repositories import knowledge as knowledge_repo
 from app.schemas import assistant as s
 from app.services import knowledge
 from app.services.assistant import provider, safety
+from app.services.assistant.conversation import recent_history, reveals_prompt
 from app.services.assistant.retrieval import retrieve
 from app.services.media import current_staff
 from app.services.rate_limit import consume
@@ -43,6 +44,8 @@ def handoff(reason, contact, report=False):
     message = (
         "Our team can help with this. Please use the support line or send a message to the team."
     )
+    if reason == "low_confidence":
+        message = "I’m not sure from the available Kof’a knowledge. Please contact our support team for help."
     if reason == "sensitive_topic":
         message = "If you are in immediate danger, contact local emergency services. For help with Kof’a, contact our team using the support details below."
     options = [
@@ -146,41 +149,25 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
             reason = "service_unavailable"
         else:
             reason = safety.reason(content)
-        greeting = bool(
-            not reason
-            and re.fullmatch(
-                r"\s*(?:hello|hi|hey|good morning|good afternoon|good evening)[!.?\s]*",
-                content,
-                re.I,
-            )
-        )
         question = safety.redact(content)
-        if not reason and not greeting and row.failures >= 2:
+        if not reason and row.failures >= 2:
             reason = "repeated_failure"
         contact = support(db, settings)
         limit = provider.token_limit(settings)
         sources = []
         reply = None
         chosen = None
-        text = (
-            "Hello! I’m Kof’a’s assistant. I can help with finding a home, verification, inspections and listing a property. What would you like to know?"
-            if greeting
-            else ""
-        )
+        text = ""
         intent = "help"
         day = None
-        if (
-            not reason
-            and not greeting
-            and (not provider.ready(settings) or not contact.phone or limit <= 0)
-        ):
+        # Retrieval runs for every turn, even when safety prevents generation.
+        sources = retrieve(db, question, contact)
+        if not reason and (not provider.ready(settings) or not contact.phone or limit <= 0):
             reason = "service_unavailable"
-        if not reason and not greeting:
-            sources = retrieve(db, question, contact)
-            if not sources:
-                reason = "low_confidence"
-        if not reason and not greeting:
-            payload = provider.payload(question, sources, settings)
+        if not reason:
+            payload = provider.payload(
+                question, sources, settings, recent_history(repo.messages(db, id), contact)
+            )
             amount = (
                 len(json.dumps(payload, ensure_ascii=False).encode())
                 + settings.assistant_max_output_tokens
@@ -192,12 +179,34 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
                 day = repo.reserve(db, amount, limit, settings.assistant_daily_request_limit)
                 if not day:
                     reason = "service_unavailable"
-            if not reason and not greeting:
+            if not reason:
                 try:
                     reply = (adapter or provider.build(settings)).complete(payload, settings)
                     selection = json.loads(reply.text)
-                    if not isinstance(selection, dict) or set(selection) - {"source_id", "quote"}:
-                        raise ValueError("Unexpected selection")
+                    if not isinstance(selection, dict):
+                        raise ValueError("Invalid reply")
+                    # Accept legacy extractive adapters used by existing integrations/tests.
+                    if set(selection) <= {"source_id", "quote"}:
+                        selection = {
+                            **selection,
+                            "kind": "grounded",
+                            "answer": selection.get("quote"),
+                        }
+                    if set(selection) != {"kind", "answer", "source_id", "quote"}:
+                        raise ValueError("Unexpected reply fields")
+                    answer = selection["answer"]
+                    if not isinstance(answer, str) or not 1 <= len(answer.strip()) <= 900:
+                        raise ValueError("Invalid answer")
+                    if not safety.safe_output(answer, contact) or reveals_prompt(answer):
+                        reason = "out_of_scope"
+                    elif selection["kind"] == "unsupported":
+                        reason = "low_confidence"
+                    elif selection["kind"] == "conversation":
+                        if selection["source_id"] is not None or selection["quote"] is not None:
+                            raise ValueError("Unexpected conversational citation")
+                        text = answer.strip()
+                    elif selection["kind"] != "grounded":
+                        raise ValueError("Unknown answer kind")
                     chosen = next(
                         (
                             source
@@ -207,7 +216,9 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
                         None,
                     )
                     quote = selection.get("quote")
-                    if (
+                    if selection["kind"] != "grounded" or reason:
+                        pass
+                    elif (
                         not chosen
                         or not isinstance(quote, str)
                         or not 20 <= len(quote) <= 500
@@ -226,7 +237,7 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
                         if not current or quote not in current["text"]:
                             reason = "low_confidence"
                         else:
-                            text = quote
+                            text = answer.strip()
                             chosen = current
                 except Exception:
                     # No provider exception/body/URL/key enters logs or client responses.
@@ -245,11 +256,7 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
         report = bool(re.search(r"fraud|scam", content, re.I))
         hand = handoff(reason, contact, report) if reason else None
         intent = reason or (
-            "greeting"
-            if greeting
-            else "property_search"
-            if chosen and chosen["type"] == "property"
-            else "knowledge"
+            "property_search" if chosen and chosen["type"] == "property" else "knowledge"
         )
         if hand:
             text = hand.message

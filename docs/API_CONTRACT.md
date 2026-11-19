@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.19.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
+**Contract version:** `0.20.0` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -536,7 +536,9 @@ Action permissions: staff may record `listing_corrected`, `landlord_warned`, `cl
 - `support_hours`: `{timezone:"Africa/Lagos",days:[{day:0..6,open:"HH:MM",close:"HH:MM"}]}`; Monday0. At most one interval/day, no overlaps including week wrap. Closing≤opening crosses midnight; equal means24 hours. Opening inclusive, closing exclusive; empty schedule is closed. No contact means is_open_now:false.
 - All routes reject unknown/repeated query parameters. Editorial/settings writes share120/hour per actor; public article reads120/minute/IP. JSON bodies bounded at256KiB articles/16KiB settings. Standard auth, CSRF and error envelopes apply. Public DTOs never include drafts, internal settings, creator IDs or audit records.
 
-**CR-ASSISTANT-003 (0.19.0):** Bundled public Markdown guidance participates in lexical retrieval alongside published articles/public listings. Existing article DTOs expose allowlisted guide-* slugs using stable UUIDs; no arbitrary filesystem paths. Pure greetings return a deterministic response with no provider invocation/source citation; normal auth, rate/turn limits and persistence apply. This is not open-ended model chat.
+**CR-ASSISTANT-004 (0.20.0):** Owner overrides deterministic casual replies and exact-excerpt-only mode: all turns retrieve; allowed turns call the existing provider with a single system prompt, labelled public context/empty marker, at most6 redacted safe history messages (500 characters each) and current message. Model returns internal conversation/grounded/unsupported JSON; natural company answers require a source ID and exact supporting excerpt validated against freshly retrieved sources. API response schemas/routes unchanged. Source filenames provided internally, not new response fields. No-context company requests return low_confidence uncertainty/support handoff. Existing safety.py decisions precede LLM and output filtering remains mandatory; fee/payment/legal questions retain deterministic handoff. Prompts/history are not company evidence. This supersedes earlier no-history and copied-excerpt restrictions; semantic fidelity requires model evaluation.
+
+**CR-ASSISTANT-003 (0.19.0):** Bundled public Markdown guidance participates in lexical retrieval alongside published articles/public listings. Existing article DTOs expose allowlisted guide-* slugs using stable UUIDs; no arbitrary filesystem paths. Pure greetings and casual social/thanks/help/acknowledgement/farewell utterances (case/punctuation/emoji normalized, mixed factual requests excluded) return a deterministic response with no provider invocation/source citation; normal auth, rate/turn limits and persistence apply. This is not open-ended model chat.
 
 **CR-ASSISTANT-002 (0.18.0):** Owner override: activation is server-managed. Stored assistant_enabled/daily budget no longer gate calls. Code daily allowance10,000 capped by ASSISTANT_HARD_TOKEN_LIMIT; provider/live/key/URL/model/support phone gates retained. Admin usage is read-only. Legacy assistant fields on support settings remain accepted for compatibility but ignored on writes; values are deprecated, not runtime controls. No admin_disabled readiness issue.
 
@@ -738,6 +740,8 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 | Version | Date | Change | Approved by |
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
+| 0.20.0 | 2026-11-19 | Prompt-driven conversation and grounded paraphrases with bounded redacted history; existing public DTOs unchanged | Backend; peer review pending |
+| 0.19.1 | 2026-11-18 | Clarify casual-intent normalization and mixed factual-request routing; schema unchanged | Backend |
 | 0.19.0 | 2026-11-18 | Bundled public Markdown source retrieval and citations; provider-free greetings | Joint; review pending |
 | 0.18.0 | 2026-11-18 | Owner override: code-managed assistant activation and10,000 daily allowance; admin usage read-only, legacy settings fields ignored | Joint; peer review pending |
 | 0.17.0 | 2026-11-11 | Add admin-only assistant readiness diagnostics; no public payload or permission change | Backend + authorized frontend; peer review pending |

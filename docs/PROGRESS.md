@@ -459,3 +459,13 @@ Post-publication verification: deployed public API returned11 published articles
 ### 2026-11-18 — bundled Markdown knowledge and greetings
 
 Owner requests Markdown guidance independent of editorial articles and basic greeting support. Seven public allowlisted files under backend/app/knowledge, included in backend package/Docker; stable guide-* citations use existing public article DTO. Pure greetings persist a deterministic response without provider lookup, token reservation or sources; rate/turn/security guards retained. Separate Markdown tests plus isolated editorial assistant fixtures preserve publication/privacy tests. Final local PostgreSQL assistant/knowledge suite **85 passed**; Ruff/mypy92 files passed. No live model calls, secrets or production writes. Contract0.19.0; no schema migration. Changes local; deploy required.
+
+### 2026-11-18 — conversational intents
+
+Owner requests flexible small talk and document-based technical guidance. Normalize punctuation/emoji/case, greet hey/ correctly; add social/thanks/help/acknowledgement/farewell responses. Only entire casual utterances match; mixed factual/sensitive/injection input remains in safety/retrieval path. No live model calls. Local PostgreSQL assistant/Markdown suite **59 passed**; Ruff/mypy93 files passed. Factual mode remains verified source excerpts rather than unrestricted synthesis. Changes local, deployment pending.
+
+### 2026-11-19 — BE-6.30 prompt-driven grounded conversation
+
+Explicit Dev2 task supersedes uncommitted casual phrase-list follow-up. Single prompts.py SYSTEM, temperature0.25, all-turn retrieval, filename-labelled context/explicit empty marker, up to6 redacted/safe recent500-character messages. Natural provider conversation/grounded/unsupported responses; company citations/exact evidence/fresh public visibility/output/prompt-echo validation retained. No greeting fast path. Existing safety.py fee/legal/private/injection handoff remains untouched; API routes/DTOs and knowledge files unchanged. Documented owner override of exact-excerpt and no-history decisions, contract0.20.0 behavioural update.
+
+Final verification: full isolated PostgreSQL backend suite **750 passed**,2 existing deprecation warnings,437.38s; Ruff app/tests passed, mypy94 files passed, OpenAPI snapshot unchanged. Initial targeted62 passed/1 expected empty-context-call expectation updated to assert poisoned context exclusion, then complete suite green. No new dependencies, private env changes, model calls or production writes. Live-model semantic/classification accuracy still unverified; prompt/evidence checks are not a proof of entailment. Local implementation pending push/deployment and peer review.
