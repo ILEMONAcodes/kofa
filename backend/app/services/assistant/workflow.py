@@ -3,6 +3,7 @@
 import hashlib
 import hmac
 import json
+import logging
 import re
 import secrets
 import time
@@ -239,8 +240,12 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
                         else:
                             text = answer.strip()
                             chosen = current
-                except Exception:
-                    # No provider exception/body/URL/key enters logs or client responses.
+                except Exception as exc:
+                    kind, status = provider.failure_details(exc)
+                    logging.getLogger("kofa").warning(
+                        "assistant_provider_failure kind=%s status=%s", kind, status
+                    )
+                    # Never log exception strings, bodies, URLs, prompts or keys.
                     reason = "service_unavailable"
                 finally:
                     repo.account(db, day, reply, limit, amount)
