@@ -1,6 +1,6 @@
 # API Contract
 
-**Contract version:** `0.20.1` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
+**Contract version:** `0.20.3` · **Status:** Auth/property/inquiry/appointment/complaint sections integrated locally; remaining modules Draft · **Joint ownership**
 
 Neither developer may change this file alone. See §1.
 
@@ -743,6 +743,8 @@ The backend exports `backend/openapi.json` (BE-2.4). Its method + path set must 
 |---|---|---|---|
 | 0.1.0 | 2026-10-23 | Initial draft from PRD v0.1 | pending (J-1.3) |
 | 0.20.1 | 2026-11-19 | Owner-approved100,000 daily testing allowance; private fixed-category/status diagnostics, public DTOs unchanged | Backend |
+| 0.20.3 | 2026-11-19 | Configurable assistant token/chat limits, conservative defaults; per-attempt atomic fallback reservations replace upfront multiplier; no usage reset | Backend |
+| 0.20.2 | 2026-11-19 | Owner-requested OpenRouter free-only bounded model failover; reserve all configured attempts, daily requests count user turns; public DTOs unchanged | Backend |
 | 0.20.0 | 2026-11-19 | Prompt-driven conversation and grounded paraphrases with bounded redacted history; existing public DTOs unchanged | Backend; peer review pending |
 | 0.19.1 | 2026-11-18 | Clarify casual-intent normalization and mixed factual-request routing; schema unchanged | Backend |
 | 0.19.0 | 2026-11-18 | Bundled public Markdown source retrieval and citations; provider-free greetings | Joint; review pending |

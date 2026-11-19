@@ -33,18 +33,34 @@ class Settings(BaseSettings):
     s3_secret_access_key: SecretStr = SecretStr("")
     ffprobe_binary: str = "ffprobe"
     availability_stale_days: int = Field(default=14, ge=1, le=365)
-    assistant_provider: Literal["disabled", "test", "chat_completions"] = "disabled"
+    assistant_provider: Literal["disabled", "test", "chat_completions", "openrouter"] = "disabled"
+    openrouter_api_key: SecretStr = SecretStr("")
+    assistant_fallback_models: str = ""
     assistant_api_key: SecretStr = SecretStr("")
     assistant_api_url: str = ""
     assistant_model: str = Field(default="", max_length=100)
     assistant_allow_live: bool = False
     assistant_daily_request_limit: int = Field(default=100, ge=1, le=10000)
+    assistant_daily_token_budget: int = Field(default=100000, ge=0, le=10000000)
+    assistant_guest_daily_conversations: int = Field(default=5, ge=1, le=10000)
+    assistant_user_daily_conversations: int = Field(default=20, ge=1, le=10000)
+    assistant_guest_hourly_messages: int = Field(default=20, ge=1, le=10000)
+    assistant_user_hourly_messages: int = Field(default=60, ge=1, le=10000)
     assistant_hard_token_limit: int = Field(default=100000, ge=0, le=10000000)
     assistant_max_output_tokens: int = Field(default=256, ge=64, le=512)
     captcha_required: bool = False
 
     @model_validator(mode="after")
     def secure_settings(self):
+        if self.assistant_provider == "openrouter":
+            models = [self.assistant_model, *self.assistant_fallback_models.split(",")]
+            models = [m.strip() for m in models if m.strip()]
+            if not 1 <= len(models) <= 4 or len(set(models)) != len(models):
+                raise ValueError("OpenRouter requires one to four distinct models")
+            if any(not m.endswith(":free") for m in models):
+                raise ValueError("OpenRouter models must use free variants")
+            if self.assistant_api_url != "https://openrouter.ai/api/v1/chat/completions":
+                raise ValueError("OpenRouter requires its official chat completions endpoint")
         if len(self.auth_secret.get_secret_value()) < 32:
             raise ValueError("AUTH_SECRET must contain at least 32 characters")
         if not self.database_url.get_secret_value().startswith(
