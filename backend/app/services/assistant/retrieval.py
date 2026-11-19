@@ -40,6 +40,9 @@ def retrieve(db, question, support):
                         "id": str(row.id),
                         "title": row.title,
                         "url": "/resources/article?slug=" + row.slug,
+                        "filename": (row.slug.removeprefix("guide-") + ".md")
+                        if row.slug.startswith("guide-")
+                        else "knowledge-articles/" + row.slug,
                         "text": text,
                     },
                 )
