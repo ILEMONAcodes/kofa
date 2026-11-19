@@ -69,7 +69,7 @@ class TransportTests(unittest.TestCase):
 
     def test_code_allowance_obeys_host_ceiling(self):
         self.assertEqual(
-            provider.token_limit(SimpleNamespace(assistant_hard_token_limit=100000)), 10000
+            provider.token_limit(SimpleNamespace(assistant_hard_token_limit=1000000)), 100000
         )
         self.assertEqual(provider.token_limit(SimpleNamespace(assistant_hard_token_limit=500)), 500)
         self.assertEqual(provider.token_limit(SimpleNamespace(assistant_hard_token_limit=0)), 0)

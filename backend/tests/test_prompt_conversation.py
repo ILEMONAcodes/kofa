@@ -113,3 +113,20 @@ def test_provider_cannot_echo_prompt(model, client):
     data = ask(client, start(client), "hi").json()["data"]
     assert data["handoff"]["reason"] == "out_of_scope"
     assert " ".join(SYSTEM.split()[:24]) not in data["message"]["content"]
+
+
+@pytest.mark.parametrize("status", [400, 401, 403, 429, 503])
+def test_provider_failure_logging_is_safe(model, client, caplog, status):
+    import httpx
+
+    request = httpx.Request("POST", "https://fictional.invalid/secret-endpoint")
+    response = httpx.Response(status, request=request)
+    model.complete.side_effect = httpx.HTTPStatusError(
+        "fictional-private-key and private conversation", request=request, response=response
+    )
+    data = ask(client, start(client), "hi").json()["data"]
+    assert data["handoff"]["reason"] == "service_unavailable"
+    assert f"assistant_provider_failure kind=http_error status={status}" in caplog.text
+    assert "fictional-private-key" not in caplog.text
+    assert "private conversation" not in caplog.text
+    assert "secret-endpoint" not in caplog.text

@@ -24,7 +24,7 @@ class Provider(Protocol):
     def complete(self, payload: dict, settings) -> Reply: ...
 
 
-DAILY_TOKEN_BUDGET = 10000
+DAILY_TOKEN_BUDGET = 100000
 
 
 def token_limit(settings):
@@ -180,3 +180,14 @@ def build(settings):
         if settings.assistant_provider == "test" and settings.app_env == "test"
         else ChatCompletions()
     )
+
+
+def failure_details(exc):
+    """Only fixed categories/numeric status; exception text may contain credentials."""
+    if isinstance(exc, httpx.HTTPStatusError):
+        return "http_error", exc.response.status_code
+    if isinstance(exc, httpx.TimeoutException):
+        return "timeout", None
+    if isinstance(exc, httpx.RequestError):
+        return "network_error", None
+    return "invalid_response", None
