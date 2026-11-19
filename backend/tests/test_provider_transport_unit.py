@@ -85,3 +85,21 @@ class TransportTests(unittest.TestCase):
         settings.assistant_hard_token_limit = 0
         with patch.object(knowledge.repo, "settings", return_value={}):
             self.assertFalse(knowledge.public_config(None, settings).assistant.enabled)
+
+    def test_malformed_provider_envelope_rejected_without_type_error(self):
+        settings = SimpleNamespace(
+            assistant_api_url="https://fictional.invalid/chat/completions",
+            assistant_api_key=SecretStr("fictional"),
+            assistant_model="gemma-4-26b-a4b-it",
+        )
+        real_client = httpx.Client
+        for body in [[{"error": {"code": 503}}], {"choices": []}, {"choices": [{"message": None}]}]:
+            with self.subTest(body=body):
+
+                def handler(request, payload=body):
+                    return httpx.Response(200, json=payload)
+
+                client = real_client(transport=httpx.MockTransport(handler))
+                with patch.object(provider.httpx, "Client", return_value=client):
+                    with self.assertRaises(ValueError):
+                        provider.ChatCompletions().complete({}, settings)
