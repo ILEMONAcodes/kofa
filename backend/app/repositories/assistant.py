@@ -97,6 +97,21 @@ def reserve(db, amount, limit, request_limit):
     return day if acquired else None
 
 
+def reserve_extra(db, day, amount, limit):
+    """Atomically reserve a fallback on the same day/turn; no request-count increment."""
+    acquired = db.execute(
+        update(AssistantUsage)
+        .where(
+            AssistantUsage.day == day,
+            AssistantUsage.reserved_tokens + amount <= limit,
+        )
+        .values(reserved_tokens=AssistantUsage.reserved_tokens + amount)
+        .returning(AssistantUsage.day)
+    ).scalar()
+    db.commit()
+    return acquired is not None
+
+
 def account(db, day, reply, limit, reservation):
     # Missing usage is visible; failures remain fully reserved, never refunded.
     known = reply is not None and reply.usage_known

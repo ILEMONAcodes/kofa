@@ -24,11 +24,15 @@ class Provider(Protocol):
     def complete(self, payload: dict, settings) -> Reply: ...
 
 
-DAILY_TOKEN_BUDGET = 100000
+DAILY_TOKEN_BUDGET = 10000000
 
 
 def token_limit(settings):
-    return min(DAILY_TOKEN_BUDGET, settings.assistant_hard_token_limit)
+    return min(
+        DAILY_TOKEN_BUDGET,
+        getattr(settings, "assistant_daily_token_budget", 100000),
+        settings.assistant_hard_token_limit,
+    )
 
 
 def ready(settings):
@@ -36,13 +40,28 @@ def ready(settings):
         settings.assistant_provider == "test"
         and settings.app_env == "test"
         or (
-            settings.assistant_provider == "chat_completions"
+            settings.assistant_provider in {"chat_completions", "openrouter"}
             and settings.assistant_allow_live
-            and bool(settings.assistant_api_key.get_secret_value())
+            and bool(api_key(settings))
             and bool(settings.assistant_api_url)
             and bool(settings.assistant_model)
         )
     )
+
+
+def api_key(settings):
+    key = (
+        settings.openrouter_api_key
+        if settings.assistant_provider == "openrouter"
+        else settings.assistant_api_key
+    )
+    return key.get_secret_value()
+
+
+def attempt_count(settings):
+    if settings.assistant_provider != "openrouter":
+        return 1
+    return 1 + len([m for m in settings.assistant_fallback_models.split(",") if m.strip()])
 
 
 def payload(question, sources, settings, history=None):
@@ -96,7 +115,7 @@ def issues(settings):
     result = []
     if not settings.assistant_allow_live:
         result.append("live_access_disabled")
-    if not settings.assistant_api_key.get_secret_value():
+    if not api_key(settings):
         result.append("api_key_missing")
     if not settings.assistant_api_url:
         result.append("api_url_missing")
@@ -135,11 +154,16 @@ class Simulated:
 
 
 class ChatCompletions:
+    def __init__(self, time_budget=20):
+        self.time_budget = time_budget
+
     def complete(self, payload, settings):
         started = time.monotonic()
         # No retries/redirects/proxy inheritance: each reservation permits one request.
         with httpx.Client(
-            timeout=httpx.Timeout(20, connect=5), follow_redirects=False, trust_env=False
+            timeout=httpx.Timeout(self.time_budget, connect=min(5, self.time_budget)),
+            follow_redirects=False,
+            trust_env=False,
         ) as client:
             with client.stream(
                 "POST",
@@ -152,7 +176,7 @@ class ChatCompletions:
                 content = bytearray()
                 for part in response.iter_bytes():
                     content.extend(part)
-                    if len(content) > 65536 or time.monotonic() - started > 25:
+                    if len(content) > 65536 or time.monotonic() - started > self.time_budget + 5:
                         raise ValueError("Provider response limit")
                 if response.is_error:
                     httpx.Response(
@@ -187,6 +211,10 @@ class ChatCompletions:
 
 
 def build(settings):
+    if settings.assistant_provider == "openrouter":
+        from app.services.assistant.openrouter import OpenRouter
+
+        return OpenRouter()
     return (
         Simulated()
         if settings.assistant_provider == "test" and settings.app_env == "test"
@@ -202,4 +230,21 @@ def failure_details(exc):
         return "timeout", None
     if isinstance(exc, httpx.RequestError):
         return "network_error", None
+    if isinstance(exc, json.JSONDecodeError):
+        return "invalid_json", None
+    if type(exc) is ValueError:
+        # Exact local validation messages only; never emit arbitrary exception text.
+        categories = {
+            "Provider response limit": "response_limit",
+            "Invalid provider envelope": "invalid_envelope",
+            "Invalid provider choices": "invalid_choices",
+            "Invalid provider message": "invalid_message",
+            "Invalid provider response": "invalid_content",
+            "Invalid reply": "invalid_answer_object",
+            "Unexpected reply fields": "invalid_answer_fields",
+            "Invalid answer": "invalid_answer_text",
+            "Unexpected conversational citation": "invalid_conversation_citation",
+            "Unknown answer kind": "invalid_answer_kind",
+        }
+        return categories.get(str(exc), "invalid_response"), None
     return "invalid_response", None

@@ -425,10 +425,11 @@ def test_append_only_and_retention(configured, client, db):
     assert db.get(Conversation, id) is not None
 
 
-def test_golden_grounded_answers(configured, client, monkeypatch):
+def test_golden_grounded_answers(configured, client, monkeypatch, settings):
     # Measure grounding separately from daily quota exhaustion. The simulated
     # provider reserves conservative byte allowances across ten questions.
     monkeypatch.setattr(provider, "DAILY_TOKEN_BUDGET", 1000000)
+    monkeypatch.setattr(settings, "assistant_daily_token_budget", 1000000)
     conv = start(client)
     questions = [
         "How does verification work?",
@@ -753,3 +754,14 @@ def test_unfinished_call_usage_remains_unconfirmed(configured, db):
     assert repo.reserve(db, 100, 1000, 10) is not None
     db.expire_all()
     assert db.get(AssistantUsage, day).unknown_usage_requests == 1
+
+
+def test_fallback_reservation_preserves_turn_count_and_cap(configured, db):
+    day = repo.reserve(db, 100, 250, 10)
+    assert repo.reserve_extra(db, day, 100, 250)
+    assert not repo.reserve_extra(db, day, 100, 250)
+    db.expire_all()
+    row = db.get(AssistantUsage, day)
+    assert row.reserved_tokens == 200
+    assert row.requests == 1
+    assert row.unknown_usage_requests == 1

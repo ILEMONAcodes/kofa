@@ -81,7 +81,9 @@ def start(db, settings, actor, ip):
         settings,
         "assistant.start",
         str(actor.id) if actor else identity(settings, ip),
-        20 if actor else 5,
+        settings.assistant_user_daily_conversations
+        if actor
+        else settings.assistant_guest_daily_conversations,
         86400,
     )
     token = None if actor else secrets.token_urlsafe(32)
@@ -130,7 +132,9 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
         settings,
         "assistant.messages",
         str(actor.id) if actor else identity(settings, ip),
-        60 if actor else 20,
+        settings.assistant_user_hourly_messages
+        if actor
+        else settings.assistant_guest_hourly_messages,
         3600,
     )
     if row.inquiry_id or row.status == "closed":
@@ -182,7 +186,21 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
                     reason = "service_unavailable"
             if not reason:
                 try:
-                    reply = (adapter or provider.build(settings)).complete(payload, settings)
+                    from app.services.assistant.openrouter import OpenRouter
+
+                    selected_provider = adapter or provider.build(settings)
+                    if isinstance(selected_provider, OpenRouter):
+                        per_attempt = amount
+
+                        def reserve_fallback():
+                            nonlocal amount
+                            if not repo.reserve_extra(db, day, per_attempt, limit):
+                                return False
+                            amount += per_attempt
+                            return True
+
+                        selected_provider.before_fallback = reserve_fallback
+                    reply = selected_provider.complete(payload, settings)
                     selection = json.loads(reply.text)
                     if not isinstance(selection, dict):
                         raise ValueError("Invalid reply")
@@ -243,7 +261,10 @@ def turn(db, settings, id, actor, token, ip, content, adapter=None):
                 except Exception as exc:
                     kind, status = provider.failure_details(exc)
                     logging.getLogger("kofa").warning(
-                        "assistant_provider_failure kind=%s status=%s", kind, status
+                        "assistant_provider_failure kind=%s status=%s stage=%s",
+                        kind,
+                        status,
+                        "answer_validation" if reply is not None else "transport",
                     )
                     # Never log exception strings, bodies, URLs, prompts or keys.
                     reason = "service_unavailable"

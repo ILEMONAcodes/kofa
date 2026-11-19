@@ -1,5 +1,6 @@
 """No database/network: provider timeout and no-retry regression checks."""
 
+import json
 import unittest
 from types import SimpleNamespace
 from unittest.mock import patch
@@ -11,6 +12,28 @@ from app.services.assistant import provider
 
 
 class TransportTests(unittest.TestCase):
+    def test_safe_failure_categories(self):
+        cases = {
+            "Invalid provider envelope": "invalid_envelope",
+            "Invalid provider choices": "invalid_choices",
+            "Invalid provider message": "invalid_message",
+            "Invalid provider response": "invalid_content",
+            "Provider response limit": "response_limit",
+            "Invalid reply": "invalid_answer_object",
+            "Unexpected reply fields": "invalid_answer_fields",
+            "Invalid answer": "invalid_answer_text",
+            "Unexpected conversational citation": "invalid_conversation_citation",
+            "Unknown answer kind": "invalid_answer_kind",
+            "secret-key private conversation": "invalid_response",
+        }
+        for message, expected in cases.items():
+            with self.subTest(category=expected):
+                self.assertEqual(provider.failure_details(ValueError(message)), (expected, None))
+        self.assertEqual(
+            provider.failure_details(json.JSONDecodeError("private", "secret", 0)),
+            ("invalid_json", None),
+        )
+
     def test_timeout_failure_is_not_retried(self):
         settings = SimpleNamespace(
             assistant_api_url="https://fictional.invalid/chat/completions",

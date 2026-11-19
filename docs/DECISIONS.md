@@ -267,3 +267,17 @@ Dev2 replaces deterministic casual_reply and exact-excerpt-only replies with one
 ### 2026-11-19 — owner-approved testing allowance
 
 Owner explicitly approves raising the code daily token reservation allowance10,000→100,000 for testing. Existing ASSISTANT_HARD_TOKEN_LIMIT still caps it; zero/lower host values stop/lower calls. Existing usage and unknown reservations retained, no quota resets or retries. Does not change provider free-tier quotas. Pair with privacy-safe status/category diagnostics; no live requests made for this code change. Backend redeployment required.
+
+### 2026-11-19 — owner-requested OpenRouter free-model failover
+
+Owner requests one OpenRouter key and four free model choices, and authorizes replacing unavailable IDs. This supersedes the no-retry assumption only for the OpenRouter adapter: one attempt per configured model, at most four, bounded time admission, no hidden provider retries. Malformed answer JSON can fall through; failed grounding/safety cannot. Reserve all possible attempts before generation; daily request count remains user turns. Verified catalogue replacements Ling3.2 Flash and Particle1 precede requested NVIDIA Nano Omni and Cohere North Mini Code. Reject non-free IDs; zero prompt/completion price caps and data_collection=deny. Existing key is not transferred to a new provider; dedicated OPENROUTER_API_KEY required. No actual generation or customer data transfer during implementation. Contract0.20.2, no migration.
+
+### 2026-11-19 — owner-approved generous local testing and per-attempt reservations
+
+Owner requests a much larger testing allowance. Local configuration:5million daily tokens,
+1,000 turns/day,1,000 new conversations/day and1,000 messages/hour per guest/user.
+Conservative defaults retained; code maximum10million and private host hard cap remain.
+Supersedes upfront four-model reservation: atomically reserve each actual fallback on the
+original turn's accounting day; no duplicate request-count increment or unattempted charge.
+Unknown attempted failures stay reserved. No historical usage reset, schema or provider quota
+change. Render settings are not modified. Contract0.20.3.
