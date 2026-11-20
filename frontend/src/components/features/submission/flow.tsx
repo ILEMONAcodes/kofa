@@ -20,7 +20,7 @@ import {
   type SubmissionReceipt,
   type EvidenceKind,
 } from "./data";
-import { submissionPayload } from "./payload";
+import { submissionPayload, submissionArea, updateLocation } from "./payload";
 import type { Taxonomy } from "@/types/filters";
 import type { CurrentPolicies } from "@/types/auth";
 import { MediaPicker, sampleMedia, type LocalMedia } from "./media";
@@ -72,6 +72,7 @@ function Wizard({
     policies: CurrentPolicies;
   } | null>(null);
   const [configurationError, setConfigurationError] = useState("");
+  const [optionsLoading, setOptionsLoading] = useState(true);
   const [busy, setBusy] = useState(false);
   const inFlight = useRef(false);
   const [progress, setProgress] = useState("");
@@ -83,13 +84,21 @@ function Wizard({
   const evidenceSnapshot = useRef<EvidenceKind>("ownership_proof");
   const [uncertain, setUncertain] = useState(false);
   async function loadOptions() {
+    setOptionsLoading(true);
     setConfigurationError("");
     try {
-      setConfiguration(await submissionOptions());
-    } catch {
+      const next = await submissionOptions();
+      if (configuration && JSON.stringify(configuration.policies.policies) !== JSON.stringify(next.policies.policies))
+        setConsent(c => ({ ...c, policies: false }));
+      setConfiguration(next);
+      setError("");
+    } catch (issue) {
+      setConfiguration(null);
       setConfigurationError(
-        "Listing options could not be loaded. Try again before submitting.",
+        issue instanceof Error && !(issue instanceof ApiError) ? issue.message : "Listing options could not be loaded. Keep this page open and retry; your details and files are still here.",
       );
+    } finally {
+      setOptionsLoading(false);
     }
   }
   useEffect(() => {
@@ -98,12 +107,12 @@ function Wizard({
       .then((value) => {
         if (active) setConfiguration(value);
       })
-      .catch(() => {
+      .catch((issue) => {
         if (active)
           setConfigurationError(
-            "Listing options could not be loaded. Try again before submitting.",
+            issue instanceof Error && !(issue instanceof ApiError) ? issue.message : "Listing options could not be loaded. Keep this page open and retry; your details and files are still here.",
           );
-      });
+      }).finally(() => { if (active) setOptionsLoading(false); });
     return () => {
       active = false;
     };
@@ -153,7 +162,7 @@ function Wizard({
   }, [step]);
   const set = (key: string, value: string) => {
     if (busy || savedDraft) return;
-    setDraft((d) => ({ ...d, [key]: value }));
+    setDraft((d) => updateLocation(d, key, value));
     setError("");
   };
   const path = (next: Step, sample = preview) =>
@@ -362,6 +371,16 @@ function Wizard({
       return;
     }
     if (step !== "review") {
+      if (step === "property") {
+        if (!configuration) {
+          setError("Retry listing options above before continuing. Your details are still here.");
+          return;
+        }
+        if (!submissionArea(draft, configuration.taxonomy)) {
+          setError("Choose the state, city and neighbourhood from the available options before continuing.");
+          return;
+        }
+      }
       go(steps[steps.indexOf(step) + 1]);
       return;
     }
@@ -562,7 +581,7 @@ function Wizard({
           {configurationError && (
             <div role="alert">
               <p>{configurationError}</p>
-              <Button variant="secondary" onClick={() => void loadOptions()}>
+              <Button variant="secondary" disabled={optionsLoading} onClick={() => void loadOptions()}>
                 Retry listing options
               </Button>
             </div>
@@ -625,7 +644,7 @@ function Wizard({
           {step === "property" && (
             <>
               {field("title", "Listing title", "3-bedroom flat, Wuse 2")}
-              {select("property_type", "Property type", [
+              {select("property_type", "Property type", configuration?.taxonomy.property_types ?? [
                 "apartment",
                 "house",
                 "duplex",
@@ -633,20 +652,20 @@ function Wizard({
                 "terrace",
                 "studio",
                 "room",
-              ])}
+              ], false)}
               {select("intended_use", "Intended use", ["residential"], false)}
               {select("state", "State", [
                 ...new Set(
                   configuration?.taxonomy.areas.map((a) => a.state) ?? [],
                 ),
-              ])}
+              ], false)}
               {select("city", "City", [
                 ...new Set(
                   configuration?.taxonomy.areas
                     .filter((a) => a.state === draft.state)
                     .map((a) => a.city) ?? [],
                 ),
-              ])}
+              ], false)}
               {select(
                 "area",
                 "Neighbourhood",
@@ -655,7 +674,9 @@ function Wizard({
                     (a) => a.state === draft.state && a.city === draft.city,
                   )
                   .map((a) => a.neighbourhood) ?? [],
+                false,
               )}
+              <p className="auth-small">Location missing? Contact our team through Help so it can be added before you submit.</p>
               {field(
                 "address",
                 "Exact address (private)",
@@ -950,7 +971,7 @@ function Wizard({
             form="listing-form"
             type="submit"
             loading={busy}
-            disabled={uncertain}
+            disabled={uncertain || ((step === "property" || step === "review") && optionsLoading)}
           >
             {data.action}
           </Button>
@@ -1001,6 +1022,9 @@ function Wizard({
             </Link>
           </p>
         ))}
+        {!configuration && <p>Load the current policy versions using “Retry listing options”.</p>}
+        {configuration?.policies.policies.some(p => p.version.startsWith("draft")) &&
+          <p>These are temporary MVP policy drafts pending legal review.</p>}
       </Modal>
     </div>
   );

@@ -38,6 +38,10 @@ test("anonymous landlord resumes partial uploads and submits; staff verifies/pub
       creates++;
     if (r.status() === 201 && path.endsWith("/files")) successfulUploads++;
   });
+  await page.route("**/api/v1/taxonomy", route => route.fulfill({
+    status: 503, contentType: "application/json",
+    body: JSON.stringify({ error: { code: "SERVICE_UNAVAILABLE", message: "Temporary test outage", details: [] } }),
+  }), { times: 1 });
   await page.goto("/landlord");
   await page
     .getByLabel("Full name", { exact: true })
@@ -49,6 +53,9 @@ test("anonymous landlord resumes partial uploads and submits; staff verifies/pub
   await page
     .getByLabel("Relationship to property", { exact: true })
     .selectOption("owner");
+  await page.getByRole("button", { name: "Retry listing options", exact: true }).click();
+  await expect(page.getByRole("button", { name: "Retry listing options", exact: true })).toHaveCount(0);
+  await expect(page.getByLabel("Full name", { exact: true })).toHaveValue("Fictional Browser Owner");
   await page
     .getByRole("button", { name: "Continue to property", exact: true })
     .click();

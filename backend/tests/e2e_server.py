@@ -35,6 +35,7 @@ def settings():
         public_origin="http://127.0.0.1:3100",
         app_env="test",
         cookie_secure=False,
+        policies_approved=True,  # Fictional test policy versions, not legal publication.
         _env_file=None,
     )
 
