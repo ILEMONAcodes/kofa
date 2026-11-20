@@ -1,6 +1,6 @@
 import { describe, it, expect } from "vitest";
 import { sampleDraft } from "./model";
-import { submissionPayload } from "./payload";
+import { submissionPayload, submissionArea, updateLocation } from "./payload";
 import type { Taxonomy } from "@/types/filters";
 const taxonomy: Taxonomy = {
   listing_types: ["rent", "sale"],
@@ -34,6 +34,15 @@ const policies = {
   ],
 };
 describe("landlord submission payload", () => {
+  it("clears dependent selections when location changes, preserving other details", () => {
+    const changed = updateLocation(sampleDraft, "state", "Other state");
+    expect(changed.city).toBe("");
+    expect(changed.area).toBe("");
+    expect(changed.title).toBe(sampleDraft.title);
+    expect(updateLocation(sampleDraft, "city", "Other city").area).toBe("");
+    expect(submissionArea(changed, taxonomy)).toBeUndefined();
+    expect(submissionArea(sampleDraft, taxonomy)?.id).toBe("real-area-id");
+  });
   it("uses real area IDs, integer kobo, current policy versions and normalized amenity codes", () => {
     const body = submissionPayload(sampleDraft, taxonomy, policies);
     expect(body.property.area_id).toBe("real-area-id");

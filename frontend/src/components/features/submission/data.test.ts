@@ -11,6 +11,7 @@ import {
   uploadFile,
   removeFile,
   submitDraft,
+  submissionOptions,
   type DraftReceipt,
 } from "./data";
 const api = vi.mocked(apiRequest);
@@ -25,6 +26,24 @@ beforeEach(() => {
   api.mockResolvedValue({ data: draft });
 });
 describe("anonymous scoped submission transport", () => {
+  it("loads both current policy versions and areas with a cold-start allowance", async () => {
+    api.mockResolvedValueOnce({ data: { areas: [{ id: "area" }] } });
+    api.mockResolvedValueOnce({ data: { approved: true, policies: [
+      { type: "terms", version: "draft-v1" }, { type: "privacy", version: "draft-v1" },
+    ] } });
+    const result = await submissionOptions();
+    expect(result.taxonomy.areas).toHaveLength(1);
+    expect(api).toHaveBeenCalledWith("/taxonomy", { timeoutMs: 45000 });
+    expect(api).toHaveBeenCalledWith("/policies/current", { timeoutMs: 45000 });
+  });
+  it("does not invent areas or policy versions when configuration is missing", async () => {
+    api.mockResolvedValueOnce({ data: { areas: [] } });
+    api.mockResolvedValueOnce({ data: { approved: true, policies: [] } });
+    await expect(submissionOptions()).rejects.toThrow("Listing areas");
+    api.mockResolvedValueOnce({ data: { areas: [{ id: "area" }] } });
+    api.mockResolvedValueOnce({ data: { approved: true, policies: [] } });
+    await expect(submissionOptions()).rejects.toThrow("Terms and Privacy");
+  });
   it("creates a draft after CSRF bootstrap without granting a landlord account", async () => {
     const body = { landlord: { full_name: "Fictional owner" } };
     await createDraft(body);

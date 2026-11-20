@@ -3,6 +3,20 @@ import type { Taxonomy } from "@/types/filters";
 import type { CurrentPolicies } from "@/types/auth";
 import { displayValue, type Draft } from "./model";
 export class SubmissionInputError extends Error {}
+export function submissionArea(d: Draft, t: Taxonomy) {
+  return t.areas.find(a =>
+    [a.id, a.slug, a.neighbourhood].some(v => v.toLowerCase() === displayValue(d, "area").trim().toLowerCase()) &&
+    a.state.toLowerCase() === displayValue(d, "state").trim().toLowerCase() &&
+    a.city.toLowerCase() === displayValue(d, "city").trim().toLowerCase());
+}
+
+export function updateLocation(d: Draft, key: string, value: string): Draft {
+  if (d[key] === value) return d;
+  return { ...d, [key]: value,
+    ...(key === "state" ? { city: "", area: "", cityOther: "", areaOther: "" } : {}),
+    ...(key === "city" ? { area: "", areaOther: "" } : {}),
+  };
+}
 export function submissionPayload(
   d: Draft,
   t: Taxonomy,
@@ -20,14 +34,7 @@ export function submissionPayload(
       )
     );
   };
-  const area = t.areas.find(
-    (a) =>
-      [a.id, a.slug, a.neighbourhood].some(
-        (v) => v.toLowerCase() === displayValue(d, "area").trim().toLowerCase(),
-      ) &&
-      a.state.toLowerCase() === displayValue(d, "state").trim().toLowerCase() &&
-      a.city.toLowerCase() === displayValue(d, "city").trim().toLowerCase(),
-  );
+  const area = submissionArea(d, t);
   if (!area)
     fail(
       "Choose a location and neighbourhood from the available listing areas.",

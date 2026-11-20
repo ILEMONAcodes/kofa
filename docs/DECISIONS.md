@@ -281,3 +281,16 @@ Supersedes upfront four-model reservation: atomically reserve each actual fallba
 original turn's accounting day; no duplicate request-count increment or unattempted charge.
 Unknown attempted failures stay reserved. No historical usage reset, schema or provider quota
 change. Render settings are not modified. Contract0.20.3.
+
+### 2026-11-20 — submission recovery and Abuja catalogue
+
+Owner authorizes joint frontend/backend fixes for landlord submission and staff/admin approval.
+Public deployed taxonomy returned zero areas; policy endpoint returned approved=true with draft-v1
+for terms/privacy. Preserve prior owner authorization for temporary MVP drafts, not legal approval;
+no replacement/final legal text published. Expand the existing reference seed to38 areas using
+FCTA district names; existing IDs/customizations remain untouched. Catalogue needs explicit deployment
+seed, not fictional property records. Location dropdowns accept supported state/city/neighbourhood
+choices only (no unusable Other choice); missing areas require catalogue additions. Other amenities
+remain supported as private conditions. This narrows the earlier universal-Other design assumption
+for fields that require a validated area_id. Existing five-photo/evidence/verification/current-owner-
+approval/publication guards remain. No production listing approvals are performed automatically.

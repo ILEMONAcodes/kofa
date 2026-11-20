@@ -493,3 +493,37 @@ Dev2 branch be/BE-6.30-openrouter-fallbacks; task brief/setup in OPENROUTER_ASSI
 ### 2026-11-19 — testing allowance and per-attempt accounting correction
 
 Owner explicitly requests much larger testing limits. Local private settings now5million daily tokens,1,000 turns/day,1,000 new conversations/day and1,000 messages/hour for guest/user; provider key and existing usage preserved. Configurable caps retain conservative defaults and10million code ceiling. Reserve only first attempt then atomically reserve each backup before its call; fallback reservation does not increment turn count and cannot exceed shared allowance. Unknown attempted failures remain counted, no retroactive refunds/reset. Backend restarted and local auth/csrf200; effective settings verified without generation. Isolated PostgreSQL targeted regression87 passed,24 subtests,1 existing deprecation warning; Ruff/mypy95 files passed; OpenAPI unchanged, whitespace check passed. Review: no API/schema changes beyond documented configurable behaviour, no secrets or unrelated frontend changes included. Contract0.20.3. Local implementation only; Render configuration/push remain pending. Existing chats with repeated failures need a new conversation. Upstream OpenRouter limits/availability remain independent.
+
+### 2026-11-20 — J-4.15 landlord submission configuration recovery
+
+Developer 2, owner-authorized joint branch `joint/J-4.15-submission-recovery`.
+Task brief and deployment instructions: `docs/SUBMISSION_RECOVERY.md`.
+Confirmed deployed taxonomy was empty while current owner-approved MVP terms/privacy
+were present (`draft-v1`). Added 26 researched FCTA district options, preserving the
+original 12 IDs; owner approved and executed additive Neon reference seed. Render
+and Vercel public endpoints now expose 38 areas and 16 amenities. Existing records
+preserved; no live property approved or published.
+
+UI now retries config loads with cold-start allowance while preserving entered
+fields/files, validates supported locations at the property step, resets dependent
+location selections and requires current policy versions. Temporary policies and
+location-only exception to universal Other documented in DECISIONS. Contract 0.20.4;
+API schemas unchanged. Existing verification/owner-confirmation/publish guards kept.
+
+Validation: 183 isolated PostgreSQL tests passed (one existing deprecation warning),
+24 frontend unit tests passed, one real local browser upload-to-publication journey
+passed with simulated initial config outage. Frontend typecheck/ESLint, Ruff, mypy
+95 files, OpenAPI drift and whitespace checks passed. No cloud storage credentials
+changed or secrets committed. Owner confirmed only Neon is configured: private
+R2/S3 storage and frontend deployment remain required for real deployed uploads.
+Next: configure private storage, deploy UI fixes, then verify a real submission with
+staff/admin; never use Render ephemeral storage as production upload persistence.
+
+### 2026-11-20 — R2 connection verified
+
+Owner configured private R2 bucket `kofa` in ignored backend/.env and requested
+verification. Real storage-adapter smoke check passed: upload, signed read, unsigned
+access denial (400), delete and deleted-object 404. Fictional bytes only; temporary
+objects removed. No secrets exposed. Existing private/no-store cache headers retained;
+no CDN/public access changes made. Render environment/deployment remains unverified.
+See SUBMISSION_RECOVERY.md for the earlier assertion correction and deployment limits.

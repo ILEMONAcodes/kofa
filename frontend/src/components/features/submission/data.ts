@@ -1,5 +1,6 @@
 import { apiRequest } from "@/lib/api/client";
-import { ensureCsrf, currentPolicies } from "@/lib/auth/client";
+import { ensureCsrf } from "@/lib/auth/client";
+import type { CurrentPolicies } from "@/types/auth";
 import type { Taxonomy } from "@/types/filters";
 export type EvidenceKind = "ownership_proof" | "authorization_letter";
 export type FileKind = "photo" | "video" | EvidenceKind;
@@ -22,10 +23,17 @@ export interface UploadReceipt {
 }
 export const submissionOptions = async () => {
   const [taxonomy, policies] = await Promise.all([
-    apiRequest<Taxonomy>("/taxonomy"),
-    currentPolicies(),
+    apiRequest<Taxonomy>("/taxonomy", { timeoutMs: 45000 }),
+    apiRequest<CurrentPolicies>("/policies/current", { timeoutMs: 45000 }),
   ]);
-  return { taxonomy: taxonomy.data, policies };
+  if (!taxonomy.data.areas.length)
+    throw new Error("Listing areas are not available yet. Please contact our team.");
+  const items = policies.data.policies;
+  if (items.length !== 2 || !["terms", "privacy"].every(type => items.some(p => p.type === type && p.version.trim())))
+    throw new Error("The current Terms and Privacy Policy could not be loaded. Please retry.");
+  if (!policies.data.approved)
+    throw new Error("Listing submissions are not open yet. Please contact our team.");
+  return { taxonomy: taxonomy.data, policies: policies.data };
 };
 export async function createDraft(body: unknown) {
   await ensureCsrf();

@@ -243,8 +243,9 @@ def test_staff_reopen_forbidden_and_capabilities_are_server_owned(db, client, re
     assert act(client, prop, "reopen").status_code == 403
 
 
-def test_full_workflow_edit_invalidation_and_publish_recheck(db, client, record):
-    login(client, db, "staff")
+@pytest.mark.parametrize("role", ["staff", "admin"])
+def test_full_workflow_edit_invalidation_and_publish_recheck(db, client, record, role):
+    login(client, db, role)
     prop, _, doc = record
     assert act(client, prop, "approve").status_code == 409
     assert act(client, prop, "start_review").status_code == 200
